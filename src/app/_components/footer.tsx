@@ -27,7 +27,7 @@ export function Footer({ license }: { license: string }) {
             </div>
             <p className="text-muted-foreground text-sm">
               Kompleksowe materiały przygotowujące do egzaminu teoretycznego na
-              licencję pilota prywatnego.
+              licencję pilota turystycznego na samolot, szybowiec, balon lub śmigłowiec.
             </p>
           </div>
 

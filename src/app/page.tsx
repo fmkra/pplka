@@ -1,3 +1,4 @@
+import { type Metadata } from "next";
 import {
   Card,
   CardContent,
@@ -11,6 +12,17 @@ import { getIcon } from "~/lib/get-icon";
 import { selectLicense } from "./actions";
 import { Footer } from "./_components/footer";
 
+export const metadata: Metadata = {
+  title: "Wybierz typ licencji",
+  description:
+    "Wybierz typ licencji pilota i rozpocznij naukę do egzaminu teoretycznego. Dostępne licencje: PPL(A) - samolot, SPL - szybowiec, BPL - balon, PPL(H) - helikopter.",
+  openGraph: {
+    title: "Wybierz typ licencji | PPLka.pl",
+    description:
+      "Wybierz typ licencji pilota i rozpocznij naukę do egzaminu teoretycznego. PPL(A), SPL, BPL, PPL(H).",
+  },
+};
+
 export default async function LearnPage() {
   const licenses = await db.query.licenses.findMany({
     orderBy: (license, { asc }) => [asc(license.id)],
@@ -23,7 +35,7 @@ export default async function LearnPage() {
           <h1 className="mb-4 text-3xl font-bold">Wybierz swój typ licencji</h1>
           <p className="text-muted-foreground">
             Kompleksowe materiały przygotowujące do egzaminu teoretycznego na
-            licencję pilota prywatnego samolotu.
+            licencję pilota turystycznego na samolot, szybowiec, balon lub śmigłowiec.
           </p>
         </div>
 

@@ -1,6 +1,9 @@
 import { notFound } from "next/navigation";
 import QuestionsPageClient from "./client";
 import { db } from "~/server/db";
+import { metadataBuilder } from "~/app/seo";
+
+export const generateMetadata = metadataBuilder((url, name) => ({title: `Baza pytań - ${name.short}`, description: `Pełna baza pytań egzaminacyjnych na licencję ${name.short}. Przeglądaj, filtruj po kategoriach i wyszukuj pytania z egzaminu ULC.`}))
 
 export default async function QuestionsPage({
   params,

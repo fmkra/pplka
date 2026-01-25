@@ -6,6 +6,9 @@ import ExamList from "./exam_list";
 import ExamStart from "./exam_start";
 import { categories } from "~/server/db/category";
 import LoginWarning from "~/app/_components/login-warning";
+import { metadataBuilder } from "~/app/seo";
+
+export const generateMetadata = metadataBuilder((url, name) => ({title: `Egzamin próbny - ${name.short}`, description: `Przygotuj się do egzaminu ULC. Symulator egzaminu na ${name.short} z pytaniami z oficjalnej bazy.`}))
 
 export default async function ExamsPage({
   params,

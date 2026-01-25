@@ -15,10 +15,10 @@
 
 ## Obsługiwane licencje
 
-- **PPL(A)** — Licencja pilota prywatnego samolotu
+- **PPL(A)** — Licencja pilota turystycznego samolotowego
 - **SPL** — Licencja pilota szybowcowego
 - **BPL** — Licencja pilota balonowego
-- **PPL(H)** — Licencja pilota prywatnego śmigłowca
+- **PPL(H)** — Licencja pilota turystycznego śmigłowcowego
 
 ## Stack technologiczny
 

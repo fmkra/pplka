@@ -3,7 +3,7 @@
 import { cn } from "~/lib/utils";
 import Link from "next/link";
 import { Select, type SelectOption } from "~/components/ui/select";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { BookOpen, Database, GraduationCap, Home, Menu } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import {
