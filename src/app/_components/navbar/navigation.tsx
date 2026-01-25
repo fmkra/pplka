@@ -3,7 +3,7 @@
 import { cn } from "~/lib/utils";
 import Link from "next/link";
 import { Select, type SelectOption } from "~/components/ui/select";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { BookOpen, Database, GraduationCap, Home, Menu } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import {
@@ -12,7 +12,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
-import { clearLicense, selectLicense } from "~/app/actions";
+import { clearLicense } from "~/app/actions";
 
 const navigation = [
   { name: "Start", href: "", icon: Home },
@@ -22,6 +22,8 @@ const navigation = [
 ];
 
 export default function Navigation({ options }: { options: SelectOption[] }) {
+  const router = useRouter();
+  const selectLicense = (license: string) => router.push(`/${license}`);
   const pathname = usePathname().split("/");
   const license = pathname[1] === "" ? undefined : pathname[1];
   const page = pathname[2] ?? "";

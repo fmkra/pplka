@@ -6,11 +6,11 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { Button } from "~/components/ui/button";
 import { db } from "~/server/db";
 import { getIcon } from "~/lib/get-icon";
-import { selectLicense } from "./actions";
 import { Footer } from "./_components/footer";
+import Link from "next/link";
+import { Button } from "~/components/ui/button";
 
 export const metadata: Metadata = {
   title: "Wybierz typ licencji",
@@ -66,9 +66,9 @@ export default async function LearnPage() {
                     {license.description}
                   </CardDescription>
 
-                  <form action={selectLicense.bind(null, license.url)}>
-                    <Button className="mt-auto w-full">Wybierz licencję</Button>
-                  </form>
+                  <Button className="mt-auto w-full" asChild>
+                    <Link href={`/${license.url}`}>Wybierz licencję</Link>
+                  </Button>
                 </CardContent>
               </Card>
             );
