@@ -11,6 +11,7 @@ import { SessionProvider } from "next-auth/react";
 import { Notifications } from "./_components/notifications";
 import RedirectionManager from "./redirection-manager";
 import OnlineStatus from "./_components/online-status";
+import { SerwistProvider } from "./serwist/provider";
 
 export const metadata: Metadata = {
   title: {
@@ -63,18 +64,20 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pl" className={`${geist.variable}`}>
-      <body className="flex min-h-screen flex-col">
-        <SessionProvider>
-          <TRPCReactProvider>
-            <Navbar />
-            <main className="container mx-auto flex-1 p-4">{children}</main>
-            <Notifications />
-            <RedirectionManager />
-            <OnlineStatus />
-          </TRPCReactProvider>
-        </SessionProvider>
-      </body>
-    </html>
+    <SerwistProvider swUrl="/serwist/sw.js">
+      <html lang="pl" className={`${geist.variable}`}>
+        <body className="flex min-h-screen flex-col">
+          <SessionProvider>
+            <TRPCReactProvider>
+              <Navbar />
+              <main className="container mx-auto flex-1 p-4">{children}</main>
+              <Notifications />
+              <RedirectionManager />
+              <OnlineStatus />
+            </TRPCReactProvider>
+          </SessionProvider>
+        </body>
+      </html>
+    </SerwistProvider>
   );
 }
