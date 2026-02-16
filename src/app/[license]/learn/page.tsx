@@ -18,8 +18,12 @@ import { getIcon } from "~/lib/get-icon";
 import CardUserProgress from "./user-progress";
 import LoginWarning from "../../_components/login-warning";
 import { metadataBuilder } from "~/app/seo";
+import { DownloadComponent } from "./download";
 
-export const generateMetadata = metadataBuilder((url, name) => ({title: `Tryb nauki - ${name.short}`, description: `Interaktywna nauka do egzaminu na licencję ${name.short}. Pytania z kategorii: prawo lotnicze, nawigacja, meteorologia i więcej.`}))
+export const generateMetadata = metadataBuilder((url, name) => ({
+  title: `Tryb nauki - ${name.short}`,
+  description: `Interaktywna nauka do egzaminu na licencję ${name.short}. Pytania z kategorii: prawo lotnicze, nawigacja, meteorologia i więcej.`,
+}));
 
 export default async function LearnPage({
   params,
@@ -67,6 +71,8 @@ export default async function LearnPage({
           odpowiedziano błędnie.
         </p>
       </div>
+
+      <DownloadComponent licenseId={licenseData.id} />
 
       <LoginWarning
         header="aby uzyskać dostęp do nauki"

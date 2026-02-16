@@ -2,18 +2,17 @@
 
 import { notFound, useParams } from "next/navigation";
 import { getRandomNumber, shuffleAnswers } from "~/lib/shuffle";
-import { api } from "~/trpc/react";
 import Exam from "./exam";
 import ExamSummary from "./summary";
 import { Spinner } from "~/components/ui/spinner";
 import type { FinishedExamAttempt } from "~/lib/types";
+import { useExam } from "~/offline/exam";
 
 export default function ExamAttempt() {
   const { exam_id } = useParams<{ exam_id: string }>();
+  const { getExam } = useExam();
 
-  const { data } = api.exam.getExam.useQuery({
-    examAttemptId: exam_id,
-  });
+  const data = getExam(exam_id);
 
   if (data === null) notFound();
 

@@ -4,6 +4,7 @@ import { answerEnum, examAttempt, examQuestions } from "~/server/db/exam";
 import { questionInstances } from "~/server/db/question";
 import { sql, eq, and, count, desc, asc, inArray } from "drizzle-orm";
 import { categories } from "~/server/db/category";
+import type { inferRouterOutputs } from "@trpc/server";
 
 export const examRouter = createTRPCRouter({
   newExam: protectedProcedure
@@ -233,3 +234,5 @@ export const examRouter = createTRPCRouter({
       }
     }),
 });
+
+export type GetExamResponse = inferRouterOutputs<typeof examRouter>["getExam"];
