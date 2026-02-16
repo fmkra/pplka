@@ -10,6 +10,7 @@ import Navbar from "~/app/_components/navbar/navbar";
 import { SessionProvider } from "next-auth/react";
 import { Notifications } from "./_components/notifications";
 import RedirectionManager from "./redirection-manager";
+import OnlineStatus from "./_components/online-status";
 
 export const metadata: Metadata = {
   title: {
@@ -70,6 +71,7 @@ export default function RootLayout({
             <main className="container mx-auto flex-1 p-4">{children}</main>
             <Notifications />
             <RedirectionManager />
+            <OnlineStatus />
           </TRPCReactProvider>
         </SessionProvider>
       </body>

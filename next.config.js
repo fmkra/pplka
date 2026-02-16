@@ -3,8 +3,11 @@
  * for Docker builds.
  */
 import "./src/env.js";
+import {withSerwist} from "@serwist/turbopack";
 
 /** @type {import("next").NextConfig} */
-const config = {};
+const nextConfig = {
+  reactStrictMode: true,
+};
 
-export default config;
+export default withSerwist(nextConfig);
