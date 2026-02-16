@@ -35,20 +35,20 @@ const serwist = new Serwist({
   },
 });
 
-// const urlsToCache = ["/", "/~offline"] as const;
+const urlsToCache = ["/", "/ppla", "/~offline"] as const;
 
-// self.addEventListener("install", (event) => {
-//   event.waitUntil(
-//     Promise.all(
-//       urlsToCache.map((entry) => {
-//         const request = serwist.handleRequest({
-//           request: new Request(entry),
-//           event,
-//         });
-//         return request;
-//       }),
-//     ),
-//   );
-// });
+self.addEventListener("install", (event) => {
+  event.waitUntil(
+    Promise.all(
+      urlsToCache.map((entry) => {
+        const request = serwist.handleRequest({
+          request: new Request(entry),
+          event,
+        });
+        return request;
+      }),
+    ),
+  );
+});
 
 serwist.addEventListeners();
