@@ -10,8 +10,8 @@ import Navbar from "~/app/_components/navbar/navbar";
 import { SessionProvider } from "next-auth/react";
 import { Notifications } from "./_components/notifications";
 import RedirectionManager from "./redirection-manager";
-import OnlineStatus from "./_components/online-status";
 import { SerwistProvider } from "./serwist/provider";
+import PwaContextProvider from "./_components/pwa-context";
 
 export const metadata: Metadata = {
   title: {
@@ -65,19 +65,20 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <SerwistProvider swUrl="/serwist/sw.js">
-      <html lang="pl" className={`${geist.variable}`}>
-        <body className="flex min-h-screen flex-col">
-          <SessionProvider>
-            <TRPCReactProvider>
-              <Navbar />
-              <main className="container mx-auto flex-1 p-4">{children}</main>
-              <Notifications />
-              <RedirectionManager />
-              <OnlineStatus />
-            </TRPCReactProvider>
-          </SessionProvider>
-        </body>
-      </html>
+      <PwaContextProvider>
+        <html lang="pl" className={`${geist.variable}`}>
+          <body className="flex min-h-screen flex-col">
+            <SessionProvider>
+              <TRPCReactProvider>
+                <Navbar />
+                <main className="container mx-auto flex-1 p-4">{children}</main>
+                <Notifications />
+                <RedirectionManager />
+              </TRPCReactProvider>
+            </SessionProvider>
+          </body>
+        </html>
+      </PwaContextProvider>
     </SerwistProvider>
   );
 }

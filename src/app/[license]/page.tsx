@@ -13,6 +13,7 @@ import { eq } from "drizzle-orm";
 import { licenses } from "~/server/db/license";
 import { notFound } from "next/navigation";
 import { metadataBuilder } from "../seo";
+import { PwaInstallBanner } from "../_components/pwa-install-banner";
 
 export const generateMetadata = metadataBuilder((url, name) => ({title: `${name.short} - Nauka do egzaminu teoretycznego`, description: `Przygotuj się do egzaminu teoretycznego na licencję ${name.short} - ${name.long}. Nauka, baza pytań egzaminacyjnych i egzaminy próbne.`, image: `/img/license/${url}.png`}))
 
@@ -32,6 +33,7 @@ export default async function HomePage({
 
   return (
     <>
+      <PwaInstallBanner />
       <div className="mb-12 text-center">
         <h1 className="mb-4 text-4xl font-bold">Witaj na PPLka.pl</h1>
         <p className="text-muted-foreground mx-auto max-w-2xl text-xl">
