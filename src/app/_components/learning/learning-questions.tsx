@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import type {
   AnswerQuestionInput,
   ExtendedAttempt,
-} from "~/app/[license]/learn/[category]/category-learning-client";
+} from "~/app/[license]/nauka/[category]/category-learning-client";
 import { cn } from "~/lib/utils";
 import { useMemo, useState } from "react";
 import { Skeleton } from "~/components/ui/skeleton";
