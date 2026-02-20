@@ -13,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
 import { clearLicense } from "~/app/actions";
+import { nonLicenseUrls } from "~/app/links";
 
 const navigation = [
   { name: "Start", href: "", icon: Home },
@@ -25,7 +26,10 @@ export default function Navigation({ options }: { options: SelectOption[] }) {
   const router = useRouter();
   const selectLicense = (license: string) => router.push(`/${license}`);
   const pathname = usePathname().split("/");
-  const license = pathname[1] === "" ? undefined : pathname[1];
+  const license =
+    pathname[1] === "" || (pathname[1] && nonLicenseUrls.includes(pathname[1]))
+      ? undefined
+      : pathname[1];
   const page = pathname[2] ?? "";
 
   if (!license)

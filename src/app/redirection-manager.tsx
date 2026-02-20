@@ -1,15 +1,10 @@
-'use client';
+"use client";
 
 import Cookies from "js-cookie";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
-const LICENSES = [
-  "ppla",
-  "pplh",
-  "spl",
-  "bpl",
-];
+const LICENSES = ["ppla", "pplh", "spl", "bpl"];
 
 export default function RedirectionManager() {
   const pathname = usePathname();
@@ -22,7 +17,7 @@ export default function RedirectionManager() {
         path: "/",
       });
     }
-  }, [pathname])
+  }, [pathname]);
 
   return null;
 }

@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { Mail, Github, GraduationCap } from "lucide-react";
+import deploymentContent from "~/deployment_content.json";
+import { TOS } from "../links";
 
 const navigation = [
   { name: "PPL(A)", href: "/ppla" },
@@ -20,15 +22,26 @@ export function Footer({ license }: { license: string }) {
       <div className="container mx-auto py-8 sm:px-4">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-6">
           {/* Logo & Description */}
-          <div className="col-span-2">
-            <div className="mb-4 flex items-center gap-2">
-              <GraduationCap className="h-6 w-6" />
-              <span className="text-lg font-semibold">PPLka.pl</span>
+          <div className="col-span-2 flex flex-col gap-4">
+            <div>
+              <div className="mb-4 flex items-center gap-2">
+                <GraduationCap className="h-6 w-6" />
+                <span className="text-lg font-semibold">PPLka.pl</span>
+              </div>
+              <p className="text-muted-foreground text-sm">
+                Kompleksowe materiały przygotowujące do egzaminu teoretycznego
+                na licencję pilota turystycznego na samolot, szybowiec, balon
+                lub śmigłowiec.
+              </p>
             </div>
-            <p className="text-muted-foreground text-sm">
-              Kompleksowe materiały przygotowujące do egzaminu teoretycznego na
-              licencję pilota turystycznego na samolot, szybowiec, balon lub śmigłowiec.
-            </p>
+            <div>
+              <Link
+                href={TOS}
+                className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+              >
+                Regulamin
+              </Link>
+            </div>
           </div>
 
           {/* Navigation */}
@@ -74,11 +87,11 @@ export function Footer({ license }: { license: string }) {
               Napisz do nas. Chętnie usłyszymy Twoją opinię.
             </p>
             <a
-              href="mailto:pplka@fkrawczyk.pl?subject=Pomoc w ulepszeniu strony"
+              href={`mailto:${deploymentContent.contact}?subject=Pomoc w ulepszeniu strony`}
               className="text-muted-foreground hover:text-foreground inline-flex items-center gap-2 text-sm transition-colors"
             >
               <Mail className="h-4 w-4" />
-              pplka@fkrawczyk.pl
+              {deploymentContent.contact}
             </a>
           </div>
         </div>
@@ -86,7 +99,7 @@ export function Footer({ license }: { license: string }) {
         {/* Bottom bar */}
         <div className="mt-8 flex items-center justify-between gap-4 border-t pt-8">
           <p className="text-muted-foreground text-sm">
-            © {new Date().getFullYear()} Filip Krawczyk.
+            © {new Date().getFullYear()} {deploymentContent.creator}
             <br />
             Kod źródłowy strony oparty na licencji GNU General Public License
             v3.0.

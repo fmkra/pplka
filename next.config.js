@@ -16,6 +16,7 @@ const withSerwist = withSerwistInit({
   swSrc: "src/app/sw.ts",
   swDest: "public/sw.js",
   additionalPrecacheEntries: [{ url: "/~offline", revision }],
+
 });
 
 /** @type {import("next").NextConfig} */
@@ -23,4 +24,5 @@ const nextConfig = {
   reactStrictMode: true,
 };
 
-export default withSerwist(nextConfig);
+const exportedConfig = process.env.NODE_ENV === "production" ? withSerwist(nextConfig) : nextConfig;
+export default exportedConfig;

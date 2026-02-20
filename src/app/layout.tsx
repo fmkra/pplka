@@ -12,6 +12,7 @@ import { Notifications } from "./_components/notifications";
 import RedirectionManager from "./redirection-manager";
 import { SerwistProvider } from "./serwist/provider";
 import PwaContextProvider from "./_components/pwa-context";
+import deploymentContent from "~/deployment_content.json";
 
 export const metadata: Metadata = {
   title: {
@@ -37,8 +38,8 @@ export const metadata: Metadata = {
     "pytania egzaminacyjne",
     "nauka do PPL",
   ],
-  authors: [{ name: "Filip Krawczyk" }],
-  creator: "Filip Krawczyk",
+  authors: [{ name: deploymentContent.creator }],
+  creator: deploymentContent.creator,
   icons: [{ rel: "icon", url: "/favicon.ico" }],
   openGraph: {
     type: "website",
