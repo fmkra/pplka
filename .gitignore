@@ -45,3 +45,7 @@ yarn-error.log*
 # idea files
 .idea
 certificates
+
+# serwist
+public/sw.js
+public/swe-worker-*.js

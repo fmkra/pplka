@@ -13,13 +13,13 @@ import {
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
 import { clearLicense } from "~/app/actions";
-import { nonLicenseUrls } from "~/app/links";
+import { EXAM, LEARN, nonLicenseUrls, QUESTIONS } from "~/app/links";
 
 const navigation = [
   { name: "Start", href: "", icon: Home },
-  { name: "Nauka", href: "learn", icon: BookOpen },
-  { name: "Baza pytań", href: "questions", icon: Database },
-  { name: "Egzamin", href: "exam", icon: GraduationCap },
+  { name: "Nauka", href: LEARN, icon: BookOpen },
+  { name: "Baza pytań", href: QUESTIONS, icon: Database },
+  { name: "Egzamin", href: EXAM, icon: GraduationCap },
 ];
 
 export default function Navigation({ options }: { options: SelectOption[] }) {

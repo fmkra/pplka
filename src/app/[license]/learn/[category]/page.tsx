@@ -8,6 +8,7 @@ import * as icons from "lucide-react";
 import Link from "next/link";
 import { getIcon } from "~/lib/get-icon";
 import { CategoryLearningClient } from "./category-learning-client";
+import { LEARN } from "~/app/links";
 
 export default async function LearnCategoryPage({
   params,
@@ -42,7 +43,7 @@ export default async function LearnCategoryPage({
       <div className="mb-8 shrink-0">
         <div className="mb-4 flex items-center gap-4">
           <Button variant="outline" size="sm" asChild>
-            <Link href={`/${licenseUrl}/learn`}>
+            <Link href={`/${licenseUrl}/${LEARN}`}>
               <icons.ArrowLeft className="mr-2 h-4 w-4" />
               Powrót do przedmiotów
             </Link>

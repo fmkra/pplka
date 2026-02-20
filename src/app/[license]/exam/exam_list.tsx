@@ -16,6 +16,7 @@ import { useState } from "react";
 import { useTimer } from "~/lib/use-timer";
 import { PASS_THRESHOLD } from "~/lib/utils";
 import { useSession } from "next-auth/react";
+import { EXAM } from "~/app/links";
 
 function getStatus(
   finishedAt: Date | null,
@@ -228,7 +229,7 @@ export default function ExamList({
                         </td>
                         <td className="px-4 py-3">
                           <Button variant="outline" className="w-full">
-                            <Link href={`./exam/${exam.attemptId}`}>
+                            <Link href={`./${EXAM}/${exam.attemptId}`}>
                               {exam.finishedAt === null
                                 ? "Kontynuuj"
                                 : "Zobacz"}

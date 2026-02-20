@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Mail, Github, GraduationCap } from "lucide-react";
 import deploymentContent from "~/deployment_content.json";
-import { TOS } from "../links";
+import { EXAM, LEARN, QUESTIONS, TOS } from "../links";
 
 const navigation = [
   { name: "PPL(A)", href: "/ppla" },
@@ -11,9 +11,9 @@ const navigation = [
 ];
 
 const resources = [
-  { name: "Nauka", href: (l: string) => `/${l}/learn` },
-  { name: "Baza pytań", href: (l: string) => `/${l}/questions` },
-  { name: "Egzamin próbny", href: (l: string) => `/${l}/exam` },
+  { name: "Nauka", href: (l: string) => `/${l}/${LEARN}` },
+  { name: "Baza pytań", href: (l: string) => `/${l}/${QUESTIONS}` },
+  { name: "Egzamin próbny", href: (l: string) => `/${l}/${EXAM}` },
 ];
 
 export function Footer({ license }: { license: string }) {
@@ -36,7 +36,7 @@ export function Footer({ license }: { license: string }) {
             </div>
             <div>
               <Link
-                href={TOS}
+                href={`/${TOS}`}
                 className="text-muted-foreground hover:text-foreground text-sm transition-colors"
               >
                 Regulamin

@@ -14,8 +14,13 @@ import { licenses } from "~/server/db/license";
 import { notFound } from "next/navigation";
 import { metadataBuilder } from "../seo";
 import { PwaInstallBanner } from "../_components/pwa-install-banner";
+import { EXAM, LEARN, QUESTIONS } from "../links";
 
-export const generateMetadata = metadataBuilder((url, name) => ({title: `${name.short} - Nauka do egzaminu teoretycznego`, description: `Przygotuj się do egzaminu teoretycznego na licencję ${name.short} - ${name.long}. Nauka, baza pytań egzaminacyjnych i egzaminy próbne.`, image: `/img/license/${url}.png`}))
+export const generateMetadata = metadataBuilder((url, name) => ({
+  title: `${name.short} - Nauka do egzaminu teoretycznego`,
+  description: `Przygotuj się do egzaminu teoretycznego na licencję ${name.short} - ${name.long}. Nauka, baza pytań egzaminacyjnych i egzaminy próbne.`,
+  image: `/img/license/${url}.png`,
+}));
 
 export default async function HomePage({
   params,
@@ -52,7 +57,7 @@ export default async function HomePage({
             </CardDescription>
           </CardHeader>
           <CardContent className="mt-auto">
-            <Link href={`/${license}/learn`}>
+            <Link href={`/${license}/${LEARN}`}>
               <Button className="w-full">
                 Rozpocznij naukę <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
@@ -69,7 +74,7 @@ export default async function HomePage({
             </CardDescription>
           </CardHeader>
           <CardContent className="mt-auto">
-            <Link href={`/${license}/questions`}>
+            <Link href={`/${license}/${QUESTIONS}`}>
               <Button className="w-full bg-transparent" variant="outline">
                 Zobacz pytania
                 <ArrowRight className="ml-2 h-4 w-4" />
@@ -87,7 +92,7 @@ export default async function HomePage({
             </CardDescription>
           </CardHeader>
           <CardContent className="mt-auto">
-            <Link href={`/${license}/exam`}>
+            <Link href={`/${license}/${EXAM}`}>
               <Button className="w-full" variant="secondary">
                 Podejdź do egzaminu
                 <ArrowRight className="ml-2 h-4 w-4" />
@@ -116,7 +121,7 @@ export default async function HomePage({
             dotyczy długości jednego egzaminu (jednego przedmiotu) i jest
             zależne od przedmiotu. Dokładną ilość pytań i czas trwania egzaminu
             można znaleźć w sekcji{" "}
-            <Link className="underline" href={`${license}/exam`}>
+            <Link className="underline" href={`${license}/${EXAM}`}>
               Egzamin
             </Link>
             . Do pytań można powracać i modyfikować odpowiedzi, a egzamin kończy
@@ -145,7 +150,7 @@ export default async function HomePage({
             </Link>
           </p>
         </div>
-        <Link href={`/${license}/learn`}>
+        <Link href={`/${license}/${LEARN}`}>
            <Button size="lg">Rozpocznij naukę</Button>
         </Link>
       </div>
