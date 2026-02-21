@@ -38,7 +38,7 @@ export default async function HomePage({
 
   return (
     <>
-      <PwaInstallBanner />
+      {/* <PwaInstallBanner /> */}
       <div className="mb-12 text-center">
         <h1 className="mb-4 text-4xl font-bold">Witaj na PPLka.pl</h1>
         <p className="text-muted-foreground mx-auto max-w-2xl text-xl">

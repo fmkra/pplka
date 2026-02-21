@@ -72,7 +72,7 @@ export default async function LearnPage({
         </p>
       </div>
 
-      <DownloadComponent licenseId={licenseData.id} />
+      {/* <DownloadComponent licenseId={licenseData.id} /> */}
 
       <LoginWarning
         header="aby uzyskać dostęp do nauki"
