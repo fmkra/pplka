@@ -42,8 +42,8 @@ export default async function HomePage({
       <div className="mb-12 text-center">
         <h1 className="mb-4 text-4xl font-bold">Witaj na PPLka.pl</h1>
         <p className="text-muted-foreground mx-auto max-w-2xl text-xl">
-          Opanuj materiał do egzaminu na licencję PPL(A) z naszą interaktywną
-          platformą. Ucz się, ćwicz i sprawdzaj swoją wiedzę.      
+          Opanuj materiał do egzaminu na licencję {licenseData.name} z naszą
+          interaktywną platformą. Ucz się, ćwicz i sprawdzaj swoją wiedzę.      
         </p>
       </div>
       <div className="mb-12 grid gap-6 md:grid-cols-3">
