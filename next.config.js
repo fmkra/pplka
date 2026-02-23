@@ -6,23 +6,24 @@ import "./src/env.js";
 import withSerwistInit from "@serwist/next";
 import { spawnSync } from "node:child_process";
 
-// Using `git rev-parse HEAD` might not the most efficient
-// way of determining a revision. You may prefer to use
-// the hashes of every extra file you precache.
-const revision = spawnSync("git", ["rev-parse", "HEAD"], { encoding: "utf-8" }).stdout ?? crypto.randomUUID();
-
-const withSerwist = withSerwistInit({
-  cacheOnNavigation: true,
-  swSrc: "src/app/sw.ts",
-  swDest: "public/sw.js",
-  additionalPrecacheEntries: [{ url: "/~offline", revision }],
-
-});
-
 /** @type {import("next").NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
 };
 
-const exportedConfig = process.env.NODE_ENV === "production" ? withSerwist(nextConfig) : nextConfig;
+const exportedConfig = process.env.NODE_ENV === "production" ? 
+withSerwistInit({
+  cacheOnNavigation: true,
+  swSrc: "src/app/sw.ts",
+  swDest: "public/sw.js",
+  additionalPrecacheEntries: [{
+    url: "/~offline",
+    // Using `git rev-parse HEAD` might not the most efficient
+    // way of determining a revision. You may prefer to use
+    // the hashes of every extra file you precache.
+    revision: spawnSync("git", ["rev-parse", "HEAD"], { encoding: "utf-8" }).stdout ?? crypto.randomUUID()
+  }],
+
+})(nextConfig) : nextConfig;
+
 export default exportedConfig;

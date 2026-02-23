@@ -10,6 +10,8 @@
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
+    "data:generate": "bash scripts/make_inserts.bash",
+    "data:clear": "rm -f scripts/data/*.json scripts/data/inserts.sql scripts/data/*.pdf",
     "dev": "next dev --webpack",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,mdx}\" --cache",
     "format:write": "prettier --write \"**/*.{ts,tsx,js,jsx,mdx}\" --cache",

@@ -65,7 +65,7 @@
   },
   {
     "external_id": "PL010-0005",
-    "question": "Kiedy ustaje obowiązek pomocy, spoczywający na dowódcy statku powietrznego który spostrzegł inny statek powietrzny lub morski, który uległ wypadkowi lub znalazł się w niebezpieczeństwie ?",
+    "question": "Kiedy ustaje obowiązek pomocy, spoczywający na dowódcy statku powietrznego który spostrzegł inny statek powietrzny lub morski, który uległ wypadkowi lub znalazł się w niebezpieczeństwie?",
     "answers": [
       "Gdy dowódca wie, że ktoś inny udziela pomocy w podobnych lub lepszych warunkach, niż on sam mógłby udzielić.",
       "Tego rodzaju obowiązek nigdy nie ustaje.",
@@ -273,7 +273,7 @@
   },
   {
     "external_id": "PL010-0020",
-    "question": "Kto podlega badaniom lotniczo- lekarskim?",
+    "question": "Kto podlega badaniom lotniczo-lekarskim?",
     "answers": [
       "Członkowie personelu lotniczego i członkowie personelu pokładowego.",
       "Członkowie personelu pokładowego.",
@@ -378,21 +378,9 @@
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL010-0028",
-    "question": "W przypadku wszystkich lotów w przestrzeni powietrznej klasy C:",
-    "answers": [
-      "Wszystkie loty statków powietrznych są wykonywane z zapewnieniem służb kontroli ruchu lotniczego, a także wymagana jest wobec nich ciągła łączność foniczna powietrze-ziemia.",
-      "Wszystkie loty statków powietrznych są wykonywane z zapewnieniem służb kontroli ruchu lotniczego.",
-      "Wymagana jest wobec nich ciągła łączność foniczna powietrze-ziemia.",
-      "Dozwolone są wyłącznie loty IFR."
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -653,7 +641,7 @@
   },
   {
     "external_id": "PL010-0046",
-    "question": "Czy w skład komisji którą powołuje Naczelny Lekarz Lotnictwa Cywilnego w celu zbadania zasadności odwołania od orzeczenia lotniczo- lekarskiego mogą wchodzić specjaliści biorący udział w badaniach na podstawie których wydano zaskarżone orzeczenie lotniczo- lekarskie?",
+    "question": "Czy w skład komisji którą powołuje Naczelny Lekarz Lotnictwa Cywilnego w celu zbadania zasadności odwołania od orzeczenia lotniczo-lekarskiego mogą wchodzić specjaliści biorący udział w badaniach na podstawie których wydano zaskarżone orzeczenie lotniczo-lekarskie?",
     "answers": [
       "Nie jest to możliwe.",
       "Jest to możliwe po zgodzie Ministra Zdowia.",
@@ -733,7 +721,7 @@
   },
   {
     "external_id": "PL010-0051",
-    "question": "Jaki jest termin na złożenie odwołania od orzeczenia lotniczo- lekarskiego?",
+    "question": "Jaki jest termin na złożenie odwołania od orzeczenia lotniczo-lekarskiego?",
     "answers": [
       "14 dni .",
       "7 dni .",
@@ -903,42 +891,18 @@
   },
   {
     "external_id": "PL010-0065",
-    "question": "Jaki czas jest stosowany w ruchu lotniczym kontrolowanym, a jaki w niekontrolowanym ?",
-    "answers": [
-      "W ruchu lotniczym kontrolowanym i niekontrolowanym - czas UTC.",
-      "W ruchu lotniczym kontrolowanym i w niekontrolowanym czas LMT.",
-      "W ruchu lotniczym kontrolowanym – czas LMT, w niekontrolowanym - czas UTC.",
-      "W ruchu lotniczym kontrolowanym – czas UTC, w niekontrolowanym – czas LMT."
-    ],
-    "licenses": [
-      "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL010-0065",
-    "question": "Jaki czas jest stosowany w ruchu lotniczym kontrolowanym, a jaki w niekontrolowanym ?",
-    "answers": [
-      "W ruchu lotniczym kontrolowanym i niekontrolowanym - czas UTC.",
-      "W ruchu lotniczym kontrolowanym i w niekontrolowanym czas LMT.",
-      "W ruchu lotniczym kontrolowanym  czas LMT, w niekontrolowanym - czas UTC.",
-      "W ruchu lotniczym kontrolowanym  czas UTC, w niekontrolowanym  czas LMT."
-    ],
-    "licenses": [
-      "pplh"
-    ]
-  },
-  {
-    "external_id": "PL010-0065",
     "question": "Jaki czas jest stosowany w ruchu lotniczym kontrolowanym, a jaki w niekontrolowanym?",
     "answers": [
       "W ruchu lotniczym kontrolowanym i niekontrolowanym - czas UTC.",
       "W ruchu lotniczym kontrolowanym i w niekontrolowanym czas LMT.",
-      "W ruchu lotniczym kontrolowanym  czas LMT, w niekontrolowanym - czas UTC.",
-      "W ruchu lotniczym kontrolowanym  czas UTC, w niekontrolowanym  czas LMT."
+      "W ruchu lotniczym kontrolowanym - czas LMT, w niekontrolowanym - czas UTC.",
+      "W ruchu lotniczym kontrolowanym - czas UTC, w niekontrolowanym - czas LMT."
     ],
     "licenses": [
-      "bpl"
+      "ppla",
+      "pplh",
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -947,31 +911,19 @@
     "answers": [
       "Status wyspecjalizowanej organizacji Organizacji Narodów Zjednoczonej.",
       "Status agendy rządowej Rządu Stanów Zjednoczonych Ameryki.",
-      "Status jednostki budżetowej Paktu Północnoatlantyckieg o.",
+      "Status jednostki budżetowej Paktu Północnoatlantyckiego.",
       "Status agendy rządowej Rządu Kanady."
     ],
     "licenses": [
       "ppla",
       "pplh",
+      "bpl",
       "spl"
     ]
   },
   {
-    "external_id": "PL010-0069",
-    "question": "Jaki status prawny posiada ICAO?",
-    "answers": [
-      "Status wyspecjalizowanej organizacji Organizacji Narodów Zjednoczonej.",
-      "Status agendy rządowej Rządu Stanów Zjednoczonych Ameryki.",
-      "Status jednostki budżetowej Paktu Północnoatlantyckie go.",
-      "Status agendy rządowej Rządu Kanady."
-    ],
-    "licenses": [
-      "bpl"
-    ]
-  },
-  {
     "external_id": "PL010-0070",
-    "question": "Jakie działania przeprowadza Naczelny Lekarz w celu zbadania zasadności odwołania, osoby zainteresowanej, od wydanego orzeczenia lotniczo- lekarskiego?",
+    "question": "Jakie działania przeprowadza Naczelny Lekarz w celu zbadania zasadności odwołania, osoby zainteresowanej, od wydanego orzeczenia lotniczo-lekarskiego?",
     "answers": [
       "Powołuje komisję w skład której wchodzą lekarze specjaliści w szczególności z zakresu medycyny lotniczej.",
       "Sam rozpatruje zasadność odwołania.",
@@ -1175,7 +1127,7 @@
   },
   {
     "external_id": "PL010-0083",
-    "question": "Jeżeli z ograniczenia zamieszczonego w orzeczeniu lotniczo- lekarskim wynika, że członek personelu lotniczego powinien używać podczas wykonywania czynności lotniczych szkieł korekcyjnych to:",
+    "question": "Jeżeli z ograniczenia zamieszczonego w orzeczeniu lotniczo-lekarskim wynika, że członek personelu lotniczego powinien używać podczas wykonywania czynności lotniczych szkieł korekcyjnych to:",
     "answers": [
       "Musi używać niebarwionych soczewek kontaktowych.",
       "Członek personelu lotniczego musi posiadać dodatkowe okulary przeciwsłoneczne.",
@@ -1333,7 +1285,7 @@
     "external_id": "PL010-0096",
     "question": "Kiedy sprawdza się sprawność psychiczną i fizyczną członka personelu lotniczego?",
     "answers": [
-      "W trakcie badań lotniczo- lekarskich.",
+      "W trakcie badań lotniczo-lekarskich.",
       "W trakcie rozmowy w ATO.",
       "W trakcie rozmowy kwalifikacyjnej prowadzonej przez organizację do której przynależy dany członek personelu lotniczego.",
       "W trakcie rozmowy kwalifikacyjnej przeprowadzonej w Inspektoracie Personelu Lotniczego."
@@ -1349,7 +1301,7 @@
     "external_id": "PL010-0097",
     "question": "Kiedy sprawdza się sprawność psychiczną i fizyczną kandydata na członka personelu lotniczego?",
     "answers": [
-      "W trakcie badań lotniczo- lekarskich.",
+      "W trakcie badań lotniczo-lekarskich.",
       "W trakcie rozmowy kwalifikacyjnej przeprowadzonej w Inspektoracie Personelu Lotniczego.",
       "W trakcie rozmowy kwalifikacyjnej prowadzonej przez organizację która ma szkolić danego kandydata.",
       "W trakcie rozmowy w ATO."
@@ -1383,7 +1335,7 @@
     "answers": [
       "Osobie, która spełnia wymogi w zakresie wieku.",
       "Osobie, która nie ma pełnej zdolności do czynności prawnych.",
-      "Osobie, która ma orzeczenie lotniczo- lekarskie klasy 3.",
+      "Osobie, która ma orzeczenie lotniczo-lekarskie klasy 3.",
       "Osobie, która odpowiada wymaganiom w zakresie sprawności psychicznej i fizycznej klasy 3."
     ],
     "licenses": [
@@ -1399,7 +1351,7 @@
     "answers": [
       "Osobie, która korzysta z pełni praw publicznych.",
       "Osobie, która posiada ograniczoną zdolność do czynności prawnych.",
-      "Osobie, która ma orzeczenie lotniczo- lekarskie klasy 3.",
+      "Osobie, która ma orzeczenie lotniczo-lekarskie klasy 3.",
       "Osobie, która odpowiada wymaganiom w zakresie sprawności psychicznej i fizycznej klasy 3."
     ],
     "licenses": [
@@ -1430,7 +1382,7 @@
     "question": "Komu może być udzielona licencja?",
     "answers": [
       "Osobie, która zdała egzamin teoretyczny i egzamin praktyczny.",
-      "Osobie, która ma orzeczenie lotniczo- lekarskie klasy 3.",
+      "Osobie, która ma orzeczenie lotniczo-lekarskie klasy 3.",
       "Osobie, która nie spełnia wymagań i warunków dotyczących ukończenia szkolenia lotniczego.",
       "Osobie, która nie spełnia wymogu wieku."
     ],
@@ -1448,7 +1400,7 @@
       "Osobie która spełnia wymogi w zakresie wieku i wykształcenia.",
       "Osobie która ma ograniczone prawa publiczne.",
       "Osobie która nie posiada orzeczenia o braku przeciwwskazań do wykonywania funkcji członka personelu lotniczego.",
-      "Osobie, która ma orzeczenie lotniczo- lekarskie klasy 3."
+      "Osobie, która ma orzeczenie lotniczo-lekarskie klasy 3."
     ],
     "licenses": [
       "ppla",
@@ -1480,7 +1432,7 @@
       "Osobie która spełnia wymagania i warunki dotyczące ukończenia szkolenia lotniczego, praktyki lotniczej oraz posiadania wiedzy i umiejętności, potwierdzone zdaniem egzaminu państwowego.",
       "Osobie która ma ograniczone prawa publiczne.",
       "Osobie która nie posiada orzeczenia o braku przeciwwskazań do wykonywania funkcji członka personelu lotniczego.",
-      "Osobie, która ma orzeczenie lotniczo- lekarskie klasy 3."
+      "Osobie, która ma orzeczenie lotniczo-lekarskie klasy 3."
     ],
     "licenses": [
       "ppla",
@@ -1493,10 +1445,10 @@
     "external_id": "PL010-0109",
     "question": "Komu może być udzielona licencja?",
     "answers": [
-      "Osobie, która ma orzeczenie lotniczo- lekarskie klasy 2 lub klasy 1.",
+      "Osobie, która ma orzeczenie lotniczo-lekarskie klasy 2 lub klasy 1.",
       "Osobie która ma ograniczone prawa publiczne.",
       "Osobie która nie posiada orzeczenia o braku przeciwwskazań do wykonywania funkcji członka personelu lotniczego.",
-      "Osobie, która ma orzeczenie lotniczo- lekarskie klasy 3."
+      "Osobie, która ma orzeczenie lotniczo-lekarskie klasy 3."
     ],
     "licenses": [
       "ppla",
@@ -1509,7 +1461,7 @@
     "external_id": "PL010-0110",
     "question": "Komu może być udzielona licencja?",
     "answers": [
-      "Osobie, która ma orzeczenie lotniczo- lekarskie klasy 2 lub klasy 1.",
+      "Osobie, która ma orzeczenie lotniczo-lekarskie klasy 2 lub klasy 1.",
       "Osobie która ma ograniczone prawa publiczne.",
       "Osobie która nie spełnia wymagań i warunków dotyczących ukończenia szkolenia lotniczego.",
       "Osobie która nie spełnia wymogu wieku."
@@ -1807,7 +1759,7 @@
   },
   {
     "external_id": "PL010-0129",
-    "question": "Kto przeprowadza badania lotniczo- lekarskie i wydaje orzeczenia o istnieniu lub braku przeciwwskazań zdrowotnych do wykonywania funkcji członka personelu lotniczego?",
+    "question": "Kto przeprowadza badania lotniczo-lekarskie i wydaje orzeczenia o istnieniu lub braku przeciwwskazań zdrowotnych do wykonywania funkcji członka personelu lotniczego?",
     "answers": [
       "Centra medycyny lotniczej.",
       "Prezes ULC.",
@@ -1823,7 +1775,7 @@
   },
   {
     "external_id": "PL010-0130",
-    "question": "Kto przeprowadza badania lotniczo- lekarskie i wydaje orzeczenia o istnieniu lub braku przeciwwskazań zdrowotnych do wykonywania funkcji członka personelu lotniczego?",
+    "question": "Kto przeprowadza badania lotniczo-lekarskie i wydaje orzeczenia o istnieniu lub braku przeciwwskazań zdrowotnych do wykonywania funkcji członka personelu lotniczego?",
     "answers": [
       "Lekarze orzecznicy.",
       "Prezes ULC.",
@@ -1855,7 +1807,7 @@
   },
   {
     "external_id": "PL010-0132",
-    "question": "Kto w imieniu centrum medycyny lotniczej przeprowadza badania lotniczo- lekarskie i wydaje orzeczenia?",
+    "question": "Kto w imieniu centrum medycyny lotniczej przeprowadza badania lotniczo-lekarskie i wydaje orzeczenia?",
     "answers": [
       "Komisja lekarska centrum medycyny lotniczej złożona z lekarzy orzeczników oraz specjalistów z zakresu medycyny.",
       "Naczelny Lekarz Lotnictwa Cywilnego.",
@@ -1889,25 +1841,13 @@
     "external_id": "PL010-0143",
     "question": "Lot VFR dzienny na statku powietrznym innym niż śmigłowiec w przestrzeni klasy G na i poniżej 900 m AMSL lub 300 m AGL, jeśli jest wyższe, może być wykonany:",
     "answers": [
-      "Przy zmniejszeniu widzialności w locie do 1500 m – z prędkościami, przy których będzie wystarczająco zapewniona możliwość zauważenia we właściwym czasie innego ruchu lub jakichkolwiek przeszkód, aby uniknąć kolizji.",
+      "Przy zmniejszeniu widzialności w locie do 1500 m - z prędkościami, przy których będzie wystarczająco zapewniona możliwość zauważenia we właściwym czasie innego ruchu lub jakichkolwiek przeszkód, aby uniknąć kolizji.",
       "Przy widzialności większej niż 5 km.",
       "Przy pułapie chmur większym niż 300 m.",
-      "Przy widzialności mniejszej niż 1500 m – po spełnieniu określonych warunków."
+      "Przy widzialności mniejszej niż 1500 m - po spełnieniu określonych warunków."
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL010-0143",
-    "question": "Lot VFR dzienny na statku powietrznym innym niż śmigłowiec w przestrzeni klasy G na i poniżej 900 m AMSL lub 300 m AGL, jeśli jest wyższe, może być wykonany:",
-    "answers": [
-      "Przy zmniejszeniu widzialności w locie do 1500 m  z prędkościami, przy których będzie wystarczająco zapewniona możliwość zauważenia we właściwym czasie innego ruchu lub jakichkolwiek przeszkód, aby uniknąć kolizji.",
-      "Przy widzialności większej niż 5 km.",
-      "Przy pułapie chmur większym niż 300 m.",
-      "Przy widzialności mniejszej niż 1500 m  po spełnieniu określonych warunków."
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -1932,22 +1872,10 @@
       "300 m.",
       "100 m.",
       "500 m.",
-      "Nieokreślona – z dala od chmur."
+      "Nieokreślona - z dala od chmur."
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL010-0146",
-    "question": "Lot VFR poniżej FL 100 w przestrzeni powietrznej klasy C może być wykonany, jeżeli odległość pionowa od chmur jest nie mniejsza niż:",
-    "answers": [
-      "300 m.",
-      "100 m.",
-      "500 m.",
-      "Nieokreślona  z dala od chmur."
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -1958,22 +1886,10 @@
       "1500 m.",
       "2 km.",
       "5 km.",
-      "Nieokreślona – z dala od chmur."
+      "Nieokreślona - z dala od chmur."
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL010-0147",
-    "question": "Lot VFR poniżej FL 100 w przestrzeni powietrznej klasy C może być wykonany, jeżeli odległość pozioma od chmur jest nie mniejsza niż:",
-    "answers": [
-      "1500 m.",
-      "2 km.",
-      "5 km.",
-      "Nieokreślona  z dala od chmur."
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -1998,22 +1914,10 @@
       "300 m.",
       "100 m.",
       "500 m.",
-      "Nieokreślona – z dala od chmur."
+      "Nieokreślona - z dala od chmur."
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL010-0150",
-    "question": "Lot VFR w przestrzeni powietrznej klasy G poniżej FL 100, ale powyżej 900 m AMSL lub 300 m AGL, jeśli jest wyższe, może być wykonany, jeżeli odległość pionowa od chmur jest nie mniejsza niż:",
-    "answers": [
-      "300 m.",
-      "100 m.",
-      "500 m.",
-      "Nieokreślona  z dala od chmur."
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -2024,22 +1928,10 @@
       "1500 m.",
       "2 km.",
       "5 km.",
-      "Nieokreślona – z dala od chmur."
+      "Nieokreślona - z dala od chmur."
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL010-0151",
-    "question": "Lot VFR w przestrzeni powietrznej klasy G poniżej FL 100, ale powyżej 900 m AMSL lub 300 m AGL, jeśli jest wyższe, może być wykonany, jeżeli odległość pozioma od chmur jest nie mniejsza niż:",
-    "answers": [
-      "1500 m.",
-      "2 km.",
-      "5 km.",
-      "Nieokreślona  z dala od chmur."
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -2075,7 +1967,7 @@
     "external_id": "PL010-0154",
     "question": "Loty statków powietrznych w strefie niebezpiecznej są:",
     "answers": [
-      "Dozwolone tylko wtedy, gdy strefa jest nieaktywna i po uzyskaniu zezwolenia właściwego organu wojskowych służb ruchu lotniczego.",
+      "Dozwolone tylko wtedy, gdy strefa jest nieaktywna i po uzyskaniu zezwolenia w łaściwego organu wojskowych służb ruchu lotniczego.",
       "Zabronione.",
       "Dozwolone tylko wtedy, gdy lot odbywa się w VMC i w strefie nie ma innych statków powietrznych.",
       "Dozwolone tylko wtedy, gdy pilot może utrzymać kontakt wzrokowy z terenem."
@@ -2243,7 +2135,7 @@
     "external_id": "PL010-0170",
     "question": "Od czego jest uzależniona ważność licencji?",
     "answers": [
-      "Od wyniku okresowego sprawdzenia sprawności psychicznej i fizycznej członka personelu lotniczego stwierdzonej w badaniach lotniczo- lekarskich.",
+      "Od wyniku okresowego sprawdzenia sprawności psychicznej i fizycznej członka personelu lotniczego stwierdzonej w badaniach lotniczo-lekarskich.",
       "Od opłacenia sładek członkowskich w organizacji lotniczej do której się należy.",
       "Od korzystania z pełni praw publicznych.",
       "Od wysokości opłaty lotniczej za licencję."
@@ -2283,20 +2175,8 @@
     "licenses": [
       "ppla",
       "pplh",
+      "bpl",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL010-0172",
-    "question": "Orzeczenie lotniczo- lekarskie wydane dla osoby poniżej 40 roku życia w zakresie wymagań zdrowotnych dla Klasy 2 posiada ważność?",
-    "answers": [
-      "60 miesięcy.",
-      "12 miesięcy.",
-      "24 miesiące.",
-      "18 miesięcy."
-    ],
-    "licenses": [
-      "bpl"
     ]
   },
   {
@@ -2311,20 +2191,8 @@
     "licenses": [
       "ppla",
       "pplh",
+      "bpl",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL010-0173",
-    "question": "Orzeczenie lotniczo- lekarskie wydane dla osoby poniżej 50 roku życia w zakresie wymagań zdrowotnych dla Klasy 2 posiada ważność?",
-    "answers": [
-      "24 miesiące.",
-      "12 miesięcy.",
-      "60 miesięcy.",
-      "18 miesięcy."
-    ],
-    "licenses": [
-      "bpl"
     ]
   },
   {
@@ -2339,20 +2207,8 @@
     "licenses": [
       "ppla",
       "pplh",
+      "bpl",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL010-0174",
-    "question": "Orzeczenie lotniczo- lekarskie wydane dla osoby poniżej 50 roku życia w zakresie wymagań zdrowotnych dla Klasy 2 posiada ważność?",
-    "answers": [
-      "24 miesiące.",
-      "12 miesięcy.",
-      "18 miesięcy.",
-      "6 miesięcy."
-    ],
-    "licenses": [
-      "bpl"
     ]
   },
   {
@@ -3375,7 +3231,7 @@
   },
   {
     "external_id": "PL010-0250",
-    "question": "Kto podlega badaniom lotniczo- lekarskim?",
+    "question": "Kto podlega badaniom lotniczo-lekarskim?",
     "answers": [
       "Osoby ubiegające się o wydanie licencji oraz świadectwa kwalifikacji członka personelu lotniczego.",
       "Tylko osoby ubiegające się o wydanie licencji członka personelu lotniczego.",
@@ -3513,7 +3369,7 @@
     "external_id": "PL010-0259",
     "question": "Jaki dokument należy załączyć do wniosku o przywrócenie zawieszonej licencji?",
     "answers": [
-      "Orzeczenie lotniczo- lekarskie.",
+      "Orzeczenie lotniczo-lekarskie.",
       "2 zdjęcia.",
       "Świadectwo szkolne.",
       "Świadectwo radiooperatora."
@@ -3526,7 +3382,7 @@
     "external_id": "PL010-0260",
     "question": "Jaki dokument należy załączyć do wniosku o przywrócenie zawieszonej licencji?",
     "answers": [
-      "Orzeczenie lotniczo- lekarskie oraz dokument potwierdzający spełnienie warunków przywrócenia licencji.",
+      "Orzeczenie lotniczo-lekarskie oraz dokument potwierdzający spełnienie warunków przywrócenia licencji.",
       "Świadectwo szkolne.",
       "Świadectwo radiooperatora.",
       "2 zdjęcia."
@@ -3799,7 +3655,7 @@
     "external_id": "PL010-0281",
     "question": "Kandydat ubiegający się o uzyskanie licencji pilota szybowcowego powinien wykazać podczas egzaminu teoretycznego, że posiada wiedzę w zakresie przedmiotu:",
     "answers": [
-      "Człowiek – możliwości i ograniczenia.",
+      "Człowiek - możliwości i ograniczenia.",
       "Funkcje życiowe człowieka.",
       "Trasa lotu.",
       "Psychologia człowieka."
@@ -4630,23 +4486,11 @@
     "answers": [
       "Nie ma obowiązku zapewniania separacji między statkami powietrznymi.",
       "Ma obowiązek zapewnić separacje między statkami powietrznymi wykonującymi loty IFR i loty VFR.",
-      "Ma obowiązek zapewnić separacje między statkami powietrznymi wykonującymi loty VFR – spec i loty IFR.",
+      "Ma obowiązek zapewnić separacje między statkami powietrznymi wykonującymi loty VFR - spec i loty IFR.",
       "Ma obowiązek zapewnić separacje między statkami powietrznymi wykonującymi loty IFR i loty IFR."
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL010-0354",
-    "question": "Służba informacji powietrznej w przestrzeni klasy F:",
-    "answers": [
-      "Nie ma obowiązku zapewniania separacji między statkami powietrznymi.",
-      "Ma obowiązek zapewnić separacje między statkami powietrznymi wykonującymi loty IFR i loty VFR.",
-      "Ma obowiązek zapewnić separacje między statkami powietrznymi wykonującymi loty VFR  spec i loty IFR.",
-      "Ma obowiązek zapewnić separacje między statkami powietrznymi wykonującymi loty IFR i loty IFR."
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -4699,22 +4543,10 @@
       "CPL - Current flight plan.",
       "FPL - Filled flight plan.",
       "AFIL - Flight plan filled in the air.",
-      "SPL – Supplementary Flight Plan."
+      "SPL - Supplementary Flight Plan."
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL010-0359",
-    "question": "Bieżący plan lotu, czyli plan lotu wraz z ewentualnymi zmianami wynikającymi z kolejnych zezwoleń to:",
-    "answers": [
-      "CPL - Current flight plan.",
-      "FPL - Filled flight plan.",
-      "AFIL - Flight plan filled in the air.",
-      "SPL  Supplementary Flight Plan."
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -4907,7 +4739,7 @@
       "Tak, pod warunkiem posiadania orzeczenia lotniczo-lekarskiego klasy I, lub rozszerzonego klasy II.",
       "Nie, nie ma takiej możliwości.",
       "Tak.",
-      "Tak, pod warunkiem posiadania orzeczenia lotniczo- lekarskiego klasy III."
+      "Tak, pod warunkiem posiadania orzeczenia lotniczo-lekarskiego klasy III."
     ],
     "licenses": [
       "ppla"
@@ -4920,7 +4752,7 @@
       "Tak, pod warunkiem posiadania orzeczenia lotniczo-lekarskiego klasy II ze stwierdzeniem braku przeciwwskazań do wykonywania lotów IFR.",
       "Nie, nie ma takiej możliwości.",
       "Tak.",
-      "Tak, pod warunkiem posiadania orzeczenia lotniczo- lekarskiego klasy III."
+      "Tak, pod warunkiem posiadania orzeczenia lotniczo-lekarskiego klasy III."
     ],
     "licenses": [
       "ppla"
@@ -4928,7 +4760,7 @@
   },
   {
     "external_id": "PL010-0376",
-    "question": "Czy pracownikom Urzędu Lotnictwa Cywilnego, przysługuje prawo dostępu do materiałów, dokumentów oraz innych danych niezbędnych do przeprowadzenia kontroli, a także sporządzania ich kopii ?",
+    "question": "Czy pracownikom Urzędu Lotnictwa Cywilnego, przysługuje prawo dostępu do materiałów, dokumentów oraz innych danych niezbędnych do przeprowadzenia kontroli, a także sporządzania ich kopii?",
     "answers": [
       "Tak, ale tylko po okazaniu legitymacji służbowej.",
       "Nie.",
@@ -4956,7 +4788,7 @@
   },
   {
     "external_id": "PL010-0378",
-    "question": "Czy pracownikom Urzędu Lotnictwa Cywilnego, przysługuje prawo wykonywania czynności kontrolno- pomiarowych badań statków powietrznych wykorzystywanych do prowadzenia działalności lotniczej?",
+    "question": "Czy pracownikom Urzędu Lotnictwa Cywilnego, przysługuje prawo wykonywania czynności kontrolno-pomiarowych badań statków powietrznych wykorzystywanych do prowadzenia działalności lotniczej?",
     "answers": [
       "Tak, ale tylko po okazaniu legitymacji służbowej.",
       "Nie.",
@@ -5028,25 +4860,13 @@
     "external_id": "PL010-0383",
     "question": "Czym się charakteryzuje szkolenie praktyczne na ziemi i w locie?",
     "answers": [
-      "Nauczaniem umiejętności praktycznych – dla pilotów wszystkich specjalności.",
-      "Nauczaniem wiedzy lotniczej – dla wszystkich specjalności członków personelu lotniczego.",
+      "Nauczaniem umiejętności praktycznych - dla pilotów wszystkich specjalności.",
+      "Nauczaniem wiedzy lotniczej - dla wszystkich specjalności członków personelu lotniczego.",
       "Nauczaniem naziemnym kontrolerów ruchu lotniczego.",
       "Odbyciem nadzorowanej praktyki lotniczej."
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL010-0383",
-    "question": "Czym się charakteryzuje szkolenie praktyczne na ziemi i w locie?",
-    "answers": [
-      "Nauczaniem umiejętności praktycznych  dla pilotów wszystkich specjalności.",
-      "Nauczaniem wiedzy lotniczej  dla wszystkich specjalności członków personelu lotniczego.",
-      "Nauczaniem naziemnym kontrolerów ruchu lotniczego.",
-      "Odbyciem nadzorowanej praktyki lotniczej."
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -5054,25 +4874,13 @@
     "external_id": "PL010-0384",
     "question": "Czym się charakteryzuje teoretyczne szkolenie lotnicze?",
     "answers": [
-      "Nauczaniem wiedzy lotniczej – dla wszystkich specjalności członków personelu lotniczego.",
-      "Nauczaniem umiejętności praktycznych – dla pilotów wszystkich specjalności.",
-      "Nauczaniem umiejętności praktycznych – dla mechaników pokładowych.",
+      "Nauczaniem wiedzy lotniczej - dla wszystkich specjalności członków personelu lotniczego.",
+      "Nauczaniem umiejętności praktycznych - dla pilotów wszystkich specjalności.",
+      "Nauczaniem umiejętności praktycznych - dla mechaników pokładowych.",
       "Nauczaniem naziemnym kontrolerów ruchu lotniczego."
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL010-0384",
-    "question": "Czym się charakteryzuje teoretyczne szkolenie lotnicze?",
-    "answers": [
-      "Nauczaniem wiedzy lotniczej  dla wszystkich specjalności członków personelu lotniczego.",
-      "Nauczaniem umiejętności praktycznych  dla pilotów wszystkich specjalności.",
-      "Nauczaniem umiejętności praktycznych  dla mechaników pokładowych.",
-      "Nauczaniem naziemnym kontrolerów ruchu lotniczego."
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -5142,19 +4950,7 @@
       "Zwykłe."
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL010-0391",
-    "question": "Dowódca samolotu lecącego z lotniska AAAA do lotniska BBBB, lotnisko zapasowe CCCC, zgłosił, że ma na pokładzie chorego pasażera wymagającego natychmiastowej pomocy lekarskiej. Otrzymał zezwolenie na zniżanie i lądowanie na lotnisku DDDD. W tej sytuacji wykona lądowanie:",
-    "answers": [
-      "Przymusowe.",
-      "Techniczne.",
-      "Awaryjne.",
-      "Zwykłe."
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -5423,7 +5219,7 @@
     "external_id": "PL010-0412",
     "question": "Jaki dokument oprócz licencji, powinien posiadać członek personelu lotniczego podczas wykonywania czynności lotniczych, do których uprawnia licencja?",
     "answers": [
-      "Orzeczenie lotniczo- lekarskie oraz dokument tożsamości ze zdjęciem.",
+      "Orzeczenie lotniczo-lekarskie oraz dokument tożsamości ze zdjęciem.",
       "Tylko orzeczenie lotniczo-lekarskie.",
       "Tylko dokument tożsamości ze zdjęciem.",
       "Opłatę lotniczą."
@@ -6680,22 +6476,10 @@
       "300 m.",
       "100 m.",
       "500 m.",
-      "Nieokreślona – z dala od chmur."
+      "Nieokreślona - z dala od chmur."
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL010-0520",
-    "question": "Lot VFR na i powyżej FL 100 w przestrzeni powietrznej klasy C może być wykonany, jeżeli odległość pionowa od chmur jest nie mniejsza niż:",
-    "answers": [
-      "300 m.",
-      "100 m.",
-      "500 m.",
-      "Nieokreślona  z dala od chmur."
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -6720,22 +6504,10 @@
       "Nie mniejsza niż 1500 m.",
       "Nie mniejsza niż 2 km.",
       "Nie mniejsza niż 5 km.",
-      "Nieokreślona – z dala od chmur."
+      "Nieokreślona - z dala od chmur."
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL010-0522",
-    "question": "Lot VFR na i powyżej FL 100 w przestrzeni powietrznej klasy C może być wykonany, jeżeli odległość pozioma od chmur jest:",
-    "answers": [
-      "Nie mniejsza niż 1500 m.",
-      "Nie mniejsza niż 2 km.",
-      "Nie mniejsza niż 5 km.",
-      "Nieokreślona  z dala od chmur."
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -6850,25 +6622,13 @@
     "external_id": "PL010-0531",
     "question": "MSA na mapie procedury podejścia oznacza:",
     "answers": [
-      "Minimum Sector Altitude – najniższą wysokość bezwzględną jaka może być stosowana, która zapewnia minimalne przewyższenie nad przeszkodami wynoszące 300 m (1000 ft) nad wszystkimi obiektami znajdującymi się na wycinku koła o promieniu 46 km (25 NM), wychodzącym od pomocy radionawigacyjnej.",
+      "Minimum Sector Altitude - najniższą wysokość bezwzględną jaka może być stosowana, która zapewnia minimalne przewyższenie nad przeszkodami wynoszące 300 m (1000 ft) nad wszystkimi obiektami znajdującymi się na wycinku koła o promieniu 46 km (25 NM), wychodzącym od pomocy radionawigacyjnej.",
       "Minimum Sector Altitude - Minimalną, sektorową wysokość względną lotu dla lotu IFR poza CTR.",
-      "Minimum Safe Altitude – Minimalną bezpieczną wysokość bezwzględną lotu dla lotów IFR i VFR poza CTA.",
+      "Minimum Safe Altitude - Minimalną bezpieczną wysokość bezwzględną lotu dla lotów IFR i VFR poza CTA.",
       "Minimum Safe Altitude - wysokość bezwzględną dla danego obszaru zapewniającą minimalne przewyższenie nad przeszkodami dla lotu IFR."
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL010-0531",
-    "question": "MSA na mapie procedury podejścia oznacza:",
-    "answers": [
-      "Minimum Sector Altitude  najniższą wysokość bezwzględną jaka może być stosowana, która zapewnia minimalne przewyższenie nad przeszkodami wynoszące 300 m (1000 ft) nad wszystkimi obiektami znajdującymi się na wycinku koła o promieniu 46 km (25 NM), wychodzącym od pomocy radionawigacyjnej.",
-      "Minimum Sector Altitude - Minimalną, sektorową wysokość względną lotu dla lotu IFR poza CTR.",
-      "Minimum Safe Altitude  Minimalną bezpieczną wysokość bezwzględną lotu dla lotów IFR i VFR poza CTA.",
-      "Minimum Safe Altitude - wysokość bezwzględną dla danego obszaru zapewniającą minimalne przewyższenie nad przeszkodami dla lotu IFR."
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -7120,7 +6880,7 @@
   },
   {
     "external_id": "PL010-0552",
-    "question": "Oznacz odpowiednią literą przepisy wykonywania lotów lub rodzaj planowanego lotu wg oznaczeń stosowanych w planach lotów – najpierw lot IFR, potem lot VFR:",
+    "question": "Oznacz odpowiednią literą przepisy wykonywania lotów lub rodzaj planowanego lotu wg oznaczeń stosowanych w planach lotów - najpierw lot IFR, potem lot VFR:",
     "answers": [
       "Y.",
       "X.",
@@ -7128,25 +6888,13 @@
       "Z."
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL010-0552",
-    "question": "Oznacz odpowiednią literą przepisy wykonywania lotów lub rodzaj planowanego lotu wg oznaczeń stosowanych w planach lotów  najpierw lot IFR, potem lot VFR:",
-    "answers": [
-      "Y.",
-      "X.",
-      "I.",
-      "Z."
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
   {
     "external_id": "PL010-0553",
-    "question": "Oznacz odpowiednią literą przepisy wykonywania lotów lub rodzaj planowanego lotu wg oznaczeń stosowanych w planach lotów – najpierw lot VFR, potem lot IFR:",
+    "question": "Oznacz odpowiednią literą przepisy wykonywania lotów lub rodzaj planowanego lotu wg oznaczeń stosowanych w planach lotów - najpierw lot VFR, potem lot IFR:",
     "answers": [
       "Z.",
       "Y.",
@@ -7154,19 +6902,7 @@
       "I."
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL010-0553",
-    "question": "Oznacz odpowiednią literą przepisy wykonywania lotów lub rodzaj planowanego lotu wg oznaczeń stosowanych w planach lotów  najpierw lot VFR, potem lot IFR:",
-    "answers": [
-      "Z.",
-      "Y.",
-      "V.",
-      "I."
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -7447,24 +7183,12 @@
     "question": "Służba informacji powietrznej w przestrzeni klasy G:",
     "answers": [
       "Nie ma obowiązku zapewniania separacji między statkami powietrznymi.",
-      "Ma obowiązek zapewnić separacje między statkami powietrznymi wykonującymi loty VFR – spec i loty IFR.",
+      "Ma obowiązek zapewnić separacje między statkami powietrznymi wykonującymi loty VFR - spec i loty IFR.",
       "Ma obowiązek zapewnić separacje między statkami powietrznymi wykonującymi loty IFR i loty VFR.",
       "Ma obowiązek zapewnić separacje między statkami powietrznymi wykonującymi loty IFR i loty IFR."
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL010-0577",
-    "question": "Służba informacji powietrznej w przestrzeni klasy G:",
-    "answers": [
-      "Nie ma obowiązku zapewniania separacji między statkami powietrznymi.",
-      "Ma obowiązek zapewnić separacje między statkami powietrznymi wykonującymi loty VFR  spec i loty IFR.",
-      "Ma obowiązek zapewnić separacje między statkami powietrznymi wykonującymi loty IFR i loty VFR.",
-      "Ma obowiązek zapewnić separacje między statkami powietrznymi wykonującymi loty IFR i loty IFR."
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -7489,7 +7213,7 @@
       "VFR od IFR.",
       "VFR od VFR.",
       "VFR - spec od VFR.",
-      "VFR- nocny od VFR - nocny."
+      "VFR-nocny od VFR - nocny."
     ],
     "licenses": [
       "ppla",
@@ -7926,19 +7650,7 @@
       "7000."
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL010-0615",
-    "question": "W przypadku bezprawnej ingerencji (HIJACK) pilot nastawia transponder w modzie A na kod:",
-    "answers": [
-      "7500.",
-      "7600.",
-      "7700.",
-      "7000."
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -7962,7 +7674,7 @@
     "answers": [
       "Nie może korzystać z tego uprawnienia do czasu zaliczenia kontroli umiejętności.",
       "Powinien zwrócić licencję Prezesowi ULC .",
-      "Powinien zasięgnąć porady lotniczo- lekarskiej.",
+      "Powinien zasięgnąć porady lotniczo-lekarskiej.",
       "Powinien zwrócić licencję ministrowi właściwemu do spraw transportu ."
     ],
     "licenses": [
@@ -7980,19 +7692,7 @@
       "7000."
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL010-0624",
-    "question": "W przypadku stwierdzenia utraty łączności radiowej (RADIOCOM FAILURE) pilot nastawia transponder w modzie A na kod:",
-    "answers": [
-      "7600.",
-      "7500.",
-      "7700.",
-      "7000."
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -8006,19 +7706,7 @@
       "7000."
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL010-0625",
-    "question": "W stanie bezpośredniego zagrożenia (EMERGENCY) pilot nastawia transponder w modzie A na kod:",
-    "answers": [
-      "7700.",
-      "7600.",
-      "7500.",
-      "7000."
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -8196,7 +7884,7 @@
     "answers": [
       "Lotnisku lądowym.",
       "Lądowisku.",
-      "Lotnisku lądowo- wodnym.",
+      "Lotnisku lądowo-wodnym.",
       "Lotnisku wodnym."
     ],
     "licenses": [
@@ -8322,20 +8010,8 @@
     "licenses": [
       "ppla",
       "pplh",
+      "bpl",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL010-1539",
-    "question": "Orzeczenie lotniczo- lekarskie Klasy 2 wydane dla osoby w 30 roku życia posiada ważność:",
-    "answers": [
-      "60 miesięcy.",
-      "12 miesięcy.",
-      "24 miesiące.",
-      "6 miesięcy."
-    ],
-    "licenses": [
-      "bpl"
     ]
   },
   {
@@ -8349,19 +8025,7 @@
     ],
     "licenses": [
       "ppla",
-      "pplh"
-    ]
-  },
-  {
-    "external_id": "PL010-1540",
-    "question": "Orzeczenie lotniczo- lekarskie Klasy I wydane dla osoby powyżej 60 roku życia posiada ważność:",
-    "answers": [
-      "6 miesięcy.",
-      "12 miesięcy.",
-      "24 miesiące.",
-      "18 miesięcy."
-    ],
-    "licenses": [
+      "pplh",
       "bpl"
     ]
   },
@@ -8524,7 +8188,7 @@
     "external_id": "PL010-1551",
     "question": "Kiedy sprawdza się sprawność psychiczną i fizyczną członka personelu pokładowego?",
     "answers": [
-      "W trakcie badań lotniczo- lekarskich.",
+      "W trakcie badań lotniczo-lekarskich.",
       "W trakcie rozmowy w ATO.",
       "W trakcie rozmowy kwalifikacyjnej prowadzonej przez organizację do której przynależy dany członek personelu lotniczego.",
       "W trakcie rozmowy w AOC."
@@ -8781,25 +8445,13 @@
     "external_id": "PL010-1568",
     "question": "Kandydat ubiegający się o uzyskanie licencji pilota turystycznego (PPL) powinien wykazać podczas egzaminu teoretycznego, że posiada wiedzę w zakresie przedmiotu:",
     "answers": [
-      "Człowiek – możliwości i ograniczenia.",
+      "Człowiek - możliwości i ograniczenia.",
       "Funkcje życiowe człowieka.",
       "Trasa lotu.",
       "Psychologia człowieka."
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL010-1568",
-    "question": "Kandydat ubiegający się o uzyskanie licencji pilota turystycznego (PPL) powinien wykazać podczas egzaminu teoretycznego, że posiada wiedzę w zakresie przedmiotu:",
-    "answers": [
-      "Człowiek  możliwości i ograniczenia.",
-      "Funkcje życiowe człowieka.",
-      "Trasa lotu.",
-      "Psychologia człowieka."
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -9046,7 +8698,7 @@
     "question": "Hamowanie kołami podwozia jest:",
     "answers": [
       "Hydrauliczne lub pneumatyczne",
-      "Pneumatyczno- elektryczne",
+      "Pneumatyczno-elektryczne",
       "Pneumatyczne",
       "Elektryczne"
     ],
@@ -9114,25 +8766,13 @@
     "external_id": "PL020-0011",
     "question": "Kadłub o konstrukcji skorupowej składa się:",
     "answers": [
-      "Głównym elementem siłowym jest pokrycie – obecnie z laminatów – wzmocnione wręgami",
+      "Głównym elementem siłowym jest pokrycie - obecnie z laminatów - wzmocnione wręgami",
       "Wręgi, przedłużenie, pokrycie",
       "Dźwigary, pokrycie, wręgi",
       "Dźwigary, pokrycie, wypełniacz ulowy"
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL020-0011",
-    "question": "Kadłub o konstrukcji skorupowej składa się:",
-    "answers": [
-      "Głównym elementem siłowym jest pokrycie  obecnie z laminatów  wzmocnione wręgami",
-      "Wręgi, przedłużenie, pokrycie",
-      "Dźwigary, pokrycie, wręgi",
-      "Dźwigary, pokrycie, wypełniacz ulowy"
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -9240,19 +8880,7 @@
       "Popychacze z układem rolek"
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL020-0021",
-    "question": "Układ miękki sterowania mechanizmami sterowniczymi stanowi:",
-    "answers": [
-      "Linki stalowe i układ rolek",
-      "Popychacze połączone z amortyzatorami gumowymi oraz dzwignie",
-      "Linki stalowe i popychacze oraz rolki",
-      "Popychacze z układem rolek"
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -9266,19 +8894,7 @@
       "Linki w sztywnych rurkach i układ dźwigni"
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL020-0022",
-    "question": "Układ sztywny sterowania mechanizmami sterowniczymi stanowi:",
-    "answers": [
-      "Popychacze sztywne z układem dźwigni",
-      "Popychacze sztywne i linki z układem rolek",
-      "Popychacze sztywne i linki z układem dźwigni",
-      "Linki w sztywnych rurkach i układ dźwigni"
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -9494,36 +9110,24 @@
   },
   {
     "external_id": "PL020-0044",
-    "question": "Czy kompozyty np. z włókien węglowych, grafitowych, szklanych itp. – stosowane są w konstrukcjach lotniczych:",
+    "question": "Czy kompozyty np. z włókien węglowych, grafitowych, szklanych itp. - stosowane są w konstrukcjach lotniczych:",
     "answers": [
-      "Tak – jako elementy pokrycia i zbrojenia konstrukcji płatowca i silników",
+      "Tak - jako elementy pokrycia i zbrojenia konstrukcji płatowca i silników",
       "Nie są stosowane",
       "Tylko jako elementy wyposażenia kabin",
       "Tylko w konstrukcji silników lotniczych"
     ],
     "licenses": [
       "ppla",
+      "pplh",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL020-0044",
-    "question": "Czy kompozyty np. z włókien węglowych, grafitowych, szklanych itp.  stosowane są w konstrukcjach lotniczych:",
-    "answers": [
-      "Tak  jako elementy pokrycia i zbrojenia konstrukcji płatowca i silników",
-      "Nie są stosowane",
-      "Tylko jako elementy wyposażenia kabin",
-      "Tylko w konstrukcji silników lotniczych"
-    ],
-    "licenses": [
-      "pplh"
     ]
   },
   {
     "external_id": "PL020-0045",
     "question": "Czy rozlanie paliwa w rejonie samolotu wpływa na jego bezpieczeństwo:",
     "answers": [
-      "Tak – należy przerwać wszelkie prace do czasu zneutralizowania zagrożenia przez kompetentne służby",
+      "Tak - należy przerwać wszelkie prace do czasu zneutralizowania zagrożenia przez kompetentne służby",
       "Można miejsce rozlania zasypać piaskiem i kontynuować pracę",
       "Nie wpływa to na zagrożenie bezpieczeństwa",
       "Zaczekać z pracami przy samolocie do czasu odparowania paliwa"
@@ -9552,7 +9156,7 @@
       "Płyn hydrauliczny lub powietrze",
       "Układ elektryczny",
       "Mechaniczny układ",
-      "Układ mechaniczno- elektryczny"
+      "Układ mechaniczno-elektryczny"
     ],
     "licenses": [
       "ppla"
@@ -10714,12 +10318,12 @@
   },
   {
     "external_id": "PL020-0143",
-    "question": "Optymalna temperatura oleju w silniku to (<sup>°</sup>C)",
+    "question": "Optymalna temperatura oleju w silniku to (°C)",
     "answers": [
-      "90- 100",
-      "30- 40",
-      "50- 70",
-      "140- 160"
+      "90-100",
+      "30-40",
+      "50-70",
+      "140-160"
     ],
     "licenses": [
       "ppla",
@@ -10928,19 +10532,7 @@
       "Należy obniżyć poziom oleju do dolnej kreski"
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL020-0159",
-    "question": "Poziom oleju między kreskami na miarce bagnetowej oznacza",
-    "answers": [
-      "Prawidłową ilość oleju",
-      "Nieprawidłową ilość oleju",
-      "Należy dolać do górnej kreski",
-      "Należy obniżyć poziom oleju do dolnej kreski"
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -10990,7 +10582,7 @@
     "external_id": "PL020-0164",
     "question": "Prądnice prądu stałego instalowane na samolotach zbudowane są jako:",
     "answers": [
-      "samowzbudne – bocznikowe",
+      "samowzbudne - bocznikowe",
       "szeregowe",
       "obcowzbudne",
       "dwustopniowe"
@@ -11070,25 +10662,13 @@
     "external_id": "PL020-0170",
     "question": "Przy awarii prądnicy lub alternatora, na ile czasu powinno wystarczyć akumulatora do bezpiecznego lądowania:",
     "answers": [
-      "0,5 h – 1 h",
-      "3 h – 4 h",
-      "5 h – 6 h",
-      "7 h – 8 h"
+      "0,5 h - 1 h",
+      "3 h - 4 h",
+      "5 h - 6 h",
+      "7 h - 8 h"
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL020-0170",
-    "question": "Przy awarii prądnicy lub alternatora, na ile czasu powinno wystarczyć akumulatora do bezpiecznego lądowania:",
-    "answers": [
-      "0,5 h  1 h",
-      "3 h  4 h",
-      "5 h  6 h",
-      "7 h  8 h"
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -11124,25 +10704,13 @@
     "external_id": "PL020-0173",
     "question": "Przydzielone pasmo częstotliwości w zakresie UKF dla łączności radiowej w lotnictwie cywilnym to:",
     "answers": [
-      "118,00 – 136,975 MHz",
-      "105,00 – 131,00 MHz",
-      "95,00 – 101,00 MHz",
-      "76,00 – 98,00 MHz"
+      "118,00 - 136,975 MHz",
+      "105,00 - 131,00 MHz",
+      "95,00 - 101,00 MHz",
+      "76,00 - 98,00 MHz"
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL020-0173",
-    "question": "Przydzielone pasmo częstotliwości w zakresie UKF dla łączności radiowej w lotnictwie cywilnym to:",
-    "answers": [
-      "118,00  136,975 MHz",
-      "105,00  131,00 MHz",
-      "95,00  101,00 MHz",
-      "76,00  98,00 MHz"
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -11491,7 +11059,7 @@
     "question": "Stopy aluminium używane są w budowie samolotów na:",
     "answers": [
       "Jest to zasadniczy materiał na konstrukcje zespołów płatowca bez głównych elementów siłowych i wytrzymałościowych",
-      "Używany jako podstawowy materiał na konstrukcje okuć i sworzni połączeniowych skrzydło – kadłub",
+      "Używany jako podstawowy materiał na konstrukcje okuć i sworzni połączeniowych skrzydło - kadłub",
       "Konstrukcję podwozia",
       "Konstrukcję zespołów silników odpornych na wysoką temperaturę"
     ],
@@ -11663,7 +11231,7 @@
   },
   {
     "external_id": "PL020-0215",
-    "question": "W amortyzatorach podwozia olejowo- pneumatycznych jako składnik pneumatyczny stosowany jest:",
+    "question": "W amortyzatorach podwozia olejowo-pneumatycznych jako składnik pneumatyczny stosowany jest:",
     "answers": [
       "Azot lub powietrze",
       "Tlen",
@@ -11931,7 +11499,7 @@
       "Do góry wychylają się więcej",
       "Do dołu wychylają więcej",
       "Wychylają się jednakowo tak do góry jak do dołu",
-      "Zależnie od zabudowy na skrzydle – lewe lub prawe"
+      "Zależnie od zabudowy na skrzydle - lewe lub prawe"
     ],
     "licenses": [
       "ppla"
@@ -12012,7 +11580,7 @@
     "answers": [
       "0-1200m",
       "15-350m.",
-      "50- 450m",
+      "50-450m",
       "Powyżej 2000m."
     ],
     "licenses": [
@@ -12176,12 +11744,12 @@
   },
   {
     "external_id": "PL020-0253",
-    "question": "Zjawisko oblodzenia gaźnika występuje zazwyczaj w warunkach dużej wilgotności i temp. otoczenia ( ?C).",
+    "question": "Zjawisko oblodzenia gaźnika występuje zazwyczaj w warunkach dużej wilgotności i temp. otoczenia (°C).",
     "answers": [
       "-1do 12",
       "-1 do 4",
-      "-1 do - 4",
-      "Poniżej - 4"
+      "-1 do-4",
+      "Poniżej-4"
     ],
     "licenses": [
       "ppla",
@@ -12336,7 +11904,7 @@
     "external_id": "PL021-0010",
     "question": "Prądnice prądu stałego instalowane na śmigłowcach zbudowane są jako",
     "answers": [
-      "samowzbudne  bocznikowe.",
+      "samowzbudne - bocznikowe.",
       "szeregowe.",
       "obcowzbudne.",
       "dwustopniowe."
@@ -12596,9 +12164,9 @@
     "external_id": "PL024-0008",
     "question": "Promieniowanie słoneczne ma wpływ na powłokę:",
     "answers": [
-      "szkodliwy  obniża wytrzymałość materiału powłoki i taśm nośnych",
+      "szkodliwy - obniża wytrzymałość materiału powłoki i taśm nośnych",
       "nie ma żadnego wpływu na powłokę",
-      "pozytywny  zwiększa elastyczność materiału powłoki",
+      "pozytywny - zwiększa elastyczność materiału powłoki",
       "powoduje jedynie odbarwianie materiału powłoki"
     ],
     "licenses": [
@@ -12921,7 +12489,7 @@
     "external_id": "PL025-0004",
     "question": "Co mierzy prędkościomierz jako lotniczy przyrząd pokładowy:",
     "answers": [
-      "ciśnienie dynamiczne poprzez porównanie ciśnienia całkowitego i statycznego. Jest to tak zwana predkość wskazywana (przyrządowa- IAS)",
+      "ciśnienie dynamiczne poprzez porównanie ciśnienia całkowitego i statycznego. Jest to tak zwana predkość wskazywana (przyrządowa-IAS)",
       "ciśnienie lotniska",
       "kurs szybowca",
       "wysokość lotu"
@@ -13026,7 +12594,7 @@
     "question": "Hamowanie kołami podwozia jest:",
     "answers": [
       "Mechaniczne lub hydrauliczne",
-      "Pneumatyczno- elektryczne",
+      "Pneumatyczno-elektryczne",
       "Pneumatyczne",
       "Elektryczne"
     ],
@@ -13090,7 +12658,7 @@
     "external_id": "PL025-0022",
     "question": "Kadłub o konstrukcji skorupowej składa się:",
     "answers": [
-      "Głównym elementem siłowym jest pokrycie – obecnie z laminatów – wzmocnione wręgami",
+      "Głównym elementem siłowym jest pokrycie - obecnie z laminatów - wzmocnione wręgami",
       "Wręgi, przedłużenie, pokrycie",
       "Dźwigary, pokrycie, wręgi",
       "Dźwigary, pokrycie, wypełniacz ulowy"
@@ -13168,7 +12736,7 @@
     "external_id": "PL025-0028",
     "question": "Na czym polega wychylenie różnicowe lotek:",
     "answers": [
-      "Lotki do góry wychylają się o większy kąt niż do dołu – przy skrzydłach o profilu niesymetrycznym",
+      "Lotki do góry wychylają się o większy kąt niż do dołu - przy skrzydłach o profilu niesymetrycznym",
       "Lotki wychylają się do dołu o większy kąt niż do góry",
       "Lotki do góry wychylają się o większy kat niż do dołu przy profilach skrzydeł symetrycznych",
       "Zależnie od zabudowy na skrzydle lewym lub prawym wychylają się różnie więcej lub mniej"
@@ -13387,7 +12955,7 @@
   },
   {
     "external_id": "PL025-0056",
-    "question": "Czy kompozyt np. z włókien węglowych, grafitowych, szklanych itp. – stosowane są w konstrukcjach lotniczych:",
+    "question": "Czy kompozyt np. z włókien węglowych, grafitowych, szklanych itp. - stosowane są w konstrukcjach lotniczych:",
     "answers": [
       "Tak",
       "Nie są stosowane",
@@ -13456,27 +13024,15 @@
     "external_id": "PL030-0002",
     "question": "Błąd temperaturowy wysokościomierza pojawia się, gdy:",
     "answers": [
-      "Gradient zmiany temperatury jest inny niż standardowy – czyli warunki różnią się od tych zdefiniowanych Międzynarodową Atmosferą Wzorcową.",
+      "Gradient zmiany temperatury jest inny niż standardowy - czyli warunki różnią się od tych zdefiniowanych Międzynarodową Atmosferą Wzorcową.",
       "Gradient zmiany ciśnienia jest inny niż standardowy.",
       "Wysokościomierz został nagrzany (np.w świetle słonecznym) do wysokiej temperatury.",
       "Ciśnienie npm (Mean Sea Level) różni się od wartości 1013.25hPa."
     ],
     "licenses": [
       "ppla",
+      "pplh",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL030-0002",
-    "question": "Błąd temperaturowy wysokościomierza pojawia się, gdy:",
-    "answers": [
-      "Gradient zmiany temperatury jest inny niż standardowy  czyli warunki różnią się od tych zdefiniowanych Międzynarodową Atmosferą Wzorcową.",
-      "Gradient zmiany ciśnienia jest inny niż standardowy.",
-      "Wysokościomierz został nagrzany (np.w świetle słonecznym) do wysokiej temperatury.",
-      "Ciśnienie npm (Mean Sea Level) różni się od wartości 1013.25hPa."
-    ],
-    "licenses": [
-      "pplh"
     ]
   },
   {
@@ -13566,7 +13122,7 @@
   },
   {
     "external_id": "PL030-0010",
-    "question": "Ważenie statku powietrznego (SP): odczyt na wadze pod przednim podwoziem 155 kg, odczyt – suma na głównym 320 kg. Odległość przód SP – przednie podwozie 0.8m, przód SP - główne 2.4 m. Jaka jest odległość przód SP – środek ciężkości?",
+    "question": "Ważenie statku powietrznego (SP): odczyt na wadze pod przednim podwoziem 155 kg, odczyt - suma na głównym 320 kg. Odległość przód SP - przednie podwozie 0.8m, przód SP - główne 2.4 m. Jaka jest odległość przód SP - środek ciężkości?",
     "answers": [
       "1.88 m",
       "2.92",
@@ -13575,25 +13131,13 @@
     ],
     "licenses": [
       "ppla",
+      "pplh",
       "spl"
     ]
   },
   {
-    "external_id": "PL030-0010",
-    "question": "Ważenie statku powietrznego (SP): odczyt na wadze pod przednim podwoziem 155 kg, odczyt  suma na głównym 320 kg. Odległość przód SP  przednie podwozie 0.8m, przód SP - główne 2.4 m. Jaka jest odległość przód SP  środek ciężkości?",
-    "answers": [
-      "1.88 m",
-      "2.92",
-      "3.2",
-      "1.68"
-    ],
-    "licenses": [
-      "pplh"
-    ]
-  },
-  {
     "external_id": "PL030-0011",
-    "question": "Ważenie statku powietrznego (SP): odczyt na wadze pod przednim podwoziem 205 kg, odczyt – suma na głównym 420 kg. Odległość przód SP – przednie podwozie 0.9m, przód SP - główne 2.6 m. Jaka jest odległość przód SP – środek ciężkości?",
+    "question": "Ważenie statku powietrznego (SP): odczyt na wadze pod przednim podwoziem 205 kg, odczyt - suma na głównym 420 kg. Odległość przód SP - przednie podwozie 0.9m, przód SP - główne 2.6 m. Jaka jest odległość przód SP - środek ciężkości?",
     "answers": [
       "2.04 m",
       "3.12 m",
@@ -13602,20 +13146,8 @@
     ],
     "licenses": [
       "ppla",
+      "pplh",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL030-0011",
-    "question": "Ważenie statku powietrznego (SP): odczyt na wadze pod przednim podwoziem 205 kg, odczyt  suma na głównym 420 kg. Odległość przód SP  przednie podwozie 0.9m, przód SP - główne 2.6 m. Jaka jest odległość przód SP  środek ciężkości?",
-    "answers": [
-      "2.04 m",
-      "3.12 m",
-      "1.88 m",
-      "2.09 m"
-    ],
-    "licenses": [
-      "pplh"
     ]
   },
   {
@@ -13663,10 +13195,10 @@
     "external_id": "PL030-0015",
     "question": "Jeśli środek ciężkości szybowca przesunie się przed skrajne przednie położenie to (między innymi):",
     "answers": [
-      "Ze względu na konieczność większego wychylenia steru wysokości – wzrasta wymagana siła nośna na płacie – zwiększa się opór indukowany, co negatywnie wpływa na osiągi.",
-      "Ze względu na konieczność mniejszego wychylenia steru wysokości – zmniejsza się siła nośna na usterzeniu, co wymaga zwiększenia siły nośnej na płacie co zmniejsza opór indukowany i ma negatywny wpływ na osiągi.",
-      "Ze względu na konieczność mniejszego wychylenia steru wysokości – spada wymagana siła nośna na płacie – zmniejsza się prędkość przeciągnięcia.",
-      "Ze względu na konieczność większego wychylenia steru wysokości – spada wymagana siła nośna na płacie – zwiększa się prędkość przeciągnięcia."
+      "Ze względu na konieczność większego wychylenia steru wysokości - wzrasta wymagana siła nośna na płacie - zwiększa się opór indukowany, co negatywnie wpływa na osiągi.",
+      "Ze względu na konieczność mniejszego wychylenia steru wysokości - zmniejsza się siła nośna na usterzeniu, co wymaga zwiększenia siły nośnej na płacie co zmniejsza opór indukowany i ma negatywny wpływ na osiągi.",
+      "Ze względu na konieczność mniejszego wychylenia steru wysokości - spada wymagana siła nośna na płacie - zmniejsza się prędkość przeciągnięcia.",
+      "Ze względu na konieczność większego wychylenia steru wysokości - spada wymagana siła nośna na płacie - zwiększa się prędkość przeciągnięcia."
     ],
     "licenses": [
       "spl"
@@ -13687,7 +13219,7 @@
   },
   {
     "external_id": "PL030-0018",
-    "question": "Szybowiec ma MAC 1.5 m, krawędź natarcia MAC znajduje się 1.9 m za datum szybowca, odległość datum- CG wynosi 2.4 m. Podaj położenie CG w % MAC:",
+    "question": "Szybowiec ma MAC 1.5 m, krawędź natarcia MAC znajduje się 1.9 m za datum szybowca, odległość datum-CG wynosi 2.4 m. Podaj położenie CG w % MAC:",
     "answers": [
       "33",
       "25",
@@ -13700,7 +13232,7 @@
   },
   {
     "external_id": "PL030-0019",
-    "question": "Szybowiec ma MAC 1.6 m, krawędź natarcia MAC znajduje się 2.1 m za datum szybowca, odległość datum- CG wynosi 2.5 m. Podaj położenie CG w % MAC:",
+    "question": "Szybowiec ma MAC 1.6 m, krawędź natarcia MAC znajduje się 2.1 m za datum szybowca, odległość datum-CG wynosi 2.5 m. Podaj położenie CG w % MAC:",
     "answers": [
       "25.0",
       "33.0",
@@ -13785,7 +13317,7 @@
       "Oderwanie samolotu przy mniejszej prędkości, ale zjawisko zanika na wysokości równej w przybliżeniu rozpiętości i osiągi spadają.",
       "Osiągnięcie większej mocy silnika blisko ziemi (dotyczy silników bez sprężarkowych).",
       "Lepszą obserwacje otoczenia przez pilota ze względu na szersze pole widzenia blisko ziemi.",
-      "Osiągnięcie większego ciągu silnika blisko ziemi – efekt ten zanika na wysokości równej w przybliżeniu rozpiętości samolotu."
+      "Osiągnięcie większego ciągu silnika blisko ziemi - efekt ten zanika na wysokości równej w przybliżeniu rozpiętości samolotu."
     ],
     "licenses": [
       "ppla"
@@ -13798,7 +13330,7 @@
       "Redukcji oporu indukowanego oraz kąta natarcia potrzebnego do lotu poziomego (przy danej prędkości) co jest spowodowanej bliskością ziemii.",
       "Znacznym skróceniu fazy wytrzymania przy lądowaniu.",
       "Osiąganiu większej mocy przez silniki tłokowe blisko ziemi (dotyczy silników bezsprężarkowych).",
-      "Osiągnięcie większego ciągu silnika blisko ziemi – efekt ten zanika na wysokości równej w przybliżeniu rozpiętości samolotu."
+      "Osiągnięcie większego ciągu silnika blisko ziemi - efekt ten zanika na wysokości równej w przybliżeniu rozpiętości samolotu."
     ],
     "licenses": [
       "ppla"
@@ -13848,7 +13380,7 @@
     "question": "Czy wysoka wilgotność przyczynia się do spadku osiągów samolotu:.",
     "answers": [
       "Tak.",
-      "Fałsz – chłodzi silnik i przez to poprawia osiągi.",
+      "Fałsz - chłodzi silnik i przez to poprawia osiągi.",
       "Wilgotność powietrza nie ma wpływu na osiągi.",
       "Wszystkie podane odpowiedzi są nieprawdziwe."
     ],
@@ -13965,7 +13497,7 @@
     "question": "Jeśli środek ciężkości znajduje się blisko skrajnego przedniego położenia to:",
     "answers": [
       "Nastąpi zmniejszenie prędkości wznoszenia.",
-      "Ze względu na konieczność mniejszego wychylenia steru wysokości – spada wymagana siła nośna na płacie – zmniejsza się prędkość przeciągniecia.",
+      "Ze względu na konieczność mniejszego wychylenia steru wysokości - spada wymagana siła nośna na płacie - zmniejsza się prędkość przeciągniecia.",
       "nastąpi zmniejszenie zużycia paliwa podczas lotu ze względu na mniejszy opór.",
       "nastąpi zmniejszenie oporu indukowanego."
     ],
@@ -13977,10 +13509,10 @@
     "external_id": "PL030-0057",
     "question": "Jeśli środek ciężkości znajduje się przed skrajnym przednim położeniem to samolot będzie między innymi:.",
     "answers": [
-      "Ze względu na konieczność większego wychylenia steru wysokości – wzrasta wymagana siła nośna na płacie – zwiększa się opór indukowany, co negatywnie wpływa na osiągi.",
-      "Ze względu na konieczność mniejszego wychylenia steru wysokości – zmniejsza się siła nośna na usterzeniu, co wymaga zwiększenia siły nosniej na płacie co zmniejsza opór indukowany i ma negatywny wpływ na osiągi.",
-      "Ze względu na konieczność mniejszego wychylenia steru wysokości – spada wymagana siła nośna na płacie – zmniejsza się prędkość przeciągniecia.",
-      "Ze względu na konieczność większego wychylenia steru wysokości – spada wymagana siła nośna na płacie – zwiększa się prędkość przeciągniecia."
+      "Ze względu na konieczność większego wychylenia steru wysokości - wzrasta wymagana siła nośna na płacie - zwiększa się opór indukowany, co negatywnie wpływa na osiągi.",
+      "Ze względu na konieczność mniejszego wychylenia steru wysokości - zmniejsza się siła nośna na usterzeniu, co wymaga zwiększenia siły nosniej na płacie co zmniejsza opór indukowany i ma negatywny wpływ na osiągi.",
+      "Ze względu na konieczność mniejszego wychylenia steru wysokości - spada wymagana siła nośna na płacie - zmniejsza się prędkość przeciągniecia.",
+      "Ze względu na konieczność większego wychylenia steru wysokości - spada wymagana siła nośna na płacie - zwiększa się prędkość przeciągniecia."
     ],
     "licenses": [
       "ppla"
@@ -13990,25 +13522,13 @@
     "external_id": "PL030-0059",
     "question": "Kierunek pasa 040°, wiatr 270 / 18 kt (ATIS). Jakie są składowe wiatru:.",
     "answers": [
-      "W ogon: 12 kt, boczna – z lewej 14 kt.",
-      "Czołowa: 12 kt, boczna – z prawej 14 kt.",
-      "Czołowa: 16 kt, boczna – z prawej 16 kt.",
-      "W ogon: 8 kt, boczna – z lewej 21 kt."
+      "W ogon: 12 kt, boczna - z lewej 14 kt.",
+      "Czołowa: 12 kt, boczna - z prawej 14 kt.",
+      "Czołowa: 16 kt, boczna - z prawej 16 kt.",
+      "W ogon: 8 kt, boczna - z lewej 21 kt."
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL030-0059",
-    "question": "Kierunek pasa 040°, wiatr 270 / 18 kt (ATIS). Jakie są składowe wiatru:.",
-    "answers": [
-      "W ogon: 12 kt, boczna  z lewej 14 kt.",
-      "Czołowa: 12 kt, boczna  z prawej 14 kt.",
-      "Czołowa: 16 kt, boczna  z prawej 16 kt.",
-      "W ogon: 8 kt, boczna  z lewej 21 kt."
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -14016,25 +13536,13 @@
     "external_id": "PL030-0060",
     "question": "Kierunek pasa 150°, wiatr 220 / 22 kt (ATIS). Jakie są składowe wiatru:.",
     "answers": [
-      "Czołowa: 8 kt, boczna – z prawej 21 kt.",
-      "Czołowa: 14 kt, boczna – z prawej 17 kt.",
-      "Czołowa: 4 kt, boczna – z prawej 22 kt.",
-      "W ogon: 8 kt, boczna – z lewej 21 kt."
+      "Czołowa: 8 kt, boczna - z prawej 21 kt.",
+      "Czołowa: 14 kt, boczna - z prawej 17 kt.",
+      "Czołowa: 4 kt, boczna - z prawej 22 kt.",
+      "W ogon: 8 kt, boczna - z lewej 21 kt."
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL030-0060",
-    "question": "Kierunek pasa 150°, wiatr 220 / 22 kt (ATIS). Jakie są składowe wiatru:.",
-    "answers": [
-      "Czołowa: 8 kt, boczna  z prawej 21 kt.",
-      "Czołowa: 14 kt, boczna  z prawej 17 kt.",
-      "Czołowa: 4 kt, boczna  z prawej 22 kt.",
-      "W ogon: 8 kt, boczna  z lewej 21 kt."
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -14042,25 +13550,13 @@
     "external_id": "PL030-0061",
     "question": "Kierunek pasa 200°, wiatr 080 / 13 kt (ATIS). Jakie są składowe wiatru:.",
     "answers": [
-      "W ogon: 7 kt, boczna – z lewej 11 kt.",
-      "Czołowa: 7 kt, boczna – z prawej 11 kt.",
-      "Czołowa: 4 kt, boczna – z prawej 12 kt.",
-      "W ogon: 8 kt, boczna – z lewej 12 kt."
+      "W ogon: 7 kt, boczna - z lewej 11 kt.",
+      "Czołowa: 7 kt, boczna - z prawej 11 kt.",
+      "Czołowa: 4 kt, boczna - z prawej 12 kt.",
+      "W ogon: 8 kt, boczna - z lewej 12 kt."
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL030-0061",
-    "question": "Kierunek pasa 200°, wiatr 080 / 13 kt (ATIS). Jakie są składowe wiatru:.",
-    "answers": [
-      "W ogon: 7 kt, boczna  z lewej 11 kt.",
-      "Czołowa: 7 kt, boczna  z prawej 11 kt.",
-      "Czołowa: 4 kt, boczna  z prawej 12 kt.",
-      "W ogon: 8 kt, boczna  z lewej 12 kt."
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -14068,25 +13564,13 @@
     "external_id": "PL030-0062",
     "question": "Kierunek pasa 220°, wiatr 160 / 26 kt (ATIS). Jakie są składowe wiatru:.",
     "answers": [
-      "Czołowa: 13 kt, boczna – z lewej 23 kt.",
-      "Czołowa: 14 kt, boczna – z prawej 17 kt.",
-      "Czołowa: 9 kt, boczna – z prawej 23 kt.",
-      "W ogon: 13 kt, boczna – z lewej 22 kt."
+      "Czołowa: 13 kt, boczna - z lewej 23 kt.",
+      "Czołowa: 14 kt, boczna - z prawej 17 kt.",
+      "Czołowa: 9 kt, boczna - z prawej 23 kt.",
+      "W ogon: 13 kt, boczna - z lewej 22 kt."
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL030-0062",
-    "question": "Kierunek pasa 220°, wiatr 160 / 26 kt (ATIS). Jakie są składowe wiatru:.",
-    "answers": [
-      "Czołowa: 13 kt, boczna  z lewej 23 kt.",
-      "Czołowa: 14 kt, boczna  z prawej 17 kt.",
-      "Czołowa: 9 kt, boczna  z prawej 23 kt.",
-      "W ogon: 13 kt, boczna  z lewej 22 kt."
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -14094,25 +13578,13 @@
     "external_id": "PL030-0063",
     "question": "Kierunek pasa 330°, wiatr 250 / 15 kt (ATIS). Jakie są składowe wiatru:.",
     "answers": [
-      "Czołowa: 3 kt, boczna – z lewej 15 kt.",
-      "Czołowa: 8 kt, boczna – z lewej 13 kt.",
-      "W ogon: 3 kt, boczna – z lewej 15 kt.",
-      "W ogon: 3 kt, boczna – z prawej 15 kt."
+      "Czołowa: 3 kt, boczna - z lewej 15 kt.",
+      "Czołowa: 8 kt, boczna - z lewej 13 kt.",
+      "W ogon: 3 kt, boczna - z lewej 15 kt.",
+      "W ogon: 3 kt, boczna - z prawej 15 kt."
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL030-0063",
-    "question": "Kierunek pasa 330°, wiatr 250 / 15 kt (ATIS). Jakie są składowe wiatru:.",
-    "answers": [
-      "Czołowa: 3 kt, boczna  z lewej 15 kt.",
-      "Czołowa: 8 kt, boczna  z lewej 13 kt.",
-      "W ogon: 3 kt, boczna  z lewej 15 kt.",
-      "W ogon: 3 kt, boczna  z prawej 15 kt."
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -14176,25 +13648,13 @@
     "external_id": "PL030-0072",
     "question": "Mała wysokość gęstościowa oznacza, że:.",
     "answers": [
-      "Gęstość powietrza jest duża – czyli osiągi samolotu będą lepsze niż w przypadku dużej wysokości gestościowej.",
-      "Gęstość powietrza jest duża – czyli osiągi samolotu będą dużo gorsze niż w przypadku dużej wysokości gestościowej.",
+      "Gęstość powietrza jest duża - czyli osiągi samolotu będą lepsze niż w przypadku dużej wysokości gestościowej.",
+      "Gęstość powietrza jest duża - czyli osiągi samolotu będą dużo gorsze niż w przypadku dużej wysokości gestościowej.",
       "Gęstość powietrza jest mała, co powoduje spadek osiągów samolotu w porównaniu do przypadku dużej wysokości gestościowej.",
       "Gęstość powietrza jest duża, co powoduje spadek osiągów samolotu w porównaniu do przypadku dużej wysokości gestościowej."
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL030-0072",
-    "question": "Mała wysokość gęstościowa oznacza, że:.",
-    "answers": [
-      "Gęstość powietrza jest duża  czyli osiągi samolotu będą lepsze niż w przypadku dużej wysokości gestościowej.",
-      "Gęstość powietrza jest duża  czyli osiągi samolotu będą dużo gorsze niż w przypadku dużej wysokości gestościowej.",
-      "Gęstość powietrza jest mała, co powoduje spadek osiągów samolotu w porównaniu do przypadku dużej wysokości gestościowej.",
-      "Gęstość powietrza jest duża, co powoduje spadek osiągów samolotu w porównaniu do przypadku dużej wysokości gestościowej."
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -14202,8 +13662,8 @@
     "external_id": "PL030-0078",
     "question": "Najbardziej ekonomiczny z punktu widzenia zużycia paliwa / zasięgu kąt natarcia to taki, który wytwarza:.",
     "answers": [
-      "Najlepszy stosunek sił nośnej do oporu – taki najbardziej ekonomiczny kąt natarcia jest stały dla każdej kombinacji wysokości lotu i masy samolotu.",
-      "Najlepszy stosunek sił nośnej do oporu – taki najbardziej ekonomiczny kąt natarcia rośnie wraz z masą samolotu oraz wysokością lotu.",
+      "Najlepszy stosunek sił nośnej do oporu - taki najbardziej ekonomiczny kąt natarcia jest stały dla każdej kombinacji wysokości lotu i masy samolotu.",
+      "Najlepszy stosunek sił nośnej do oporu - taki najbardziej ekonomiczny kąt natarcia rośnie wraz z masą samolotu oraz wysokością lotu.",
       "Najlepszy stosunek siły oporu do ciągu.",
       "Najlepszy stosunek siły nośnej do ciągu."
     ],
@@ -14235,19 +13695,7 @@
       "Aby na statku powietrznym pojawiło się oblodzenie mające wpływ na osiągi musi on poruszać się w chmurach."
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL030-0080",
-    "question": "Odnośnie wpływu oblodzenia na osiągi statków powietrznych prawdą jest, że:.",
-    "answers": [
-      "Nawet drobne zanieczyszczenie typu papier ścierny powierzchni nośnych może mieć niebezpieczny wpływ na osiągi.",
-      "Lód na górnej powierzchni skrzydeł /łopat wirników jest mniej niebezpieczny niż na dolnej.",
-      "Głównym czynnikiem wpływającym na osiągi statków powietrznych jest masa osadzającego się na nich lodu.",
-      "Aby na statku powietrznym pojawiło się oblodzenie mające wpływ na osiągi musi on poruszać się w chmurach."
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -14296,7 +13744,7 @@
   },
   {
     "external_id": "PL030-0088",
-    "question": "Przy starcie z pasa nachylonego - pod górę – przyspieszenie podczas rozbiegu samolotu będzie ... ,a długość rozbiegu ... :.",
+    "question": "Przy starcie z pasa nachylonego - pod górę - przyspieszenie podczas rozbiegu samolotu będzie ... ,a długość rozbiegu ... :.",
     "answers": [
       "Mniejsze, wzrośnie.",
       "Mniejsze, zmniejszy się.",
@@ -14309,7 +13757,7 @@
   },
   {
     "external_id": "PL030-0089",
-    "question": "Przy starcie z pasa o nachyleniu dodatnim – z góry długość rozbiegu samolotu:.",
+    "question": "Przy starcie z pasa o nachyleniu dodatnim - z góry długość rozbiegu samolotu:.",
     "answers": [
       "Zmniejszy się.",
       "Zwiększy się.",
@@ -14442,7 +13890,7 @@
     "question": "Zjawisko polegajce na oblodzeniu statecznika poziomego:.",
     "answers": [
       "Może doprowadzić do przeciągniecia statecznika poziomego i wejście samolotu w niekontrolowane nurkowanie.",
-      "Gdy zaistnieje, wymaga takiego samego działania ze strony pilota – oddania steru od siebie, dodania mocy.",
+      "Gdy zaistnieje, wymaga takiego samego działania ze strony pilota - oddania steru od siebie, dodania mocy.",
       "Występuje tylko na dużych samolotach pasażerskich.",
       "Jest najbardziej niebezpieczne przy dużych prędkościach lotu, kiedy skuteczność sterowania pochyleniem jest największa."
     ],
@@ -15504,7 +14952,7 @@
   },
   {
     "external_id": "PL040-0041",
-    "question": "Co określa uwarunkowania odporności psychicznej człowieka ?",
+    "question": "Co określa uwarunkowania odporności psychicznej człowieka?",
     "answers": [
       "typ temperamentu, typ strategii zachowania i reakcji emocjonalnej w sytuacjach trudnych, dojrzałość osobowości",
       "dobre funkcjonowanie przy wzroście poziomu aktywacji",
@@ -15529,21 +14977,9 @@
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL040-0042",
-    "question": "Co oznacza pojęcie stres lotu?",
-    "answers": [
-      "ważny aspekt początkowego szkolenia lotniczego: ogół sytuacji występującychw warunkach rzeczywistego lotu związanych z napięciem emocjonalnym pilota oraz czynnikami działającymi ze strony środowiska: przyspieszenie, hałas, wibracje, różnice temperatury i ciśnienia",
-      "określenie stanu niepewności, niepokoju i lęku u początkującego pilota",
-      "określa stan obniżonego nastroju u pilota w sytuacji przemęczenia pracą",
-      "określa niechęć do podejmowania obowiązków pilotowania statku powietrznego ściśle związaną z zespołem wypalenia zawodowego"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -15598,28 +15034,16 @@
     "external_id": "PL040-0046",
     "question": "Człowiek wykazuje największą wytrzymałość na przeciążenie działające w kierunku:",
     "answers": [
-      "plecy – klatka piersiowa / Gx + /",
+      "plecy - klatka piersiowa / Gx + /",
       "bok do boku/ Gy-+ /",
       "kończyny dolne - głowa /Gz - /",
-      "głowa – kończyny dolne / Gz + /"
+      "głowa - kończyny dolne / Gz + /"
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL040-0046",
-    "question": "Człowiek wykazuje największą wytrzymałość na przeciążenie działające w kierunku:",
-    "answers": [
-      "plecy  klatka piersiowa / Gx + /",
-      "bok do boku/ Gy-+ /",
-      "kończyny dolne - głowa /Gz - /",
-      "głowa  kończyny dolne / Gz + /"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -15810,20 +15234,8 @@
     "licenses": [
       "ppla",
       "pplh",
+      "bpl",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL040-0059",
-    "question": "Do objawów choroby dekompresyjnej należą:",
-    "answers": [
-      "bóle stawów, bóle zamostkowe, uczucie mrowienia, świąd skóry",
-      "dolegliwości ze strony ucha środkowego",
-      "bóle głowy, mroczki przed oczami, nudności, wymioty",
-      "bóle okolicy lędźwiowo- krzyżowej promieniujące do kończyn dolnych"
-    ],
-    "licenses": [
-      "bpl"
     ]
   },
   {
@@ -15926,10 +15338,10 @@
     "external_id": "PL040-0067",
     "question": "Fizjologiczna częstość oddechów na minutę u człowieka wynosi:",
     "answers": [
-      "14- 16",
-      "8- 10",
-      "5- 7",
-      "20- 30"
+      "14-16",
+      "8-10",
+      "5-7",
+      "20-30"
     ],
     "licenses": [
       "ppla",
@@ -15972,43 +15384,17 @@
   },
   {
     "external_id": "PL040-0070",
-    "question": "Funkcje integracyjne człowieka w układzie sterowania pilot – statek powietrzny obejmują podstawowe procesy :",
+    "question": "Funkcje integracyjne człowieka w układzie sterowania pilot - statek powietrzny obejmują podstawowe procesy :",
     "answers": [
-      "intelektualne, emocjonalno- motywacyjne, orientacji i wykonawcze",
+      "intelektualne, emocjonalno-motywacyjne, orientacji i wykonawcze",
       "złożone procesy myślowe analizy i syntezy",
       "antycypacji, czyli przewidywania biegu wydarzeń",
-      "decyzyjne w sytuacji wyboru – gdy występuje możliwość pojawienia się więcej niż jednej reakcji w danym zadaniu"
+      "decyzyjne w sytuacji wyboru - gdy występuje możliwość pojawienia się więcej niż jednej reakcji w danym zadaniu"
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL040-0070",
-    "question": "Funkcje integracyjne człowieka w układzie sterowania pilot  statek powietrzny obejmują podstawowe procesy :",
-    "answers": [
-      "intelektualne, emocjonalno- motywacyjne, orientacji i wykonawcze",
-      "złożone procesy myślowe analizy i syntezy",
-      "antycypacji, czyli przewidywania biegu wydarzeń",
-      "decyzyjne w sytuacji wyboru  gdy występuje możliwość pojawienia się więcej niż jednej reakcji w danym zadaniu"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
-    ]
-  },
-  {
-    "external_id": "PL040-0071",
-    "question": "Generalizacja bodźca ma miejsce gdy :",
-    "answers": [
-      "podobne bodźce wywołują tę samą reakcję – niesie rozszerzenie reakcji warunkowej",
-      "zupełnie różne bodźce wywołują tę samą reakcję",
-      "następuje uwarunkowanie typu lękowego po jednorazowym zestawieniu bodźca obojętnego z traumatycznym",
-      "reakcja zależności typu : bodziec – reakcja w miarę upływu czasu przestaje zachodzić"
-    ],
-    "licenses": [
-      "ppla",
+      "bpl",
       "spl"
     ]
   },
@@ -16016,14 +15402,16 @@
     "external_id": "PL040-0071",
     "question": "Generalizacja bodźca ma miejsce gdy :",
     "answers": [
-      "podobne bodźce wywołują tę samą reakcję  niesie rozszerzenie reakcji warunkowej",
+      "podobne bodźce wywołują tę samą reakcję - niesie rozszerzenie reakcji warunkowej",
       "zupełnie różne bodźce wywołują tę samą reakcję",
       "następuje uwarunkowanie typu lękowego po jednorazowym zestawieniu bodźca obojętnego z traumatycznym",
-      "reakcja zależności typu : bodziec  reakcja w miarę upływu czasu przestaje zachodzić"
+      "reakcja zależności typu : bodziec - reakcja w miarę upływu czasu przestaje zachodzić"
     ],
     "licenses": [
+      "ppla",
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -16085,21 +15473,9 @@
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL040-0075",
-    "question": "Jaka jest najczęstsza przyczyna pourazowej śmierci do uniknięcia u dorosłego pacjenta po doznanym urazie?",
-    "answers": [
-      "niedrożność dróg oddechowych",
-      "tamponada osierdzia",
-      "wstrząs krwotoczny",
-      "uraz kręgosłupa"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -16193,49 +15569,25 @@
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL040-0084",
-    "question": "Komunikacja niewerbalna czyli tzw. mowa ciała to:",
-    "answers": [
-      "podlegająca kontroli komunikacja bezsłowna oparta na przekazie informacjizawartych w gestach, pozach, mimice i innych zewnętrznie obserwowalnych formach zachowań ludzkich",
-      "wygląd zewnętrzny człowieka i jego komunikatywność",
-      "siła, barwa i tembr głosu oraz intonacja w przekazie werbalnym",
-      "głęboko ukryte, niewypowiedziane myśli i pragnienia człowieka"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
     "external_id": "PL040-0085",
     "question": "Komunikacja werbalna to:",
     "answers": [
-      "proces mówienia – słuchania – zadawania pytań – rozumienia wypowiedzi",
+      "proces mówienia - słuchania - zadawania pytań - rozumienia wypowiedzi",
       "umiejętność rozumienia mowy i wielowymiarowego znaczenia słów",
       "sposób komunikowania się zorganizowanych społeczeństw istot żywych",
       "sygnały związane z mową ciała w połączeniu z wypowiedzianym tekstem"
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL040-0085",
-    "question": "Komunikacja werbalna to:",
-    "answers": [
-      "proces mówienia  słuchania  zadawania pytań  rozumienia wypowiedzi",
-      "umiejętność rozumienia mowy i wielowymiarowego znaczenia słów",
-      "sposób komunikowania się zorganizowanych społeczeństw istot żywych",
-      "sygnały związane z mową ciała w połączeniu z wypowiedzianym tekstem"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -16402,41 +15754,15 @@
     "external_id": "PL040-0096",
     "question": "Który z kierunków działania przyspieszenia jest najgorzej tolerowany:",
     "answers": [
-      "Gz –działanie wzdłuż kręgosłupa w kierunku głowy",
+      "Gz-działanie wzdłuż kręgosłupa w kierunku głowy",
       "+Gxdziałanie wzdłuż kręgosłupa w kierunkupleców, mostka",
       "+Gzdziałanie wzdłuż kręgosłupa w kierunku kończyn dolnych",
       "+Gydziałanie wzdłuż kręgosłupa w kierunku kończyn górnych"
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL040-0096",
-    "question": "Który z kierunków działania przyspieszenia jest najgorzej tolerowany:",
-    "answers": [
-      "Gz działanie wzdłuż kręgosłupa w kierunku głowy",
-      "+Gxdziałanie wzdłuż kręgosłupa w kierunkupleców, mostka",
-      "+Gzdziałanie wzdłuż kręgosłupa w kierunku kończyn dolnych",
-      "+Gydziałanie wzdłuż kręgosłupa w kierunku kończyn górnych"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
-    ]
-  },
-  {
-    "external_id": "PL040-0097",
-    "question": "Który z kierunków przelotu jest najbardziej niekorzystny z punktu widzenia chronobiologii:",
-    "answers": [
-      "zachód – wschód",
-      "północ – południe",
-      "wschód – zachód",
-      "południe – północ"
-    ],
-    "licenses": [
-      "ppla",
+      "bpl",
       "spl"
     ]
   },
@@ -16444,14 +15770,16 @@
     "external_id": "PL040-0097",
     "question": "Który z kierunków przelotu jest najbardziej niekorzystny z punktu widzenia chronobiologii:",
     "answers": [
-      "zachód  wschód",
-      "północ  południe",
-      "wschód  zachód",
-      "południe  północ"
+      "zachód - wschód",
+      "północ - południe",
+      "wschód - zachód",
+      "południe - północ"
     ],
     "licenses": [
+      "ppla",
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -16561,21 +15889,9 @@
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL040-0104",
-    "question": "Łączenie spożycia alkoholu etylowego oraz jego oddziaływania z wykonywaniem lotów stanowi bardzo ryzykowną figurę zwana  śmiertelna pętlą ponieważ:",
-    "answers": [
-      "wywołuje niekorzystne skutki przede wszystkimw ośrodkowym układzie nerwowym, narządzie wzroku, narządzie równowagi /błędnik/",
-      "zwiększa tolerancję przyspieszeń Gz +",
-      "zwiększa sprawność psychomotoryczną pilota",
-      "skraca czas reakcji wzrokowo - ruchowej"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -16614,28 +15930,16 @@
     "external_id": "PL040-0110",
     "question": "Model kolejnych faz psychologicznej reakcji na stres to:",
     "answers": [
-      "mobilizacja – rozstrojenie – destrukcja",
-      "destrukcja – rozstrojenie – mobilizacja",
-      "rozstrojenie – destrukcja mobilizacja",
-      "rozstrojenie- stabilność emocjonalna – mobilizacja"
+      "mobilizacja - rozstrojenie - destrukcja",
+      "destrukcja - rozstrojenie - mobilizacja",
+      "rozstrojenie - destrukcja mobilizacja",
+      "rozstrojenie-stabilność emocjonalna - mobilizacja"
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL040-0110",
-    "question": "Model kolejnych faz psychologicznej reakcji na stres to:",
-    "answers": [
-      "mobilizacja  rozstrojenie  destrukcja",
-      "destrukcja  rozstrojenie  mobilizacja",
-      "rozstrojenie  destrukcja mobilizacja",
-      "rozstrojenie- stabilność emocjonalna  mobilizacja"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -16720,7 +16024,7 @@
   },
   {
     "external_id": "PL040-0117",
-    "question": "Najodpowiedniejsz ą z wymienionych poniżej metodą zapobiegania lotniczej chorobie lokomocyjnej u pilotów jest :",
+    "question": "Najodpowiedniejszą z wymienionych poniżej metodą zapobiegania lotniczej chorobie lokomocyjnej u pilotów jest :",
     "answers": [
       "trening desensytyzacyjny",
       "podawanie leków antychololinoalergicz nych /Scopolamina/",
@@ -16730,20 +16034,8 @@
     "licenses": [
       "ppla",
       "pplh",
+      "bpl",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL040-0117",
-    "question": "Najodpowiedniejszą z wymienionych poniżej metodą zapobiegania lotniczej chorobie lokomocyjnej u pilotów jest :",
-    "answers": [
-      "trening desensytyzacyjny",
-      "podawanie leków antychololinoalergicz nych /Scopolamina/",
-      "podawanie leków antyhistaminowych /Meclizyna, Dimenhydrant/",
-      "zastosowanie nadciśnienia oddechowego"
-    ],
-    "licenses": [
-      "bpl"
     ]
   },
   {
@@ -16928,8 +16220,8 @@
     "answers": [
       "nerwowego",
       "oddechowego",
-      "sercowo- naczyniowego",
-      "mięśniowo- szkieletowego"
+      "sercowo-naczyniowego",
+      "mięśniowo-szkieletowego"
     ],
     "licenses": [
       "ppla",
@@ -16997,21 +16289,9 @@
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL040-0133",
-    "question": "Nieżyt górnych dróg oddechowych /potocznie katar/ utrudnia:",
-    "answers": [
-      "wyrównywanie ciśnienia w uchu środkowym",
-      "dobre widzenie",
-      "rozróżnianie barw",
-      "prawidłową koordynację ruchów"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -17176,7 +16456,7 @@
   },
   {
     "external_id": "PL040-0146",
-    "question": "Oddychanie zewnętrzne – wdech i wydech - polega na wymianie gazów pomiędzy atmosferą pęcherzyków płucnych, a ustrojem człowieka i polega na dyfuzji przez barierę pęcherzykowo – naczyniową:",
+    "question": "Oddychanie zewnętrzne - wdech i wydech - polega na wymianie gazów pomiędzy atmosferą pęcherzyków płucnych, a ustrojem człowieka i polega na dyfuzji przez barierę pęcherzykowo - naczyniową:",
     "answers": [
       "tlenu /O2/ do krwi, a z krwi do atmosfery dwutlenku węgla /CO2/",
       "dwutlenku węgla /CO2/ do krwi, a z krwi do atmosfery tlenu /O2/",
@@ -17185,21 +16465,9 @@
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL040-0146",
-    "question": "Oddychanie zewnętrzne  wdech i wydech - polega na wymianie gazów pomiędzy atmosferą pęcherzyków płucnych, a ustrojem człowieka i polega na dyfuzji przez barierę pęcherzykowo  naczyniową:",
-    "answers": [
-      "tlenu /O2/ do krwi, a z krwi do atmosfery dwutlenku węgla /CO2/",
-      "dwutlenku węgla /CO2/ do krwi, a z krwi do atmosfery tlenu /O2/",
-      "dyfuzja dotyczy tylko tlenu /O2/",
-      "dyfuzja dotyczy tylko dwutlenku węgla /CO2/"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -17412,7 +16680,7 @@
   },
   {
     "external_id": "PL040-0160",
-    "question": "Pilot odniósł obrażenia łokcia. Podczas badania nasuwa się podejrzenie zwichnięcia. Czucie i tętno na obwodzie – zachowane. Co należy zrobić na miejscu wypadku?",
+    "question": "Pilot odniósł obrażenia łokcia. Podczas badania nasuwa się podejrzenie zwichnięcia. Czucie i tętno na obwodzie - zachowane. Co należy zrobić na miejscu wypadku?",
     "answers": [
       "unieruchomić w szynie w pozycji maksymalnego komfortu",
       "umieścić w szynie próżniowej",
@@ -17421,21 +16689,9 @@
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL040-0160",
-    "question": "Pilot odniósł obrażenia łokcia. Podczas badania nasuwa się podejrzenie zwichnięcia. Czucie i tętno na obwodzie  zachowane. Co należy zrobić na miejscu wypadku?",
-    "answers": [
-      "unieruchomić w szynie w pozycji maksymalnego komfortu",
-      "umieścić w szynie próżniowej",
-      "nastawić rękę, stosując wyciąg",
-      "wyprostować rękę , aż pacjent odczuje dyskomfort, następnie zastosować unieruchomienie szynowe"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -17465,21 +16721,9 @@
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL040-0162",
-    "question": "Po kilkunastu sekundach obserwacji stacjonarnego światła na ciemnym tle powierzchni ziemi, pilot odnosi wrażenie jego poruszania. Złudzenie takie nazywamy:",
-    "answers": [
-      "autokinezą",
-      "psychokinezą",
-      "oczopląsem",
-      "kurzą ślepotą"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -17599,26 +16843,14 @@
     "question": "Podczas wykonywania „ pętli„ działa na pilota przyspieszenie o kierunku :",
     "answers": [
       "+Gz",
-      "- Gz",
+      "-Gz",
       "+Gx",
       "- Gx"
     ],
     "licenses": [
       "ppla",
+      "bpl",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL040-0171",
-    "question": "Podczas wykonywania  pętli działa na pilota przyspieszenie o kierunku :",
-    "answers": [
-      "+Gz",
-      "- Gz",
-      "+Gx",
-      "- Gx"
-    ],
-    "licenses": [
-      "bpl"
     ]
   },
   {
@@ -17680,21 +16912,9 @@
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL040-0175",
-    "question": "Podejmowanie decyzji przez człowieka jest :",
-    "answers": [
-      "subiektywne i podatne na błędy, związane ze sposobem formułowania problemu i jego interpretacją oraz rodzajem postaw wobec ryzyka",
-      "zawsze związane z koniecznością przezwyciężenia zjawiska bloku umysłowego",
-      "redukcja rozwiązania złożonych problemów do prostszych cząstkowych operacji",
-      "głównie oparte na bieżącej analizie informacji zdrowotnych związanych z daną podjętą reakcją"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -17829,28 +17049,16 @@
     "external_id": "PL040-0186",
     "question": "Prawidłową pozycją ratownika przy masażu serca jest:",
     "answers": [
-      "dłonie oparte nadgarstkami w 1/3 dolnej mostka, ręce – wyprostowane w łokciach",
+      "dłonie oparte nadgarstkami w 1/3 dolnej mostka, ręce - wyprostowane w łokciach",
       "dłonie oparte palcami w połowie mostka, ręce wyprostowane w łokciach",
       "dłonie oparte palcami w 1/3 dolnej mostka, ręce wyprostowane w łokciach",
       "dłonie oparte nadgarstkami połowie mostka, ręce wyprostowane w łokciach"
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL040-0186",
-    "question": "Prawidłową pozycją ratownika przy masażu serca jest:",
-    "answers": [
-      "dłonie oparte nadgarstkami w 1/3 dolnej mostka, ręce  wyprostowane w łokciach",
-      "dłonie oparte palcami w połowie mostka, ręce wyprostowane w łokciach",
-      "dłonie oparte palcami w 1/3 dolnej mostka, ręce wyprostowane w łokciach",
-      "dłonie oparte nadgarstkami połowie mostka, ręce wyprostowane w łokciach"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -17935,7 +17143,7 @@
   },
   {
     "external_id": "PL040-0193",
-    "question": "Przeciążenia wzdłuż osi ciała mostek- kręgosłup :",
+    "question": "Przeciążenia wzdłuż osi ciała mostek-kręgosłup :",
     "answers": [
       "są najlepiej tolerowane przez organizm ludzki",
       "są najgorzej tolerowane przez organizm ludzki",
@@ -18008,21 +17216,9 @@
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL040-0197",
-    "question": "Przez pojęcie czynnika ludzkiego\" w wypadkach lotniczych należy rozumieć (w znaczeniu szerokim):",
-    "answers": [
-      "nieadekwatne działanie pilota i osób odpowiedzialnychza organizacjei zabezpieczenia wykonywania lotów",
-      "awarię przyrządów pokładowych",
-      "zdarzenie losowe w powietrzu",
-      "utratę orientacji przestrzennej w chmurach"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -18068,21 +17264,9 @@
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL040-0200",
-    "question": "Przy szybkim spadku prędkości samolotu w locie poziomym i prostoliniowym pilot ulega złudzeniu :",
-    "answers": [
-      "opadania samolotu nosem w dół",
-      "podnoszenia nosa samolotu w górę",
-      "rotacji bocznej",
-      "autorotacji"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -18127,19 +17311,7 @@
       "autorotacji"
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL040-0203",
-    "question": "Przy znacznym przyspieszaniu podczas startu samolotu pilot ulega złudzeniu :",
-    "answers": [
-      "podnoszenia nosa samolotu w górę",
-      "opadania samolotu nosem w dół",
-      "rotacji bocznej",
-      "autorotacji"
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -18225,7 +17397,7 @@
   },
   {
     "external_id": "PL040-0209",
-    "question": "Przyspieszenia wyzwalające przeciążenia o kierunku głowa – kończyny dolne określane są jako:",
+    "question": "Przyspieszenia wyzwalające przeciążenia o kierunku głowa - kończyny dolne określane są jako:",
     "answers": [
       "+ Gz",
       "- Gz",
@@ -18234,21 +17406,9 @@
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL040-0209",
-    "question": "Przyspieszenia wyzwalające przeciążenia o kierunku głowa  kończyny dolne określane są jako:",
-    "answers": [
-      "+ Gz",
-      "- Gz",
-      "+Gy",
-      "- Gy"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -18509,28 +17669,16 @@
     "external_id": "PL040-0226",
     "question": "Strefa krytyczna to wysokość :",
     "answers": [
-      "od 6.000 – 8.000 mnpm",
-      "od 2.000 – 4.000 mnpm",
-      "od 4.000 – 6.000 mnpm",
+      "od 6.000 - 8.000 mnpm",
+      "od 2.000 - 4.000 mnpm",
+      "od 4.000 - 6.000 mnpm",
       "powyżej 8.000 mnpm"
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL040-0226",
-    "question": "Strefa krytyczna to wysokość :",
-    "answers": [
-      "od 6.000  8.000 mnpm",
-      "od 2.000  4.000 mnpm",
-      "od 4.000  6.000 mnpm",
-      "powyżej 8.000 mnpm"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -18592,21 +17740,9 @@
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL040-0230",
-    "question": "Stresorami psychologicznymi nazywamy:",
-    "answers": [
-      "czynniki powodujące ogólny stan napięcia organizmu ludzkiego związane ze stanem gotowości do ataku lub ucieczki",
-      "wszelkie zakłócenia fizjologicznego funkcjonowania człowieka",
-      "czynniki powodujące bezsenność",
-      "problemy i kłopoty życia codziennego"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -18778,21 +17914,9 @@
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL040-0245",
-    "question": "U człowieka najsilniejszym dawcą czasu /synchronizatorem rytmów okołodobowych/ jest :",
-    "answers": [
-      "naprzemienność nocy i dnia",
-      "intensywność iluminacji",
-      "czynnik socjalny",
-      "dobowe wahania temperatury zewnętrznej otoczenia"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -18813,7 +17937,7 @@
   },
   {
     "external_id": "PL040-0247",
-    "question": "Uczeń – pilot w porównaniu z pilotem doświadczonym :",
+    "question": "Uczeń - pilot w porównaniu z pilotem doświadczonym :",
     "answers": [
       "potrzebuje więcej czasu na odebranie i przetworzenie informacji, uwzględnia większe ilości danych by poprawnie zorientować się w funkcjonowaniu obiektu sterowania",
       "przetwarzanie informacji jest podobne pod względem jakościowym",
@@ -18822,21 +17946,9 @@
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL040-0247",
-    "question": "Uczeń  pilot w porównaniu z pilotem doświadczonym :",
-    "answers": [
-      "potrzebuje więcej czasu na odebranie i przetworzenie informacji, uwzględnia większe ilości danych by poprawnie zorientować się w funkcjonowaniu obiektu sterowania",
-      "przetwarzanie informacji jest podobne pod względem jakościowym",
-      "potrzebuje mniej czasu na odebranie i przetworzenie informacji z racji szybkiego przetwarzania informacji niepełnej nie obciążony nadmiarem doświadczeń",
-      "nie koncentruje się na informacjach pochodzących z wskazań przyrządów określających parametry lotu"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -18844,7 +17956,7 @@
     "question": "Uczucie lekkości i \"podchodzenia żołądka do gardła\" podczas lotu może być wynikiem :",
     "answers": [
       "działania na organizm przeciążenia ujemnego wzdłuż osi kończyny dolne - głowa",
-      "działania na organizm przeciążenia dodatniego wzdłuż osi kończyny dolne- głowa",
+      "działania na organizm przeciążenia dodatniego wzdłuż osi kończyny dolne-głowa",
       "działania na organizm przeciążenia ujemnego wzdłuż osi bocznej ciała",
       "działania na organizm przeciążenia dodatniego wzdłuż osi bocznej ciała"
     ],
@@ -18875,7 +17987,7 @@
     "external_id": "PL040-0250",
     "question": "Uczucie silnego bólu głowy sprawiający wrażenie rozsadzania głowy jest spowodowany przez :",
     "answers": [
-      "przeciążenie ujemne /Gz - /",
+      "przeciążenie ujemne /Gz -/",
       "spadek temperatury",
       "hałas",
       "przeciążenie dodatnie / Gz+ /"
@@ -18907,7 +18019,7 @@
     "external_id": "PL040-0252",
     "question": "Ujemne skutki działania przeciążeń dodatnich na organizm człowieka mogą być niwelowane przez:",
     "answers": [
-      "poprawę sprawności fizycznej, a szczególnie wydolności sercowo- naczyniowej",
+      "poprawę sprawności fizycznej, a szczególnie wydolności sercowo-naczyniowej",
       "zażywanie silnych leków nasercowych",
       "stosowanie leków psychoaktywnych",
       "stosowanie alkoholu"
@@ -19019,28 +18131,16 @@
     "external_id": "PL040-0260",
     "question": "Uraz ciśnieniowy ucha zwany barotraumą spowodowany jest:",
     "answers": [
-      "brakiem możliwości wyrównania ciśnień –jama bębenkowa – atmosfera",
+      "brakiem możliwości wyrównania ciśnień-jama bębenkowa - atmosfera",
       "niedotlenieniem wysokościowym",
       "obniżeniem ciśnienia atmosferycznego",
       "spadkiem temperatury powietrza"
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL040-0260",
-    "question": "Uraz ciśnieniowy ucha zwany barotraumą spowodowany jest:",
-    "answers": [
-      "brakiem możliwości wyrównania ciśnień jama bębenkowa  atmosfera",
-      "niedotlenieniem wysokościowym",
-      "obniżeniem ciśnienia atmosferycznego",
-      "spadkiem temperatury powietrza"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -19622,21 +18722,9 @@
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL040-0303",
-    "question": "Wskaż prawdziwe twierdzenie dotyczące bezpieczeństwa lotów :",
-    "answers": [
-      "po umiarkowanym spożyciu alkoholu obowiązuje zasada 24 godzinnej przerwypo ostatnim drinku zanim rozpocznie się lot",
-      "w przypadku utrzymywania się objawów kaca\" wolno zasiadać za sterami, nawet gdy stężenie alkoholu we krwi jest poniżej progu trzeźwości",
-      "alkohol zwiększa zdolność mózgu do zużycia tlenu, szczególnie w czasie pobytu na znacznych wysokościach",
-      "po małym drinku /piwo, kieliszek wódki/ nie ma przeciwwskazań do wykonywania lotów"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -19923,20 +19011,8 @@
     "licenses": [
       "ppla",
       "pplh",
+      "bpl",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL040-0322",
-    "question": "Zażycie amfetaminy powoduje:",
-    "answers": [
-      "nienaturalne, silne aktywizowane pobudzenie psychiczne i fizyczne z tendencją do zachowań brawurowych i agresywnych, gadatliwość (czasem słowotok), brak łaknienia, poty, poszerzone źrenice",
-      "nie są obserwowalne objawy zewnętrzne",
-      "apatia, wyciszenie, spowolnienie psychomotoryki, źrenice zwężone",
-      "silne halucynacje wzrokowo- słuchowe, ataki lęku"
-    ],
-    "licenses": [
-      "bpl"
     ]
   },
   {
@@ -20254,21 +19330,9 @@
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL050-0001",
-    "question": "Deszcz przechłodzony występuje, gdy:",
-    "answers": [
-      "Temperatura cząsteczek wody jest niższa od 0°C z zachowaniem stanu ciekłego",
-      "Temperatura cząsteczek wody jest wyższa od 0°C",
-      "Temperatura cząsteczek wody jest wyższa od temperatury powietrza otaczającego",
-      "Temperatura cząsteczek jest taka sama jak temperatura powietrza otaczającego"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -20609,40 +19673,14 @@
     "question": "Front chłodny przyspieszony przemieszcza się z prędkością:",
     "answers": [
       "Około 60 - 80 km/h",
-      "90 – 100 km/h",
-      "5 – 10 km/h",
-      "20 – 40 km/h"
+      "90 - 100 km/h",
+      "5 - 10 km/h",
+      "20 - 40 km/h"
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL050-0031",
-    "question": "Front chłodny przyspieszony przemieszcza się z prędkością:",
-    "answers": [
-      "Około 60 - 80 km/h",
-      "90  100 km/h",
-      "5  10 km/h",
-      "20  40 km/h"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
-    ]
-  },
-  {
-    "external_id": "PL050-0032",
-    "question": "Front ciepły przemieszcza się z prędkością:",
-    "answers": [
-      "20 – 40 km/h",
-      "10 – 15 km/h",
-      "5 – 10 km/h",
-      "40 – 45 km/h"
-    ],
-    "licenses": [
-      "ppla",
+      "bpl",
       "spl"
     ]
   },
@@ -20650,14 +19688,16 @@
     "external_id": "PL050-0032",
     "question": "Front ciepły przemieszcza się z prędkością:",
     "answers": [
-      "20  40 km/h",
-      "10  15 km/h",
-      "5  10 km/h",
-      "40  45 km/h"
+      "20 - 40 km/h",
+      "10 - 15 km/h",
+      "5 - 10 km/h",
+      "40 - 45 km/h"
     ],
     "licenses": [
+      "ppla",
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -21498,7 +20538,7 @@
     "answers": [
       "Temperatura punktu rosy",
       "Temperatura parowania",
-      "0<sup>°</sup>C",
+      "0°C",
       "Temperatura powietrza suchego"
     ],
     "licenses": [
@@ -21855,21 +20895,9 @@
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL050-0127",
-    "question": "Zjawisko Bryza powstaje:",
-    "answers": [
-      "W rejonie brzegu morskiego",
-      "Na obszarach górzystych i pagórkowatych",
-      "W rejonie Górnego Śląska",
-      "W rejonie Jury Częstochowskiej"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -21919,7 +20947,7 @@
   },
   {
     "external_id": "PL050-0131",
-    "question": "Gradient sucho- adiabatyczny wynosi:",
+    "question": "Gradient sucho-adiabatyczny wynosi:",
     "answers": [
       "1°C/100 m",
       "1,2°C/100 m",
@@ -22131,7 +21159,7 @@
   },
   {
     "external_id": "PL050-0150",
-    "question": "Średnia wartość gradientu wilgotno- adiabatycznego wynosi:",
+    "question": "Średnia wartość gradientu wilgotno-adiabatycznego wynosi:",
     "answers": [
       "0,6°/100 m",
       "1°/100 m",
@@ -22148,26 +21176,14 @@
     "answers": [
       "Inwersja",
       "Izoterma",
-      "Spadek temperatury mniejszy od 0,2<sup>°</sup>C/10 0m",
-      "Spadek temperatury 0,65<sup>°</sup>/10 0m"
+      "Spadek temperatury mniejszy od 0,2°C/100m",
+      "Spadek temperatury 0,65°/100m"
     ],
     "licenses": [
       "ppla",
       "pplh",
+      "bpl",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL050-0151",
-    "question": "Temperatura na wysokości 500 m może być wyższa od przyziemnej, gdy występuje:",
-    "answers": [
-      "Inwersja",
-      "Izoterma",
-      "Spadek temperatury mniejszy od 0,2<sup>°</sup>C/1 00m",
-      "Spadek temperatury 0,65<sup>°</sup>/1 00m"
-    ],
-    "licenses": [
-      "bpl"
     ]
   },
   {
@@ -22175,8 +21191,8 @@
     "question": "Termika naniesiona powstaje przy napływie:",
     "answers": [
       "Powietrza arktycznego lub polarno-morskiego",
-      "Powietrza polarno- kontynentalnego",
-      "Powietrza zwrotnikowo- kontynentalnego",
+      "Powietrza polarno-kontynentalnego",
+      "Powietrza zwrotnikowo-kontynentalnego",
       "Powietrza równikowego"
     ],
     "licenses": [
@@ -22282,25 +21298,13 @@
     "external_id": "PL050-0161",
     "question": "JET-STREAM jest to:",
     "answers": [
-      "Niezbyt gruba ok. 2 km i wąska strefa bardzo silnych wiatrów występująca na poziomie 9 – 12 km",
+      "Niezbyt gruba ok. 2 km i wąska strefa bardzo silnych wiatrów występująca na poziomie 9 - 12 km",
       "Wiatr lokalny występujący na terenach gór",
       "Wiatr wiejący z prędkością przewyższającą 120 km/h",
       "Wiatr towarzyszący silnemu wyładowaniu atmosferycznemu"
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL050-0161",
-    "question": "JET-STREAM jest to:",
-    "answers": [
-      "Niezbyt gruba ok. 2 km i wąska strefa bardzo silnych wiatrów występująca na poziomie 9  12 km",
-      "Wiatr lokalny występujący na terenach gór",
-      "Wiatr wiejący z prędkością przewyższającą 120 km/h",
-      "Wiatr towarzyszący silnemu wyładowaniu atmosferycznemu"
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -22309,24 +21313,12 @@
     "question": "JET-STREAM osiąga maksymalnie:",
     "answers": [
       "Ok. 500 km/h",
-      "400 – 450 km/h",
-      "600 – 700 km/h",
-      "650 – 700 km/h"
+      "400 - 450 km/h",
+      "600 - 700 km/h",
+      "650 - 700 km/h"
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL050-0162",
-    "question": "JET-STREAM osiąga maksymalnie:",
-    "answers": [
-      "Ok. 500 km/h",
-      "400  450 km/h",
-      "600  700 km/h",
-      "650  700 km/h"
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -23161,21 +22153,9 @@
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL060-0035",
-    "question": "Kąt znoszenia to:",
-    "answers": [
-      "Kąt zawarty pomiędzy nakazaną linią drogi a kursem statku powietrznego.",
-      "Kąt zawarty między północnym kierunkiem południka a linią drogi.",
-      "Kąt zawarty między kierunkiem \"\"dokąd wieje wiatr\"\" a północą magnetyczną.",
-      "Kąt zawarty między podłużną osią statku powietrznego a kierunkiem skąd wieje wiatr"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -23246,25 +22226,13 @@
     "external_id": "PL060-0040",
     "question": "Kody specjalne modu A transpondera to:",
     "answers": [
-      "7500 - Porwanie; 7600 - Utrata łączności; 7700 – Sytuacja awaryjna",
+      "7500 - Porwanie; 7600 - Utrata łączności; 7700 - Sytuacja awaryjna",
       "7500 - Sytuacje awaryjne; 7600 - Utrata łączności; 7700 - Porwanie",
       "7500 - Porwanie; 7600 - Stuacje awaryjne; 7700 - Utrata łączności",
       "żadna z odpowiedzi nie jest prawdziwa"
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL060-0040",
-    "question": "Kody specjalne modu A transpondera to:",
-    "answers": [
-      "7500 - Porwanie; 7600 - Utrata łączności; 7700  Sytuacja awaryjna",
-      "7500 - Sytuacje awaryjne; 7600 - Utrata łączności; 7700 - Porwanie",
-      "7500 - Porwanie; 7600 - Stuacje awaryjne; 7700 - Utrata łączności",
-      "żadna z odpowiedzi nie jest prawdziwa"
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -23380,7 +22348,7 @@
   },
   {
     "external_id": "PL060-0056",
-    "question": "Majac dane: kurs rzeczywisty 200 stopni, deklinacja 10 stopni W, dewiacja -4 stopni, podaj kurs busoli",
+    "question": "Majac dane: kurs rzeczywisty 200 stopni, deklinacja 10 stopni W, dewiacja-4 stopni, podaj kurs busoli",
     "answers": [
       "214 stopni",
       "186 stopni",
@@ -23565,21 +22533,9 @@
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL060-0069",
-    "question": "Pod określeniem węzeł [w] rozumiemy:",
-    "answers": [
-      "NM/h",
-      "Milę lądową/h",
-      "km/h",
-      "m/h"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -23998,10 +22954,10 @@
     "external_id": "PL060-0097",
     "question": "Deklinacja = 3°E, NKDM = 188°, KB = 190°. Wartości NKDG i Dewiacji wynoszą odpowiednio",
     "answers": [
-      "191°, - 2°",
-      "185°, - 2°",
+      "191°, -2°",
+      "185°, -2°",
       "194°, +4°",
-      "189°, - 3°"
+      "189°, -3°"
     ],
     "licenses": [
       "ppla",
@@ -24164,7 +23120,7 @@
   },
   {
     "external_id": "PL060-0120",
-    "question": "Gdzie w samolocie montuje się detektor pola magnetycznego dla busoli magnetycznej ?",
+    "question": "Gdzie w samolocie montuje się detektor pola magnetycznego dla busoli magnetycznej?",
     "answers": [
       "w miejscu, gdzie nie ma żadnych obwodów elektrycznych powodujących dewiację.",
       "Ułatwienie dostępu do urządzenia i zwiększenie dostępności na oddziaływanie ziemskiego pola magnetycznego",
@@ -24699,8 +23655,8 @@
     "question": "Przy założeniu, że magnetyczny kąt drogi od RUDKA do SIE wynosi 233° a od SIE do RUDKA 053° to statek powietrzny, który przeleciał punkt RUDKA w kierunku SIE w warunkach bezwietrznych leci:",
     "answers": [
       "Z kursem 233°, z magnetycznym kątem drogi 233°, na radialu 053° od VOR-a SIE.",
-      "Z kursem 233°, z magnetycznym kątem drogi 053°, na radialu 053° od VOR- a SIE.",
-      "Z kursem 233°, z magnetycznym kątem drogi 233°, na radialu 233° od VOR- a SIE.",
+      "Z kursem 233°, z magnetycznym kątem drogi 053°, na radialu 053° od VOR-a SIE.",
+      "Z kursem 233°, z magnetycznym kątem drogi 233°, na radialu 233° od VOR-a SIE.",
       "żadna z odpowiedzi nie jest prawdziwa"
     ],
     "licenses": [
@@ -24923,19 +23879,7 @@
       "nowe zezwolenie na przelot inną trasą"
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL060-0221",
-    "question": "Skrót RVR oznacza:",
-    "answers": [
-      "widzialność na drodze startowej",
-      "prosimy o wektorowanie radarowe",
-      "meldunek o widzialności drogi startowej",
-      "nowe zezwolenie na przelot inną trasą"
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -24949,19 +23893,7 @@
       "standardowy meldunek o opadach i zaleganiu śniegu"
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL060-0222",
-    "question": "Skrót SSR oznacza:",
-    "answers": [
-      "wtórny radar dozorowania",
-      "radar poszukiwawczy i dozorujący",
-      "wytrzymałość nawierzchni drogi startowej",
-      "standardowy meldunek o opadach i zaleganiu śniegu"
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -25182,7 +24114,7 @@
     "question": "VOR jest radionawigacyjnym systemem:",
     "answers": [
       "kątowym",
-      "odległościowo- kątowym,",
+      "odległościowo-kątowym,",
       "odległościowym,",
       "hiperbolicznym"
     ],
@@ -25229,19 +24161,7 @@
       "w modzie ”B”"
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL060-0252",
-    "question": "W jakim modzie wysyłane jest zapytanie o wysokość?",
-    "answers": [
-      "w modzie \"\"C\"\"",
-      "w modzie \"\"3/A\"\"",
-      "w modzie \"\"D\"\"",
-      "w modzie B"
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -25574,20 +24494,8 @@
     ],
     "licenses": [
       "ppla",
+      "pplh",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL070-0011",
-    "question": "Incydentem lotniczym jest zdarzenie związane z eksploatacją statku powietrznego inne niż wypadek lotniczy, które",
-    "answers": [
-      "ma lub mogłoby mieć niekorzystny wpływ na bezpieczeństwo eksploatacji.",
-      "zakończyło się bez konsekwencji uszczerbku na zdrowiu załogi i/lub pasażerów",
-      "zakłóciło bezpieczne wykonanie lotu.",
-      "przyczyniło się do przerwania zadania."
-    ],
-    "licenses": [
-      "pplh"
     ]
   },
   {
@@ -25601,20 +24509,8 @@
     ],
     "licenses": [
       "ppla",
+      "pplh",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL070-0012",
-    "question": "Poważnym incydentem lotniczym jest incydent, którego okoliczności wskazują, że",
-    "answers": [
-      "nieomal doszło do wypadku lotniczego.",
-      "uszkodzenia statku powietrznego są nieznaczne.",
-      "osoby biorące udział w zdarzeniu są tylko lekko ranne.",
-      "Statek powietrzny lądował w terenie przygodnym bez uszkodzeń."
-    ],
-    "licenses": [
-      "pplh"
     ]
   },
   {
@@ -25858,25 +24754,13 @@
     "answers": [
       "Pisemne sprawozdanie o zdarzeniu w ciągu 10 dni",
       "Pisemne sprawozdanie o zdarzeniu w ciągu 14 dni",
-      "Ustne – telefoniczne sprawozdanie po lądowaniu w miejscu docelowym",
+      "Ustne - telefoniczne sprawozdanie po lądowaniu w miejscu docelowym",
       "Nie składa dodatkowych wyjaśnień."
     ],
     "licenses": [
       "ppla",
+      "pplh",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL070-0030",
-    "question": "Po naruszeniu przepisów lotniczych w celu opanowania sytuacji zagrażającej bezpieczeństwu statku powietrznego dowódca statku powietrznego jest zobowiązany o tym powiadomić właściwy organ państwa, którego przepisy zostały naruszone i jeżeli przepisy tego wymagają złożyć organowi, który otrzymał zawiadomienie:",
-    "answers": [
-      "Pisemne sprawozdanie o zdarzeniu w ciągu 10 dni",
-      "Pisemne sprawozdanie o zdarzeniu w ciągu 14 dni",
-      "Ustne  telefoniczne sprawozdanie po lądowaniu w miejscu docelowym",
-      "Nie składa dodatkowych wyjaśnień."
-    ],
-    "licenses": [
-      "pplh"
     ]
   },
   {
@@ -25899,7 +24783,7 @@
     "answers": [
       "Prawie lotniczym",
       "PL - 2",
-      "JAR- ach",
+      "JAR-ach",
       "PL - 6"
     ],
     "licenses": [
@@ -26194,20 +25078,8 @@
     ],
     "licenses": [
       "ppla",
+      "pplh",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL070-0053",
-    "question": "Do zestawu pierwszej pomocy powinien być dołączony:",
-    "answers": [
-      "podręcznik pierwszej pomocy i zestaw sygnałów zgodny z Aneksem 12 ICAO (ground-air visual signal code for use by survivors)",
-      "jedynie podręcznik pierwszej pomocy",
-      "podręcznik pierwszej pomocy i pełny tekst Aneksu 6 ICAO",
-      "Aneks 12 ICAO"
-    ],
-    "licenses": [
-      "pplh"
     ]
   },
   {
@@ -26221,20 +25093,8 @@
     ],
     "licenses": [
       "ppla",
+      "pplh",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL070-0054",
-    "question": "Przepisy dotyczące sygnałów, stosowanych w akcjach poszukiwawczo - ratowniczych znajdują się w:",
-    "answers": [
-      "Aneksie 12 ICAO",
-      "Aneksie 6 ICAO",
-      "Aneksie 2 ICAO",
-      "AIP Polska, rozdz. ENR1 Przepisy i Procedury Ogólne"
-    ],
-    "licenses": [
-      "pplh"
     ]
   },
   {
@@ -26486,19 +25346,7 @@
       "na stronach internetowych organizacji lotniczych"
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL070-0073",
-    "question": "Dyrektywy Operacyjne, wydawane przez Prezesa ULC, zabraniające, ograniczające lub poddające działalność lotniczą określonym warunkom w interesie bezpieczeństwa lotów, są publikowane w:",
-    "answers": [
-      "Dzienniku Urzędowym Urzędu Lotnictwa Cywilnego",
-      "Dzienniku Ustaw",
-      "miesięczniku Przegląd Lotniczy",
-      "na stronach internetowych organizacji lotniczych"
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -26638,7 +25486,7 @@
   },
   {
     "external_id": "PL070-0099",
-    "question": "Lot balonem w celach sportowych bez urządzenia do magazynowania i rozdzielania tlenu może być wykonywany na wysokości gdzie ciśnienie jest niższe od 700 hPa lecz wyższe niż 620 hPa (3000  4000 m) jeśli nie jest dłuższy niż:",
+    "question": "Lot balonem w celach sportowych bez urządzenia do magazynowania i rozdzielania tlenu może być wykonywany na wysokości gdzie ciśnienie jest niższe od 700 hPa lecz wyższe niż 620 hPa (3000 - 4000 m) jeśli nie jest dłuższy niż:",
     "answers": [
       "2 godziny",
       "5 godzin",
@@ -26653,7 +25501,7 @@
     "external_id": "PL070-0100",
     "question": "Czyszczenie układu sterowania palnikiem i dysz zgodnie z instrukcją balonu może wykonać:",
     "answers": [
-      "Pilot  właściciel jeśli posiada ważną licencję pilota odpowiedniego typu lub kategorii lub mechanik poświadczania obsługi technicznej",
+      "Pilot - właściciel jeśli posiada ważną licencję pilota odpowiedniego typu lub kategorii lub mechanik poświadczania obsługi technicznej",
       "Tylko mechanik poświadczania obsługi technicznej",
       "Tylko mechanik pod nadzorem inspektora Kontroli cywilnych statków powietrznych",
       "Tylko zakład naprawczy certyfikowany przez producenta"
@@ -26898,7 +25746,7 @@
   },
   {
     "external_id": "PL070-0119",
-    "question": "Pilot  właściciel może dokonać ograniczonej obsługi technicznej jeśli:",
+    "question": "Pilot - właściciel może dokonać ograniczonej obsługi technicznej jeśli:",
     "answers": [
       "Posiada ważną licencję pilota odpowiedniego typu lub kategorii",
       "Jest właścicielem balonu dłużej niż rok",
@@ -27010,7 +25858,7 @@
     "answers": [
       "- zastosować usterzenia typu T; - starannie opracować przejście skrzydło-kadłub",
       "- zastosować usterzenia typu T; - zastosować klapkę wyważającą",
-      "- zastosować klapkę wyważającą; - starannie opracować przejście skrzydło- kadłub",
+      "- zastosować klapkę wyważającą; - starannie opracować przejście skrzydło-kadłub",
       "- zwiększyć sztywność giętną usterzenia; - zwiększyć sztywność skrętną usterzenia"
     ],
     "licenses": [
@@ -27022,27 +25870,15 @@
     "external_id": "PL080-0007",
     "question": "Aerodynamiczna krawędź natarcia to linia łącząca punkty płata lotniczego w których:",
     "answers": [
-      "prędkość strumienia jest równa zeru, a ciśnienie – ciśnieniu spiętrzenia",
+      "prędkość strumienia jest równa zeru, a ciśnienie - ciśnieniu spiętrzenia",
       "prędkość strumienia jest równa zeru",
       "ciśnienie jest większe od ciśnienia spiętrzenia",
       "prędkość strumienia jest równa zeru, a ciśnienie osiąga wartość minimalną"
     ],
     "licenses": [
       "ppla",
+      "pplh",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL080-0007",
-    "question": "Aerodynamiczna krawędź natarcia to linia łącząca punkty płata lotniczego w których:",
-    "answers": [
-      "prędkość strumienia jest równa zeru, a ciśnienie  ciśnieniu spiętrzenia",
-      "prędkość strumienia jest równa zeru",
-      "ciśnienie jest większe od ciśnienia spiętrzenia",
-      "prędkość strumienia jest równa zeru, a ciśnienie osiąga wartość minimalną"
-    ],
-    "licenses": [
-      "pplh"
     ]
   },
   {
@@ -27050,7 +25886,7 @@
     "question": "Brak wyważenia masowego lotek na dużych prędkościach lotu jest bezpośrednią przyczyną występowania:",
     "answers": [
       "flatteru lotkowego",
-      "flatteru giętno- skrętnego",
+      "flatteru giętno-skrętnego",
       "odwrotnego działania lotek",
       "dywergencji skrętnej skrzydła"
     ],
@@ -27064,7 +25900,7 @@
     "question": "Buffeting to inaczej:",
     "answers": [
       "trzepotanie usterzeń",
-      "drgania giętno- skrętne",
+      "drgania giętno-skrętne",
       "flatter lotkowy",
       "flatter usterzenia"
     ],
@@ -27084,47 +25920,23 @@
     ],
     "licenses": [
       "ppla",
+      "pplh",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL080-0010",
-    "question": "Ciało porusza się po okręgu z prędkością &upsilon;. Jeżeli zwiększymy dwukrotnie prędkość ciała to:",
-    "answers": [
-      "-prędkość kątowa &omega; wzrośnie dwukrotnie - przyśpieszenie dośrodkowe \"ar\" wzrośnie czterokrotnie",
-      "-prędkość kątowa &omega; wzrośnie dwukrotnie - przyśpieszenie dośrodkowe \"ar\" wzrośnie dwukrotnie",
-      "-prędkość kątowa &omega; wzrośnie czterokrotnie - przyśpieszenie dośrodkowe \"ar\" wzrośnie czterokrotnie",
-      "-prędkość kątowa &omega; wzrośnie czterokrotnie - przyśpieszenie dośrodkowe \"ar\" wzrośnie dwukrotnie"
-    ],
-    "licenses": [
-      "pplh"
     ]
   },
   {
     "external_id": "PL080-0011",
     "question": "Ciało porusza się po okręgu z prędkością ‘&upsilon;’. Jeżeli zwiększymy dwukrotnie promień okręgu to:",
     "answers": [
-      "-prędkość kątowa ‘&omega;’ zmaleje dwukrotnie -droga przebyta przez ciało w czasie okresu ‘T’ wzrośnie dwukrotnie - przyśpieszenie dośrodkowe ‘ar’ zmaleje dwukrotnie",
-      "-prędkość kątowa ‘&omega;’ zmaleje dwukrotnie -droga przebyta przez ciało w czasie okresu ‘T’ zmaleje dwukrotnie - przyśpieszenie dośrodkowe ‘ar’ zmaleje dwukrotnie",
-      "-prędkość kątowa ‘&omega;’ zmaleje dwukrotnie -droga przebyta przez ciało w czasie okresu ‘T’ wzrośnie dwukrotnie -przyśpieszenie dośrodkowe ‘ar’ wzrośnie dwukrotnie",
-      "-prędkość kątowa ‘&omega;’ zmaleje dwukrotnie -droga przebyta przez ciało w czasie okresu \"T\" wzrośnie dwukrotnie -przyśpieszenie dośrodkowe ‘ar’ nie zmieni się"
+      "-prędkość kątowa ‘&omega;’ zmaleje dwukrotnie-droga przebyta przez ciało w czasie okresu ‘T’ wzrośnie dwukrotnie - przyśpieszenie dośrodkowe ‘ar’ zmaleje dwukrotnie",
+      "-prędkość kątowa ‘&omega;’ zmaleje dwukrotnie-droga przebyta przez ciało w czasie okresu ‘T’ zmaleje dwukrotnie - przyśpieszenie dośrodkowe ‘ar’ zmaleje dwukrotnie",
+      "-prędkość kątowa ‘&omega;’ zmaleje dwukrotnie-droga przebyta przez ciało w czasie okresu ‘T’ wzrośnie dwukrotnie-przyśpieszenie dośrodkowe ‘ar’ wzrośnie dwukrotnie",
+      "-prędkość kątowa ‘&omega;’ zmaleje dwukrotnie-droga przebyta przez ciało w czasie okresu \"T\" wzrośnie dwukrotnie-przyśpieszenie dośrodkowe ‘ar’ nie zmieni się"
     ],
     "licenses": [
       "ppla",
+      "pplh",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL080-0011",
-    "question": "Ciało porusza się po okręgu z prędkością &upsilon;. Jeżeli zwiększymy dwukrotnie promień okręgu to:",
-    "answers": [
-      "-prędkość kątowa &omega; zmaleje dwukrotnie -droga przebyta przez ciało w czasie okresu T wzrośnie dwukrotnie - przyśpieszenie dośrodkowe ar zmaleje dwukrotnie",
-      "-prędkość kątowa &omega; zmaleje dwukrotnie -droga przebyta przez ciało w czasie okresu T zmaleje dwukrotnie - przyśpieszenie dośrodkowe ar zmaleje dwukrotnie",
-      "-prędkość kątowa &omega; zmaleje dwukrotnie -droga przebyta przez ciało w czasie okresu T wzrośnie dwukrotnie -przyśpieszenie dośrodkowe ar wzrośnie dwukrotnie",
-      "-prędkość kątowa &omega; zmaleje dwukrotnie -droga przebyta przez ciało w czasie okresu \"T\" wzrośnie dwukrotnie -przyśpieszenie dośrodkowe ar nie zmieni się"
-    ],
-    "licenses": [
-      "pplh"
     ]
   },
   {
@@ -27138,20 +25950,8 @@
     ],
     "licenses": [
       "ppla",
+      "pplh",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL080-0012",
-    "question": "Ciało porusza się ze stałą prędkością &upsilon; po okręgu o promieniu R. Wypadkowy wektor przyśpieszenia działającego na to ciało jest zawsze skierowany:",
-    "answers": [
-      "w stronę środka okręgu",
-      "na zewnątrz okręgu",
-      "skoro prędkość &upsilon; jest stała, to na ciało nie działa żadne przyśpieszenie",
-      "stycznie do okręgu"
-    ],
-    "licenses": [
-      "pplh"
     ]
   },
   {
@@ -27171,7 +25971,7 @@
   },
   {
     "external_id": "PL080-0015",
-    "question": "Co jest „równanie stanu powietrza” ?",
+    "question": "Co jest „równanie stanu powietrza”?",
     "answers": [
       "Związek między ciśnieniem statycznym, gęstością, temperaturą i stałą gazową powietrza p = &rho;.g.R.T [Pa]",
       "Związek istniejący pomiędzy ciśnieniem powietrza i jego temperaturą.",
@@ -27180,25 +25980,13 @@
     ],
     "licenses": [
       "ppla",
+      "pplh",
       "spl"
     ]
   },
   {
-    "external_id": "PL080-0015",
-    "question": "Co jest równanie stanu powietrza ?",
-    "answers": [
-      "Związek między ciśnieniem statycznym, gęstością, temperaturą i stałą gazową powietrza p = &rho;.g.R.T [Pa]",
-      "Związek istniejący pomiędzy ciśnieniem powietrza i jego temperaturą.",
-      "Równanie określające równowagę między ciśnieniem powietrza i jego wilgotnością.",
-      "Równanie określające równowagę między ciśnieniem powietrza i przyspieszeniem ziemskim."
-    ],
-    "licenses": [
-      "pplh"
-    ]
-  },
-  {
     "external_id": "PL080-0016",
-    "question": "Co się rozumie pod pojęciem „sterowności” obiektu latającego (samolotu, śmigłowca, szybowca, lotni etc) ?",
+    "question": "Co się rozumie pod pojęciem „sterowności” obiektu latającego (samolotu, śmigłowca, szybowca, lotni etc)?",
     "answers": [
       "Zdolność do „odpowiadania” przez obiekt na zadawane przez pilota impulsy sterujące.",
       "Zapewnianie możliwości wykonywania manewrów akrobatycznych.",
@@ -27207,20 +25995,8 @@
     ],
     "licenses": [
       "ppla",
+      "pplh",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL080-0016",
-    "question": "Co się rozumie pod pojęciem sterowności obiektu latającego (samolotu, śmigłowca, szybowca, lotni etc) ?",
-    "answers": [
-      "Zdolność do odpowiadania przez obiekt na zadawane przez pilota impulsy sterujące.",
-      "Zapewnianie możliwości wykonywania manewrów akrobatycznych.",
-      "Zapewnianie uzyskiwania osiągów przewidzianych projektem obiektu.",
-      "Zapewnienie, że obiekt jest stateczny statycznie i dynamicznie."
-    ],
-    "licenses": [
-      "pplh"
     ]
   },
   {
@@ -27234,20 +26010,8 @@
     ],
     "licenses": [
       "ppla",
+      "pplh",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL080-0017",
-    "question": "Co to jest ciśnienie spiętrzeniowe?",
-    "answers": [
-      "różnica ciśnienia dynamicznego i ciśnienia statycznego",
-      "najwyższe zmierzone ciśnienie",
-      "najniższe zmierzone ciśnienie",
-      "suma ciśnienia dynamicznego i statycznego"
-    ],
-    "licenses": [
-      "pplh"
     ]
   },
   {
@@ -27261,20 +26025,8 @@
     ],
     "licenses": [
       "ppla",
+      "pplh",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL080-0018",
-    "question": "Co to jest opływ laminarny?",
-    "answers": [
-      "niezaburzony opływ od krawędzi natarcia do punktu przejściowego",
-      "opływ niezaburzony wzdłuż całej cięciwy, ze strugami powietrza przylegającymi do profilu",
-      "opływ zaburzony (turbulentny) wzdłuż całej cięciwy profilu",
-      "opływ zaburzony (turbulentny) wzdłuż całej cięciwy profilu, ale z zachowaniem przylegania strug do profilu"
-    ],
-    "licenses": [
-      "pplh"
     ]
   },
   {
@@ -27288,20 +26040,8 @@
     ],
     "licenses": [
       "ppla",
+      "pplh",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL080-0019",
-    "question": "Co to jest pułap teoretyczny statku powietrznego (śmigłowca, samolotu, szybowca etc)?",
-    "answers": [
-      "Największa wysokość na którą teoretycznie statek powietrzny może się wznieść.",
-      "Pułap obliczony w projekcie konstrukcyjnym statku powietrznego.",
-      "Wysokość, na której statek powietrzny dysponuje jeszcze prędkością wznoszenia 0,5 m/s.",
-      "Wysokość granicy atmosfery otaczającej Ziemię."
-    ],
-    "licenses": [
-      "pplh"
     ]
   },
   {
@@ -27315,25 +26055,13 @@
     ],
     "licenses": [
       "ppla",
+      "pplh",
       "spl"
     ]
   },
   {
-    "external_id": "PL080-0020",
-    "question": "Co to jest stateczność statyczna obiektu (samolotu, śmigłowca, szybowca, lotni etc)?",
-    "answers": [
-      "Istnienie tendencji (w postaci działania siły lub momentu) do powrotu do równowagi po wytrąceniu z niej.",
-      "Stan równowagi spoczynkowej.",
-      "Brak reakcji na zakłócenia równowagi.",
-      "Wykonywanie przez obiekt statecznych wahań wokół osi poprzecznej."
-    ],
-    "licenses": [
-      "pplh"
-    ]
-  },
-  {
     "external_id": "PL080-0021",
-    "question": "Co to jest „środek parcia profilu” ?",
+    "question": "Co to jest „środek parcia profilu”?",
     "answers": [
       "Wyobrażalny punkt na cięciwie profilu, w którym działa wypadkowa wszystkich sił aerodynamicznych występujących na profilu",
       "Punkt przyłożenia oporu.",
@@ -27342,20 +26070,8 @@
     ],
     "licenses": [
       "ppla",
+      "pplh",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL080-0021",
-    "question": "Co to jest środek parcia profilu ?",
-    "answers": [
-      "Wyobrażalny punkt na cięciwie profilu, w którym działa wypadkowa wszystkich sił aerodynamicznych występujących na profilu",
-      "Punkt przyłożenia oporu.",
-      "Punkt, w którym wielkość ciśnienia jest średnia.",
-      "Środek długości cięciwy profilu."
-    ],
-    "licenses": [
-      "pplh"
     ]
   },
   {
@@ -27369,20 +26085,8 @@
     ],
     "licenses": [
       "ppla",
+      "pplh",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL080-0022",
-    "question": "Co to jest warstwa przyścienna?",
-    "answers": [
-      "Warstwa powietrza opływającego dowolny element statku powietrznego, w której prędkość zmienia się od zera do prędkości opływu",
-      "Obszar zawirowań powstających w okolicy mocowania elementów struktury statku powietrznego do ściany kadłuba",
-      "Część strumienia powietrza opływającego tę część statku powietrznego, na której występuje cyrkulacja",
-      "Część strumienia powietrza, która zmienia charakter z laminarnego na turbulentny"
-    ],
-    "licenses": [
-      "pplh"
     ]
   },
   {
@@ -27526,24 +26230,12 @@
       "Nie.",
       "Tak.",
       "Stateczność statyczna dla stateczności dynamicznej nie ma znaczenia.",
-      "Obiekt-stałopłat – tak, obiekt-wiropłat – nie."
+      "Obiekt-stałopłat - tak, obiekt-wiropłat - nie."
     ],
     "licenses": [
       "ppla",
+      "pplh",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL080-0032",
-    "question": "Czy obiekt (samolot, śmigłowiec, szybowiec, lotnia etc) niestateczny statycznie może być stateczny dynamicznie?",
-    "answers": [
-      "Nie.",
-      "Tak.",
-      "Stateczność statyczna dla stateczności dynamicznej nie ma znaczenia.",
-      "Obiekt-stałopłat  tak, obiekt-wiropłat  nie."
-    ],
-    "licenses": [
-      "pplh"
     ]
   },
   {
@@ -27568,24 +26260,12 @@
       "Stateczność statyczna uwzględnia tylko tendencję do powrotu do równowagi, stateczność dynamiczna uwzględnia charakter ruchu obiektu.",
       "Nie ma żadnej różnicy, zjawisko jest to samo, tylko inne nazwy.",
       "Wymienione stateczności różnią się ważnością, ważniejsza jest stateczność dynamiczna..",
-      "Stateczność statyczna dotyczy równowagi na ziemi, stateczność dynamiczna – równowagi w locie."
+      "Stateczność statyczna dotyczy równowagi na ziemi, stateczność dynamiczna - równowagi w locie."
     ],
     "licenses": [
       "ppla",
+      "pplh",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL080-0035",
-    "question": "Czym się różnią stateczność statyczna i stateczność dynamiczna obiektu (samolotu, śmigłowca, szybowca, lotni etc)?",
-    "answers": [
-      "Stateczność statyczna uwzględnia tylko tendencję do powrotu do równowagi, stateczność dynamiczna uwzględnia charakter ruchu obiektu.",
-      "Nie ma żadnej różnicy, zjawisko jest to samo, tylko inne nazwy.",
-      "Wymienione stateczności różnią się ważnością, ważniejsza jest stateczność dynamiczna..",
-      "Stateczność statyczna dotyczy równowagi na ziemi, stateczność dynamiczna  równowagi w locie."
-    ],
-    "licenses": [
-      "pplh"
     ]
   },
   {
@@ -27599,20 +26279,8 @@
     ],
     "licenses": [
       "ppla",
+      "pplh",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL080-0036",
-    "question": "Czym się wyraża niestateczność statyczna obiektu (samolotu, śmigłowca, szybowca, lotni etc)?",
-    "answers": [
-      "Istnieniem tendencji (w postaci działania siły lub momentu) do pogłębiania odejścia od stanu równowagi po wytrąceniu z niej.",
-      "Brakiem jakiejkolwiek reakcji obiektu na wytrącenie go z równowagi.",
-      "Wykonywaniem przez obiekt statecznych wahań wokół osi poprzecznej.",
-      "Stanem równowagi spoczynkowej."
-    ],
-    "licenses": [
-      "pplh"
     ]
   },
   {
@@ -27626,20 +26294,8 @@
     ],
     "licenses": [
       "ppla",
+      "pplh",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL080-0037",
-    "question": "Czym się wyraża stateczność statyczna obojętna obiektu (samolotu, śmigłowca, szybowca, lotni etc)?",
-    "answers": [
-      "Brakiem jakiejkolwiek reakcji obiektu na wytrącenie go z równowagi.",
-      "Istnieniem tendencji (w postaci działania siły lub momentu) do powrotu do równowagi po wytrąceniu z niej.",
-      "Wykonywaniem przez obiekt statecznych wahań wokół osi poprzecznej.",
-      "Stanem równowagi spoczynkowej."
-    ],
-    "licenses": [
-      "pplh"
     ]
   },
   {
@@ -28020,7 +26676,7 @@
   },
   {
     "external_id": "PL080-0065",
-    "question": "Jak w jednostkach podstawowych układu SI można zapisać wielkość ciśnienia 1000 hPa ?",
+    "question": "Jak w jednostkach podstawowych układu SI można zapisać wielkość ciśnienia 1000 hPa?",
     "answers": [
       "100000 N/m?",
       "1000000 N/m?",
@@ -28101,25 +26757,13 @@
     ],
     "licenses": [
       "ppla",
+      "pplh",
       "spl"
     ]
   },
   {
-    "external_id": "PL080-0072",
-    "question": "Jaka wzorcowa wielkość ciśnienia powietrza na poziomie morza wyrażona w starych jednostkach milimetrów słupa rtęci odpowiada po = 1013,25 hPa?.",
-    "answers": [
-      "760 mm Hg.",
-      "800 mm Hg",
-      "750 mm Hg",
-      "860 mm Hg"
-    ],
-    "licenses": [
-      "pplh"
-    ]
-  },
-  {
     "external_id": "PL080-0073",
-    "question": "Jaką nazwę nosi stosunek ciśnienia statycznego na dowolnej wysokości do wzorcowego ciśnienia na poziomie morza &delta; = p/ po ?",
+    "question": "Jaką nazwę nosi stosunek ciśnienia statycznego na dowolnej wysokości do wzorcowego ciśnienia na poziomie morza &delta; = p/ po?",
     "answers": [
       "ciśnienie względne.",
       "ciśnienie standardowe",
@@ -28143,20 +26787,8 @@
     ],
     "licenses": [
       "ppla",
+      "pplh",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL080-0074",
-    "question": "Jaką nazwę nosi stosunek gęstości powietrza na dowolnej wysokości do wzorcowej (standardowej) gęstości na poziomie morza σ = ρ/ ρo?",
-    "answers": [
-      "Gęstość powietrza względna.",
-      "Stała Laplacea",
-      "Współczynnik M&amp;S",
-      "Współczynnik Piccarda."
-    ],
-    "licenses": [
-      "pplh"
     ]
   },
   {
@@ -28170,20 +26802,8 @@
     ],
     "licenses": [
       "ppla",
+      "pplh",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL080-0075",
-    "question": "Jaką nazwę nosi stosunek temperatury powietrza na dowolnej wysokości, wyrażonej w Kelwinach (K), do wzorcowej temperatury na poziomie morza, również wyrażonej w Kelwinach (K) &Theta; = T/To?",
-    "answers": [
-      "Bezwymiarowa temperatura względna.",
-      "Temperatura absolutna.",
-      "Stała don Pedra.",
-      "Współczynnik dAmorea"
-    ],
-    "licenses": [
-      "pplh"
     ]
   },
   {
@@ -28361,20 +26981,8 @@
     ],
     "licenses": [
       "ppla",
+      "pplh",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL080-0088",
-    "question": "Jedną z miar stateczności dynamicznej obiektu (samolotu, śmigłowca, szybowca, lotni etc) jest czas połówkowy. Co to jest za wielkość?",
-    "answers": [
-      "Czas jaki upływa od odchylenia od równowagi o jakąś wielkość do chwili zmalenia tego odchylenia do połowy (50%).",
-      "Czas połowy okresu wahań fugoidalnych wywołanych odchyleniem.",
-      "Czas połowy okresu drgań flatterowych wywołanych wytrąceniem z równowagi.",
-      "Czas połowy okresu własnych drgań konstrukcji (struktury) obiektu."
-    ],
-    "licenses": [
-      "pplh"
     ]
   },
   {
@@ -28497,7 +27105,7 @@
   },
   {
     "external_id": "PL080-0098",
-    "question": "Kąt natarcia płata o profilu wklęsło- wypukłym, dla którego nie powstaje opór indukowany ma wartość:",
+    "question": "Kąt natarcia płata o profilu wklęsło-wypukłym, dla którego nie powstaje opór indukowany ma wartość:",
     "answers": [
       "ujemną",
       "dodatnią",
@@ -28687,10 +27295,10 @@
     "external_id": "PL080-0112",
     "question": "Który opis wielkości fizycznej charakteryzuje energię potencjalną?",
     "answers": [
-      "- iloczyn ciężaru i wysokości ciała- jednostka dżul [J]",
-      "- iloczyn masy i wysokości ciała- jednostka dżul [J]",
-      "- iloczyn ciężaru i wysokości ciała- jednostka wat [W]",
-      "- iloczyn masy i wysokości ciała- jednostka wat [W]"
+      "- iloczyn ciężaru i wysokości ciała-jednostka dżul [J]",
+      "- iloczyn masy i wysokości ciała-jednostka dżul [J]",
+      "- iloczyn ciężaru i wysokości ciała-jednostka wat [W]",
+      "- iloczyn masy i wysokości ciała-jednostka wat [W]"
     ],
     "licenses": [
       "ppla",
@@ -28810,20 +27418,8 @@
     ],
     "licenses": [
       "ppla",
+      "pplh",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL080-0124",
-    "question": "Maksymalna dopuszczalna prędkość lotu VNE to:",
-    "answers": [
-      "największa prędkość, z jaką można wykonywać lot w powietrzu spokojnym",
-      "prędkość, do jakiej nie przewiduje się ograniczeń użytkowania statku powietrznego zgodnie z jego przeznaczeniem",
-      "maksymalna prędkość, przy której można jeszcze użyć pełnych wychyleń sterów bez przekroczenia maksymalnego przeciążenia",
-      "maksymalna prędkość lotu w atmosferze, w której dochodzi do gwałtownych zmian prędkości pionowej otaczającego powietrza"
-    ],
-    "licenses": [
-      "pplh"
     ]
   },
   {
@@ -29613,7 +28209,7 @@
     "question": "Przyczyną zjawiska trzepotania usterzeń jest wystąpienie:",
     "answers": [
       "rezonansu pomiędzy drganiami zaburzonych strug zaskrzydłowych z drganiami własnymi powierzchni sterowych",
-      "drgań giętno- skrętnych usterzenia",
+      "drgań giętno-skrętnych usterzenia",
       "flatteru usterzenia",
       "zjawiska zwanego dywergencją skrętną usterzenia"
     ],
@@ -30000,27 +28596,15 @@
     "external_id": "PL080-0216",
     "question": "Średnie przyśpieszenie kątowe ‘&epsilon;śr’ w ruchu obrotowym jest:",
     "answers": [
-      "-wprost proporcjonalne do przyrostu prędkości kątowej w czasie pomiaru -odwrotnie proporcjonalne do czasu pomiaru",
-      "-wprost proporcjonalne do przyrostu prędkości kątowej w czasie pomiaru -wprost proporcjonalne do czasu pomiaru",
-      "-odwrotnie proporcjonalne do przyrostu prędkości kątowej w czasie pomiaru -odwrotnie proporcjonalna do czasu pomiaru",
-      "-odwrotnie proporcjonalne do przyrostu prędkości kątowej w czasie pomiaru -wprost proporcjonalne do czasu pomiaru"
+      "-wprost proporcjonalne do przyrostu prędkości kątowej w czasie pomiaru-odwrotnie proporcjonalne do czasu pomiaru",
+      "-wprost proporcjonalne do przyrostu prędkości kątowej w czasie pomiaru-wprost proporcjonalne do czasu pomiaru",
+      "-odwrotnie proporcjonalne do przyrostu prędkości kątowej w czasie pomiaru-odwrotnie proporcjonalna do czasu pomiaru",
+      "-odwrotnie proporcjonalne do przyrostu prędkości kątowej w czasie pomiaru-wprost proporcjonalne do czasu pomiaru"
     ],
     "licenses": [
       "ppla",
+      "pplh",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL080-0216",
-    "question": "Średnie przyśpieszenie kątowe &epsilon;śr w ruchu obrotowym jest:",
-    "answers": [
-      "-wprost proporcjonalne do przyrostu prędkości kątowej w czasie pomiaru -odwrotnie proporcjonalne do czasu pomiaru",
-      "-wprost proporcjonalne do przyrostu prędkości kątowej w czasie pomiaru -wprost proporcjonalne do czasu pomiaru",
-      "-odwrotnie proporcjonalne do przyrostu prędkości kątowej w czasie pomiaru -odwrotnie proporcjonalna do czasu pomiaru",
-      "-odwrotnie proporcjonalne do przyrostu prędkości kątowej w czasie pomiaru -wprost proporcjonalne do czasu pomiaru"
-    ],
-    "licenses": [
-      "pplh"
     ]
   },
   {
@@ -30084,7 +28668,7 @@
     "question": "Trzepotanie usterzeń to inaczej:",
     "answers": [
       "buffeting",
-      "drgania giętno- skrętne",
+      "drgania giętno-skrętne",
       "flatter lotkowy",
       "flatter usterzenia"
     ],
@@ -30140,7 +28724,7 @@
     "question": "W celu zlikwidowania momentu oporowego lotek z reguły stosuje się:",
     "answers": [
       "różnicowe wychylenie lotek",
-      "dodatkowe wychylenia klapo- lotek",
+      "dodatkowe wychylenia klapo-lotek",
       "wychylenie lotek o dokładnie ten sam kąt",
       "jak najmniejsze wychylenia lotek"
     ],
@@ -30282,24 +28866,12 @@
     "question": "W rozwiązaniu konwencjonalnym usterzenie pionowe składa się ze:",
     "answers": [
       "-statecznika pionowego stanowiącego przednią, nieruchomą część-steru kierunku stanowiącego tylną ruchomą część",
-      "-statecznika pionowego stanowiącego przednią, nieruchomą część- steru wysokości stanowiącego tylną ruchomą część",
-      "-statecznika pionowego stanowiącego tylną, nieruchomą część- steru kierunku stanowiącego przednią ruchomą część",
+      "-statecznika pionowego stanowiącego przednią, nieruchomą część-steru wysokości stanowiącego tylną ruchomą część",
+      "-statecznika pionowego stanowiącego tylną, nieruchomą część-steru kierunku stanowiącego przednią ruchomą część",
       "-statecznika pionowego stanowiącego przednią, ruchomą część-steru kierunku stanowiącego tylną nieruchomą część"
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL080-0235",
-    "question": "W rozwiązaniu konwencjonalnym usterzenie pionowe składa się ze:",
-    "answers": [
-      "-statecznika pionowego stanowiącego przednią, nieruchomą część- steru kierunku stanowiącego tylną ruchomą część",
-      "-statecznika pionowego stanowiącego przednią, nieruchomą część- steru wysokości stanowiącego tylną ruchomą część",
-      "-statecznika pionowego stanowiącego tylną, nieruchomą część- steru kierunku stanowiącego przednią ruchomą część",
-      "-statecznika pionowego stanowiącego przednią, ruchomą część-steru kierunku stanowiącego tylną nieruchomą część"
-    ],
-    "licenses": [
+      "ppla",
       "spl"
     ]
   },
@@ -30453,24 +29025,12 @@
       "zawsze maleje",
       "zawsze rośnie",
       "nie zmienia się",
-      "maleje - jeżeli temperatura maleje, a rośnie – jeżeli temperatura wzrasta"
+      "maleje - jeżeli temperatura maleje, a rośnie - jeżeli temperatura wzrasta"
     ],
     "licenses": [
       "ppla",
+      "pplh",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL080-0250",
-    "question": "Wraz ze wzrostem wysokości gęstość powietrza:",
-    "answers": [
-      "zawsze maleje",
-      "zawsze rośnie",
-      "nie zmienia się",
-      "maleje - jeżeli temperatura maleje, a rośnie  jeżeli temperatura wzrasta"
-    ],
-    "licenses": [
-      "pplh"
     ]
   },
   {
@@ -30587,7 +29147,7 @@
   },
   {
     "external_id": "PL080-0260",
-    "question": "Wykresy jakich zależności dla profilu symetrycznego są osiowosymetryczne ?",
+    "question": "Wykresy jakich zależności dla profilu symetrycznego są osiowosymetryczne?",
     "answers": [
       "Cx = f(&alpha;), Cz = f(Cx)",
       "tylko Cx = f(&alpha;)",
@@ -30863,7 +29423,7 @@
   },
   {
     "external_id": "PL080-0285",
-    "question": "Dla opisania ruchów statku powietrznego (samolotu, śmigłowca, szybowca etc) w przestrzeni stosowany jest układ osi współrzędnych x- y- z. Jakie oznaczenie nosi oś pionowa?",
+    "question": "Dla opisania ruchów statku powietrznego (samolotu, śmigłowca, szybowca etc) w przestrzeni stosowany jest układ osi współrzędnych x-y-z. Jakie oznaczenie nosi oś pionowa?",
     "answers": [
       "z",
       "x",
@@ -30877,7 +29437,7 @@
   },
   {
     "external_id": "PL080-0286",
-    "question": "Dla opisania ruchów statku powietrznego (samolotu, śmigłowca, szybowca etc) w przestrzeni stosowany jest układ osi współrzędnych x- y- z. Jakie oznaczenie nosi oś podłużna?",
+    "question": "Dla opisania ruchów statku powietrznego (samolotu, śmigłowca, szybowca etc) w przestrzeni stosowany jest układ osi współrzędnych x-y-z. Jakie oznaczenie nosi oś podłużna?",
     "answers": [
       "x",
       "y",
@@ -30891,7 +29451,7 @@
   },
   {
     "external_id": "PL080-0287",
-    "question": "Dla opisania ruchów statku powietrznego (samolotu, śmigłowca, szybowca etc) w przestrzeni stosowany jest układ osi współrzędnych x- y- z. Jakie oznaczenie nosi oś poprzeczna?",
+    "question": "Dla opisania ruchów statku powietrznego (samolotu, śmigłowca, szybowca etc) w przestrzeni stosowany jest układ osi współrzędnych x-y-z. Jakie oznaczenie nosi oś poprzeczna?",
     "answers": [
       "y",
       "x",
@@ -31282,10 +29842,10 @@
     "external_id": "PL080-0325",
     "question": "Przyrost momentu pochylającego szybowiec ‘&Delta;M’ powstały w wyniku wychylenia drążka wynosi &Delta;M = &Delta;Pzh*1h, gdzie:",
     "answers": [
-      "lH – odległość między środkiem ciężkości szybowca i środkiem aerodynamicznym usterzenia poziomego &Delta;PZH – przyrost siły nośnej na usterzeniu wysokości",
-      "lH – odległość między środkiem aerodynamicznym skrzydła i środkiem aerodynamicznym usterzenia poziomego &Delta;PZH – przyrost siły nośnej na usterzeniu wysokości",
-      "lH – odległość między środkiem aerodynamicznym skrzydła i środkiem aerodynamicznym usterzenia poziomego &Delta;PZH – przyrost siły aerodynamicznej na usterzeniu wysokości",
-      "lH – odległość między środkiem ciężkości szybowca i środkiem aerodynamicznym usterzenia poziomego &Delta;PZH – przyrost siły aerodynamicznej na usterzeniu wysokości"
+      "lH - odległość między środkiem ciężkości szybowca i środkiem aerodynamicznym usterzenia poziomego &Delta;PZH - przyrost siły nośnej na usterzeniu wysokości",
+      "lH - odległość między środkiem aerodynamicznym skrzydła i środkiem aerodynamicznym usterzenia poziomego &Delta;PZH - przyrost siły nośnej na usterzeniu wysokości",
+      "lH - odległość między środkiem aerodynamicznym skrzydła i środkiem aerodynamicznym usterzenia poziomego &Delta;PZH - przyrost siły aerodynamicznej na usterzeniu wysokości",
+      "lH - odległość między środkiem ciężkości szybowca i środkiem aerodynamicznym usterzenia poziomego &Delta;PZH - przyrost siły aerodynamicznej na usterzeniu wysokości"
     ],
     "licenses": [
       "spl"
@@ -31335,7 +29895,7 @@
     "question": "Stateczność dynamiczna podłużna zależy głównie od:",
     "answers": [
       "- rozkładu mas na szybowcu; - wielkości statecznika poziomego; - odległości środka aerodynamicznego usterzenia poziomego od środka ciężkości szybowca",
-      "- rozkładu mas na szybowcu; - wielkości statecznika poziomego; - wielkości usterzenia pionowego",
+      "- rozkładu mas na szybowcu; -wielkości statecznika poziomego; - wielkości usterzenia pionowego",
       "- wielkości statecznika poziomego; - wielkości usterzenia pionowego; - odległości środka aerodynamicznego usterzenia poziomego od środka ciężkości szybowca",
       "- wielkości usterzenia pionowego; - odległości środka aerodynamicznego usterzenia poziomego od środka ciężkości szybowca; - rozkładu mas na szybowcu"
     ],
@@ -31605,12 +30165,12 @@
   },
   {
     "external_id": "PL080-0353",
-    "question": "W jakim profilu wywoływana zmianami kąta natarcia wędrówka środka parcia jest najmniejsza ?",
+    "question": "W jakim profilu wywoływana zmianami kąta natarcia wędrówka środka parcia jest najmniejsza?",
     "answers": [
       "w profilu symetrycznym",
       "w profilu laminarnym",
       "w profilu niesymetrycznym",
-      "w profilu wklęsło- wypukłym"
+      "w profilu wklęsło-wypukłym"
     ],
     "licenses": [
       "spl"
@@ -31839,7 +30399,7 @@
   },
   {
     "external_id": "PL080-0380",
-    "question": "Czy między sterownością i statecznością obiektu latającego (samolotu, śmigłowca, lotni etc) istnieją jakieś wzajemne relacje ?",
+    "question": "Czy między sterownością i statecznością obiektu latającego (samolotu, śmigłowca, lotni etc) istnieją jakieś wzajemne relacje?",
     "answers": [
       "Działają przeciw sobie",
       "Współdziałają",
@@ -32086,7 +30646,7 @@
   },
   {
     "external_id": "PL080-0411",
-    "question": "Kiedy kąt natarcia śmigła &alpha;=0° ?",
+    "question": "Kiedy kąt natarcia śmigła &alpha;=0°?",
     "answers": [
       "wtedy, kiedy poślizg śmigła S=0",
       "wtedy, kiedy prędkość samolotu &nu;=0",
@@ -32192,10 +30752,10 @@
     "external_id": "PL080-0425",
     "question": "Który opis wielkości fizycznej charakteryzuje moc, którą dysponujemy?",
     "answers": [
-      "- stosunek ilości wykonanej pracy do czasu jej wykonywania- jednostka wat [W]",
-      "- iloczyn ilości wykonanej pracy i czasu jej wykonywania- jednostka wat [W]",
-      "- stosunek ilości wykonanej pracy do czasu jej wykonywania- jednostka dżul [J]",
-      "- iloczyn ilości wykonanej pracy i czasu jej wykonywania- jednostka dżul [J]"
+      "- stosunek ilości wykonanej pracy do czasu jej wykonywania-jednostka wat [W]",
+      "- iloczyn ilości wykonanej pracy i czasu jej wykonywania-jednostka wat [W]",
+      "- stosunek ilości wykonanej pracy do czasu jej wykonywania-jednostka dżul [J]",
+      "- iloczyn ilości wykonanej pracy i czasu jej wykonywania-jednostka dżul [J]"
     ],
     "licenses": [
       "ppla"
@@ -32205,10 +30765,10 @@
     "external_id": "PL080-0426",
     "question": "Który opis wielkości fizycznej charakteryzuje wykonaną pracę?",
     "answers": [
-      "- iloczyn siły i drogi- jednostka dżul [J]",
-      "- iloraz siły i drogi- jednostka dżul [J]",
-      "- iloczyn siły i drogi- jednostka wat [W]",
-      "- iloraz siły i drogi- jednostka wat [W]"
+      "- iloczyn siły i drogi-jednostka dżul [J]",
+      "- iloraz siły i drogi-jednostka dżul [J]",
+      "- iloczyn siły i drogi-jednostka wat [W]",
+      "- iloraz siły i drogi-jednostka wat [W]"
     ],
     "licenses": [
       "ppla"
@@ -32245,7 +30805,7 @@
     "question": "Miarą stateczności statycznej jest pochodna Mx = dM/dx, zwana „pochodną momentu M względem zmiennej x”. Jaki znak pochodnej określa niestateczność?",
     "answers": [
       "Dodatni (+)",
-      "Ujemny (- )",
+      "Ujemny (-)",
       "Znak nie ma znaczenia.",
       "Zależy od zmiennej x."
     ],
@@ -32569,10 +31129,10 @@
     "external_id": "PL080-0470",
     "question": "Przyrost momentu pochylającego samolot ‘&Delta;M’ powstały w wyniku wychylenia drążka wynosi &Delta;M = &Delta;Pzh * 1h, gdzie:",
     "answers": [
-      "lH – odległość między środkiem ciężkości samolotu i środkiem aerodynamicznym usterzenia poziomego; &Delta;PZH – przyrost siły nośnej na usterzeniu wysokości",
-      "lH – odległość między środkiem aerodynamicznym skrzydła i środkiem aerodynamicznym usterzenia poziomego; &Delta;PZH – przyrost siły nośnej na usterzeniu wysokości",
-      "lH – odległość między środkiem aerodynamicznym skrzydła i środkiem aerodynamicznym usterzenia poziomego; &Delta;PZH – przyrost siły aerodynamicznej na usterzeniu wysokości",
-      "lH – odległość między środkiem ciężkości samolotu i środkiem aerodynamicznym usterzenia poziomego; &Delta;PZH – przyrost siły aerodynamicznej na usterzeniu wysokości"
+      "lH - odległość między środkiem ciężkości samolotu i środkiem aerodynamicznym usterzenia poziomego; &Delta;PZH - przyrost siły nośnej na usterzeniu wysokości",
+      "lH - odległość między środkiem aerodynamicznym skrzydła i środkiem aerodynamicznym usterzenia poziomego; &Delta;PZH - przyrost siły nośnej na usterzeniu wysokości",
+      "lH - odległość między środkiem aerodynamicznym skrzydła i środkiem aerodynamicznym usterzenia poziomego; &Delta;PZH - przyrost siły aerodynamicznej na usterzeniu wysokości",
+      "lH - odległość między środkiem ciężkości samolotu i środkiem aerodynamicznym usterzenia poziomego; &Delta;PZH - przyrost siły aerodynamicznej na usterzeniu wysokości"
     ],
     "licenses": [
       "ppla"
@@ -32595,7 +31155,7 @@
     "external_id": "PL080-0472",
     "question": "Samolot leci w poziomie na prędkości ekonomicznej. W celu ustaleniu lotu poziomego z prędkością minimalną należy:",
     "answers": [
-      "-zwiększyć kąt natarcia- zwiększyć moc silnika",
+      "-zwiększyć kąt natarcia-zwiększyć moc silnika",
       "-zwiększyć kąt natarcia-nie zmieniać mocy silnika",
       "-zwiększyć kąt natarcia-zmniejszyć moc silnika",
       "-nie zmieniać kąta natarcia-zmniejszyć moc silnika"
@@ -33167,10 +31727,10 @@
     "external_id": "PL080-0532",
     "question": "Zwiększenie obciążenia jednostkowego powierzchni powoduje:",
     "answers": [
-      "- wydłużenie długości startu i lądowania- wzrost prędkości minimalnej- spadek maksymalnej prędkości wznoszenia",
-      "- skrócenie długości startu i lądowania- wzrost prędkości minimalnej- spadek maksymalnej prędkości wznoszenia",
-      "- wydłużenie długości startu i lądowania- spadek prędkości minimalnej- spadek maksymalnej prędkości wznoszenia",
-      "- wydłużenie długości startu i lądowania- wzrost prędkości minimalnej- wzrost maksymalnej prędkości wznoszenia"
+      "- wydłużenie długości startu i lądowania-wzrost prędkości minimalnej-spadek maksymalnej prędkości wznoszenia",
+      "- skrócenie długości startu i lądowania-wzrost prędkości minimalnej-spadek maksymalnej prędkości wznoszenia",
+      "- wydłużenie długości startu i lądowania-spadek prędkości minimalnej-spadek maksymalnej prędkości wznoszenia",
+      "- wydłużenie długości startu i lądowania-wzrost prędkości minimalnej-wzrost maksymalnej prędkości wznoszenia"
     ],
     "licenses": [
       "ppla"
@@ -33313,7 +31873,7 @@
       "rosną",
       "Maleją",
       "nie zmieniają się",
-      "rosną, ale tylko w zakresie temperatur 100 [K]  135 [K]"
+      "rosną, ale tylko w zakresie temperatur 100 [K] - 135 [K]"
     ],
     "licenses": [
       "bpl"
@@ -33326,7 +31886,7 @@
       "maleją",
       "Rosną",
       "nie zmieniają się",
-      "maleją, ale tylko w zakresie temperatur 115 [K]  130 [K]"
+      "maleją, ale tylko w zakresie temperatur 115 [K] - 130 [K]"
     ],
     "licenses": [
       "bpl"
@@ -33401,7 +31961,7 @@
     "external_id": "PL080-0693",
     "question": "Ciśnienie w układzie SI wyrażane jest w:",
     "answers": [
-      "Pascalach  [Pa]",
+      "Pascalach - [Pa]",
       "Milimetrach słupa rtęci - [mmHg]",
       "Belach - [b]",
       "Amperach - [A]"
@@ -33612,21 +32172,9 @@
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL090-0004",
-    "question": "Literę O wymawia się jako:",
-    "answers": [
-      "Oscar",
-      "Ontario",
-      "Oklahoma",
-      "Ohio"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -33640,21 +32188,9 @@
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL090-0005",
-    "question": "Literę F wymawia się jako:",
-    "answers": [
-      "Foxtrot",
-      "Fox",
-      "Frank",
-      "Florida"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -33668,21 +32204,9 @@
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL090-0006",
-    "question": "Literę R wymawia się jako:",
-    "answers": [
-      "Romeo",
-      "Radio",
-      "Roger",
-      "Rover"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -33824,21 +32348,9 @@
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL090-0015",
-    "question": "Treść korespondencji od stacji naziemnej zawierająca zezwolenia, instrukcje, parametry lotu i inne ważne informacje winna być:",
-    "answers": [
-      "Potwierdzona przez pilota poprzez powtórzenie całości korespondencji i podanie swojego znaku wywoławczego",
-      "Powinna być potwierdzona sformułowaniem Roger lub Zrozumiałem",
-      "Nie wymaga potwierdzenia",
-      "Pilot decyduje o sposobie potwierdzenia odebrania korespondencji"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -33884,26 +32396,14 @@
     ],
     "licenses": [
       "ppla",
+      "pplh",
+      "bpl",
       "spl"
     ]
   },
   {
-    "external_id": "PL090-0018",
-    "question": "Nadawanie  na ślepo to:",
-    "answers": [
-      "Procedura specjalna w przypadku braku odbioru ze stacji, z którą chcemy się skomunikować polegająca na dwukrotnym przekazaniu treści depeszy na częstotliwości podstawowej i zapasowej z użyciem słów Nadaję na ślepo",
-      "Nadawanie komunikatów nie wymagających potwierdzenia odbioru",
-      "Nadawanie komunikatów do wszystkich zainteresowanych ( rozgłaszanie)",
-      "Procedura wykonania lotu w warunkach IMC wraz z utratą łączności"
-    ],
-    "licenses": [
-      "pplh",
-      "bpl"
-    ]
-  },
-  {
     "external_id": "PL090-0019",
-    "question": "Uzyskanie raportu czytelności transmisji ( w skali 1 – 5) o wartości 3 i mniejszej podczas łączności sprawdzającej spowoduje, że:",
+    "question": "Uzyskanie raportu czytelności transmisji ( w skali 1 - 5) o wartości 3 i mniejszej podczas łączności sprawdzającej spowoduje, że:",
     "answers": [
       "Pilot nie podejmie czynności lotniczych przed startem do czasu usunięcia usterki radiostacji przez służby techniczne i wykona ponowne sprawdzenie łączności.",
       "Pilot zgłosi ten fakt służbom technicznym i wykona lot wykorzystując radiostację zapasową",
@@ -33924,19 +32424,7 @@
       "System podejścia do lądowania w Gdańsku"
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL090-0022",
-    "question": "Znak wywoławczy Gdańsk Zbliżanie oznacza:",
-    "answers": [
-      "Organ kontroli zbliżania Gdańsk",
-      "Kontrolę podejścia w Gdańsku",
-      "Służbę zbliżania statków powietrznych w Gdańsku",
-      "System podejścia do lądowania w Gdańsku"
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -33967,21 +32455,9 @@
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL090-0045",
-    "question": "Jeśli stacja pokładowa utraciła łączność ze stacją naziemną właściwą dla obszaru, w którym się znajduje to:",
-    "answers": [
-      "Powinna nadawać na ślepo na częstotliwości pracy stacji naziemnej",
-      "Włączyć odbiornik",
-      "powinna przerwać nadawanie ze względu na możliwość zakłócania innych stacji",
-      "Powinna nadawać na innej dowolnej częstotliwości"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -34082,7 +32558,7 @@
   },
   {
     "external_id": "PL090-0052",
-    "question": "Do łączności typu powietrze- powietrze przeznaczona jest częstotliwość:",
+    "question": "Do łączności typu powietrze-powietrze przeznaczona jest częstotliwość:",
     "answers": [
       "123,450 MHz",
       "243,000 MHz",
@@ -34107,21 +32583,9 @@
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL090-0053",
-    "question": "Przyrostek znaku wywoławczego KONTROLA oznacza:",
-    "answers": [
-      "Kontrolę obszaru",
-      "Kontrolę zbliżania",
-      "Kontrolę lotniska",
-      "Kontrolę ruchu naziemnego"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -34295,21 +32759,9 @@
     ],
     "licenses": [
       "ppla",
-      "spl"
-    ]
-  },
-  {
-    "external_id": "PL090-0065",
-    "question": "We frazeologii lotniczej wyrażenie TAK BĘDZIE oznacza:",
-    "answers": [
-      "Zrozumiałem twoją depeszę i będę stosować się do niej",
-      "Tak",
-      "Skończyłem nadawanie i oczekuję odpowiedzi",
-      "Zezwala się na kontynuowanie lotu w określonych warunkach"
-    ],
-    "licenses": [
       "pplh",
-      "bpl"
+      "bpl",
+      "spl"
     ]
   },
   {
@@ -34461,39 +32913,15 @@
     "question": "Nadawanie wiadomości dotyczących żeglugi powietrznej, które nie są adresowane do określonej stacji to:",
     "answers": [
       "Rozgłaszanie",
-      "Łączność powietrze- powietrze",
+      "Łączność powietrze-powietrze",
       "Łączność w kierunku powietrza",
-      "Łączność powietrze – ziemia"
+      "Łączność powietrze-ziemia"
     ],
     "licenses": [
       "ppla",
+      "pplh",
+      "bpl",
       "spl"
-    ]
-  },
-  {
-    "external_id": "PL090-0075",
-    "question": "Nadawanie wiadomości dotyczących żeglugi powietrznej, które nie są adresowane do określonej stacji to:",
-    "answers": [
-      "Rozgłaszanie",
-      "Łączność powietrze- powietrze",
-      "Łączność w kierunku powietrza",
-      "Łączność powietrze  ziemia"
-    ],
-    "licenses": [
-      "pplh"
-    ]
-  },
-  {
-    "external_id": "PL090-0075",
-    "question": "Nadawanie wiadomości dotyczących żeglugi powietrznej, które nie są adresowane do określonej stacji to:",
-    "answers": [
-      "Rozgłaszanie",
-      "Łączność powietrze- powietrze",
-      "Łączność w kierunku powietrza",
-      "Łączność powietrze ziemia"
-    ],
-    "licenses": [
-      "bpl"
     ]
   },
   {
@@ -34736,19 +33164,7 @@
       "Aneks 12 ICAO"
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL099-0014",
-    "question": "Do zestawu pierwszej pomocy powinien być dołączony:",
-    "answers": [
-      "podręcznik pierwszej pomocy i zestaw sygnałów zgodny z Aneksem 12 ICAO (ground-air visual signal code for use by survivors)",
-      "jedynie podręcznik pierwszej pomocy",
-      "podręcznik pierwszej pomocy i pełny tekst Aneksu 6 ICAO",
-      "Aneks 12 ICAO"
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -34776,19 +33192,7 @@
       "na stronach internetowych organizacji lotniczych"
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL099-0016",
-    "question": "Dyrektywy Operacyjne, wydawane przez Prezesa ULC, zabraniające, ograniczające lub poddające działalność lotniczą określonym warunkom w interesie bezpieczeństwa lotów, są publikowane w:",
-    "answers": [
-      "Dzienniku Urzędowym Urzędu Lotnictwa Cywilnego",
-      "Dzienniku Ustaw",
-      "miesięczniku Przegląd Lotniczy",
-      "na stronach internetowych organizacji lotniczych"
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -34949,9 +33353,9 @@
     "external_id": "PL099-0029",
     "question": "Czy zawsze przed założeniem spadochronu ratowniczego konieczne jest przeprowadzenie kontroli?",
     "answers": [
-      "Tak – sprawdzamy kartę spadochronu, plombę, właściwe zapięcie ściągaczy, położenie zawleczek zamykających oraz uchwytu",
-      "Nie – nie ma obowiązku kontroli jeżeli jest to kolejny lot a spadochron w statku powietrznym zostawili poprzedni piloci",
-      "Nie – nie ma obowiązku kontroli jeżeli spadochron pobrany jest bezpośrednio z magazynu lub od układacza",
+      "Tak - sprawdzamy kartę spadochronu, plombę, właściwe zapięcie ściągaczy, położenie zawleczek zamykających oraz uchwytu",
+      "Nie - nie ma obowiązku kontroli jeżeli jest to kolejny lot a spadochron w statku powietrznym zostawili poprzedni piloci",
+      "Nie - nie ma obowiązku kontroli jeżeli spadochron pobrany jest bezpośrednio z magazynu lub od układacza",
       "Tak-sprawdzamy ważność ułożenia spadochronu w metryce"
     ],
     "licenses": [
@@ -34963,10 +33367,10 @@
     "external_id": "PL099-0030",
     "question": "Czy wskazane jest przed lotem zapoznanie się z właściwościami spadochronu który jest do dyspozycji?",
     "answers": [
-      "Tak- szczególnie istotne informacje to minimalna wysokość skoku przy różnych prędkościach i różnych konfiguracjach lotu,maksymalne prędkości użycia i dopuszczalny ciężar pilota",
+      "Tak-szczególnie istotne informacje to minimalna wysokość skoku przy różnych prędkościach i różnych konfiguracjach lotu,maksymalne prędkości użycia i dopuszczalny ciężar pilota",
       "Nie jest to konieczne - z każdym spadochronem można wyskoczyć z tej samej wysokości a na prędkość lotu nie mamy wpływu podczas sytuacji przymusowej",
-      "Nie jest to konieczne – wszystkie spadochrony zawsze otwierają się z wysokości nie mniejszej niż 100 m i mają zapewnić bezpieczeństwo dla każdego przeciętnego pilota w całym zakresie prędkości statku powietrznego",
-      "Tak – właściwości spadochronu mogą być inne przy rożnej wilgotności powietrza"
+      "Nie jest to konieczne - wszystkie spadochrony zawsze otwierają się z wysokości nie mniejszej niż 100 m i mają zapewnić bezpieczeństwo dla każdego przeciętnego pilota w całym zakresie prędkości statku powietrznego",
+      "Tak - właściwości spadochronu mogą być inne przy rożnej wilgotności powietrza"
     ],
     "licenses": [
       "ppla",
@@ -34977,10 +33381,10 @@
     "external_id": "PL099-0031",
     "question": "Czy wysokość skoku ratowniczego jest zależna od prędkości lotu poziomego",
     "answers": [
-      "Tak- spadochrony zawsze napełniają się zawsze na podobnym odcinku, niezależnie od prędkości. Przy większej prędkości poziomej napełnienie następuje w krótszym czasie - ma to bezpośredni związek z mniejszą utratą wysokości",
-      "Nie – spadochrony napełniają się zawsze na tym samym odcinku. Prędkość pozioma podczas otwarcia ma jedynie wpływ na czas otwarcia i przeciążenie",
-      "Nie –aby spadochron zaczął się poprawnie napełniać pilot i tak musi przejść do spadania pionowego",
-      "Tak – podczas większej prędkości pilot spada wolniej i spadochron zdąży otworzyć się wyżej"
+      "Tak-spadochrony zawsze napełniają się zawsze na podobnym odcinku, niezależnie od prędkości. Przy większej prędkości poziomej napełnienie następuje w krótszym czasie - ma to bezpośredni związek z mniejszą utratą wysokości",
+      "Nie - spadochrony napełniają się zawsze na tym samym odcinku. Prędkość pozioma podczas otwarcia ma jedynie wpływ na czas otwarcia i przeciążenie",
+      "Nie-aby spadochron zaczął się poprawnie napełniać pilot i tak musi przejść do spadania pionowego",
+      "Tak - podczas większej prędkości pilot spada wolniej i spadochron zdąży otworzyć się wyżej"
     ],
     "licenses": [
       "ppla",
@@ -35089,7 +33493,7 @@
     "answers": [
       "Prawie lotniczym",
       "PL - 2",
-      "JAR- ach",
+      "JAR-ach",
       "PL - 6"
     ],
     "licenses": [
@@ -35243,23 +33647,11 @@
     "answers": [
       "Pisemne sprawozdanie o zdarzeniu w ciągu 10 dni",
       "Pisemne sprawozdanie o zdarzeniu w ciągu 14 dni",
-      "Ustne – telefoniczne sprawozdanie po lądowaniu w miejscu docelowym",
+      "Ustne - telefoniczne sprawozdanie po lądowaniu w miejscu docelowym",
       "Nie składa dodatkowych wyjaśnień."
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL099-0050",
-    "question": "Po naruszeniu przepisów lotniczych w celu opanowania sytuacji zagrażającej bezpieczeństwu statku powietrznego dowódca statku powietrznego jest zobowiązany o tym powiadomić właściwy organ państwa, którego przepisy zostały naruszone i jeżeli przepisy tego wymagają złożyć organowi, który otrzymał zawiadomienie:",
-    "answers": [
-      "Pisemne sprawozdanie o zdarzeniu w ciągu 10 dni",
-      "Pisemne sprawozdanie o zdarzeniu w ciągu 14 dni",
-      "Ustne  telefoniczne sprawozdanie po lądowaniu w miejscu docelowym",
-      "Nie składa dodatkowych wyjaśnień."
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -35335,9 +33727,9 @@
     "question": "Odpięcie się od instalacji pokładowej:",
     "answers": [
       "jest pierwszą czynnością w celu opuszczenia pokładu",
-      "nie jest konieczne – po skoku sama się rozłączy",
-      "zawsze najpierw pasy – one nas najmocniej trzymają",
-      "następuje po zrzucie drzwi – jeżeli nie da się ich zrzucić po co ją odpinać"
+      "nie jest konieczne - po skoku sama się rozłączy",
+      "zawsze najpierw pasy - one nas najmocniej trzymają",
+      "następuje po zrzucie drzwi - jeżeli nie da się ich zrzucić po co ją odpinać"
     ],
     "licenses": [
       "ppla",
@@ -35451,19 +33843,7 @@
       "AIP Polska, rozdz. ENR1 „Przepisy i Procedury Ogólne”"
     ],
     "licenses": [
-      "ppla"
-    ]
-  },
-  {
-    "external_id": "PL099-0064",
-    "question": "Przepisy dotyczące sygnałów, stosowanych w akcjach poszukiwawczo - ratowniczych znajdują się w:",
-    "answers": [
-      "Aneksie 12 ICAO",
-      "Aneksie 6 ICAO",
-      "Aneksie 2 ICAO",
-      "AIP Polska, rozdz. ENR1 Przepisy i Procedury Ogólne"
-    ],
-    "licenses": [
+      "ppla",
       "pplh"
     ]
   },
@@ -35579,7 +33959,7 @@
   },
   {
     "external_id": "PL099-0074",
-    "question": "Transmisja radiowa dla radionamierzania ma priorytet wyższy niż wywołanie PAN- PAN:",
+    "question": "Transmisja radiowa dla radionamierzania ma priorytet wyższy niż wywołanie PAN-PAN:",
     "answers": [
       "nie",
       "tak",
@@ -36130,7 +34510,7 @@
     "answers": [
       "Pisemne sprawozdanie o zdarzeniu w ciągu 10 dni",
       "Pisemne sprawozdanie o zdarzeniu w ciągu 14 dni",
-      "Ustne – telefoniczne sprawozdanie po lądowaniu w miejscu docelowym",
+      "Ustne - telefoniczne sprawozdanie po lądowaniu w miejscu docelowym",
       "Nie składa dodatkowych wyjaśnień."
     ],
     "licenses": [
@@ -36156,7 +34536,7 @@
     "answers": [
       "Prawie lotniczym",
       "PL - 2",
-      "JAR- ach",
+      "JAR-ach",
       "PL - 6"
     ],
     "licenses": [
@@ -36282,7 +34662,7 @@
   },
   {
     "external_id": "PL100-0057",
-    "question": "Transmisja radiowa dla radionamierzania ma priorytet wyższy niż wywołanie PAN- PAN:",
+    "question": "Transmisja radiowa dla radionamierzania ma priorytet wyższy niż wywołanie PAN-PAN:",
     "answers": [
       "nie",
       "tak",
@@ -36687,7 +35067,7 @@
     "external_id": "PL100-0108",
     "question": "Podczas napełniania balonu, przed uruchomieniem palnika, powłokę powinno napełnić się zimnym powietrzem w granicach:",
     "answers": [
-      "50%  75 %",
+      "50% - 75 %",
       "10 - 15%",
       "95 - 100%",
       "10 - 25%"
@@ -36778,7 +35158,7 @@
     "external_id": "PL100-0117",
     "question": "Procedury kontroli przed startem balonu obejmują sprawdzenie:",
     "answers": [
-      "Powłoki  w tym kontrola klapy spadochronowej i dołączenie liny klapy, zespołu kosza, palnika  w tym płomieni pilotowych, paliwa, wyposażenia  w tym mapy, dodatkowe źródło ognia, przyrządy pokładowe, załadowanie balonu (temperatura w powłoce)",
+      "Powłoki - w tym kontrola klapy spadochronowej i dołączenie liny klapy, zespołu kosza, palnika - w tym płomieni pilotowych, paliwa, wyposażenia - w tym mapy, dodatkowe źródło ognia, przyrządy pokładowe, załadowanie balonu (temperatura w powłoce)",
       "Działania klapy spadochronowej i palnika",
       "Nie stosuje się żadnej procedury kontroli przed startem balonu",
       "Działania klapy spadochronowej i palnika oraz sprawdzenia szczelności połączeń instalacji paliwowej za pomocą specjalnej piany lub wody z mydlinami"
@@ -36856,9 +35236,9 @@
     "external_id": "PL100-0123",
     "question": "Jeśli do zasilania płomieni pilotowych używany jest gaz w postaci lotnej (gazowej), to po położeniu kosza (przed postawieniem balonu) reduktory ciśnienia na butlach paliwowych muszą znajdować się z pozycji:",
     "answers": [
-      "Górnej  tak, aby znajdowały się powyżej poziomu ciekłego gazu w butli",
-      "Dolnej  tak, aby znajdowały się poniżej poziomu ciekłego gazu w butli",
-      "Bocznej lub dolnej  ale tak, aby znajdowały się poniżej poziomu ciekłego gazu w butli",
+      "Górnej - tak, aby znajdowały się powyżej poziomu ciekłego gazu w butli",
+      "Dolnej - tak, aby znajdowały się poniżej poziomu ciekłego gazu w butli",
+      "Bocznej lub dolnej - ale tak, aby znajdowały się poniżej poziomu ciekłego gazu w butli",
       "Położenie reduktorów ciśnienia na butlach względem poziomu gazu nie ma znaczenia"
     ],
     "licenses": [
@@ -36982,7 +35362,7 @@
     "answers": [
       "Pisemne sprawozdanie o zdarzeniu w ciągu 10 dni",
       "Pisemne sprawozdanie o zdarzeniu w ciągu 14 dni",
-      "Ustne – telefoniczne sprawozdanie po lądowaniu w miejscu docelowym",
+      "Ustne - telefoniczne sprawozdanie po lądowaniu w miejscu docelowym",
       "Nie składa dodatkowych wyjaśnień."
     ],
     "licenses": [
@@ -37199,7 +35579,7 @@
   },
   {
     "external_id": "PL102-0046",
-    "question": "Transmisja radiowa dla radionamierzania ma priorytet wyższy niż wywołanie PAN- PAN:",
+    "question": "Transmisja radiowa dla radionamierzania ma priorytet wyższy niż wywołanie PAN-PAN:",
     "answers": [
       "nie",
       "tak",
