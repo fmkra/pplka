@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Badge } from "~/components/ui/badge";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Button } from "~/components/ui/button";
 import { Info } from "lucide-react";
 import {
@@ -24,7 +24,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "~/components/ui/accordion";
-import MdRender from "~/app/_components/md-render";
+import { Explanation } from "~/app/_components/explanation";
 // import type { CategoryAgg } from "~/server/api/routers/question_database";
 
 function getStyle(color: string | null | undefined) {
@@ -45,17 +45,19 @@ function getStyle(color: string | null | undefined) {
 export function Question({
   question: q,
   category,
-  explanation,
+  hasExplanation,
   // showLicense,
 }: {
-  // question: QuestionArg;
   question: QuestionBase;
   category: Category;
-  explanation: string | null;
+  hasExplanation: boolean;
   // showLicense: boolean;
 }) {
   // TODO: randomize it based on more than just id
   const question = useMemo(() => shuffleAnswers(q, getRandomNumber(q.id)), [q]);
+
+  const [accordionValue, setAccordionValue] = useState<string>("");
+  const isExpanded = accordionValue === "explanation";
 
   const { answerState } = useAnswerStore();
   // `selected` is NOT index of displayed items but index in database (before shuffling)
@@ -87,7 +89,12 @@ export function Question({
             </button>
           ))}
         </div>
-        <Accordion type="single" collapsible>
+        <Accordion
+          type="single"
+          collapsible
+          value={accordionValue}
+          onValueChange={setAccordionValue}
+        >
           <AccordionItem value="explanation">
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
               <Button
@@ -100,7 +107,7 @@ export function Question({
                   : "Odznacz odpowiedź"}
               </Button>
               <div className="flex grow items-center gap-2">
-                {explanation && (
+                {hasExplanation && (
                   <AccordionTrigger className="p-0">
                     Wyjaśnienie
                   </AccordionTrigger>
@@ -138,11 +145,12 @@ export function Question({
                 </div>
               </div>
             </div>
-            {explanation && (
-              <AccordionContent>
-                <MdRender>{explanation}</MdRender>
-              </AccordionContent>
-            )}
+            <AccordionContent>
+              <Explanation
+                questionId={question.id}
+                enabled={hasExplanation && isExpanded}
+              />
+            </AccordionContent>
           </AccordionItem>
         </Accordion>
       </CardContent>

@@ -125,7 +125,7 @@ export default function QuestionsPageClient({
               <Question
                 key={q.questionInstance.id}
                 question={q.question}
-                explanation={q.explanation}
+                hasExplanation={q.hasExplanation}
                 category={categoriesMapping[q.questionInstance.categoryId]!}
               />
             ))}

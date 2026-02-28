@@ -12,13 +12,13 @@ import { useMemo, useState } from "react";
 import { Skeleton } from "~/components/ui/skeleton";
 import { Spinner } from "~/components/ui/spinner";
 import { shuffleAnswers, getRandomNumber } from "~/lib/shuffle";
-import MdRender from "~/app/_components/md-render";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "~/components/ui/accordion";
+import { Explanation } from "../explanation";
 
 type Question =
   inferRouterOutputs<AppRouter>["learning"]["getQuestions"][number];
@@ -117,7 +117,7 @@ export function LearningQuestions({
               </div>
             )}
           </div>
-          {question?.explanation ? (
+          {question?.hasExplanation ? (
             <Accordion type="single" collapsible>
               <AccordionItem value="explanation">
                 <div className="flex w-full items-center justify-between">
@@ -127,7 +127,10 @@ export function LearningQuestions({
                   {nextButton}
                 </div>
                 <AccordionContent>
-                  <MdRender>{question?.explanation?.explanation}</MdRender>
+                  <Explanation
+                    questionId={question.question.id}
+                    enabled={question.hasExplanation}
+                  />
                 </AccordionContent>
               </AccordionItem>
             </Accordion>

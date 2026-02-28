@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { sql, and, eq, gte, asc } from "drizzle-orm";
+import { sql, and, eq, gte, asc, getTableColumns } from "drizzle-orm";
 
 import {
   createTRPCRouter,
@@ -9,7 +9,7 @@ import {
 import { learningProgress, learningCategory } from "~/server/db/learning";
 import { questionInstances, questions } from "~/server/db/question";
 import { categories } from "~/server/db/category";
-import { explanations } from "~/server/db/explanation";
+import { questionsToExplanations } from "~/server/db/explanation";
 
 export const learningRouter = createTRPCRouter({
   resetLearningProgress: protectedProcedure
@@ -190,14 +190,21 @@ export const learningRouter = createTRPCRouter({
       // We only consider questions that weren't answered in previous attempts.
 
       const q = await ctx.db
-        .select()
+        .select({
+          learning_progress: getTableColumns(learningProgress),
+          question_instance: getTableColumns(questionInstances),
+          question: getTableColumns(questions),
+          hasExplanation: sql<boolean>`exists(
+            select 1 from ${questionsToExplanations}
+            where ${questionsToExplanations.questionId} = ${questions.id}
+          )`.as("has_explanation"),
+        })
         .from(learningProgress)
         .innerJoin(
           questionInstances,
           eq(learningProgress.questionInstanceId, questionInstances.id),
         )
         .innerJoin(questions, eq(questionInstances.questionId, questions.id))
-        .leftJoin(explanations, eq(questions.explanationId, explanations.id))
         .where(
           and(
             eq(learningProgress.userId, ctx.session.user.id),

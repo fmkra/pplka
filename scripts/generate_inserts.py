@@ -102,10 +102,10 @@ def main():
             question_id = question_ids[key]
             f.write(
                 f'INSERT INTO "{QUESTION_TABLE}" (id, "externalId", question, "answerCorrect", '
-                f'"answerIncorrect1", "answerIncorrect2", "answerIncorrect3", "explanationId") VALUES '
+                f'"answerIncorrect1", "answerIncorrect2", "answerIncorrect3") VALUES '
                 f"('{question_id}', '{sql_escape(q['external_id'])}', '{sql_escape(q['question'])}', "
                 f"'{sql_escape(q['answers'][0])}', '{sql_escape(q['answers'][1])}', "
-                f"'{sql_escape(q['answers'][2])}', '{sql_escape(q['answers'][3])}', NULL);\n"
+                f"'{sql_escape(q['answers'][2])}', '{sql_escape(q['answers'][3])}');\n"
             )
 
         instance_inserts = []

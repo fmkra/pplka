@@ -1,0 +1,1 @@
+ALTER TABLE "nauka-ppla_question_to_explanation" ADD COLUMN "id" varchar(255) PRIMARY KEY NOT NULL;
