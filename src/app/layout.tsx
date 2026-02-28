@@ -65,21 +65,19 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <SerwistProvider swUrl="/serwist/sw.js">
-      <PwaContextProvider>
-        <html lang="pl" className={`${geist.variable}`}>
-          <body className="flex min-h-screen flex-col">
-            <SessionProvider>
-              <TRPCReactProvider>
-                <Navbar />
-                <main className="container mx-auto flex-1 p-4">{children}</main>
-                <Notifications />
-                <RedirectionManager />
-              </TRPCReactProvider>
-            </SessionProvider>
-          </body>
-        </html>
-      </PwaContextProvider>
-    </SerwistProvider>
+    <PwaContextProvider>
+      <html lang="pl" className={`${geist.variable}`}>
+        <body className="flex min-h-screen flex-col">
+          <SessionProvider>
+            <TRPCReactProvider>
+              <Navbar />
+              <main className="container mx-auto flex-1 p-4">{children}</main>
+              <Notifications />
+              <RedirectionManager />
+            </TRPCReactProvider>
+          </SessionProvider>
+        </body>
+      </html>
+    </PwaContextProvider>
   );
 }
