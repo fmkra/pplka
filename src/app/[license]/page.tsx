@@ -134,7 +134,7 @@ export default async function HomePage({
             Żródła:
             <br />
             <Link
-              className="underline"
+              className="break-all underline"
               href="https://ulc.gov.pl/personel-lotniczy/komisja-egzaminacyjna/plan-sesji-egzaminacyjnej"
               target="_blanc"
             >
@@ -142,7 +142,7 @@ export default async function HomePage({
             </Link>
             <br />
             <Link
-              className="underline"
+              className="break-all underline"
               href="https://ulc.gov.pl/_download/lke/czas_liczba_pytan_kbp.pdf"
               target="_blanc"
             >
