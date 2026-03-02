@@ -13,11 +13,18 @@ import {
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
 import { clearLicense } from "~/app/actions";
-import { EXAM, LEARN, nonLicenseUrls, QUESTIONS } from "~/app/links";
+import {
+  EXAM,
+  LEARN,
+  nonLicenseUrls,
+  QUESTIONS,
+  KNOWLEDGE_BASE,
+} from "~/app/links";
 
 const navigation = [
   { name: "Start", href: "", icon: Home },
-  { name: "Nauka", href: LEARN, icon: BookOpen },
+  { name: "Baza wiedzy", href: KNOWLEDGE_BASE, icon: BookOpen },
+  { name: "Nauka", href: LEARN, icon: GraduationCap },
   { name: "Baza pytań", href: QUESTIONS, icon: Database },
   { name: "Egzamin", href: EXAM, icon: GraduationCap },
 ];
@@ -54,7 +61,7 @@ export default function Navigation({ options }: { options: SelectOption[] }) {
 
   return (
     <div className="flex items-center gap-2">
-      <div className="hidden items-center gap-1 sm:flex">
+      <div className="hidden items-center gap-1 md:flex">
         <button
           className="flex cursor-pointer items-center"
           onClick={clearLicense}
@@ -90,7 +97,7 @@ export default function Navigation({ options }: { options: SelectOption[] }) {
         })}
       </div>
 
-      <div className="sm:hidden">
+      <div className="md:hidden">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon" aria-label="Otwórz menu">

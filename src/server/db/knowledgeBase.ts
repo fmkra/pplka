@@ -19,9 +19,7 @@ export const knowledgeBaseNodes = createTable(
       .timestamp({ withTimezone: true })
       .default(sql`CURRENT_TIMESTAMP`),
   }),
-  (t) => [
-    uniqueIndex("kb_node_parent_order_idx").on(t.parentId, t.order),
-  ],
+  (t) => [uniqueIndex("kb_node_parent_order_idx").on(t.parentId, t.order)],
 );
 
 export const knowledgeBaseNodesToExplanations = createTable(
