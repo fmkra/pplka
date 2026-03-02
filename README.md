@@ -70,7 +70,14 @@ cp .env.example .env
 bun run db:migrate
 ```
 
-6. Start the development server:
+6. Fetch and push question data:
+
+```bash
+bun run data:fetch
+bun run data:push
+```
+
+7. Start the development server:
 
 ```bash
 bun run dev
@@ -80,16 +87,19 @@ The application will be available at [http://localhost:3000](http://localhost:30
 
 ## Scripts
 
-| Script | Description |
-|--------|-------------|
-| `bun run dev` | Starts the development server |
-| `bun run build` | Builds the application for production |
-| `bun run start` | Runs the built application |
-| `bun run db:generate` | Generates Drizzle migrations |
-| `bun run db:migrate` | Applies migrations to the database |
-| `bun run db:studio` | Opens Drizzle Studio |
-| `bun run lint` | Runs the linter |
-| `bun run format:write` | Formats code with Prettier |
+| Script                 | Description                                                                 |
+| ---------------------- | --------------------------------------------------------------------------- |
+| `bun run dev`          | Starts the development server                                               |
+| `bun run build`        | Builds the application for production                                       |
+| `bun run start`        | Runs the built application                                                  |
+| `bun run db:generate`  | Generates Drizzle migrations                                                |
+| `bun run db:migrate`   | Applies migrations to the database                                          |
+| `bun run db:studio`    | Opens Drizzle Studio                                                        |
+| `bun run lint`         | Runs the linter                                                             |
+| `bun run format:write` | Formats code with Prettier                                                  |
+| `bun run data:fetch`   | Downloads official question PDFs, parses them, and generates JSON + SQL    |
+| `bun run data:clear`   | Removes generated JSON, PDFs, and SQL inserts from the `scripts/data` dir  |
+| `bun run data:push`    | Pushes generated SQL inserts to the database using `DATABASE_URL` from env |
 
 ## Question Explanations
 
@@ -108,4 +118,4 @@ Created by [Filip Krawczyk](https://github.com/fmkra).
 
 ---
 
-*Fly safe!*
+_Fly safe!_

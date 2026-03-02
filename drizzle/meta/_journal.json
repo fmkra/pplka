@@ -127,6 +127,27 @@
       "when": 1754223003194,
       "tag": "0017_magical_molten_man",
       "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1772283358379,
+      "tag": "0018_glamorous_mister_sinister",
+      "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1772284242846,
+      "tag": "0019_sudden_yellowjacket",
+      "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "7",
+      "when": 1772316022758,
+      "tag": "0020_zippy_satana",
+      "breakpoints": true
     }
   ]
 }

@@ -14,7 +14,7 @@ import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 import { questionInstances, questions } from "~/server/db/question";
 import { categories } from "~/server/db/category";
 import { licenses } from "~/server/db/license";
-import { explanations } from "~/server/db/explanation";
+import { questionsToExplanations } from "~/server/db/explanation";
 
 export type CategoryAgg = {
   id: number;
@@ -114,14 +114,16 @@ export const questionDatabaseRouter = createTRPCRouter({
         .select({
           question: questions,
           questionInstance: questionInstances,
-          explanation: explanations.explanation,
+          hasExplanation: sql<boolean>`exists(
+            select 1 from ${questionsToExplanations}
+            where ${questionsToExplanations.questionId} = ${questions.id}
+          )`.as("has_explanation"),
         })
         .from(questions)
         .innerJoin(
           questionInstances,
           eq(questions.id, questionInstances.questionId),
         )
-        .leftJoin(explanations, eq(questions.explanationId, explanations.id))
         .where(getWhereConditions(input))
         .orderBy(questions.externalId)
         .limit(input.limit ?? 20)

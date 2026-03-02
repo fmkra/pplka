@@ -1,0 +1,1303 @@
+{
+  "id": "23150210-9048-4899-9ae7-50155a2600ec",
+  "prevId": "a447cc05-9164-4b62-a30f-b62b429b5fe2",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.nauka-ppla_category": {
+      "name": "nauka-ppla_category",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "identity": {
+            "type": "byDefault",
+            "name": "nauka-ppla_category_id_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "cache": "1",
+            "cycle": false
+          }
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "url": {
+          "name": "url",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "color": {
+          "name": "color",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "icon": {
+          "name": "icon",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "topics": {
+          "name": "topics",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "examTime": {
+          "name": "examTime",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "examQuestionCount": {
+          "name": "examQuestionCount",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "licenseId": {
+          "name": "licenseId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "nauka-ppla_category_licenseId_nauka-ppla_license_id_fk": {
+          "name": "nauka-ppla_category_licenseId_nauka-ppla_license_id_fk",
+          "tableFrom": "nauka-ppla_category",
+          "tableTo": "nauka-ppla_license",
+          "columnsFrom": [
+            "licenseId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "nauka-ppla_category_url_licenseId_unique": {
+          "name": "nauka-ppla_category_url_licenseId_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "url",
+            "licenseId"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.nauka-ppla_exam_attempt": {
+      "name": "nauka-ppla_exam_attempt",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "categoryId": {
+          "name": "categoryId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "startedAt": {
+          "name": "startedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deadlineTime": {
+          "name": "deadlineTime",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "finishedAt": {
+          "name": "finishedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "nauka-ppla_exam_attempt_userId_nauka-ppla_user_id_fk": {
+          "name": "nauka-ppla_exam_attempt_userId_nauka-ppla_user_id_fk",
+          "tableFrom": "nauka-ppla_exam_attempt",
+          "tableTo": "nauka-ppla_user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "nauka-ppla_exam_attempt_categoryId_nauka-ppla_category_id_fk": {
+          "name": "nauka-ppla_exam_attempt_categoryId_nauka-ppla_category_id_fk",
+          "tableFrom": "nauka-ppla_exam_attempt",
+          "tableTo": "nauka-ppla_category",
+          "columnsFrom": [
+            "categoryId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.nauka-ppla_exam_questions": {
+      "name": "nauka-ppla_exam_questions",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "identity": {
+            "type": "byDefault",
+            "name": "nauka-ppla_exam_questions_id_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "cache": "1",
+            "cycle": false
+          }
+        },
+        "examAttemptId": {
+          "name": "examAttemptId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "questionInstanceId": {
+          "name": "questionInstanceId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "answer": {
+          "name": "answer",
+          "type": "answer",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "nauka-ppla_exam_questions_examAttemptId_nauka-ppla_exam_attempt_id_fk": {
+          "name": "nauka-ppla_exam_questions_examAttemptId_nauka-ppla_exam_attempt_id_fk",
+          "tableFrom": "nauka-ppla_exam_questions",
+          "tableTo": "nauka-ppla_exam_attempt",
+          "columnsFrom": [
+            "examAttemptId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "nauka-ppla_exam_questions_questionInstanceId_nauka-ppla_question_instance_id_fk": {
+          "name": "nauka-ppla_exam_questions_questionInstanceId_nauka-ppla_question_instance_id_fk",
+          "tableFrom": "nauka-ppla_exam_questions",
+          "tableTo": "nauka-ppla_question_instance",
+          "columnsFrom": [
+            "questionInstanceId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.nauka-ppla_explanation": {
+      "name": "nauka-ppla_explanation",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "explanation": {
+          "name": "explanation",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.nauka-ppla_question_to_explanation": {
+      "name": "nauka-ppla_question_to_explanation",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "questionId": {
+          "name": "questionId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "explanationId": {
+          "name": "explanationId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "order": {
+          "name": "order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        }
+      },
+      "indexes": {
+        "qte_question_order_idx": {
+          "name": "qte_question_order_idx",
+          "columns": [
+            {
+              "expression": "questionId",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "order",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "nauka-ppla_question_to_explanation_questionId_nauka-ppla_question_id_fk": {
+          "name": "nauka-ppla_question_to_explanation_questionId_nauka-ppla_question_id_fk",
+          "tableFrom": "nauka-ppla_question_to_explanation",
+          "tableTo": "nauka-ppla_question",
+          "columnsFrom": [
+            "questionId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "nauka-ppla_question_to_explanation_explanationId_nauka-ppla_explanation_id_fk": {
+          "name": "nauka-ppla_question_to_explanation_explanationId_nauka-ppla_explanation_id_fk",
+          "tableFrom": "nauka-ppla_question_to_explanation",
+          "tableTo": "nauka-ppla_explanation",
+          "columnsFrom": [
+            "explanationId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.nauka-ppla_knowledge_base_node": {
+      "name": "nauka-ppla_knowledge_base_node",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "parentId": {
+          "name": "parentId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "order": {
+          "name": "order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "CURRENT_TIMESTAMP"
+        }
+      },
+      "indexes": {
+        "kb_node_parent_order_idx": {
+          "name": "kb_node_parent_order_idx",
+          "columns": [
+            {
+              "expression": "parentId",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "order",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.nauka-ppla_kb_node_to_explanation": {
+      "name": "nauka-ppla_kb_node_to_explanation",
+      "schema": "",
+      "columns": {
+        "knowledgeBaseNodeId": {
+          "name": "knowledgeBaseNodeId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "explanationId": {
+          "name": "explanationId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "order": {
+          "name": "order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        }
+      },
+      "indexes": {
+        "kb_node_explanation_order_idx": {
+          "name": "kb_node_explanation_order_idx",
+          "columns": [
+            {
+              "expression": "knowledgeBaseNodeId",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "order",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "nauka-ppla_kb_node_to_explanation_knowledgeBaseNodeId_nauka-ppla_knowledge_base_node_id_fk": {
+          "name": "nauka-ppla_kb_node_to_explanation_knowledgeBaseNodeId_nauka-ppla_knowledge_base_node_id_fk",
+          "tableFrom": "nauka-ppla_kb_node_to_explanation",
+          "tableTo": "nauka-ppla_knowledge_base_node",
+          "columnsFrom": [
+            "knowledgeBaseNodeId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "nauka-ppla_kb_node_to_explanation_explanationId_nauka-ppla_explanation_id_fk": {
+          "name": "nauka-ppla_kb_node_to_explanation_explanationId_nauka-ppla_explanation_id_fk",
+          "tableFrom": "nauka-ppla_kb_node_to_explanation",
+          "tableTo": "nauka-ppla_explanation",
+          "columnsFrom": [
+            "explanationId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.nauka-ppla_learning_category": {
+      "name": "nauka-ppla_learning_category",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "categoryId": {
+          "name": "categoryId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "latestAttempt": {
+          "name": "latestAttempt",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "nauka-ppla_learning_category_userId_categoryId_index": {
+          "name": "nauka-ppla_learning_category_userId_categoryId_index",
+          "columns": [
+            {
+              "expression": "userId",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "categoryId",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "nauka-ppla_learning_category_userId_nauka-ppla_user_id_fk": {
+          "name": "nauka-ppla_learning_category_userId_nauka-ppla_user_id_fk",
+          "tableFrom": "nauka-ppla_learning_category",
+          "tableTo": "nauka-ppla_user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "nauka-ppla_learning_category_categoryId_nauka-ppla_category_id_fk": {
+          "name": "nauka-ppla_learning_category_categoryId_nauka-ppla_category_id_fk",
+          "tableFrom": "nauka-ppla_learning_category",
+          "tableTo": "nauka-ppla_category",
+          "columnsFrom": [
+            "categoryId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.nauka-ppla_learning_progress": {
+      "name": "nauka-ppla_learning_progress",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "questionInstanceId": {
+          "name": "questionInstanceId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "latestAttempt": {
+          "name": "latestAttempt",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "random": {
+          "name": "random",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "isDone": {
+          "name": "isDone",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "correctCount": {
+          "name": "correctCount",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "incorrectCount": {
+          "name": "incorrectCount",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "nauka-ppla_learning_progress_userId_questionInstanceId_index": {
+          "name": "nauka-ppla_learning_progress_userId_questionInstanceId_index",
+          "columns": [
+            {
+              "expression": "userId",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "questionInstanceId",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "nauka-ppla_learning_progress_userId_nauka-ppla_user_id_fk": {
+          "name": "nauka-ppla_learning_progress_userId_nauka-ppla_user_id_fk",
+          "tableFrom": "nauka-ppla_learning_progress",
+          "tableTo": "nauka-ppla_user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "nauka-ppla_learning_progress_questionInstanceId_nauka-ppla_question_instance_id_fk": {
+          "name": "nauka-ppla_learning_progress_questionInstanceId_nauka-ppla_question_instance_id_fk",
+          "tableFrom": "nauka-ppla_learning_progress",
+          "tableTo": "nauka-ppla_question_instance",
+          "columnsFrom": [
+            "questionInstanceId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.nauka-ppla_license": {
+      "name": "nauka-ppla_license",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "identity": {
+            "type": "byDefault",
+            "name": "nauka-ppla_license_id_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "cache": "1",
+            "cycle": false
+          }
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "url": {
+          "name": "url",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "icon": {
+          "name": "icon",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "nauka-ppla_license_url_unique": {
+          "name": "nauka-ppla_license_url_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "url"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.nauka-ppla_question_instance": {
+      "name": "nauka-ppla_question_instance",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "categoryId": {
+          "name": "categoryId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "questionId": {
+          "name": "questionId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "nauka-ppla_question_instance_categoryId_nauka-ppla_category_id_fk": {
+          "name": "nauka-ppla_question_instance_categoryId_nauka-ppla_category_id_fk",
+          "tableFrom": "nauka-ppla_question_instance",
+          "tableTo": "nauka-ppla_category",
+          "columnsFrom": [
+            "categoryId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "nauka-ppla_question_instance_questionId_nauka-ppla_question_id_fk": {
+          "name": "nauka-ppla_question_instance_questionId_nauka-ppla_question_id_fk",
+          "tableFrom": "nauka-ppla_question_instance",
+          "tableTo": "nauka-ppla_question",
+          "columnsFrom": [
+            "questionId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.nauka-ppla_question": {
+      "name": "nauka-ppla_question",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "externalId": {
+          "name": "externalId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "question": {
+          "name": "question",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "answerCorrect": {
+          "name": "answerCorrect",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "answerIncorrect1": {
+          "name": "answerIncorrect1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "answerIncorrect2": {
+          "name": "answerIncorrect2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "answerIncorrect3": {
+          "name": "answerIncorrect3",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdBy": {
+          "name": "createdBy",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "CURRENT_TIMESTAMP"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "nauka-ppla_question_createdBy_nauka-ppla_user_id_fk": {
+          "name": "nauka-ppla_question_createdBy_nauka-ppla_user_id_fk",
+          "tableFrom": "nauka-ppla_question",
+          "tableTo": "nauka-ppla_user",
+          "columnsFrom": [
+            "createdBy"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.nauka-ppla_question_to_tags": {
+      "name": "nauka-ppla_question_to_tags",
+      "schema": "",
+      "columns": {
+        "questionId": {
+          "name": "questionId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tagId": {
+          "name": "tagId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "nauka-ppla_question_to_tags_questionId_nauka-ppla_question_id_fk": {
+          "name": "nauka-ppla_question_to_tags_questionId_nauka-ppla_question_id_fk",
+          "tableFrom": "nauka-ppla_question_to_tags",
+          "tableTo": "nauka-ppla_question",
+          "columnsFrom": [
+            "questionId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "nauka-ppla_question_to_tags_tagId_nauka-ppla_tag_id_fk": {
+          "name": "nauka-ppla_question_to_tags_tagId_nauka-ppla_tag_id_fk",
+          "tableFrom": "nauka-ppla_question_to_tags",
+          "tableTo": "nauka-ppla_tag",
+          "columnsFrom": [
+            "tagId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.nauka-ppla_tag": {
+      "name": "nauka-ppla_tag",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "identity": {
+            "type": "byDefault",
+            "name": "nauka-ppla_tag_id_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "cache": "1",
+            "cycle": false
+          }
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.nauka-ppla_account": {
+      "name": "nauka-ppla_account",
+      "schema": "",
+      "columns": {
+        "userId": {
+          "name": "userId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "provider": {
+          "name": "provider",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "providerAccountId": {
+          "name": "providerAccountId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "refresh_token": {
+          "name": "refresh_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "access_token": {
+          "name": "access_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "expires_at": {
+          "name": "expires_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "token_type": {
+          "name": "token_type",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scope": {
+          "name": "scope",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "id_token": {
+          "name": "id_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "session_state": {
+          "name": "session_state",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "account_user_id_idx": {
+          "name": "account_user_id_idx",
+          "columns": [
+            {
+              "expression": "userId",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "nauka-ppla_account_userId_nauka-ppla_user_id_fk": {
+          "name": "nauka-ppla_account_userId_nauka-ppla_user_id_fk",
+          "tableFrom": "nauka-ppla_account",
+          "tableTo": "nauka-ppla_user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "nauka-ppla_account_provider_providerAccountId_pk": {
+          "name": "nauka-ppla_account_provider_providerAccountId_pk",
+          "columns": [
+            "provider",
+            "providerAccountId"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.nauka-ppla_session": {
+      "name": "nauka-ppla_session",
+      "schema": "",
+      "columns": {
+        "sessionToken": {
+          "name": "sessionToken",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "expires": {
+          "name": "expires",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "t_user_id_idx": {
+          "name": "t_user_id_idx",
+          "columns": [
+            {
+              "expression": "userId",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "nauka-ppla_session_userId_nauka-ppla_user_id_fk": {
+          "name": "nauka-ppla_session_userId_nauka-ppla_user_id_fk",
+          "tableFrom": "nauka-ppla_session",
+          "tableTo": "nauka-ppla_user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.nauka-ppla_user": {
+      "name": "nauka-ppla_user",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "emailVerified": {
+          "name": "emailVerified",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "image": {
+          "name": "image",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.nauka-ppla_verification_token": {
+      "name": "nauka-ppla_verification_token",
+      "schema": "",
+      "columns": {
+        "identifier": {
+          "name": "identifier",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "token": {
+          "name": "token",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "expires": {
+          "name": "expires",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "nauka-ppla_verification_token_identifier_token_pk": {
+          "name": "nauka-ppla_verification_token_identifier_token_pk",
+          "columns": [
+            "identifier",
+            "token"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {
+    "public.answer": {
+      "name": "answer",
+      "schema": "public",
+      "values": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    }
+  },
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

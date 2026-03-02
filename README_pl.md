@@ -70,7 +70,14 @@ cp .env.example .env
 bun run db:migrate
 ```
 
-6. Uruchom serwer deweloperski:
+6. Pobierz i wgraj pytania do bazy:
+
+```bash
+bun run data:fetch
+bun run data:push
+```
+
+7. Uruchom serwer deweloperski:
 
 ```bash
 bun run dev
@@ -80,16 +87,19 @@ Aplikacja będzie dostępna pod adresem [http://localhost:3000](http://localhost
 
 ## Skrypty
 
-| Skrypt | Opis |
-|--------|------|
-| `bun run dev` | Uruchamia serwer deweloperski |
-| `bun run build` | Buduje aplikację do produkcji |
-| `bun run start` | Uruchamia zbudowaną aplikację |
-| `bun run db:generate` | Generuje migracje Drizzle |
-| `bun run db:migrate` | Stosuje migracje do bazy |
-| `bun run db:studio` | Otwiera Drizzle Studio |
-| `bun run lint` | Sprawdza kod linterem |
-| `bun run format:write` | Formatuje kod Prettierem |
+| Skrypt                 | Opis                                                                           |
+| ---------------------- | ------------------------------------------------------------------------------ |
+| `bun run dev`          | Uruchamia serwer deweloperski                                                  |
+| `bun run build`        | Buduje aplikację do produkcji                                                  |
+| `bun run start`        | Uruchamia zbudowaną aplikację                                                  |
+| `bun run db:generate`  | Generuje migracje Drizzle                                                      |
+| `bun run db:migrate`   | Stosuje migracje do bazy                                                       |
+| `bun run db:studio`    | Otwiera Drizzle Studio                                                         |
+| `bun run lint`         | Sprawdza kod linterem                                                          |
+| `bun run format:write` | Formatuje kod Prettierem                                                       |
+| `bun run data:fetch`   | Pobiera oficjalne PDF-y z pytaniami, parsuje je i generuje pliki JSON oraz SQL |
+| `bun run data:clear`   | Usuwa wygenerowane JSON-y, PDF-y i plik `inserts.sql` z katalogu `scripts/data` |
+| `bun run data:push`    | Wysyła wygenerowane zapytania SQL do bazy, używając `DATABASE_URL` z `.env`   |
 
 ## Wyjaśnienia do pytań
 
@@ -108,4 +118,4 @@ Stworzone przez [Filipa Krawczyka](https://github.com/fmkra).
 
 ---
 
-*Lataj bezpiecznie!*
+_Lataj bezpiecznie!_
