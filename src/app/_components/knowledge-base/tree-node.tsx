@@ -11,6 +11,8 @@ import {
 import type { KnowledgeBaseNode } from "~/server/api/routers/explanation";
 import { api } from "~/trpc/react";
 import { Skeleton } from "~/components/ui/skeleton";
+import { usePathname } from "next/navigation";
+import { KNOWLEDGE_BASE } from "~/app/links";
 
 export function TreeLoading() {
   return (
@@ -53,9 +55,12 @@ export function TreeNodes({ parentId }: { parentId: string | null }) {
 }
 
 function FileNode({ node }: { node: KnowledgeBaseNode }) {
+  const pathname = usePathname();
+  const license = pathname.split("/")[1];
+
   return (
     <Link
-      href={`/ppla/baza-wiedzy/${node.id}`}
+      href={`/${license}/${KNOWLEDGE_BASE}/${node.id}`}
       className="border-border bg-card text-foreground hover:bg-accent hover:text-accent-foreground flex items-center gap-2 rounded-md border px-3 py-2 text-sm no-underline shadow-sm transition hover:no-underline"
     >
       <span className="text-muted-foreground">📄</span>

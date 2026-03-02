@@ -4,7 +4,14 @@ import { cn } from "~/lib/utils";
 import Link from "next/link";
 import { Select, type SelectOption } from "~/components/ui/select";
 import { usePathname, useRouter } from "next/navigation";
-import { BookOpen, Database, GraduationCap, Home, Menu } from "lucide-react";
+import {
+  BookOpen,
+  Database,
+  GraduationCap,
+  Home,
+  Menu,
+  FileCheck,
+} from "lucide-react";
 import { Button } from "~/components/ui/button";
 import {
   DropdownMenu,
@@ -26,7 +33,7 @@ const navigation = [
   { name: "Baza wiedzy", href: KNOWLEDGE_BASE, icon: BookOpen },
   { name: "Nauka", href: LEARN, icon: GraduationCap },
   { name: "Baza pytań", href: QUESTIONS, icon: Database },
-  { name: "Egzamin", href: EXAM, icon: GraduationCap },
+  { name: "Egzamin", href: EXAM, icon: FileCheck },
 ];
 
 export default function Navigation({ options }: { options: SelectOption[] }) {
