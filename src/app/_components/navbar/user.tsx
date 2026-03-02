@@ -21,17 +21,17 @@ export default function NavbarUser() {
 
   const userIcon =
     session.status == "loading" ? (
-      <Skeleton className="h-5 w-5 rounded-full" />
+      <Skeleton className="size-6 rounded-full" />
     ) : session.data?.user.image ? (
       <Image
         src={session.data.user.image}
         alt="User"
         width={24}
         height={24}
-        className="rounded-full"
+        className="size-6 rounded-full"
       />
     ) : (
-      <User className="h-5 w-5" />
+      <User className="size-4" />
     );
 
   return (
