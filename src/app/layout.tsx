@@ -12,6 +12,7 @@ import { Notifications } from "./_components/notifications";
 import RedirectionManager from "./redirection-manager";
 import PwaContextProvider from "./_components/pwa-context";
 import deploymentContent from "~/deployment_content.json";
+import { SerwistProvider } from "~/lib/serwist-provider";
 
 export const metadata: Metadata = {
   title: {
@@ -64,19 +65,21 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <PwaContextProvider>
-      <html lang="pl" className={`${geist.variable}`}>
-        <body className="flex min-h-screen flex-col">
-          <SessionProvider>
-            <TRPCReactProvider>
-              <Navbar />
-              <main className="container mx-auto flex-1 p-4">{children}</main>
-              <Notifications />
-              <RedirectionManager />
-            </TRPCReactProvider>
-          </SessionProvider>
-        </body>
-      </html>
-    </PwaContextProvider>
+    <SerwistProvider swUrl="/sw.js">
+      <PwaContextProvider>
+        <html lang="pl" className={`${geist.variable}`}>
+          <body className="flex min-h-screen flex-col">
+            <SessionProvider>
+              <TRPCReactProvider>
+                <Navbar />
+                <main className="container mx-auto flex-1 p-4">{children}</main>
+                <Notifications />
+                <RedirectionManager />
+              </TRPCReactProvider>
+            </SessionProvider>
+          </body>
+        </html>
+      </PwaContextProvider>
+    </SerwistProvider>
   );
 }
