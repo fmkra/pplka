@@ -65,7 +65,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <SerwistProvider swUrl="/sw.js">
+    <SerwistProvider swUrl="/serwist/sw.js">
       <PwaContextProvider>
         <html lang="pl" className={`${geist.variable}`}>
           <body className="flex min-h-screen flex-col">
