@@ -14,9 +14,25 @@ import {
   DropdownMenuLabel,
 } from "~/components/ui/dropdown-menu";
 import { Spinner } from "~/components/ui/spinner";
+import Image from "next/image";
 
 export default function NavbarUser() {
   const session = useSession();
+
+  const userIcon =
+    session.status == "loading" ? (
+      <Skeleton className="h-5 w-5 rounded-full" />
+    ) : session.data?.user.image ? (
+      <Image
+        src={session.data.user.image}
+        alt="User"
+        width={24}
+        height={24}
+        className="rounded-full"
+      />
+    ) : (
+      <User className="h-5 w-5" />
+    );
 
   return (
     <div className="flex items-center">
@@ -27,7 +43,7 @@ export default function NavbarUser() {
           />
         ) : session.data?.user.name !== undefined ? (
           <>
-            <User className="h-4 w-4" />
+            {userIcon}
             <span>{session.data?.user.name}</span>
             <Button className="w-28" onClick={() => signOut()}>
               Wyloguj się
@@ -44,7 +60,7 @@ export default function NavbarUser() {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon" aria-label="Menu użytkownika">
-              <User className="h-5 w-5" />
+              {userIcon}
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="min-w-56" align="end">
