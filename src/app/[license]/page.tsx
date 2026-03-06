@@ -7,14 +7,20 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { BookOpen, Database, GraduationCap, ArrowRight } from "lucide-react";
+import {
+  BookOpen,
+  Database,
+  GraduationCap,
+  ArrowRight,
+  FileCheck,
+} from "lucide-react";
 import { db } from "~/server/db";
 import { eq } from "drizzle-orm";
 import { licenses } from "~/server/db/license";
 import { notFound } from "next/navigation";
 import { metadataBuilder } from "../seo";
 import { PwaInstallBanner } from "../_components/pwa-install-banner";
-import { EXAM, LEARN, QUESTIONS } from "../links";
+import { EXAM, KNOWLEDGE_BASE, LEARN, QUESTIONS } from "../links";
 
 export const generateMetadata = metadataBuilder((url, name) => ({
   title: `${name.short} - Nauka do egzaminu teoretycznego`,
@@ -46,10 +52,28 @@ export default async function HomePage({
           interaktywną platformą. Ucz się, ćwicz i sprawdzaj swoją wiedzę.      
         </p>
       </div>
-      <div className="mb-12 grid gap-6 md:grid-cols-3">
+      <div className="mb-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         <Card className="transition-shadow hover:shadow-lg">
           <CardHeader>
-            <BookOpen className="mb-4 h-12 w-12 text-blue-600" />   
+            <BookOpen className="mb-8 h-12 w-12 text-amber-600" />
+            <CardTitle>Baza wiedzy</CardTitle>
+            <CardDescription>
+              Przeglądaj materiały edukacyjne, notatki i podsumowania do nauki
+              przed egzaminem.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="mt-auto">
+            <Link href={`/${license}/${KNOWLEDGE_BASE}`}>
+              <Button className="w-full bg-transparent" variant="outline">
+                Otwórz bazę wiedzy
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+          </CardContent>
+        </Card>
+        <Card className="transition-shadow hover:shadow-lg">
+          <CardHeader>
+            <GraduationCap className="mb-8 h-12 w-12 text-blue-600" />
             <CardTitle>Nauka</CardTitle>
             <CardDescription>
               Przechodź przez wszystkie pytania, a system zapamięta Twoje
@@ -66,7 +90,7 @@ export default async function HomePage({
         </Card>
         <Card className="transition-shadow hover:shadow-lg">
           <CardHeader>
-            <Database className="mb-4 h-12 w-12 text-green-600" /> 
+            <Database className="mb-8 h-12 w-12 text-green-600" />
             <CardTitle>Baza Pytań</CardTitle>
             <CardDescription>
               Przeglądaj i filtruj całą bazę pytań po kategoriach, tagach oraz
@@ -84,8 +108,8 @@ export default async function HomePage({
         </Card>
         <Card className="transition-shadow hover:shadow-lg">
           <CardHeader>
-            <GraduationCap className="mb-4 h-12 w-12 text-purple-600" />       
-                <CardTitle>Egzamin</CardTitle>
+            <FileCheck className="mb-8 h-12 w-12 text-purple-600" />
+            <CardTitle>Egzamin</CardTitle>
             <CardDescription>
               Sprawdź swoją wiedzę w realistycznych warunkach, korzystając z
               naszego symulatora egzaminu.

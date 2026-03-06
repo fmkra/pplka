@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useCallback, useEffect } from "react";
 import { cn } from "~/lib/utils";
 import Link from "next/link";
 import { Select, type SelectOption } from "~/components/ui/select";
@@ -11,14 +12,10 @@ import {
   Home,
   Menu,
   FileCheck,
+  X,
+  Plane,
 } from "lucide-react";
 import { Button } from "~/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "~/components/ui/dropdown-menu";
 import { clearLicense } from "~/app/actions";
 import {
   EXAM,
@@ -53,9 +50,8 @@ export default function Navigation({ options }: { options: SelectOption[] }) {
           className="flex cursor-pointer items-center"
           onClick={clearLicense}
         >
-          <GraduationCap className="h-6 w-6" />
+          <Plane className="h-6 w-6" />
         </button>
-
         <Select
           className="w-42"
           placeholder="Wybierz licencję"
@@ -73,7 +69,7 @@ export default function Navigation({ options }: { options: SelectOption[] }) {
           className="flex cursor-pointer items-center"
           onClick={clearLicense}
         >
-          <GraduationCap className="h-6 w-6" />
+          <Plane className="h-6 w-6" />
         </button>
 
         <Select
@@ -104,55 +100,121 @@ export default function Navigation({ options }: { options: SelectOption[] }) {
         })}
       </div>
 
-      <div className="md:hidden">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon" aria-label="Otwórz menu">
-              <Menu className="h-5 w-5" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="mt-2 min-w-48">
-            <DropdownMenuItem asChild>
-              <button
-                className="flex w-full items-center"
-                onClick={clearLicense}
+      <MobileSidebar
+        license={license}
+        page={page}
+        options={options}
+        selectLicense={selectLicense}
+      />
+    </div>
+  );
+}
+
+function MobileSidebar({
+  license,
+  page,
+  options,
+  selectLicense,
+}: {
+  license: string;
+  page: string;
+  options: SelectOption[];
+  selectLicense: (license: string) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const close = useCallback(() => setOpen(false), []);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = "";
+      };
+    }
+  }, [open]);
+
+  return (
+    <div className="md:hidden">
+      <Button
+        variant="ghost"
+        size="icon"
+        aria-label="Otwórz menu"
+        onClick={() => setOpen(true)}
+      >
+        <Menu className="h-5 w-5" />
+      </Button>
+
+      <div
+        className={cn(
+          "fixed inset-0 z-40 bg-black/40 backdrop-blur-md transition-opacity duration-300",
+          open ? "opacity-100" : "pointer-events-none opacity-0",
+        )}
+        onClick={close}
+      />
+
+      <div
+        className={cn(
+          "fixed inset-y-0 left-0 z-50 flex w-full max-w-72 flex-col bg-white transition-transform duration-300 ease-in-out",
+          open ? "translate-x-0" : "-translate-x-full",
+        )}
+      >
+        <div className="flex items-center justify-between border-b px-4 py-4">
+          <button
+            className="flex cursor-pointer items-center gap-2"
+            onClick={() => {
+              void clearLicense();
+              close();
+            }}
+          >
+            <Plane className="h-6 w-6" />
+            <span className="text-sm font-medium">Wybór licencji</span>
+          </button>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={close}
+            aria-label="Zamknij menu"
+          >
+            <X className="h-5 w-5" />
+          </Button>
+        </div>
+
+        <div className="flex flex-col gap-1 overflow-y-auto p-4">
+          <Select
+            className="mb-3 w-full"
+            placeholder="Wybierz licencję"
+            options={options}
+            value={license}
+            onValueChange={selectLicense}
+          />
+
+          {navigation.map((item) => {
+            const Icon = item.icon;
+            const href = `/${license}/${item.href}`;
+            const active = page === item.href;
+            return (
+              <Link
+                key={item.name}
+                href={href}
+                onClick={close}
+                className={cn(
+                  "flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium transition-colors",
+                  active
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:bg-accent hover:text-foreground",
+                )}
               >
-                <GraduationCap className="h-6 w-6" />
-                <span>Wybór licencji</span>
-              </button>
-            </DropdownMenuItem>
-
-            <DropdownMenuItem asChild>
-              <Select
-                className="my-2 w-full"
-                placeholder="Wybierz licencję"
-                options={options}
-                value={license}
-                onValueChange={selectLicense}
-              />
-            </DropdownMenuItem>
-
-            {navigation.map((item) => {
-              const Icon = item.icon;
-              const href = `/${license}/${item.href}`;
-              const active = page === item.href;
-              return (
-                <DropdownMenuItem key={item.name} asChild>
-                  <Link
-                    href={href}
-                    className={cn(
-                      "flex w-full items-center gap-2",
-                      active && "text-foreground",
-                    )}
-                  >
-                    <Icon className="h-4 w-4" />
-                    <span>{item.name}</span>
-                  </Link>
-                </DropdownMenuItem>
-              );
-            })}
-          </DropdownMenuContent>
-        </DropdownMenu>
+                <Icon className="h-4 w-4" />
+                <span>{item.name}</span>
+              </Link>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

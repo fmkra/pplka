@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mail, Github, GraduationCap } from "lucide-react";
+import { Mail, Github, GraduationCap, Plane } from "lucide-react";
 import deploymentContent from "~/deployment_content.json";
 import { EXAM, LEARN, QUESTIONS, TOS } from "../links";
 
@@ -25,7 +25,7 @@ export function Footer({ license }: { license: string }) {
           <div className="col-span-2 flex flex-col gap-4">
             <div>
               <div className="mb-4 flex items-center gap-2">
-                <GraduationCap className="h-6 w-6" />
+                <Plane className="h-6 w-6" />
                 <span className="text-lg font-semibold">PPLka.pl</span>
               </div>
               <p className="text-muted-foreground text-sm">
