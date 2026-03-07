@@ -9,7 +9,10 @@ export const explanations = createTable("explanation", (d) => ({
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
   explanation: d.text().notNull(),
+  type: d.text({ enum: ["text", "image"] }).notNull(),
 }));
+
+export type Explanation = typeof explanations.$inferSelect;
 
 export const questionsToExplanations = createTable(
   "question_to_explanation",

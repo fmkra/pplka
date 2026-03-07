@@ -148,6 +148,13 @@
       "when": 1772316022758,
       "tag": "0020_zippy_satana",
       "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "7",
+      "when": 1772839971394,
+      "tag": "0021_plain_wolverine",
+      "breakpoints": true
     }
   ]
 }

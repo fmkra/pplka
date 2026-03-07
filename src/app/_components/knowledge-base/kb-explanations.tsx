@@ -1,8 +1,8 @@
 "use client";
 
 import { api } from "~/trpc/react";
-import MdRender from "../md-render";
 import { Spinner } from "~/components/ui/spinner";
+import Render from "./md-render";
 
 export function KnowledgeBaseExplanations({
   knowledgeBaseNodeId,
@@ -22,9 +22,9 @@ export function KnowledgeBaseExplanations({
         </div>
       ) : (
         <div className="space-y-6">
-          {data?.map(({ explanation }) => (
-            <MdRender key={explanation.id}>{explanation.explanation}</MdRender>
-          ))}
+          <Render
+            explanations={data?.map(({ explanation }) => explanation) ?? []}
+          />
         </div>
       )}
     </div>

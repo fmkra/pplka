@@ -1,5 +1,5 @@
 import { api } from "~/trpc/react";
-import MdRender from "./md-render";
+import Render from "./md-render";
 import { Spinner } from "~/components/ui/spinner";
 
 export function Explanation({
@@ -21,8 +21,6 @@ export function Explanation({
       </div>
     );
   if (data && data.length > 0)
-    return data.map(({ explanation: e }) => (
-      <MdRender key={e.id}>{e.explanation}</MdRender>
-    ));
+    return <Render explanations={data.map(({ explanation }) => explanation)} />;
   return <p className="text-muted-foreground text-sm">Brak wyjaśnień</p>;
 }

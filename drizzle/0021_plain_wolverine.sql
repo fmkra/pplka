@@ -1,0 +1,1 @@
+ALTER TABLE "nauka-ppla_explanation" ADD COLUMN "type" text NOT NULL;

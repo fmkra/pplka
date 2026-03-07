@@ -1,4 +1,4 @@
-import { KnowledgeBaseExplanations } from "~/app/_components/knowledge-base/explanations";
+import { KnowledgeBaseExplanations } from "~/app/_components/knowledge-base/kb-explanations";
 
 export default async function KnowledgeBaseNodePage({
   params,
