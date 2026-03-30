@@ -20,7 +20,6 @@ export function Explanation({
         <Spinner />
       </div>
     );
-  if (data && data.length > 0)
-    return <Render explanations={data.map(({ explanation }) => explanation)} />;
+  if (data && data.length > 0) return <Render explanations={data} />;
   return <p className="text-muted-foreground text-sm">Brak wyjaśnień</p>;
 }

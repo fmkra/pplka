@@ -8,6 +8,11 @@ import remarkGfm from "remark-gfm";
 import type { Explanation } from "~/server/db/explanation";
 import { X } from "lucide-react";
 
+export type ExplanationElement = {
+  explanation: Explanation;
+  isExtraResource: boolean;
+};
+
 function MdRender({ children }: { children: string }) {
   return (
     <ReactMarkdown
@@ -22,7 +27,7 @@ function MdRender({ children }: { children: string }) {
 export default function Render({
   explanations,
 }: {
-  explanations: Explanation[];
+  explanations: ExplanationElement[];
 }) {
   const [openImageUrl, setOpenImageUrl] = useState<string | null>(null);
 
@@ -36,33 +41,30 @@ export default function Render({
     }
   }, [openImageUrl]);
 
+  const normalResources = explanations.filter((e) => !e.isExtraResource);
+  const extraResources = explanations.filter((e) => e.isExtraResource);
+  const hasBoth = normalResources.length > 0 && extraResources.length > 0;
+
   return (
     <>
-      {explanations.map((explanation) => (
-        <div
-          className="prose mt-2 max-w-none border-t pt-2"
-          key={explanation.id}
-        >
-          {explanation.type === "text" ? (
-            <MdRender key={explanation.id}>{explanation.explanation}</MdRender>
-          ) : (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={explanation.explanation}
-              alt=""
-              className="mx-auto max-h-[70vh] w-full max-w-[54rem] cursor-pointer"
-              onClick={() => setOpenImageUrl(explanation.explanation)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  setOpenImageUrl(explanation.explanation);
-                }
-              }}
-            />
-          )}
-        </div>
+      {normalResources.map((e) => (
+        <ExplanationElement
+          key={e.explanation.id}
+          explanation={e}
+          setOpenImageUrl={setOpenImageUrl}
+        />
+      ))}
+      {hasBoth && (
+        <h3 className="prose mt-2 border-t pt-2 text-2xl font-bold">
+          Powiązane materiały
+        </h3>
+      )}
+      {extraResources.map((e) => (
+        <ExplanationElement
+          key={e.explanation.id}
+          explanation={e}
+          setOpenImageUrl={setOpenImageUrl}
+        />
       ))}
 
       {openImageUrl && (
@@ -90,5 +92,37 @@ export default function Render({
         </div>
       )}
     </>
+  );
+}
+
+function ExplanationElement({
+  explanation: e,
+  setOpenImageUrl,
+}: {
+  explanation: ExplanationElement;
+  setOpenImageUrl: (url: string) => void;
+}) {
+  return (
+    <div className="prose mt-2 max-w-none border-t pt-2" key={e.explanation.id}>
+      {e.explanation.type === "text" ? (
+        <MdRender key={e.explanation.id}>{e.explanation.explanation}</MdRender>
+      ) : (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={e.explanation.explanation}
+          alt=""
+          className="mx-auto max-h-[70vh] w-full max-w-[54rem] cursor-pointer"
+          onClick={() => setOpenImageUrl(e.explanation.explanation)}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              setOpenImageUrl(e.explanation.explanation);
+            }
+          }}
+        />
+      )}
+    </div>
   );
 }

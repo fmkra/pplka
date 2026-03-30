@@ -155,6 +155,13 @@
       "when": 1772839971394,
       "tag": "0021_plain_wolverine",
       "breakpoints": true
+    },
+    {
+      "idx": 22,
+      "version": "7",
+      "when": 1774890039598,
+      "tag": "0022_open_skullbuster",
+      "breakpoints": true
     }
   ]
 }

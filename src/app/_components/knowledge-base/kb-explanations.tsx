@@ -23,7 +23,12 @@ export function KnowledgeBaseExplanations({
       ) : (
         <div className="space-y-6">
           <Render
-            explanations={data?.map(({ explanation }) => explanation) ?? []}
+            explanations={
+              data?.map(({ explanation }) => ({
+                explanation: explanation,
+                isExtraResource: false,
+              })) ?? []
+            }
           />
         </div>
       )}

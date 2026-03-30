@@ -30,6 +30,7 @@ export const questionsToExplanations = createTable(
       .notNull()
       .references(() => explanations.id),
     order: d.integer().notNull().default(0),
+    isExtraResource: d.boolean().notNull(),
   }),
   (t) => [uniqueIndex("qte_question_order_idx").on(t.questionId, t.order)],
 );
