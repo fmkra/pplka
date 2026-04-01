@@ -1,7 +1,7 @@
 import z from "zod";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 import { explanations, questionsToExplanations } from "~/server/db/explanation";
-import { eq, isNull, asc, desc, count, and } from "drizzle-orm";
+import { eq, isNull, asc, desc, and, countDistinct } from "drizzle-orm";
 import {
   knowledgeBaseNodes,
   knowledgeBaseNodesToExplanations,
@@ -65,7 +65,7 @@ export const explanationRouter = createTRPCRouter({
         .orderBy(asc(knowledgeBaseNodesToExplanations.order));
       const query2 = ctx.db
         .select({
-          questionCount: count(questionsToExplanations.questionId),
+          questionCount: countDistinct(questionsToExplanations.questionId),
         })
         .from(knowledgeBaseNodesToExplanations)
         .innerJoin(
