@@ -8,6 +8,7 @@ import Link from "next/link";
 import { QUESTIONS } from "~/app/links";
 import { useLicenseContext } from "~/app/[license]/license-context";
 import { conjugate } from "~/lib/utils";
+import { HelpfulnessFeedback } from "./helpfulness-feedback";
 
 export function KnowledgeBaseExplanations({
   knowledgeBaseNodeId,
@@ -64,6 +65,10 @@ export function KnowledgeBaseExplanations({
                   isExtraResource: false,
                 })) ?? []
               }
+            />
+            <HelpfulnessFeedback
+              variant="material"
+              knowledgeBaseNodeId={knowledgeBaseNodeId}
             />
           </div>
         </>

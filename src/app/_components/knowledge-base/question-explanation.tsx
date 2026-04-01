@@ -1,6 +1,9 @@
+"use client";
+
 import { api } from "~/trpc/react";
 import Render from "./md-render";
 import { Spinner } from "~/components/ui/spinner";
+import { HelpfulnessFeedback } from "./helpfulness-feedback";
 
 export function Explanation({
   questionId,
@@ -20,6 +23,12 @@ export function Explanation({
         <Spinner />
       </div>
     );
-  if (data && data.length > 0) return <Render explanations={data} />;
+  if (data && data.length > 0)
+    return (
+      <>
+        <Render explanations={data} />
+        <HelpfulnessFeedback variant="explanation" questionId={questionId} />
+      </>
+    );
   return <p className="text-muted-foreground text-sm">Brak wyjaśnień</p>;
 }

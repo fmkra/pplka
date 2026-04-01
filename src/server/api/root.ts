@@ -4,6 +4,7 @@ import { learningRouter } from "./routers/learning";
 import { examRouter } from "./routers/exam";
 import { downloadRouter } from "./routers/download";
 import { explanationRouter } from "./routers/explanation";
+import { contentFeedbackRouter } from "./routers/content_feedback";
 
 /**
  * This is the primary router for your server.
@@ -16,6 +17,7 @@ export const appRouter = createTRPCRouter({
   exam: examRouter,
   download: downloadRouter,
   explanation: explanationRouter,
+  contentFeedback: contentFeedbackRouter,
 });
 
 // export type definition of API
