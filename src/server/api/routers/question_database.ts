@@ -15,6 +15,7 @@ import { questionInstances, questions } from "~/server/db/question";
 import { categories } from "~/server/db/category";
 import { licenses } from "~/server/db/license";
 import { questionsToExplanations } from "~/server/db/explanation";
+import { knowledgeBaseNodesToExplanations } from "~/server/db/knowledgeBase";
 
 export type CategoryAgg = {
   id: number;
@@ -23,10 +24,30 @@ export type CategoryAgg = {
   license: { name: string };
 };
 
+function getKnowledgeBaseCondition(knowledgeBaseId: string | null) {
+  if (knowledgeBaseId == null) return undefined;
+
+  if (knowledgeBaseId === "any") {
+    return sql`exists(
+      select 1 from ${questionsToExplanations}
+      where ${questionsToExplanations.questionId} = ${questions.id}
+    )`;
+  }
+
+  return sql`exists(
+    select 1 from ${questionsToExplanations}
+    inner join ${knowledgeBaseNodesToExplanations}
+    on ${questionsToExplanations.explanationId} = ${knowledgeBaseNodesToExplanations.explanationId}
+    where ${questionsToExplanations.questionId} = ${questions.id}
+    and ${eq(knowledgeBaseNodesToExplanations.knowledgeBaseNodeId, knowledgeBaseId)}
+  )`;
+}
+
 function getWhereConditions(input: {
   search?: string | undefined;
   categoryIds?: number[] | undefined;
   licenseId?: number | undefined;
+  knowledgeBaseId?: string | null;
 }) {
   const whereConditions = [];
 
@@ -53,10 +74,18 @@ function getWhereConditions(input: {
     );
   }
 
+  const knowledgeBaseCondition = getKnowledgeBaseCondition(
+    input.knowledgeBaseId ?? null,
+  );
+  if (knowledgeBaseCondition) {
+    whereConditions.push(knowledgeBaseCondition);
+  }
+
   return and(...whereConditions);
 }
 
 export const questionDatabaseRouter = createTRPCRouter({
+  // TODO: unused for now, but when back in use, add filtering by explanation
   getQuestionsWithAllCategories: publicProcedure
     .input(
       z.object({
@@ -105,6 +134,7 @@ export const questionDatabaseRouter = createTRPCRouter({
       z.object({
         categoryIds: z.array(z.number()).optional(),
         search: z.string().optional(),
+        knowledgeBaseId: z.string().nullable(),
         limit: z.number().max(100).optional(),
         offset: z.number().optional(),
       }),
@@ -135,6 +165,7 @@ export const questionDatabaseRouter = createTRPCRouter({
       z.object({
         search: z.string().optional(),
         categoryIds: z.array(z.number()).optional(),
+        knowledgeBaseId: z.string().nullable(),
       }),
     )
     .query(async ({ ctx, input }) => {
