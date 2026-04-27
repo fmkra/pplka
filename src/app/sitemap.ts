@@ -1,6 +1,5 @@
 import type { MetadataRoute } from "next";
-import { LICENSES } from "./redirection-manager";
-import { EXAM, KNOWLEDGE_BASE, LEARN, QUESTIONS, TOS } from "./links";
+import { EXAM, KNOWLEDGE_BASE, LEARN, LICENSES, QUESTIONS, TOS } from "./links";
 
 const BASE_URL = "https://www.pplka.pl";
 
