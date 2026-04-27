@@ -49,12 +49,14 @@ export default function Navigation({ options }: { options: SelectOption[] }) {
         <button
           className="flex cursor-pointer items-center"
           onClick={clearLicense}
+          aria-label="Strona główna - wybór licencji"
         >
           <Plane className="h-6 w-6" />
         </button>
         <Select
           className="w-42"
           placeholder="Wybierz licencję"
+          aria-label="Wybierz licencję"
           options={options}
           value={license}
           onValueChange={selectLicense}
@@ -68,6 +70,7 @@ export default function Navigation({ options }: { options: SelectOption[] }) {
         <button
           className="flex cursor-pointer items-center"
           onClick={clearLicense}
+          aria-label="Strona główna - wybór licencji"
         >
           <Plane className="h-6 w-6" />
         </button>
@@ -75,6 +78,7 @@ export default function Navigation({ options }: { options: SelectOption[] }) {
         <Select
           className="mr-4 ml-1 w-24"
           placeholder="Wybierz licencję"
+          aria-label="Wybierz licencję"
           options={options}
           value={license}
           onValueChange={selectLicense}
@@ -166,6 +170,7 @@ function MobileSidebar({
         <div className="flex items-center justify-between border-b px-4 py-4">
           <button
             className="flex cursor-pointer items-center gap-2"
+            aria-label="Strona główna - wybór licencji"
             onClick={() => {
               void clearLicense();
               close();
@@ -188,6 +193,7 @@ function MobileSidebar({
           <Select
             className="mb-3 w-full"
             placeholder="Wybierz licencję"
+            aria-label="Wybierz licencję"
             options={options}
             value={license}
             onValueChange={selectLicense}

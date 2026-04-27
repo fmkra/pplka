@@ -70,7 +70,11 @@ export default async function LearnPage() {
                     {license.description}
                   </CardDescription>
 
-                  <Button className="mt-auto w-full" asChild>
+                  <Button
+                    className="mt-auto w-full"
+                    asChild
+                    aria-label={`Wybierz licencję ${license.name}`}
+                  >
                     <Link href={`/${license.url}`}>Wybierz licencję</Link>
                   </Button>
                 </CardContent>

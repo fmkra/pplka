@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { Mail, Github, GraduationCap, Plane } from "lucide-react";
+import { Mail, Github, Plane } from "lucide-react";
 import deploymentContent from "~/deployment_content.json";
-import { EXAM, LEARN, QUESTIONS, TOS } from "../links";
+import { EXAM, KNOWLEDGE_BASE, LEARN, QUESTIONS, TOS } from "../links";
 
 const navigation = [
   { name: "PPL(A)", href: "/ppla" },
@@ -11,6 +11,7 @@ const navigation = [
 ];
 
 const resources = [
+  { name: "Baza wiedzy", href: (l: string) => `/${l}/${KNOWLEDGE_BASE}` },
   { name: "Nauka", href: (l: string) => `/${l}/${LEARN}` },
   { name: "Baza pytań", href: (l: string) => `/${l}/${QUESTIONS}` },
   { name: "Egzamin próbny", href: (l: string) => `/${l}/${EXAM}` },
@@ -26,7 +27,7 @@ export function Footer({ license }: { license: string }) {
             <div>
               <div className="mb-4 flex items-center gap-2">
                 <Plane className="h-6 w-6" />
-                <span className="text-lg font-semibold">PPLka.pl</span>
+                <h1 className="text-lg font-semibold">PPLka.pl</h1>
               </div>
               <p className="text-muted-foreground text-sm">
                 Kompleksowe materiały przygotowujące do egzaminu teoretycznego
@@ -46,7 +47,7 @@ export function Footer({ license }: { license: string }) {
 
           {/* Navigation */}
           <div className="max-[18rem]:col-span-2">
-            <h3 className="mb-4 font-semibold">Licencje</h3>
+            <h2 className="mb-4 font-semibold">Licencje</h2>
             <ul className="space-y-2">
               {navigation.map((item) => (
                 <li key={item.name}>
@@ -63,7 +64,7 @@ export function Footer({ license }: { license: string }) {
 
           {/* Resources */}
           <div className="max-[18rem]:col-span-2">
-            <h3 className="mb-4 font-semibold">Zasoby</h3>
+            <h2 className="mb-4 font-semibold">Zasoby</h2>
             <ul className="space-y-2">
               {resources.map((item) => (
                 <li key={item.name}>
@@ -80,7 +81,7 @@ export function Footer({ license }: { license: string }) {
 
           {/* Contact */}
           <div className="col-span-2">
-            <h3 className="mb-4 font-semibold">Kontakt</h3>
+            <h2 className="mb-4 font-semibold">Kontakt</h2>
             <p className="text-muted-foreground mb-4 text-sm">
               Znalazłeś jakiś błąd albo chciałbyś zmienić coś na stronie? A może
               znasz dobre wyjaśnienie poprawnej odpowiedzi na któreś z pytań?
