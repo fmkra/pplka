@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
-const LICENSES = ["ppla", "pplh", "spl", "bpl"];
+export const LICENSES = ["ppla", "pplh", "spl", "bpl"];
 
 export default function RedirectionManager() {
   const pathname = usePathname();
