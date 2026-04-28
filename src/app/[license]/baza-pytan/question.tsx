@@ -24,7 +24,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "~/components/ui/accordion";
-import { Explanation } from "~/app/_components/explanation";
+import { Explanation } from "~/app/_components/knowledge-base/question-explanation";
 // import type { CategoryAgg } from "~/server/api/routers/question_database";
 
 function getStyle(color: string | null | undefined) {

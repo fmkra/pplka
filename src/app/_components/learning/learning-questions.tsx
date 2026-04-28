@@ -18,7 +18,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "~/components/ui/accordion";
-import { Explanation } from "../explanation";
+import { Explanation } from "../knowledge-base/question-explanation";
 
 type Question =
   inferRouterOutputs<AppRouter>["learning"]["getQuestions"][number];

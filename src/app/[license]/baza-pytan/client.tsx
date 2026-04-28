@@ -13,6 +13,9 @@ import {
   CategoryFilter,
   type Category,
 } from "../../_components/category-filter";
+import { Checkbox } from "~/components/ui/checkbox";
+import { Label } from "~/components/ui/label";
+import { MODE, useSearchState } from "~/lib/use-search-state";
 // import { LicenseFilter } from "./license-filter";
 
 const pageSizeOptions: SelectOption[] = [
@@ -28,19 +31,40 @@ export default function QuestionsPageClient({
 }: {
   categories: Category[];
 }) {
-  const [search, setSearch] = useState("");
-  const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
-  const categoryIds = useMemo(
-    () =>
-      selectedCategories.length > 0
-        ? selectedCategories
-        : categories.map((x) => x.id),
-    [selectedCategories, categories],
+  const [search, setSearch] = useSearchState("search", MODE.empty);
+  const searchDebounced = useDebounce(search ?? "", 500);
+
+  const [selectedCategoriesStr, setSelectedCategoriesStr] = useSearchState(
+    "categories",
+    MODE.emptyIsNull,
   );
-  // const [selectedLicenses, setSelectedLicenses] = useState<number[]>([
-  //   defaultLicenseId,
-  // ]);
-  const searchDebounced = useDebounce(search, 500);
+  const selectedCategories = useMemo(() => {
+    if (selectedCategoriesStr === null) return null;
+    const ids = selectedCategoriesStr
+      .split(",")
+      .map((v) => categories.find((c) => c.name === v)?.id);
+    return ids.every((id) => id !== undefined) ? ids : null;
+  }, [selectedCategoriesStr, categories]);
+  const setSelectedCategories = (value: number[] | null) => {
+    if (value === null) {
+      setSelectedCategoriesStr(null);
+    } else {
+      setSelectedCategoriesStr(
+        value
+          .map((id) => categories.find((c) => c.id === id)?.name)
+          .filter((name) => name !== undefined)
+          .join(","),
+      );
+    }
+  };
+
+  // null - no filter
+  // "any" - show only with explanations
+  // other string - show only with explanation with this id
+  const [knowledgeBaseId, setKnowledgeBaseId] = useSearchState(
+    "knowledge_base_id",
+    MODE.nullable,
+  );
 
   const categoriesMapping = useMemo(() => {
     const output = {} as Record<number, Category>;
@@ -52,8 +76,9 @@ export default function QuestionsPageClient({
 
   const { data: totalCount, isLoading: countLoading } =
     api.questionDatabase.getQuestionsCount.useQuery({
-      search: searchDebounced,
-      categoryIds,
+      search: searchDebounced ?? "",
+      categoryIds: selectedCategories ?? categories.map((c) => c.id),
+      knowledgeBaseId,
     });
 
   const pagination = usePagination(pageSizeOptions, "20", totalCount);
@@ -61,12 +86,13 @@ export default function QuestionsPageClient({
   const setCurrentPage = pagination.setCurrentPage;
   useEffect(() => {
     setCurrentPage(1);
-  }, [setCurrentPage, searchDebounced, selectedCategories]);
+  }, [setCurrentPage, searchDebounced, selectedCategoriesStr]);
 
   const { data: questions, isLoading: questionsLoading } =
     api.questionDatabase.getQuestions.useQuery({
       search: searchDebounced,
-      categoryIds,
+      categoryIds: selectedCategories ?? categories.map((c) => c.id),
+      knowledgeBaseId,
       limit: pagination.limit,
       offset: pagination.offset,
     });
@@ -75,27 +101,46 @@ export default function QuestionsPageClient({
 
   return (
     <>
-      <div className="mb-6 flex gap-4">
-        <div className="relative flex-1">
-          <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform" />
-          <Input
-            placeholder="Przeglądaj pytania..."
-            className="pl-10"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </div>
-        {/* <div className="w-32">{pagination.pageSizeSelector}</div> */}
-        {/* <LicenseFilter
+      <div className="mb-6 flex flex-col gap-4">
+        <div className="flex gap-4">
+          <div className="relative flex-1">
+            <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform" />
+            <Input
+              placeholder="Przeglądaj pytania..."
+              className="pl-10"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+          {/* <div className="w-32">{pagination.pageSizeSelector}</div> */}
+          {/* <LicenseFilter
           selectedLicenses={selectedLicenses}
           onLicensesChange={setSelectedLicenses}
         /> */}
-        <CategoryFilter
-          // licenseIds={selectedLicenses}
-          categories={categories}
-          selectedCategories={selectedCategories}
-          onCategoriesChange={setSelectedCategories}
-        />
+          <CategoryFilter
+            // licenseIds={selectedLicenses}
+            categories={categories}
+            selectedCategories={selectedCategories ?? []}
+            onCategoriesChange={setSelectedCategories}
+          />
+        </div>
+        <div className="flex items-center gap-2">
+          <Checkbox
+            id="show-only-with-explanations"
+            checked={knowledgeBaseId !== null}
+            onCheckedChange={(checked) =>
+              setKnowledgeBaseId(checked ? "any" : null)
+            }
+          />
+          <Label
+            htmlFor="show-only-with-explanations"
+            className="text-muted-foreground"
+          >
+            {knowledgeBaseId === null || knowledgeBaseId === "any"
+              ? "Wyświetl tylko pytania z wyjaśnieniami"
+              : "Wyświetl tylko pytania powiązane z tym materiałem"}
+          </Label>
+        </div>
       </div>
 
       {isLoading ? (

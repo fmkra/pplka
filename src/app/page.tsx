@@ -12,14 +12,17 @@ import { Footer } from "./_components/footer";
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
 
+const title =
+  "Nauka do egzaminu teoretycznego na licencje PPL(A), SPL, BPL, PPL(H)";
+const description =
+  "Wybierz typ licencji pilota i rozpocznij naukę do egzaminu teoretycznego. Dostępne licencje: PPL(A) - samolot, SPL - szybowiec, BPL - balon, PPL(H) - helikopter.";
+
 export const metadata: Metadata = {
-  title: "Wybierz typ licencji",
-  description:
-    "Wybierz typ licencji pilota i rozpocznij naukę do egzaminu teoretycznego. Dostępne licencje: PPL(A) - samolot, SPL - szybowiec, BPL - balon, PPL(H) - helikopter.",
+  title,
+  description,
   openGraph: {
-    title: "Wybierz typ licencji | PPLka.pl",
-    description:
-      "Wybierz typ licencji pilota i rozpocznij naukę do egzaminu teoretycznego. PPL(A), SPL, BPL, PPL(H).",
+    title: `${title} | PPLka.pl`,
+    description,
   },
 };
 
@@ -35,7 +38,8 @@ export default async function LearnPage() {
           <h1 className="mb-4 text-3xl font-bold">Wybierz swój typ licencji</h1>
           <p className="text-muted-foreground">
             Kompleksowe materiały przygotowujące do egzaminu teoretycznego na
-            licencję pilota turystycznego na samolot, szybowiec, balon lub śmigłowiec.
+            licencję pilota turystycznego na samolot, szybowiec, balon lub
+            śmigłowiec.
           </p>
         </div>
 
@@ -66,7 +70,11 @@ export default async function LearnPage() {
                     {license.description}
                   </CardDescription>
 
-                  <Button className="mt-auto w-full" asChild>
+                  <Button
+                    className="mt-auto w-full"
+                    asChild
+                    aria-label={`Wybierz licencję ${license.name}`}
+                  >
                     <Link href={`/${license.url}`}>Wybierz licencję</Link>
                   </Button>
                 </CardContent>

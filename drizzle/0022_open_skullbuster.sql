@@ -1,0 +1,1 @@
+ALTER TABLE "nauka-ppla_question_to_explanation" ADD COLUMN "isExtraResource" boolean NOT NULL;

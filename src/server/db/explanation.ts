@@ -9,7 +9,10 @@ export const explanations = createTable("explanation", (d) => ({
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
   explanation: d.text().notNull(),
+  type: d.text({ enum: ["text", "image"] }).notNull(),
 }));
+
+export type Explanation = typeof explanations.$inferSelect;
 
 export const questionsToExplanations = createTable(
   "question_to_explanation",
@@ -27,6 +30,7 @@ export const questionsToExplanations = createTable(
       .notNull()
       .references(() => explanations.id),
     order: d.integer().notNull().default(0),
+    isExtraResource: d.boolean().notNull(),
   }),
   (t) => [uniqueIndex("qte_question_order_idx").on(t.questionId, t.order)],
 );

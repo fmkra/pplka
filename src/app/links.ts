@@ -4,3 +4,4 @@ export const KNOWLEDGE_BASE = "baza-wiedzy";
 export const LEARN = "nauka";
 export const QUESTIONS = "baza-pytan";
 export const EXAM = "egzamin";
+export const LICENSES = ["ppla", "pplh", "spl", "bpl"];

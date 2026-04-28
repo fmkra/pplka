@@ -8,6 +8,14 @@ import {withSerwist} from "@serwist/turbopack";
 /** @type {import("next").NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**.googleusercontent.com',
+      },
+    ]
+  }
 };
 
 const config = withSerwist(nextConfig);
