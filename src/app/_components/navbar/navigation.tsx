@@ -14,6 +14,7 @@ import {
   FileCheck,
   X,
   Plane,
+  GlobeOff,
 } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { clearLicense } from "~/app/actions";
@@ -25,6 +26,11 @@ import {
   QUESTIONS,
   KNOWLEDGE_BASE,
 } from "~/app/links";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "~/components/ui/tooltip";
 
 const navigation = [
   { name: "Start", href: "", icon: Home, disabledInOffline: false },
@@ -55,16 +61,31 @@ export default function Navigation({ options }: { options: SelectOption[] }) {
       : pathname[1];
   const page = pathname[2] ?? "";
 
+  const homePageButton = isOnline ? (
+    <button
+      className="flex cursor-pointer items-center"
+      onClick={clearLicense}
+      aria-label="Strona główna - wybór licencji"
+    >
+      <Plane className="h-6 w-6" />
+    </button>
+  ) : (
+    <Tooltip>
+      <TooltipTrigger>
+        <GlobeOff className="h-6 w-6 text-amber-500" />
+      </TooltipTrigger>
+      <TooltipContent className="text-center">
+        Jesteś w trybie offline.
+        <br />
+        Wyłącznie zakładka &quot;Baza pytań&quot; jest dostępna.
+      </TooltipContent>
+    </Tooltip>
+  );
+
   if (!license)
     return (
       <div className="flex items-center gap-2">
-        <button
-          className="flex cursor-pointer items-center"
-          onClick={clearLicense}
-          aria-label="Strona główna - wybór licencji"
-        >
-          <Plane className="h-6 w-6" />
-        </button>
+        {homePageButton}
         <Select
           className="w-42"
           placeholder="Wybierz licencję"
@@ -79,13 +100,7 @@ export default function Navigation({ options }: { options: SelectOption[] }) {
   return (
     <div className="flex items-center gap-2">
       <div className="hidden items-center gap-1 md:flex">
-        <button
-          className="flex cursor-pointer items-center"
-          onClick={clearLicense}
-          aria-label="Strona główna - wybór licencji"
-        >
-          <Plane className="h-6 w-6" />
-        </button>
+        {homePageButton}
 
         <Select
           className="mr-4 ml-1 w-24"

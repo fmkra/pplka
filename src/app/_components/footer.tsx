@@ -1,7 +1,9 @@
 import Link from "next/link";
-import { Mail, Github, Plane } from "lucide-react";
+import { Mail, Plane } from "lucide-react";
 import deploymentContent from "~/deployment_content.json";
 import { EXAM, KNOWLEDGE_BASE, LEARN, QUESTIONS, TOS } from "../links";
+import githubIcon from "./icons/github.svg";
+import Image from "next/image";
 
 const navigation = [
   { name: "PPL(A)", href: "/ppla" },
@@ -118,7 +120,13 @@ export function Footer({ license }: { license: string }) {
               className="text-muted-foreground hover:text-foreground transition-colors"
               aria-label="GitHub"
             >
-              <Github className="h-5 w-5" />
+              <Image
+                width={20}
+                height={20}
+                className="h-5 w-5"
+                src={githubIcon as string}
+                alt="GitHub"
+              />
             </a>
           </div>
         </div>

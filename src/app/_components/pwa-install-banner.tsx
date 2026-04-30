@@ -19,7 +19,7 @@ export function PwaInstallBanner() {
   };
 
   return (
-    <div className="bg-primary/10 border-primary/20 text-foreground mb-8 flex flex-wrap items-center justify-between gap-4 rounded-lg border p-4">
+    <div className="bg-primary/10 border-primary/20 text-foreground mb-8 flex items-center justify-between gap-4 rounded-lg border p-4 max-[30rem]:flex-col">
       <div className="flex items-center gap-3">
         <div className="bg-primary/20 flex h-10 w-10 shrink-0 items-center justify-center rounded-full">
           <Download className="text-primary h-5 w-5" />
@@ -34,7 +34,7 @@ export function PwaInstallBanner() {
       </div>
       <div className="flex items-center gap-2">
         <Button
-          size="sm"
+          size="default"
           onClick={handleInstall}
           disabled={isLoading}
           className="shrink-0"
@@ -44,11 +44,19 @@ export function PwaInstallBanner() {
         <Button
           size="icon"
           variant="ghost"
-          className="h-8 w-8 shrink-0"
+          className="size-9 shrink-0 max-[30rem]:hidden"
           onClick={() => setDismissed(true)}
           aria-label="Zamknij"
         >
           <X className="h-4 w-4" />
+        </Button>
+        <Button
+          size="default"
+          variant="outline"
+          className="hidden shrink-0 bg-none max-[30rem]:block"
+          onClick={() => setDismissed(true)}
+        >
+          Zamknij
         </Button>
       </div>
     </div>

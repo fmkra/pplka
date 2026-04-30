@@ -21,9 +21,9 @@ export function DownloadComponent({ licenseId }: { licenseId: number }) {
   }
 
   return (
-    <Card className="bg-primary/5 border-primary/20 mb-4">
+    <Card className="bg-primary/5 border-primary/20 mx-auto mb-4 max-w-md">
       <CardHeader>
-        <CardTitle className="text-base">Tryb offline</CardTitle>
+        <CardTitle className="text-base">Tryb offline dostępny</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         {isDownloaded ? (
@@ -47,22 +47,22 @@ export function DownloadComponent({ licenseId }: { licenseId: number }) {
               internetu.
             </p>
 
-            <div className="space-y-2">
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">
-                  {isDownloading
-                    ? "Pobieranie w toku. Nie zamykaj tej strony."
-                    : "Gotowe do pobrania"}
-                </span>
-                <span className="font-medium">{progress}%</span>
+            {isDownloading && (
+              <div className="space-y-2">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">
+                    Pobieranie w toku. Nie zamykaj tej strony.
+                  </span>
+                  <span className="font-medium">{progress}%</span>
+                </div>
+                <Progress value={progress} />
               </div>
-              <Progress value={progress} />
-            </div>
+            )}
 
             <Button
               onClick={() => offline.downloadLicense(licenseId)}
               disabled={isDownloading}
-              className="w-full"
+              className="mx-auto block w-full max-w-xs"
             >
               {isDownloaded
                 ? "Pobrano"
