@@ -8,13 +8,20 @@ interface BeforeInstallPromptEvent extends Event {
 }
 
 declare global {
+  interface Navigator {
+    standalone?: boolean;
+  }
+
   interface WindowEventMap {
     beforeinstallprompt: BeforeInstallPromptEvent;
   }
 }
 
 type PwaContextType = {
+  /** True when user has connection with internet */
   isOnline: boolean;
+  /** True when app is running in standalone (installed PWA) mode. */
+  isPwa: boolean | undefined;
   /** True when the browser has sent beforeinstallprompt (install prompt can be shown). */
   canInstall: boolean;
   /** Call when user agrees to install; triggers the browser install UI. */
@@ -26,9 +33,7 @@ const PwaContext = createContext<PwaContextType | undefined>(undefined);
 export const usePwaContext = () => {
   const context = useContext(PwaContext);
   if (context === undefined) {
-    throw new Error(
-      "usePwaContext must be used within a PwaContextProvider",
-    );
+    throw new Error("usePwaContext must be used within a PwaContextProvider");
   }
   return context;
 };
@@ -39,8 +44,27 @@ export default function PwaContextProvider({
   children: React.ReactNode;
 }) {
   const [isOnline, setIsOnline] = useState(true);
+  const [isPwa, setIsPwa] = useState<boolean | undefined>(undefined);
   const [canInstall, setCanInstall] = useState(false);
   const deferredPromptRef = useRef<BeforeInstallPromptEvent | null>(null);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(display-mode: standalone)");
+
+    const updatePwaMode = () => {
+      const isStandalone = mediaQuery.matches;
+      const isIosStandalone = Boolean(navigator.standalone);
+      setIsPwa(isStandalone || isIosStandalone);
+    };
+
+    updatePwaMode();
+    mediaQuery.addEventListener("change", updatePwaMode);
+    window.addEventListener("appinstalled", updatePwaMode);
+    return () => {
+      mediaQuery.removeEventListener("change", updatePwaMode);
+      window.removeEventListener("appinstalled", updatePwaMode);
+    };
+  }, []);
 
   useEffect(() => {
     setIsOnline(navigator.onLine);
@@ -69,7 +93,10 @@ export default function PwaContextProvider({
     window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
     window.addEventListener("appinstalled", handleAppInstalled);
     return () => {
-      window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+      window.removeEventListener(
+        "beforeinstallprompt",
+        handleBeforeInstallPrompt,
+      );
       window.removeEventListener("appinstalled", handleAppInstalled);
     };
   }, []);
@@ -89,9 +116,7 @@ export default function PwaContextProvider({
   };
 
   return (
-    <PwaContext.Provider
-      value={{ isOnline, canInstall, promptInstall }}
-    >
+    <PwaContext.Provider value={{ isOnline, isPwa, canInstall, promptInstall }}>
       {children}
     </PwaContext.Provider>
   );

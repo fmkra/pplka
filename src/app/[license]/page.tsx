@@ -21,6 +21,7 @@ import { notFound } from "next/navigation";
 import { metadataBuilder } from "../seo";
 import { PwaInstallBanner } from "../_components/pwa-install-banner";
 import { EXAM, KNOWLEDGE_BASE, LEARN, QUESTIONS } from "../links";
+import { DownloadComponent } from "../_components/download";
 
 export const generateMetadata = metadataBuilder((url, name) => ({
   title: `${name.short} - Nauka do egzaminu teoretycznego`,
@@ -45,6 +46,8 @@ export default async function HomePage({
   return (
     <>
       <PwaInstallBanner />
+      <DownloadComponent licenseId={licenseData.id} />
+
       <div className="mb-12 text-center">
         <h1 className="mb-4 text-4xl font-bold">Witaj na PPLka.pl</h1>
         <p className="text-muted-foreground mx-auto max-w-2xl text-xl">

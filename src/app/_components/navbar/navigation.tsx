@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { clearLicense } from "~/app/actions";
+import { usePwaContext } from "../pwa-context";
 import {
   EXAM,
   LEARN,
@@ -26,15 +27,26 @@ import {
 } from "~/app/links";
 
 const navigation = [
-  { name: "Start", href: "", icon: Home },
-  { name: "Baza wiedzy", href: KNOWLEDGE_BASE, icon: BookOpen },
-  { name: "Nauka", href: LEARN, icon: GraduationCap },
-  { name: "Baza pytań", href: QUESTIONS, icon: Database },
-  { name: "Egzamin", href: EXAM, icon: FileCheck },
+  { name: "Start", href: "", icon: Home, disabledInOffline: false },
+  {
+    name: "Baza wiedzy",
+    href: KNOWLEDGE_BASE,
+    icon: BookOpen,
+    disabledInOffline: true,
+  },
+  { name: "Nauka", href: LEARN, icon: GraduationCap, disabledInOffline: true },
+  {
+    name: "Baza pytań",
+    href: QUESTIONS,
+    icon: Database,
+    disabledInOffline: false,
+  },
+  { name: "Egzamin", href: EXAM, icon: FileCheck, disabledInOffline: true },
 ];
 
 export default function Navigation({ options }: { options: SelectOption[] }) {
   const router = useRouter();
+  const { isOnline } = usePwaContext();
   const selectLicense = (license: string) => router.push(`/${license}`);
   const pathname = usePathname().split("/");
   const license =
@@ -86,15 +98,31 @@ export default function Navigation({ options }: { options: SelectOption[] }) {
 
         {navigation.map((item) => {
           const Icon = item.icon;
+          const isDisabledInOffline = !isOnline && item.disabledInOffline;
           return (
             <Link
               key={item.name}
               href={`/${license}/${item.href}`}
+              onClick={
+                isDisabledInOffline
+                  ? (event) => {
+                      event.preventDefault();
+                    }
+                  : undefined
+              }
+              title={
+                isDisabledInOffline
+                  ? "Zakładka niedostępna w trybie offline"
+                  : undefined
+              }
+              aria-disabled={isDisabledInOffline}
               className={cn(
                 "flex items-center space-x-2 rounded-md px-3 py-2 text-sm font-medium transition-colors",
-                page === item.href
-                  ? "bg-primary text-primary-foreground"
-                  : "text-muted-foreground hover:text-foreground hover:bg-accent",
+                isDisabledInOffline
+                  ? "text-muted-foreground/50 hover:text-muted-foreground/50 cursor-not-allowed hover:bg-transparent"
+                  : page === item.href
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:text-foreground hover:bg-accent",
               )}
             >
               <Icon className="h-4 w-4" />
@@ -107,6 +135,7 @@ export default function Navigation({ options }: { options: SelectOption[] }) {
       <MobileSidebar
         license={license}
         page={page}
+        isOnline={isOnline}
         options={options}
         selectLicense={selectLicense}
       />
@@ -117,11 +146,13 @@ export default function Navigation({ options }: { options: SelectOption[] }) {
 function MobileSidebar({
   license,
   page,
+  isOnline,
   options,
   selectLicense,
 }: {
   license: string;
   page: string;
+  isOnline: boolean;
   options: SelectOption[];
   selectLicense: (license: string) => void;
 }) {
@@ -203,16 +234,31 @@ function MobileSidebar({
             const Icon = item.icon;
             const href = `/${license}/${item.href}`;
             const active = page === item.href;
+            const isDisabledInOffline = !isOnline && item.disabledInOffline;
             return (
               <Link
                 key={item.name}
                 href={href}
-                onClick={close}
+                onClick={
+                  isDisabledInOffline
+                    ? (event) => {
+                        event.preventDefault();
+                      }
+                    : close
+                }
+                title={
+                  isDisabledInOffline
+                    ? "Zakładka niedostępna w trybie offline"
+                    : undefined
+                }
+                aria-disabled={isDisabledInOffline}
                 className={cn(
                   "flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium transition-colors",
-                  active
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:bg-accent hover:text-foreground",
+                  isDisabledInOffline
+                    ? "text-muted-foreground/50 hover:text-muted-foreground/50 cursor-not-allowed hover:bg-transparent"
+                    : active
+                      ? "bg-primary text-primary-foreground"
+                      : "text-muted-foreground hover:bg-accent hover:text-foreground",
                 )}
               >
                 <Icon className="h-4 w-4" />

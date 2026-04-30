@@ -29,9 +29,9 @@ function parseLicenseVersions(input: unknown): LicenseVersionRow[] {
 
 export function useOfflineQuestions() {
   const utils = api.useUtils();
-  const [licenseStatus, setLicenseStatus] = useState<Record<number, number | boolean>>(
-    {},
-  );
+  const [licenseStatus, setLicenseStatus] = useState<
+    Record<number, number | boolean>
+  >({});
   const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
@@ -109,12 +109,23 @@ export function useOfflineQuestions() {
     } while (page.length === LIMIT);
   }
 
-  function isLicenseDownloaded(licenseId: number): number | boolean {
-    return licenseStatus[licenseId] ?? false;
+  function isLicenseDownloaded(
+    licenseId: number,
+  ): number | boolean | undefined {
+    return licenseStatus[licenseId];
+  }
+
+  async function clearLicense(licenseId: number) {
+    await clearLicenseQuestions(licenseId);
+    setLicenseStatus((state) => ({
+      ...state,
+      [licenseId]: false,
+    }));
   }
 
   return {
     downloadLicense,
+    clearLicense,
     isLicenseDownloaded,
     isHydrated: () => isHydrated,
   };
