@@ -6,4 +6,5 @@ export const licenses = createTable("license", (d) => ({
   url: d.varchar({ length: 255 }).notNull().unique(),
   icon: d.varchar({ length: 255 }),
   description: d.text(),
+  version: d.integer().notNull().default(1),
 }));

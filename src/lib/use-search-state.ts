@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { parseAsString, useQueryState } from "nuqs";
 
 export const MODE = {
   empty: "empty",
@@ -24,33 +24,19 @@ export function useSearchState(
 ):
   | readonly [string, (value: string) => void]
   | readonly [string | null, (value: string | null) => void] {
-  const searchParams = useSearchParams();
-  const router = useRouter();
+  const [state, setStateInternal] = useQueryState(name, parseAsString.withOptions({
+    history: "replace",
+    shallow: true,
+  }));
 
-  const rawState = searchParams.get(name);
   if (mode === "empty") {
-    const state = rawState ?? "";
-    const setState = (value: string) => {
-      const params = new URLSearchParams(searchParams);
-      if (value === "") {
-        params.delete(name);
-      } else {
-        params.set(name, value);
-      }
-      router.replace(`?${params.toString()}`);
-    };
-    return [state, setState] as const;
+    const setState = (value: string) =>
+      void setStateInternal(value === "" ? null : value);
+    return [state ?? "", setState] as const;
   }
 
-  const setState = (value: string | null) => {
-    const params = new URLSearchParams(searchParams);
-    if (mode === "empty-is-null" && value === "") value = null;
-    if (value === null) {
-      params.delete(name);
-    } else {
-      params.set(name, value);
-    }
-    router.replace(`?${params.toString()}`);
-  };
-  return [rawState, setState] as const;
+  const setState = (value: string | null) =>
+    void setStateInternal(mode === "empty-is-null" && value === "" ? null : value);
+  const parsedState = mode === "empty-is-null" && state === "" ? null : state;
+  return [parsedState, setState] as const;
 }

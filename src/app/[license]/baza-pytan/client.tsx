@@ -5,7 +5,7 @@ import { Input } from "~/components/ui/input";
 import { api } from "~/trpc/react";
 import { Question } from "./question";
 import { Spinner } from "~/components/ui/spinner";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { useDebounce } from "@uidotdev/usehooks";
 import { type SelectOption } from "~/components/ui/select";
 import usePagination from "~/app/_components/pagination";
@@ -16,6 +16,11 @@ import {
 import { Checkbox } from "~/components/ui/checkbox";
 import { Label } from "~/components/ui/label";
 import { MODE, useSearchState } from "~/lib/use-search-state";
+import {
+  useCachedLicenseVersion,
+  useCachedQuestionsCountQuery,
+  useCachedQuestionsQuery,
+} from "~/offline/question-database-cache-hooks";
 // import { LicenseFilter } from "./license-filter";
 
 const pageSizeOptions: SelectOption[] = [
@@ -28,9 +33,14 @@ const pageSizeOptions: SelectOption[] = [
 
 export default function QuestionsPageClient({
   categories,
+  licenseId,
 }: {
   categories: Category[];
+  licenseId: number;
 }) {
+  const { cachedVersion, isReady: isCachedVersionReady } =
+    useCachedLicenseVersion(licenseId);
+
   const [search, setSearch] = useSearchState("search", MODE.empty);
   const searchDebounced = useDebounce(search ?? "", 500);
 
@@ -75,7 +85,8 @@ export default function QuestionsPageClient({
   }, [categories]);
 
   const { data: totalCount, isLoading: countLoading } =
-    api.questionDatabase.getQuestionsCount.useQuery({
+    useCachedQuestionsCountQuery({
+      licenseId,
       search: searchDebounced ?? "",
       categoryIds: selectedCategories ?? categories.map((c) => c.id),
       knowledgeBaseId,
@@ -89,7 +100,8 @@ export default function QuestionsPageClient({
   }, [setCurrentPage, searchDebounced, selectedCategoriesStr]);
 
   const { data: questions, isLoading: questionsLoading } =
-    api.questionDatabase.getQuestions.useQuery({
+    useCachedQuestionsQuery({
+      licenseId,
       search: searchDebounced,
       categoryIds: selectedCategories ?? categories.map((c) => c.id),
       knowledgeBaseId,
@@ -97,11 +109,28 @@ export default function QuestionsPageClient({
       offset: pagination.offset,
     });
 
+  const { data: licensesData } = api.questionDatabase.getLicenses.useQuery(undefined, {
+    enabled: isCachedVersionReady && cachedVersion !== null,
+    staleTime: 30_000,
+  });
+  const serverVersion = licensesData?.find((license) => license.id === licenseId);
+
+  const isCacheOutdated =
+    cachedVersion !== null &&
+    serverVersion !== undefined &&
+    cachedVersion !== serverVersion.version;
+
   const isLoading = questionsLoading || countLoading;
 
   return (
     <>
       <div className="mb-6 flex flex-col gap-4">
+        {isCacheOutdated ? (
+          <div className="rounded-md border border-amber-300 bg-amber-50 px-3 py-2 text-sm text-amber-900">
+            Wykryto nowszą wersję pytań na serwerze. Możesz dalej używać pobranej
+            bazy offline, ale zalecane jest usunięcie i ponowne pobranie pytań.
+          </div>
+        ) : null}
         <div className="flex gap-4">
           <div className="relative flex-1">
             <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform" />

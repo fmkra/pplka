@@ -169,6 +169,13 @@
       "when": 1775066574835,
       "tag": "0023_content_feedback",
       "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "7",
+      "when": 1777371335911,
+      "tag": "0024_puzzling_true_believers",
+      "breakpoints": true
     }
   ]
 }

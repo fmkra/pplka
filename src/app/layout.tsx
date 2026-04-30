@@ -13,6 +13,7 @@ import RedirectionManager from "./redirection-manager";
 import PwaContextProvider from "./_components/pwa-context";
 import deploymentContent from "~/deployment_content.json";
 import { SerwistProvider } from "~/lib/serwist-provider";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 export const metadata: Metadata = {
   title: {
@@ -70,12 +71,14 @@ export default function RootLayout({
         <html lang="pl" className={`${geist.variable}`}>
           <body className="flex min-h-screen flex-col">
             <SessionProvider>
-              <TRPCReactProvider>
-                <Navbar />
-                <main className="container mx-auto flex-1 p-4">{children}</main>
-                <Notifications />
-                <RedirectionManager />
-              </TRPCReactProvider>
+              <NuqsAdapter>
+                <TRPCReactProvider>
+                  <Navbar />
+                  <main className="container mx-auto flex-1 p-4">{children}</main>
+                  <Notifications />
+                  <RedirectionManager />
+                </TRPCReactProvider>
+              </NuqsAdapter>
             </SessionProvider>
           </body>
         </html>

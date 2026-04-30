@@ -46,7 +46,7 @@ export default async function QuestionsPage({
 
       {/* TODO: is this loading ever showing? */}
       <Suspense fallback={<div>Loading...</div>}>
-        <QuestionsPageClient categories={categoryList} />
+        <QuestionsPageClient categories={categoryList} licenseId={license.id} />
       </Suspense>
     </>
   );
