@@ -41,11 +41,11 @@ export default function QuestionsPageClient({
   const { cachedVersion, isReady: isCachedVersionReady } =
     useCachedLicenseVersion(licenseId);
 
-  const [search, setSearch] = useSearchState("search", MODE.empty);
+  const [search, setSearch] = useSearchState("wyszukiwanie", MODE.empty);
   const searchDebounced = useDebounce(search ?? "", 500);
 
   const [selectedCategoriesStr, setSelectedCategoriesStr] = useSearchState(
-    "categories",
+    "przedmioty",
     MODE.emptyIsNull,
   );
   const selectedCategories = useMemo(() => {
@@ -72,7 +72,7 @@ export default function QuestionsPageClient({
   // "any" - show only with explanations
   // other string - show only with explanation with this id
   const [knowledgeBaseId, setKnowledgeBaseId] = useSearchState(
-    "knowledge_base_id",
+    "wyjasnienie",
     MODE.nullable,
   );
 
@@ -109,11 +109,16 @@ export default function QuestionsPageClient({
       offset: pagination.offset,
     });
 
-  const { data: licensesData } = api.questionDatabase.getLicenses.useQuery(undefined, {
-    enabled: isCachedVersionReady && cachedVersion !== null,
-    staleTime: 30_000,
-  });
-  const serverVersion = licensesData?.find((license) => license.id === licenseId);
+  const { data: licensesData } = api.questionDatabase.getLicenses.useQuery(
+    undefined,
+    {
+      enabled: isCachedVersionReady && cachedVersion !== null,
+      staleTime: 30_000,
+    },
+  );
+  const serverVersion = licensesData?.find(
+    (license) => license.id === licenseId,
+  );
 
   const isCacheOutdated =
     cachedVersion !== null &&
@@ -127,8 +132,9 @@ export default function QuestionsPageClient({
       <div className="mb-6 flex flex-col gap-4">
         {isCacheOutdated ? (
           <div className="rounded-md border border-amber-300 bg-amber-50 px-3 py-2 text-sm text-amber-900">
-            Wykryto nowszą wersję pytań na serwerze. Możesz dalej używać pobranej
-            bazy offline, ale zalecane jest usunięcie i ponowne pobranie pytań.
+            Wykryto nowszą wersję pytań na serwerze. Możesz dalej używać
+            pobranej bazy offline, ale zalecane jest usunięcie i ponowne
+            pobranie pytań.
           </div>
         ) : null}
         <div className="flex gap-4">

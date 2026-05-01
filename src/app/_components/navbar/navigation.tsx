@@ -50,6 +50,11 @@ const navigation = [
   { name: "Egzamin", href: EXAM, icon: FileCheck, disabledInOffline: true },
 ];
 
+const OFFLINE_MESSAGE = [
+  "Jesteś w trybie offline.",
+  'Tylko "Baza pytań" jest dostępna.',
+];
+
 export default function Navigation({ options }: { options: SelectOption[] }) {
   const router = useRouter();
   const { isOnline } = usePwaContext();
@@ -61,7 +66,7 @@ export default function Navigation({ options }: { options: SelectOption[] }) {
       : pathname[1];
   const page = pathname[2] ?? "";
 
-  const homePageButton = isOnline ? (
+  const homePageButton = (
     <button
       className="flex cursor-pointer items-center"
       onClick={clearLicense}
@@ -69,17 +74,6 @@ export default function Navigation({ options }: { options: SelectOption[] }) {
     >
       <Plane className="h-6 w-6" />
     </button>
-  ) : (
-    <Tooltip>
-      <TooltipTrigger>
-        <GlobeOff className="h-6 w-6 text-amber-500" />
-      </TooltipTrigger>
-      <TooltipContent className="text-center">
-        Jesteś w trybie offline.
-        <br />
-        Wyłącznie zakładka &quot;Baza pytań&quot; jest dostępna.
-      </TooltipContent>
-    </Tooltip>
   );
 
   if (!license)
@@ -114,32 +108,41 @@ export default function Navigation({ options }: { options: SelectOption[] }) {
         {navigation.map((item) => {
           const Icon = item.icon;
           const isDisabledInOffline = !isOnline && item.disabledInOffline;
-          return (
-            <Link
-              key={item.name}
-              href={`/${license}/${item.href}`}
-              onClick={
-                isDisabledInOffline
-                  ? (event) => {
+          const href = `/${license}/${item.href}`;
+          const linkClassName = cn(
+            "flex items-center space-x-2 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+            isDisabledInOffline
+              ? "text-muted-foreground/50 hover:text-muted-foreground/50 cursor-not-allowed hover:bg-transparent"
+              : page === item.href
+                ? "bg-primary text-primary-foreground"
+                : "text-muted-foreground hover:text-foreground hover:bg-accent",
+          );
+
+          if (isDisabledInOffline) {
+            return (
+              <Tooltip key={item.name}>
+                <TooltipTrigger asChild>
+                  <Link
+                    href={href}
+                    onClick={(event) => {
                       event.preventDefault();
-                    }
-                  : undefined
-              }
-              title={
-                isDisabledInOffline
-                  ? "Zakładka niedostępna w trybie offline"
-                  : undefined
-              }
-              aria-disabled={isDisabledInOffline}
-              className={cn(
-                "flex items-center space-x-2 rounded-md px-3 py-2 text-sm font-medium transition-colors",
-                isDisabledInOffline
-                  ? "text-muted-foreground/50 hover:text-muted-foreground/50 cursor-not-allowed hover:bg-transparent"
-                  : page === item.href
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:text-foreground hover:bg-accent",
-              )}
-            >
+                    }}
+                    aria-disabled
+                    className={linkClassName}
+                  >
+                    <Icon className="h-4 w-4" />
+                    <span>{item.name}</span>
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent side="bottom" sideOffset={6}>
+                  {OFFLINE_MESSAGE.join(" ")}
+                </TooltipContent>
+              </Tooltip>
+            );
+          }
+
+          return (
+            <Link key={item.name} href={href} className={linkClassName}>
               <Icon className="h-4 w-4" />
               <span>{item.name}</span>
             </Link>
@@ -235,7 +238,7 @@ function MobileSidebar({
           </Button>
         </div>
 
-        <div className="flex flex-col gap-1 overflow-y-auto p-4">
+        <div className="flex flex-1 flex-col gap-1 overflow-y-auto p-4">
           <Select
             className="mb-3 w-full"
             placeholder="Wybierz licencję"
@@ -282,6 +285,18 @@ function MobileSidebar({
             );
           })}
         </div>
+
+        {!isOnline ? (
+          <div className="border-t border-amber-200 bg-amber-50 px-4 py-3">
+            <div className="flex flex-col items-start gap-2 text-sm text-amber-800">
+              <p className="flex items-center gap-2">
+                <GlobeOff className="h-4 w-4 shrink-0" />
+                {OFFLINE_MESSAGE[0]}
+              </p>
+              <p>{OFFLINE_MESSAGE[1]}</p>
+            </div>
+          </div>
+        ) : null}
       </div>
     </div>
   );

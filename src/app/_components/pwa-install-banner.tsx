@@ -19,7 +19,7 @@ export function PwaInstallBanner() {
   };
 
   return (
-    <div className="bg-primary/10 border-primary/20 text-foreground mb-8 flex items-center justify-between gap-4 rounded-lg border p-4 max-[30rem]:flex-col">
+    <div className="bg-primary/10 border-primary/20 text-foreground mx-auto mb-8 flex max-w-3xl items-center justify-between gap-4 rounded-lg border p-4 max-[30rem]:flex-col">
       <div className="flex items-center gap-3">
         <div className="bg-primary/20 flex h-10 w-10 shrink-0 items-center justify-center rounded-full">
           <Download className="text-primary h-5 w-5" />

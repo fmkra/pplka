@@ -22,9 +22,6 @@ export function DownloadComponent({ licenseId }: { licenseId: number }) {
 
   return (
     <Card className="bg-primary/5 border-primary/20 mx-auto mb-4 max-w-md">
-      <CardHeader>
-        <CardTitle className="text-base">Tryb offline dostępny</CardTitle>
-      </CardHeader>
       <CardContent className="space-y-4">
         {isDownloaded ? (
           <>
@@ -43,8 +40,8 @@ export function DownloadComponent({ licenseId }: { licenseId: number }) {
         ) : (
           <>
             <p className="text-muted-foreground text-sm">
-              Pobierz pytania dla tej licencji, aby korzystac z nauki bez
-              internetu.
+              Możesz pobrać pytania dla tej licencji, aby korzystac z bazy pytań
+              bez internetu.
             </p>
 
             {isDownloading && (
