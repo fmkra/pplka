@@ -60,7 +60,7 @@ function FileNode({ node }: { node: KnowledgeBaseNode }) {
 
   return (
     <Link
-      href={`/${license}/${KNOWLEDGE_BASE}/${node.id}`}
+      href={`/${license}/${KNOWLEDGE_BASE}/${node.slug}`}
       className="border-border bg-card text-foreground hover:bg-accent hover:text-accent-foreground flex items-center gap-2 rounded-md border px-3 py-2 text-sm no-underline shadow-sm transition hover:no-underline"
     >
       <span className="text-muted-foreground">📄</span>

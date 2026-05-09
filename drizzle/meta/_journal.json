@@ -176,6 +176,13 @@
       "when": 1777371335911,
       "tag": "0024_puzzling_true_believers",
       "breakpoints": true
+    },
+    {
+      "idx": 25,
+      "version": "7",
+      "when": 1778314350692,
+      "tag": "0025_lonely_dragon_lord",
+      "breakpoints": true
     }
   ]
 }
