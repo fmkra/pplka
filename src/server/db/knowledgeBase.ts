@@ -12,6 +12,7 @@ export const knowledgeBaseNodes = createTable(
       .primaryKey()
       .$defaultFn(() => crypto.randomUUID()),
     name: d.text().notNull(),
+    slug: d.text(),
     type: d.text({ enum: ["folder", "file"] }).notNull(),
     parentId: d.varchar({ length: 255 }),
     order: d.integer().notNull().default(0),
@@ -19,7 +20,10 @@ export const knowledgeBaseNodes = createTable(
       .timestamp({ withTimezone: true })
       .default(sql`CURRENT_TIMESTAMP`),
   }),
-  (t) => [uniqueIndex("kb_node_parent_order_idx").on(t.parentId, t.order)],
+  (t) => [
+    uniqueIndex("kb_node_parent_order_idx").on(t.parentId, t.order),
+    uniqueIndex("kb_node_slug_idx").on(t.slug),
+  ],
 );
 
 export const knowledgeBaseNodesToExplanations = createTable(
