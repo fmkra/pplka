@@ -8,6 +8,7 @@ import {
 } from "~/server/db/knowledgeBase";
 import { questionInstances } from "~/server/db/question";
 import { categories } from "~/server/db/category";
+import { db } from "~/server/db";
 
 export const explanationRouter = createTRPCRouter({
   getExplanations: publicProcedure
@@ -48,52 +49,50 @@ export const explanationRouter = createTRPCRouter({
             : isNull(knowledgeBaseNodes.parentId),
         );
     }),
-
-  getExplanationsForKnowledgeBaseNode: publicProcedure
-    .input(z.object({ id: z.string(), licenseId: z.number() }))
-    .query(async ({ ctx, input }) => {
-      const query1 = ctx.db
-        .select()
-        .from(explanations)
-        .innerJoin(
-          knowledgeBaseNodesToExplanations,
-          eq(explanations.id, knowledgeBaseNodesToExplanations.explanationId),
-        )
-        .where(
-          eq(knowledgeBaseNodesToExplanations.knowledgeBaseNodeId, input.id),
-        )
-        .orderBy(asc(knowledgeBaseNodesToExplanations.order));
-      const query2 = ctx.db
-        .select({
-          questionCount: countDistinct(questionsToExplanations.questionId),
-        })
-        .from(knowledgeBaseNodesToExplanations)
-        .innerJoin(
-          questionsToExplanations,
-          eq(
-            knowledgeBaseNodesToExplanations.explanationId,
-            questionsToExplanations.explanationId,
-          ),
-        )
-        .innerJoin(
-          questionInstances,
-          eq(questionsToExplanations.questionId, questionInstances.questionId),
-        )
-        .innerJoin(categories, eq(questionInstances.categoryId, categories.id))
-        .where(
-          and(
-            eq(knowledgeBaseNodesToExplanations.knowledgeBaseNodeId, input.id),
-            eq(categories.licenseId, input.licenseId),
-          ),
-        );
-
-      const [query1Result, query2Result] = await Promise.all([query1, query2]);
-
-      return {
-        explanations: query1Result,
-        questionCount: query2Result[0]?.questionCount ?? 0,
-      };
-    }),
 });
 
+export async function getExplanationsForKnowledgeBaseNode(
+  id: string,
+  licenseId: number,
+) {
+  const query1 = db
+    .select()
+    .from(explanations)
+    .innerJoin(
+      knowledgeBaseNodesToExplanations,
+      eq(explanations.id, knowledgeBaseNodesToExplanations.explanationId),
+    )
+    .where(eq(knowledgeBaseNodesToExplanations.knowledgeBaseNodeId, id))
+    .orderBy(asc(knowledgeBaseNodesToExplanations.order));
+  const query2 = db
+    .select({
+      questionCount: countDistinct(questionsToExplanations.questionId),
+    })
+    .from(knowledgeBaseNodesToExplanations)
+    .innerJoin(
+      questionsToExplanations,
+      eq(
+        knowledgeBaseNodesToExplanations.explanationId,
+        questionsToExplanations.explanationId,
+      ),
+    )
+    .innerJoin(
+      questionInstances,
+      eq(questionsToExplanations.questionId, questionInstances.questionId),
+    )
+    .innerJoin(categories, eq(questionInstances.categoryId, categories.id))
+    .where(
+      and(
+        eq(knowledgeBaseNodesToExplanations.knowledgeBaseNodeId, id),
+        eq(categories.licenseId, licenseId),
+      ),
+    );
+
+  const [query1Result, query2Result] = await Promise.all([query1, query2]);
+
+  return {
+    explanations: query1Result,
+    questionCount: query2Result[0]?.questionCount ?? 0,
+  };
+}
 export type KnowledgeBaseNode = typeof knowledgeBaseNodes.$inferSelect;
