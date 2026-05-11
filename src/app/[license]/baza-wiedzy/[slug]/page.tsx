@@ -27,7 +27,7 @@ export default async function KnowledgeBaseNodePage({
     columns: {
       id: true,
     },
-    where: eq(knowledgeBaseNodes.slug, slug),
+    where: eq(knowledgeBaseNodes.slug, decodeURIComponent(slug)),
   });
 
   if (!knowledgeBaseNode) {

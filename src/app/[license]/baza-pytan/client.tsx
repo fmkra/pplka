@@ -21,6 +21,11 @@ import {
   useCachedQuestionsCountQuery,
   useCachedQuestionsQuery,
 } from "~/offline/question-database-cache-hooks";
+import {
+  QUESTIONS_CATEGORIES,
+  QUESTIONS_KNOWLEDGE_BASE_ID,
+  QUESTIONS_SEARCH,
+} from "~/app/links";
 // import { LicenseFilter } from "./license-filter";
 
 const pageSizeOptions: SelectOption[] = [
@@ -41,11 +46,11 @@ export default function QuestionsPageClient({
   const { cachedVersion, isReady: isCachedVersionReady } =
     useCachedLicenseVersion(licenseId);
 
-  const [search, setSearch] = useSearchState("wyszukiwanie", MODE.empty);
+  const [search, setSearch] = useSearchState(QUESTIONS_SEARCH, MODE.empty);
   const searchDebounced = useDebounce(search ?? "", 500);
 
   const [selectedCategoriesStr, setSelectedCategoriesStr] = useSearchState(
-    "przedmioty",
+    QUESTIONS_CATEGORIES,
     MODE.emptyIsNull,
   );
   const selectedCategories = useMemo(() => {
@@ -72,7 +77,7 @@ export default function QuestionsPageClient({
   // "any" - show only with explanations
   // other string - show only with explanation with this id
   const [knowledgeBaseId, setKnowledgeBaseId] = useSearchState(
-    "wyjasnienie",
+    QUESTIONS_KNOWLEDGE_BASE_ID,
     MODE.nullable,
   );
 
