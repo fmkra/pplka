@@ -1,7 +1,7 @@
 import Render from "./md-render";
 import { Button } from "~/components/ui/button";
 import Link from "next/link";
-import { QUESTIONS } from "~/app/links";
+import { QUESTIONS, QUESTIONS_KNOWLEDGE_BASE_ID } from "~/app/links";
 import { conjugate } from "~/lib/utils";
 import { HelpfulnessFeedback } from "./helpfulness-feedback";
 import type { getExplanationsForKnowledgeBaseNode } from "~/server/api/routers/explanation";
@@ -32,7 +32,7 @@ export function KnowledgeBaseExplanations({
             z tym materiałem
             <Button asChild variant="outline">
               <Link
-                href={`../${QUESTIONS}?knowledge_base_id=${knowledgeBaseNodeId}`}
+                href={`../${QUESTIONS}?${QUESTIONS_KNOWLEDGE_BASE_ID}=${knowledgeBaseNodeId}`}
               >
                 Pokaż{" "}
                 {conjugate(data.questionCount, "pytanie", "pytania", "pytania")}
