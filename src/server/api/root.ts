@@ -1,3 +1,5 @@
+import "server-only";
+
 import { questionDatabaseRouter } from "~/server/api/routers/question_database";
 import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
 import { learningRouter } from "./routers/learning";
