@@ -9,45 +9,26 @@ import {
   AccordionContent,
 } from "~/components/ui/accordion";
 import type { KnowledgeBaseNode } from "~/server/api/routers/explanation";
-import { api } from "~/trpc/react";
-import { Skeleton } from "~/components/ui/skeleton";
 import { usePathname } from "next/navigation";
 import { KNOWLEDGE_BASE } from "~/app/links";
 
-export function TreeLoading() {
-  return (
-    <div
-      className="flex flex-col gap-1"
-      aria-busy="true"
-      aria-label="Ładowanie"
-    >
-      {[1, 2, 3].map((i) => (
-        <div
-          key={i}
-          className="border-border flex items-center gap-2 rounded-md border px-3 py-2"
-        >
-          <Skeleton className="h-5 w-4 shrink-0 rounded" />
-          <Skeleton className="h-4 max-w-[120px] flex-1" />
-        </div>
-      ))}
-    </div>
-  );
-}
-
-export function TreeNodes({ parentId }: { parentId: string | null }) {
-  const { data } = api.explanation.getKnowledgeBaseNodes.useQuery({
-    parentId,
-  });
-
-  if (!data) return <TreeLoading />;
+export function TreeNodes({
+  tree,
+  parentId,
+}: {
+  tree: Record<string, KnowledgeBaseNode[]>;
+  parentId: string | null;
+}) {
+  const nodes = tree[parentId ?? "root"];
+  if (!nodes) return null;
 
   return (
     <div className="flex flex-col gap-1">
-      {data.map(({ node }) =>
+      {nodes.map((node) =>
         node.type == "file" ? (
           <FileNode key={node.id} node={node} />
         ) : (
-          <FolderNode key={node.id} node={node} />
+          <FolderNode key={node.id} node={node} tree={tree} />
         ),
       )}
     </div>
@@ -68,7 +49,13 @@ function FileNode({ node }: { node: KnowledgeBaseNode }) {
     </Link>
   );
 }
-export function FolderNode({ node }: { node: KnowledgeBaseNode | null }) {
+export function FolderNode({
+  node,
+  tree,
+}: {
+  node: KnowledgeBaseNode | null;
+  tree: Record<string, KnowledgeBaseNode[]>;
+}) {
   const [open, setOpen] = useState<string>("");
 
   return (
@@ -82,7 +69,7 @@ export function FolderNode({ node }: { node: KnowledgeBaseNode | null }) {
         </AccordionTrigger>
         <AccordionContent className="pt-1">
           <div className="border-border ml-4 border-l pl-4">
-            <TreeNodes parentId={node?.id ?? null} />
+            <TreeNodes parentId={node?.id ?? null} tree={tree} />
           </div>
         </AccordionContent>
       </AccordionItem>

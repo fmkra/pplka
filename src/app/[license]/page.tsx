@@ -13,6 +13,7 @@ import {
   GraduationCap,
   ArrowRight,
   FileCheck,
+  type LucideProps,
 } from "lucide-react";
 import { db } from "~/server/db";
 import { eq } from "drizzle-orm";
@@ -23,37 +24,38 @@ import { PwaInstallBanner } from "../_components/pwa-install-banner";
 import { EXAM, KNOWLEDGE_BASE, LEARN, QUESTIONS } from "../links";
 import { DownloadComponent } from "../_components/download";
 import Main from "../_components/main";
+import type { ForwardRefExoticComponent, RefAttributes } from "react";
+import { cn } from "~/lib/utils";
 
 const LinkCard = ({
   title,
   description,
+  icon: Icon,
+  color,
   href,
-  buttonText,
+  button,
 }: {
   title: string;
   description: string;
+  icon: ForwardRefExoticComponent<
+    Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
+  >;
+  color: string;
   href: string;
-  buttonText: string;
+  button: React.ReactNode;
 }) => (
-  <article>
-    <Card className="transition-shadow hover:shadow-lg">
-      <CardHeader>
-        <BookOpen className="mb-8 h-12 w-12 text-amber-600" />
-        <CardTitle>
-          <h2>{title}</h2>
-        </CardTitle>
-        <CardDescription>{description}</CardDescription>
-      </CardHeader>
-      <CardContent className="mt-auto">
-        <Link href={href}>
-          <Button className="w-full bg-transparent" variant="outline">
-            {buttonText}
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
-        </Link>
-      </CardContent>
-    </Card>
-  </article>
+  <Card className="transition-shadow hover:shadow-lg" as="article">
+    <CardHeader>
+      <Icon className={cn("mb-8 h-12 w-12", color)} />
+      <CardTitle>
+        <h2>{title}</h2>
+      </CardTitle>
+      <CardDescription>{description}</CardDescription>
+    </CardHeader>
+    <CardContent className="mt-auto">
+      <Link href={href}>{button}</Link>
+    </CardContent>
+  </Card>
 );
 
 export const generateMetadata = metadataBuilder((url, name) => ({
@@ -93,26 +95,53 @@ export default async function HomePage({
           <LinkCard
             title="Baza wiedzy"
             description="Przeglądaj materiały edukacyjne, notatki i podsumowania do nauki przed egzaminem."
+            icon={BookOpen}
+            color="text-amber-600"
             href={`/${license}/${KNOWLEDGE_BASE}`}
-            buttonText="Otwórz bazę wiedzy"
+            button={
+              <Button className="w-full bg-transparent" variant="outline">
+                Otwórz bazę wiedzy
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            }
           />
           <LinkCard
             title="Nauka"
             description="Przechodź przez wszystkie pytania, a system zapamięta Twoje odpowiedzi i postępy w nauce."
+            icon={GraduationCap}
+            color="text-blue-600"
             href={`/${license}/${LEARN}`}
-            buttonText="Rozpocznij naukę"
+            button={
+              <Button className="w-full">
+                Rozpocznij naukę <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            }
           />
           <LinkCard
             title="Baza Pytań"
             description="Przeglądaj i filtruj całą bazę pytań po kategoriach, tagach oraz wyszukuj po treści."
+            icon={Database}
+            color="text-green-600"
             href={`/${license}/${QUESTIONS}`}
-            buttonText="Zobacz pytania"
+            button={
+              <Button className="w-full bg-transparent" variant="outline">
+                Zobacz pytania
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            }
           />
           <LinkCard
             title="Egzamin"
             description="Sprawdź swoją wiedzę w realistycznych warunkach, korzystając z naszego symulatora egzaminu."
+            icon={FileCheck}
+            color="text-purple-600"
             href={`/${license}/${EXAM}`}
-            buttonText="Podejdź do egzaminu"
+            button={
+              <Button className="w-full" variant="secondary">
+                Podejdź do egzaminu
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            }
           />
         </section>
         <section className="text-center">

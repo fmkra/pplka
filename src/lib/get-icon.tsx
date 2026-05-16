@@ -22,7 +22,8 @@ export function getIcon(
       <Image
         src={icon.slice(4)}
         alt={icon}
-        fill
+        width={40}
+        height={40}
         className={cn("rounded-lg", className)}
         style={{ backgroundColor: bakcground }}
       />
