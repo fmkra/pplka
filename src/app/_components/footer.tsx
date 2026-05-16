@@ -48,7 +48,7 @@ export function Footer({ license }: { license: string }) {
           </div>
 
           {/* Navigation */}
-          <div className="max-[18rem]:col-span-2">
+          <nav className="max-[18rem]:col-span-2">
             <h2 className="mb-4 font-semibold">Licencje</h2>
             <ul className="space-y-2">
               {navigation.map((item) => (
@@ -62,10 +62,10 @@ export function Footer({ license }: { license: string }) {
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
           {/* Resources */}
-          <div className="max-[18rem]:col-span-2">
+          <nav className="max-[18rem]:col-span-2">
             <h2 className="mb-4 font-semibold">Zasoby</h2>
             <ul className="space-y-2">
               {resources.map((item) => (
@@ -79,7 +79,7 @@ export function Footer({ license }: { license: string }) {
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
           {/* Contact */}
           <div className="col-span-2">

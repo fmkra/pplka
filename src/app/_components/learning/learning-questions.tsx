@@ -77,7 +77,7 @@ export function LearningQuestions({
           <LearningProgressBar attempt={attempt} />
         </CardHeader>
         <CardContent>
-          <div className="mb-4 space-y-2">
+          <section className="mb-4 space-y-2">
             {parsedQuestion ? (
               <>
                 <p className="mb-4">
@@ -116,24 +116,26 @@ export function LearningQuestions({
                 <Skeleton className="h-[50px] w-full rounded-lg border text-left" />
               </div>
             )}
-          </div>
+          </section>
           {question?.hasExplanation ? (
-            <Accordion type="single" collapsible>
-              <AccordionItem value="explanation">
-                <div className="flex w-full items-center justify-between">
-                  <AccordionTrigger className="p-0">
-                    Wyjaśnienie
-                  </AccordionTrigger>
-                  {nextButton}
-                </div>
-                <AccordionContent>
-                  <Explanation
-                    questionId={question.question.id}
-                    enabled={question.hasExplanation}
-                  />
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
+            <section>
+              <Accordion type="single" collapsible>
+                <AccordionItem value="explanation">
+                  <div className="flex w-full items-center justify-between">
+                    <AccordionTrigger className="p-0">
+                      Wyjaśnienie
+                    </AccordionTrigger>
+                    {nextButton}
+                  </div>
+                  <AccordionContent>
+                    <Explanation
+                      questionId={question.question.id}
+                      enabled={question.hasExplanation}
+                    />
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </section>
           ) : (
             <div className="flex w-full justify-end">{nextButton}</div>
           )}

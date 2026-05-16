@@ -45,23 +45,28 @@ export function LearningFinished({
   // TODO: Button should not only be disabled, but show spinner
 
   return (
-    <Card className="mx-auto w-full max-w-2xl">
-      <CardHeader className="text-center">
-        <CardTitle>Zakończyłeś naukę tego przedmiotu</CardTitle>
-        <CardDescription>
-          <div className="my-4 flex items-center justify-center gap-2">
-            <Checkbox
-              id="isRandom"
-              checked={isRandom}
-              onCheckedChange={() => setIsRandom(!isRandom)}
-            />
-            <Label htmlFor="isRandom">Losowa kolejność pytań</Label>
-          </div>
-          <Button disabled={isAnswerQuestionPending} onClick={startNewAttempt}>
-            Zresetuj postęp i zacznij od nowa
-          </Button>
-        </CardDescription>
-      </CardHeader>
-    </Card>
+    <section className="mx-auto w-full max-w-2xl">
+      <Card>
+        <CardHeader className="text-center">
+          <CardTitle>Zakończyłeś naukę tego przedmiotu</CardTitle>
+          <CardDescription>
+            <div className="my-4 flex items-center justify-center gap-2">
+              <Checkbox
+                id="isRandom"
+                checked={isRandom}
+                onCheckedChange={() => setIsRandom(!isRandom)}
+              />
+              <Label htmlFor="isRandom">Losowa kolejność pytań</Label>
+            </div>
+            <Button
+              disabled={isAnswerQuestionPending}
+              onClick={startNewAttempt}
+            >
+              Zresetuj postęp i zacznij od nowa
+            </Button>
+          </CardDescription>
+        </CardHeader>
+      </Card>
+    </section>
   );
 }

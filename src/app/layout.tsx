@@ -74,7 +74,7 @@ export default function RootLayout({
               <NuqsAdapter>
                 <TRPCReactProvider>
                   <Navbar />
-                  <main className="container mx-auto flex-1 p-4">{children}</main>
+                  {children}
                   <Notifications />
                   <RedirectionManager />
                 </TRPCReactProvider>

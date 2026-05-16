@@ -7,8 +7,12 @@ import ExamStart from "./exam_start";
 import { categories } from "~/server/db/category";
 import LoginWarning from "~/app/_components/login-warning";
 import { metadataBuilder } from "~/app/seo";
+import Main from "~/app/_components/main";
 
-export const generateMetadata = metadataBuilder((url, name) => ({title: `Egzamin próbny - ${name.short}`, description: `Przygotuj się do egzaminu ULC. Symulator egzaminu na ${name.short} z pytaniami z oficjalnej bazy.`}))
+export const generateMetadata = metadataBuilder((url, name) => ({
+  title: `Egzamin próbny - ${name.short}`,
+  description: `Przygotuj się do egzaminu ULC. Symulator egzaminu na ${name.short} z pytaniami z oficjalnej bazy.`,
+}));
 
 export default async function ExamsPage({
   params,
@@ -39,14 +43,14 @@ export default async function ExamsPage({
     .where(eq(categories.licenseId, license.id));
 
   return (
-    <>
+    <Main>
       <LoginWarning
         header="aby uzyskać dostęp do egzaminu"
         description="Musisz być zalogowany, aby rozpocząć egzamin i śledzić swój postęp."
       />
       <ExamStart licenseId={license.id} />
       <ExamList licenseId={license.id} categories={categoriesData} />
-    </>
+    </Main>
   );
 }
 

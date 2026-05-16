@@ -209,100 +209,107 @@ export default function Exam({
 
         <Progress value={progress} className="mt-2 mb-6" />
 
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex text-xl">
-              <span className="w-full">{currentQ.question}</span>
-              <button
-                className="h-6 shrink-0 cursor-pointer px-2"
-                onClick={toggleFlag}
-              >
-                <FlagTriangleRight
-                  className={cn("size-5", hasFlag && "text-red-500")}
-                />
-              </button>
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <RadioGroup
-              value={selectedAnswers[currentQuestion]}
-              onValueChange={(value) =>
-                handleAnswerSelect(currentQuestion, value as Answer)
-              }
-              className="space-y-3"
-            >
-              {currentQ.answers.map(([dbIndex, answer], index) => (
-                <div
-                  key={index}
-                  className="hover:bg-accent flex cursor-pointer items-center space-x-3 rounded-lg border p-4"
-                  onClick={() =>
-                    handleAnswerSelect(currentQuestion, numberToAnswer(dbIndex))
-                  }
+        <section>
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex text-xl">
+                <span className="w-full">{currentQ.question}</span>
+                <button
+                  className="h-6 shrink-0 cursor-pointer px-2"
+                  onClick={toggleFlag}
                 >
-                  <RadioGroupItem
-                    value={numberToAnswer(dbIndex)}
-                    id={`answer-${index}`}
+                  <FlagTriangleRight
+                    className={cn("size-5", hasFlag && "text-red-500")}
                   />
-                  <Label
-                    htmlFor={`answer-${index}`}
-                    className="flex-1 cursor-pointer"
-                  >
-                    <span className="mr-2 font-medium">
-                      {String.fromCharCode(65 + index)}.
-                    </span>
-                    {answer}
-                  </Label>
-                </div>
-              ))}
-            </RadioGroup>
-          </CardContent>
-        </Card>
-
-        <div className="mt-6 mb-3 flex justify-between">
-          <Button
-            variant="outline"
-            onClick={handlePrevious}
-            disabled={currentQuestion === 0}
-          >
-            Poprzednie pytanie
-          </Button>
-          <Button
-            variant="outline"
-            onClick={handleNext}
-            disabled={currentQuestion === questions.length - 1}
-          >
-            Następne pytanie
-          </Button>
-        </div>
-
-        <div className="bg-muted mt-6 rounded-lg p-4">
-          <h3 className="mb-2 font-medium">Pytania</h3>
-          <div className="flex flex-wrap gap-2">
-            {questions.map((q, index) => (
-              <button
-                className="relative cursor-pointer"
-                key={index}
-                onClick={() => selectQuestion(index)}
+                </button>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <RadioGroup
+                value={selectedAnswers[currentQuestion]}
+                onValueChange={(value) =>
+                  handleAnswerSelect(currentQuestion, value as Answer)
+                }
+                className="space-y-3"
               >
-                {flags[q.questionInstanceId] && (
-                  <div className="absolute top-0 right-0 z-10 border-6 border-t-red-500 border-r-red-500 border-b-transparent border-l-transparent"></div>
-                )}
-                <Badge
-                  variant={
-                    index === currentQuestion
-                      ? "default"
-                      : selectedAnswers[index] !== null
-                        ? "outline"
-                        : "black-outline"
-                  }
-                  className="block"
-                >
-                  {index + 1}
-                </Badge>
-              </button>
-            ))}
+                {currentQ.answers.map(([dbIndex, answer], index) => (
+                  <div
+                    key={index}
+                    className="hover:bg-accent flex cursor-pointer items-center space-x-3 rounded-lg border p-4"
+                    onClick={() =>
+                      handleAnswerSelect(
+                        currentQuestion,
+                        numberToAnswer(dbIndex),
+                      )
+                    }
+                  >
+                    <RadioGroupItem
+                      value={numberToAnswer(dbIndex)}
+                      id={`answer-${index}`}
+                    />
+                    <Label
+                      htmlFor={`answer-${index}`}
+                      className="flex-1 cursor-pointer"
+                    >
+                      <span className="mr-2 font-medium">
+                        {String.fromCharCode(65 + index)}.
+                      </span>
+                      {answer}
+                    </Label>
+                  </div>
+                ))}
+              </RadioGroup>
+            </CardContent>
+          </Card>
+        </section>
+
+        <nav>
+          <div className="mt-6 mb-3 flex justify-between">
+            <Button
+              variant="outline"
+              onClick={handlePrevious}
+              disabled={currentQuestion === 0}
+            >
+              Poprzednie pytanie
+            </Button>
+            <Button
+              variant="outline"
+              onClick={handleNext}
+              disabled={currentQuestion === questions.length - 1}
+            >
+              Następne pytanie
+            </Button>
           </div>
-        </div>
+
+          <div className="bg-muted mt-6 rounded-lg p-4">
+            <h3 className="mb-2 font-medium">Pytania</h3>
+            <div className="flex flex-wrap gap-2">
+              {questions.map((q, index) => (
+                <button
+                  className="relative cursor-pointer"
+                  key={index}
+                  onClick={() => selectQuestion(index)}
+                >
+                  {flags[q.questionInstanceId] && (
+                    <div className="absolute top-0 right-0 z-10 border-6 border-t-red-500 border-r-red-500 border-b-transparent border-l-transparent"></div>
+                  )}
+                  <Badge
+                    variant={
+                      index === currentQuestion
+                        ? "default"
+                        : selectedAnswers[index] !== null
+                          ? "outline"
+                          : "black-outline"
+                    }
+                    className="block"
+                  >
+                    {index + 1}
+                  </Badge>
+                </button>
+              ))}
+            </div>
+          </div>
+        </nav>
       </div>
     </>
   );

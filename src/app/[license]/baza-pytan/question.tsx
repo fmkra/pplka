@@ -64,60 +64,63 @@ export function Question({
   const [selected, setSelected] = answerState(question.id);
 
   return (
-    <Card key={question.id} className="transition-shadow hover:shadow-lg">
-      <CardHeader>
-        <CardTitle className="text-lg">{question.question}</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="mb-4 space-y-2">
-          {question.answers.map(([dbIndex, answer], index) => (
-            <button
-              key={index}
-              onClick={() => setSelected(dbIndex === selected ? null : dbIndex)}
-              className={`block w-full rounded-lg border p-3 text-left ${
-                dbIndex === selected
-                  ? selected === 0
-                    ? "border-green-200 bg-green-50 text-green-800"
-                    : "border-red-200 bg-red-50 text-red-800"
-                  : "border-gray-200 bg-gray-50"
-              }`}
-            >
-              <span className="mr-2 font-medium">
-                {String.fromCharCode(65 + index)}.
-              </span>
-              {answer}
-            </button>
-          ))}
-        </div>
-        <Accordion
-          type="single"
-          collapsible
-          value={accordionValue}
-          onValueChange={setAccordionValue}
-        >
-          <AccordionItem value="explanation">
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setSelected(selected === null ? 0 : null)}
+    <article key={question.id}>
+      <Card className="transition-shadow hover:shadow-lg">
+        <CardHeader>
+          <CardTitle className="text-lg">{question.question}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="mb-4 space-y-2">
+            {question.answers.map(([dbIndex, answer], index) => (
+              <button
+                key={index}
+                onClick={() =>
+                  setSelected(dbIndex === selected ? null : dbIndex)
+                }
+                className={`block w-full rounded-lg border p-3 text-left ${
+                  dbIndex === selected
+                    ? selected === 0
+                      ? "border-green-200 bg-green-50 text-green-800"
+                      : "border-red-200 bg-red-50 text-red-800"
+                    : "border-gray-200 bg-gray-50"
+                }`}
               >
-                {selected === null
-                  ? "Pokaż prawidłową odpowiedź"
-                  : "Odznacz odpowiedź"}
-              </Button>
-              <div className="flex grow items-center gap-2">
-                {hasExplanation && (
-                  <AccordionTrigger className="p-0">
-                    Wyjaśnienie
-                  </AccordionTrigger>
-                )}
-                <div className="ml-auto flex items-start justify-between gap-2">
-                  {/* {question.tags?.map((tag) => (
+                <span className="mr-2 font-medium">
+                  {String.fromCharCode(65 + index)}.
+                </span>
+                {answer}
+              </button>
+            ))}
+          </div>
+          <Accordion
+            type="single"
+            collapsible
+            value={accordionValue}
+            onValueChange={setAccordionValue}
+          >
+            <AccordionItem value="explanation">
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setSelected(selected === null ? 0 : null)}
+                >
+                  {selected === null
+                    ? "Pokaż prawidłową odpowiedź"
+                    : "Odznacz odpowiedź"}
+                </Button>
+                <div className="flex grow items-center gap-2">
+                  {hasExplanation && (
+                    <AccordionTrigger className="p-0">
+                      Wyjaśnienie
+                    </AccordionTrigger>
+                  )}
+                  <div className="ml-auto flex items-start justify-between gap-2">
+                    {/* {question.tags?.map((tag) => (
               <Badge key={tag.tag.id}>{tag.tag.name}</Badge>
             ))} */}
-                  {/* TODO: this works good for multiple licenses page */}
-                  {/* {q.categories.map((category) => (
+                    {/* TODO: this works good for multiple licenses page */}
+                    {/* {q.categories.map((category) => (
               <Badge
                 variant="secondary"
                 style={getStyle(category.color)}
@@ -127,33 +130,34 @@ export function Question({
                   category.name}
               </Badge>
             ))} */}
-                  <Badge variant="secondary" style={getStyle(category.color)}>
-                    {category.name}
-                  </Badge>
-                  {question.externalId && (
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <Info className="text-muted-foreground my-[3px] h-4 w-4 cursor-help" />
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>{question.externalId}</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  )}
+                    <Badge variant="secondary" style={getStyle(category.color)}>
+                      {category.name}
+                    </Badge>
+                    {question.externalId && (
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Info className="text-muted-foreground my-[3px] h-4 w-4 cursor-help" />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>{question.externalId}</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-            <AccordionContent>
-              <Explanation
-                questionId={question.id}
-                enabled={hasExplanation && isExpanded}
-              />
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
-      </CardContent>
-    </Card>
+              <AccordionContent>
+                <Explanation
+                  questionId={question.id}
+                  enabled={hasExplanation && isExpanded}
+                />
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </CardContent>
+      </Card>
+    </article>
   );
 }

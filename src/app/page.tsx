@@ -11,6 +11,7 @@ import { getIcon } from "~/lib/get-icon";
 import { Footer } from "./_components/footer";
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
+import Main from "./_components/main";
 
 const title =
   "Nauka do egzaminu teoretycznego na licencje PPL(A), SPL, BPL, PPL(H)";
@@ -33,7 +34,7 @@ export default async function LearnPage() {
 
   return (
     <>
-      <div className="container mx-auto py-8">
+      <Main className="py-8">
         <div className="mb-8">
           <h1 className="mb-4 text-3xl font-bold">Wybierz swój typ licencji</h1>
           <p className="text-muted-foreground">
@@ -47,42 +48,41 @@ export default async function LearnPage() {
           {licenses.map((license) => {
             const icon = getIcon(license.icon);
             return (
-              <Card
-                key={license.id}
-                className="transition-shadow hover:shadow-lg"
-              >
-                <CardHeader>
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="bg-primary/10 relative flex h-10 w-10 shrink-0 items-center justify-center rounded-lg">
-                        {icon}
-                      </div>
-                      <div>
-                        <CardTitle className="text-lg">
-                          {license.name}
-                        </CardTitle>
+              <article key={license.id}>
+                <Card className="transition-shadow hover:shadow-lg">
+                  <CardHeader>
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-primary/10 relative flex h-10 w-10 shrink-0 items-center justify-center rounded-lg">
+                          {icon}
+                        </div>
+                        <div>
+                          <CardTitle className="text-lg">
+                            <h2>{license.name}</h2>
+                          </CardTitle>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </CardHeader>
-                <CardContent className="flex h-full flex-col">
-                  <CardDescription className="mb-4 text-sm">
-                    {license.description}
-                  </CardDescription>
+                  </CardHeader>
+                  <CardContent className="flex h-full flex-col">
+                    <CardDescription className="mb-4 text-sm">
+                      {license.description}
+                    </CardDescription>
 
-                  <Button
-                    className="mt-auto w-full"
-                    asChild
-                    aria-label={`Wybierz licencję ${license.name}`}
-                  >
-                    <Link href={`/${license.url}`}>Wybierz licencję</Link>
-                  </Button>
-                </CardContent>
-              </Card>
+                    <Button
+                      className="mt-auto w-full"
+                      asChild
+                      aria-label={`Wybierz licencję ${license.name}`}
+                    >
+                      <Link href={`/${license.url}`}>Wybierz licencję</Link>
+                    </Button>
+                  </CardContent>
+                </Card>
+              </article>
             );
           })}
         </div>
-      </div>
+      </Main>
       <Footer license="ppla" />
     </>
   );
