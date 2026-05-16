@@ -9,6 +9,7 @@ import Link from "next/link";
 import { getIcon } from "~/lib/get-icon";
 import { CategoryLearningClient } from "./category-learning-client";
 import { LEARN } from "~/app/links";
+import Main from "~/app/_components/main";
 
 export default async function LearnCategoryPage({
   params,
@@ -39,35 +40,37 @@ export default async function LearnCategoryPage({
   }
 
   return (
-    <div className="flex min-h-[calc(100vh_-_12rem)] flex-col">
-      <div className="mb-8 shrink-0">
-        <div className="mb-4 flex items-center gap-4">
-          <Button variant="outline" size="sm" asChild>
-            <Link href={`/${licenseUrl}/${LEARN}`}>
-              <icons.ArrowLeft className="mr-2 h-4 w-4" />
-              Powrót do przedmiotów
-            </Link>
-          </Button>
+    <Main>
+      <div className="flex min-h-[calc(100vh_-_12rem)] flex-col">
+        <div className="mb-8 shrink-0">
+          <div className="mb-4 flex items-center gap-4">
+            <Button variant="outline" size="sm" asChild>
+              <Link href={`/${licenseUrl}/${LEARN}`}>
+                <icons.ArrowLeft className="mr-2 h-4 w-4" />
+                Powrót do przedmiotów
+              </Link>
+            </Button>
+          </div>
+
+          <div className="flex items-start justify-between">
+            <h1 className="mb-2 flex items-center text-3xl font-bold">
+              <div className="relative mr-2 h-8 w-8">
+                {getIcon(
+                  categoryData.icon,
+                  null,
+                  categoryData.color?.split(",")[0],
+                )}
+              </div>
+              {categoryData.name}
+            </h1>
+          </div>
         </div>
 
-        <div className="flex items-start justify-between">
-          <h1 className="mb-2 flex items-center text-3xl font-bold">
-            <div className="relative mr-2 h-8 w-8">
-              {getIcon(
-                categoryData.icon,
-                null,
-                categoryData.color?.split(",")[0],
-              )}
-            </div>
-            {categoryData.name}
-          </h1>
+        <div className="my-auto flex shrink items-center justify-center">
+          <CategoryLearningClient category={categoryData} />
         </div>
       </div>
-
-      <div className="my-auto flex shrink items-center justify-center">
-        <CategoryLearningClient category={categoryData} />
-      </div>
-    </div>
+    </Main>
   );
 }
 

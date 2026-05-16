@@ -3,6 +3,7 @@ import QuestionsPageClient from "./client";
 import { db } from "~/server/db";
 import { metadataBuilder } from "~/app/seo";
 import { Suspense } from "react";
+import Main from "~/app/_components/main";
 
 export const generateMetadata = metadataBuilder((url, name) => ({
   title: `Baza pytań - ${name.short}`,
@@ -36,7 +37,7 @@ export default async function QuestionsPage({
   });
 
   return (
-    <>
+    <Main>
       <div className="mb-8">
         <h1 className="mb-4 text-3xl font-bold">Baza pytań</h1>
         <p className="text-muted-foreground">
@@ -48,7 +49,7 @@ export default async function QuestionsPage({
       <Suspense fallback={<div>Loading...</div>}>
         <QuestionsPageClient categories={categoryList} licenseId={license.id} />
       </Suspense>
-    </>
+    </Main>
   );
 }
 

@@ -121,135 +121,139 @@ export default function ExamList({
   if (!isLoggedIn) return null;
 
   return (
-    <Card className="mt-8">
-      <CardHeader>
-        <CardTitle className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold">Twoje egzaminy</h2>
-          <CategoryFilter
-            categories={categories}
-            selectedCategories={selectedCategories}
-            onCategoriesChange={setSelectedCategories}
-          />
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        {isLoading ? (
-          <div className="flex items-center justify-center py-7">
-            <Spinner />
-          </div>
-        ) : isEmpty ? (
-          <p className="text-muted-foreground py-8 text-center">
-            Nie masz jeszcze żadnych egzaminów. Rozpocznij swój pierwszy
-            egzamin!
-          </p>
-        ) : (
-          <>
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b">
-                    <th className="px-4 py-3 text-left font-medium">
-                      Data rozpoczęcia
-                    </th>
-                    <th className="px-4 py-3 text-left font-medium">
-                      Przedmiot
-                    </th>
-                    <th className="px-4 py-3 text-left font-medium">Status</th>
-                    <th className="px-4 py-3 text-left font-medium">
-                      Postęp / Wynik
-                    </th>
-                    <th className="px-4 py-3 text-left font-medium">
-                      Czas trwania
-                    </th>
-                    <th className="w-24 px-4 py-3 text-left font-medium"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {exams?.map((exam) => {
-                    const status = getStatus(
-                      exam.finishedAt,
-                      exam.answersCorrect,
-                      exam.questionCount,
-                    );
+    <section>
+      <Card className="mt-8">
+        <CardHeader>
+          <CardTitle className="flex items-center justify-between">
+            <h1 className="text-2xl font-bold">Twoje egzaminy</h1>
+            <CategoryFilter
+              categories={categories}
+              selectedCategories={selectedCategories}
+              onCategoriesChange={setSelectedCategories}
+            />
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {isLoading ? (
+            <div className="flex items-center justify-center py-7">
+              <Spinner />
+            </div>
+          ) : isEmpty ? (
+            <p className="text-muted-foreground py-8 text-center">
+              Nie masz jeszcze żadnych egzaminów. Rozpocznij swój pierwszy
+              egzamin!
+            </p>
+          ) : (
+            <>
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="border-b">
+                      <th className="px-4 py-3 text-left font-medium">
+                        Data rozpoczęcia
+                      </th>
+                      <th className="px-4 py-3 text-left font-medium">
+                        Przedmiot
+                      </th>
+                      <th className="px-4 py-3 text-left font-medium">
+                        Status
+                      </th>
+                      <th className="px-4 py-3 text-left font-medium">
+                        Postęp / Wynik
+                      </th>
+                      <th className="px-4 py-3 text-left font-medium">
+                        Czas trwania
+                      </th>
+                      <th className="w-24 px-4 py-3 text-left font-medium"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {exams?.map((exam) => {
+                      const status = getStatus(
+                        exam.finishedAt,
+                        exam.answersCorrect,
+                        exam.questionCount,
+                      );
 
-                    const questionsDone =
-                      exam.finishedAt === null
-                        ? exam.questionsDone
-                        : exam.answersCorrect;
+                      const questionsDone =
+                        exam.finishedAt === null
+                          ? exam.questionsDone
+                          : exam.answersCorrect;
 
-                    const progressPercentage = Math.round(
-                      (questionsDone / exam.questionCount) * 100,
-                    );
+                      const progressPercentage = Math.round(
+                        (questionsDone / exam.questionCount) * 100,
+                      );
 
-                    return (
-                      <tr
-                        key={exam.attemptId}
-                        className="hover:bg-muted/50 border-b"
-                      >
-                        <td className="px-4 py-3">
-                          <div className="text-sm font-medium">
-                            {formatDate(exam.startedAt)}
-                          </div>
-                        </td>
-                        <td className="px-4 py-3 font-medium">
-                          {exam.categoryName}
-                        </td>
-                        <td className="px-4 py-3">
-                          <Badge
-                            variant={status.variant}
-                            className="flex items-center gap-1"
-                          >
-                            {status.icon}
-                            {status.text}
-                          </Badge>
-                        </td>
-                        <td className="px-4 py-3">
-                          <div className="flex items-center gap-2">
-                            <div className="text-sm">
-                              {questionsDone}/{exam.questionCount}
+                      return (
+                        <tr
+                          key={exam.attemptId}
+                          className="hover:bg-muted/50 border-b"
+                        >
+                          <td className="px-4 py-3">
+                            <div className="text-sm font-medium">
+                              {formatDate(exam.startedAt)}
                             </div>
-                            <div className="bg-muted h-2 w-16 rounded-full">
-                              <div
-                                className="bg-primary h-2 rounded-full transition-all duration-300"
-                                style={{ width: `${progressPercentage}%` }}
-                              />
+                          </td>
+                          <td className="px-4 py-3 font-medium">
+                            {exam.categoryName}
+                          </td>
+                          <td className="px-4 py-3">
+                            <Badge
+                              variant={status.variant}
+                              className="flex items-center gap-1"
+                            >
+                              {status.icon}
+                              {status.text}
+                            </Badge>
+                          </td>
+                          <td className="px-4 py-3">
+                            <div className="flex items-center gap-2">
+                              <div className="text-sm">
+                                {questionsDone}/{exam.questionCount}
+                              </div>
+                              <div className="bg-muted h-2 w-16 rounded-full">
+                                <div
+                                  className="bg-primary h-2 rounded-full transition-all duration-300"
+                                  style={{ width: `${progressPercentage}%` }}
+                                />
+                              </div>
+                              <span className="text-muted-foreground text-xs">
+                                {progressPercentage}%
+                              </span>
                             </div>
-                            <span className="text-muted-foreground text-xs">
-                              {progressPercentage}%
-                            </span>
-                          </div>
-                        </td>
-                        <td className="px-4 py-3">
-                          {calculateDuration(
-                            exam.startedAt,
-                            exam.finishedAt,
-                            exam.examTime,
-                            currentTime,
-                          )}
-                        </td>
-                        <td className="px-4 py-3">
-                          <Button variant="outline" className="w-full">
+                          </td>
+                          <td className="px-4 py-3">
+                            {calculateDuration(
+                              exam.startedAt,
+                              exam.finishedAt,
+                              exam.examTime,
+                              currentTime,
+                            )}
+                          </td>
+                          <td className="px-4 py-3">
                             <Link href={`./${EXAM}/${exam.attemptId}`}>
-                              {exam.finishedAt === null
-                                ? "Kontynuuj"
-                                : "Zobacz"}
+                              <Button variant="outline" className="w-full">
+                                {exam.finishedAt === null
+                                  ? "Kontynuuj"
+                                  : "Zobacz"}
+                              </Button>
                             </Link>
-                          </Button>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-            <div className="mt-8 flex items-center">
-              <div className="mx-auto">{pagination.footer}</div>
-              <p className="mr-2 text-sm">Ilość na stronę: </p>
-              <div className="w-20">{pagination.pageSizeSelector}</div>
-            </div>
-          </>
-        )}
-      </CardContent>
-    </Card>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+              <div className="mt-8 flex items-center">
+                <div className="mx-auto">{pagination.footer}</div>
+                <p className="mr-2 text-sm">Ilość na stronę: </p>
+                <div className="w-20">{pagination.pageSizeSelector}</div>
+              </div>
+            </>
+          )}
+        </CardContent>
+      </Card>
+    </section>
   );
 }

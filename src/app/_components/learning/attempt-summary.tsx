@@ -36,21 +36,25 @@ export function LearningAttemptSummary({
   // TODO: Button should not only be disabled, but show spinner
 
   return (
-    <Card className="mx-auto w-full max-w-4xl">
-      <CardHeader>
-        <CardTitle className="text-center">Podsumowanie podejścia</CardTitle>
-        <CardDescription>
-          {generateSummaryContent(attempt).map((content, index) => (
-            <p key={index}>{content}</p>
-          ))}
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Button disabled={isAnswerQuestionPending} onClick={startNextAttempt}>
-          Rozpocznij kolejne podejście
-        </Button>
-      </CardContent>
-    </Card>
+    <section className="mx-auto w-full max-w-4xl">
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-center">
+            <h1 className="text-2xl">Podsumowanie podejścia</h1>
+          </CardTitle>
+          <CardDescription>
+            {generateSummaryContent(attempt).map((content, index) => (
+              <p key={index}>{content}</p>
+            ))}
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Button disabled={isAnswerQuestionPending} onClick={startNextAttempt}>
+            Rozpocznij kolejne podejście
+          </Button>
+        </CardContent>
+      </Card>
+    </section>
   );
 }
 

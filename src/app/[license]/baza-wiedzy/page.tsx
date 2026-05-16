@@ -1,3 +1,5 @@
+import { FolderNode } from "~/app/_components/knowledge-base/tree-node";
+import Main from "~/app/_components/main";
 import { metadataBuilder } from "~/app/seo";
 import { db } from "~/server/db";
 
@@ -7,7 +9,11 @@ export const generateMetadata = metadataBuilder((url, name) => ({
 }));
 
 export default function Page() {
-  return null;
+  return (
+    <Main>
+      <FolderNode node={null} />
+    </Main>
+  );
 }
 
 export async function generateStaticParams() {
