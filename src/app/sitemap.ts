@@ -1,9 +1,17 @@
 import type { MetadataRoute } from "next";
 import { EXAM, KNOWLEDGE_BASE, LEARN, LICENSES, QUESTIONS, TOS } from "./links";
+import { db } from "~/server/db";
+import { knowledgeBaseNodes } from "~/server/db/knowledgeBase";
+import { isNotNull } from "drizzle-orm";
 
 const BASE_URL = "https://www.pplka.pl";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const knowledgeBaseSlugs = await db
+    .select({ slug: knowledgeBaseNodes.slug })
+    .from(knowledgeBaseNodes)
+    .where(isNotNull(knowledgeBaseNodes.slug));
+
   return [
     {
       url: BASE_URL,
@@ -48,8 +56,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
             url: `${BASE_URL}/${license}/${KNOWLEDGE_BASE}`,
             lastModified: new Date(),
             changeFrequency: "monthly",
-            priority: 0.3,
+            priority: 0.1,
           },
+          ...knowledgeBaseSlugs.map(
+            (slug) =>
+              ({
+                url: `${BASE_URL}/${license}/${KNOWLEDGE_BASE}/${slug.slug}`,
+                lastModified: new Date(),
+                changeFrequency: "monthly",
+                priority: 0.5,
+              }) as const,
+          ),
         ] as const,
     ),
   ];
