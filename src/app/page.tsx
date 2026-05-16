@@ -48,37 +48,39 @@ export default async function LearnPage() {
           {licenses.map((license) => {
             const icon = getIcon(license.icon);
             return (
-              <article key={license.id}>
-                <Card className="transition-shadow hover:shadow-lg">
-                  <CardHeader>
-                    <div className="flex items-start justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="bg-primary/10 relative flex h-10 w-10 shrink-0 items-center justify-center rounded-lg">
-                          {icon}
-                        </div>
-                        <div>
-                          <CardTitle className="text-lg">
-                            <h2>{license.name}</h2>
-                          </CardTitle>
-                        </div>
+              <Card
+                key={license.id}
+                className="transition-shadow hover:shadow-lg"
+                as="article"
+              >
+                <CardHeader>
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="bg-primary/10 relative flex h-10 w-10 shrink-0 items-center justify-center rounded-lg">
+                        {icon}
+                      </div>
+                      <div>
+                        <CardTitle className="text-lg">
+                          <h2>{license.name}</h2>
+                        </CardTitle>
                       </div>
                     </div>
-                  </CardHeader>
-                  <CardContent className="flex h-full flex-col">
-                    <CardDescription className="mb-4 text-sm">
-                      {license.description}
-                    </CardDescription>
+                  </div>
+                </CardHeader>
+                <CardContent className="flex h-full flex-col">
+                  <CardDescription className="mb-4 text-sm">
+                    {license.description}
+                  </CardDescription>
 
-                    <Button
-                      className="mt-auto w-full"
-                      asChild
-                      aria-label={`Wybierz licencję ${license.name}`}
-                    >
-                      <Link href={`/${license.url}`}>Wybierz licencję</Link>
-                    </Button>
-                  </CardContent>
-                </Card>
-              </article>
+                  <Button
+                    className="mt-auto w-full"
+                    asChild
+                    aria-label={`Wybierz licencję ${license.name}`}
+                  >
+                    <Link href={`/${license.url}`}>Wybierz licencję</Link>
+                  </Button>
+                </CardContent>
+              </Card>
             );
           })}
         </div>
