@@ -5,6 +5,7 @@ import { getExplanationsForKnowledgeBaseNode } from "~/server/api/routers/explan
 import { db } from "~/server/db";
 import { knowledgeBaseNodes } from "~/server/db/knowledgeBase";
 import { licenses } from "~/server/db/license";
+import { buildTree } from "../layout";
 
 export default async function KnowledgeBaseNodePage({
   params,
@@ -39,10 +40,13 @@ export default async function KnowledgeBaseNodePage({
     license.id,
   );
 
+  const siblings = (await buildTree())[1];
+
   return (
     <KnowledgeBaseExplanations
       data={data}
       knowledgeBaseNodeId={knowledgeBaseNode.id}
+      siblings={siblings[knowledgeBaseNode.id] ?? [null, null]}
     />
   );
 }
