@@ -6,8 +6,13 @@ import type { KnowledgeBaseNode } from "~/server/api/routers/explanation";
 import { db } from "~/server/db";
 import { knowledgeBaseNodes } from "~/server/db/knowledgeBase";
 
-const buildTree = unstable_cache(
-  async (): Promise<Record<string, KnowledgeBaseNode[]>> => {
+export const buildTree = unstable_cache(
+  async (): Promise<
+    [
+      Record<string, KnowledgeBaseNode[]>,
+      Record<string, [KnowledgeBaseNode | null, KnowledgeBaseNode | null]>,
+    ]
+  > => {
     const nodes = await db.query.knowledgeBaseNodes.findMany({
       orderBy: [
         asc(knowledgeBaseNodes.parentId),
@@ -21,7 +26,28 @@ const buildTree = unstable_cache(
         node,
       ];
     }
-    return children;
+    const siblings = {} as Record<
+      string,
+      [KnowledgeBaseNode | null, KnowledgeBaseNode | null]
+    >;
+
+    function flattenTree(node: KnowledgeBaseNode): KnowledgeBaseNode[] {
+      const c = children[node?.id ?? "root"] ?? [];
+      if (c.length === 0 && node.type === "file" && node.slug) {
+        return [node];
+      }
+      return c.flatMap(flattenTree);
+    }
+
+    const flatTree = children.root?.flatMap(flattenTree) ?? [];
+    for (let i = 1; i < flatTree.length; i++) {
+      const left = flatTree[i - 1]!;
+      const right = flatTree[i]!;
+      siblings[left.id] = [siblings[left.id]?.[0] ?? null, right];
+      siblings[right.id] = [left, siblings[right.id]?.[0] ?? null];
+    }
+
+    return [children, siblings];
   },
 );
 
@@ -30,7 +56,7 @@ export default async function KnowledgeBaseTree({
 }: {
   children: React.ReactNode;
 }) {
-  const tree = await buildTree();
+  const tree = (await buildTree())[0];
 
   return (
     <>
