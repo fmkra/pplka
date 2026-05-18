@@ -1,4 +1,4 @@
-import { eq, isNotNull } from "drizzle-orm";
+import { asc, eq, isNotNull } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import { KnowledgeBaseExplanations } from "~/app/_components/knowledge-base/kb-explanations";
 import { getExplanationsForKnowledgeBaseNode } from "~/server/api/routers/explanation";
@@ -28,6 +28,7 @@ export default async function KnowledgeBaseNodePage({
     columns: {
       id: true,
     },
+    orderBy: asc(knowledgeBaseNodes.order),
     where: eq(knowledgeBaseNodes.slug, decodeURIComponent(slug)),
   });
 
