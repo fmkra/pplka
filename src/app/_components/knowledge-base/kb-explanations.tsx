@@ -23,14 +23,14 @@ export function KnowledgeBaseExplanations({
 }) {
   return (
     <div className="space-y-2">
-      <div className="mt-2 grid grid-cols-[1fr_auto_1fr] border-t pt-4 pb-2">
+      <div className="mt-2 grid grid-cols-[1fr_auto_1fr] gap-y-4 border-t pt-4 pb-2 max-sm:grid-cols-2">
         {siblings[0] ? (
           <Link
-            className="my-auto text-blue-500"
+            className="flex items-center gap-2 text-blue-500"
             href={`./${siblings[0].slug}`}
           >
-            {"< "}
-            {siblings[0]?.name}
+            <span>{"< "}</span>
+            <span>{siblings[0]?.name}</span>
           </Link>
         ) : (
           <div />
@@ -38,7 +38,7 @@ export function KnowledgeBaseExplanations({
         {!!data?.questionCount && (
           <Link
             href={`../${QUESTIONS}?${QUESTIONS_KNOWLEDGE_BASE_ID}=${knowledgeBaseNodeId}`}
-            className="text-center text-blue-500"
+            className="text-center text-blue-500 max-sm:order-2 max-sm:col-span-2"
           >
             {data.questionCount}{" "}
             {conjugate(
@@ -52,11 +52,11 @@ export function KnowledgeBaseExplanations({
         )}
         {siblings[1] ? (
           <Link
-            className="my-auto text-right text-blue-500"
+            className="flex items-center justify-end gap-2 text-right text-blue-500 max-sm:order-1"
             href={`./${siblings[1].slug}`}
           >
-            {siblings[1]?.name}
-            {" >"}
+            <span>{siblings[1]?.name}</span>
+            <span>{" >"}</span>
           </Link>
         ) : (
           <div />
