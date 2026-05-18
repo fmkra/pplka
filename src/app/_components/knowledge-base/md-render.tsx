@@ -69,7 +69,7 @@ export default function Render({
 
       {openImageUrl && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md"
+          className="fixed inset-x-0 top-0 z-50 flex h-screen items-center justify-center bg-black/60 backdrop-blur-md"
           onClick={() => setOpenImageUrl(null)}
           role="dialog"
           aria-modal="true"
