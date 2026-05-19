@@ -16,7 +16,7 @@ const resources = [
   { name: "Baza wiedzy", href: (l: string) => `/${l}/${KNOWLEDGE_BASE}` },
   { name: "Nauka", href: (l: string) => `/${l}/${LEARN}` },
   { name: "Baza pytań", href: (l: string) => `/${l}/${QUESTIONS}` },
-  { name: "Egzamin próbny", href: (l: string) => `/${l}/${EXAM}` },
+  { name: "Egzamin", href: (l: string) => `/${l}/${EXAM}` },
 ];
 
 export function Footer({ license }: { license: string }) {

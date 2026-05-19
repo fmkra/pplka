@@ -41,11 +41,10 @@ export default async function LearnPage({
       <div className="mb-8">
         <h1 className="mb-4 text-3xl font-bold">Tryb nauki</h1>
         <p className="text-muted-foreground">
-          Przejdź przez wszystkie dostępne pytania egzaminacyjne. Pytania, na
-          które odpowiesz poprawnie, nie pojawią się w danej sesji nauki
-          ponownie. Po przejściu przez wszystkie pytania, możesz rozpocząć
-          kolejne podejście, w którym pojawią się jedynie pytania, na które
-          odpowiedziano błędnie.
+          W trybie nauki przechodzisz przez wszystkie pytania udzielając
+          odpowiedzi oraz wykorzystujesz wyjaśnienia zawarte w bazie wiedzy.
+          Pytania, na które nie odpowiedziałeś poprawnie, pojawią się w kolejnym
+          podejściu.
         </p>
       </div>
 

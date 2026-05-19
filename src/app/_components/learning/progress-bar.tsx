@@ -59,7 +59,7 @@ export function LearningProgressBar({
           <div
             className="bg-green-800"
             style={{ width: `${previouslyAnsweredPercent}%` }}
-            title={`Previously answered: ${attempt.previouslyAnswered}`}
+            title={`Poprawne z poprzednich podejść: ${attempt.previouslyAnswered}`}
           />
         )}
 
@@ -67,7 +67,7 @@ export function LearningProgressBar({
           <div
             className="bg-green-400"
             style={{ width: `${answeredCorrectlyPercent}%` }}
-            title={`Answered correctly: ${attempt.answeredCorrectly}`}
+            title={`Poprawne w tym podejściu: ${attempt.answeredCorrectly}`}
           />
         )}
 
@@ -75,7 +75,7 @@ export function LearningProgressBar({
           <div
             className="bg-red-500"
             style={{ width: `${answeredIncorrectlyPercent}%` }}
-            title={`Answered incorrectly: ${attempt.answeredIncorrectly}`}
+            title={`Niepoprawne w tym podejściu: ${attempt.answeredIncorrectly}`}
           />
         )}
 
@@ -83,7 +83,7 @@ export function LearningProgressBar({
           <div
             className="bg-gray-200"
             style={{ width: `${notAnsweredPercent}%` }}
-            title={`Not answered: ${attempt.notAnswered}`}
+            title={`Pozostało: ${attempt.notAnswered}`}
           />
         )}
       </div>
@@ -102,12 +102,16 @@ export function LearningProgressBar({
 }
 
 function generateTooltipContent(attempt: LearningProgressBarProps["attempt"]) {
+  if (attempt.currentAttempt == 1)
+    return [
+      "To jest twoje pierwsze podejście.",
+      `Odpowiedziałeś poprawnie na ${attempt.answeredCorrectly} ${conjugate(attempt.answeredCorrectly, "pytanie, dlatego nie zobaczysz go", "pytania, dlatego nie zobaczysz ich", "pytań, dlatego nie zobaczysz ich")} w kolejnym podejściu.`,
+      `Na ${attempt.answeredIncorrectly} ${conjugate(attempt.answeredIncorrectly, "pytanie", "pytania", "pytań")} odpowiedziałeś niepoprawnie.`,
+      `Do zakończenia podejścia pozostało ci ${attempt.notAnswered} ${conjugate(attempt.notAnswered, "pytanie", "pytania", "pytań")}.`,
+    ];
   return [
-    attempt.currentAttempt == 1
-      ? "To jest twoje pierwsze podejście."
-      : `W poprzednich podejściach odpowiedziałeś poprawnie na ${attempt.previouslyAnswered} ${conjugate(attempt.previouslyAnswered, "pytanie", "pytania", "pytań")} i nie zobaczysz ich ponownie.`,
-    `W tym podejściu odpowiedziałeś poprawnie na ${attempt.answeredCorrectly} ${conjugate(attempt.answeredCorrectly, "pytanie", "pytania", "pytań")} i ich ${attempt.currentAttempt == 1 ? "nie zobaczysz ponownie" : "również nie zobaczysz"}.`,
-    `W tym podejściu odpowiedziałeś źle na ${attempt.answeredIncorrectly} ${conjugate(attempt.answeredIncorrectly, "pytanie", "pytania", "pytań")} i te pojawią się w następnym podejściu.`,
-    `W tym podejściu pozostało ci ${attempt.notAnswered} ${conjugate(attempt.notAnswered, "pytanie", "pytania", "pytań")}.`,
+    `W poprzednich podejściach odpowiedziałeś poprawnie na ${attempt.previouslyAnswered} ${conjugate(attempt.previouslyAnswered, "pytanie", "pytania", "pytań")}.`,
+    `W tym podejściu udzieliłeś ${attempt.answeredCorrectly} ${conjugate(attempt.answeredCorrectly, "poprawną odpowiedź", "poprawne odpowiedzi", "poprawnych odpowiedzi")}, a na ${attempt.answeredIncorrectly} ${conjugate(attempt.answeredIncorrectly, "pytanie", "pytania", "pytań")} odpowiedziałeś niepoprawnie.`,
+    `Do zakończenia podejścia pozostało ci ${attempt.notAnswered} ${conjugate(attempt.notAnswered, "pytanie", "pytania", "pytań")}.`,
   ];
 }
