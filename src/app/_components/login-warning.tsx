@@ -20,6 +20,18 @@ export default function LoginWarning({
   }
 
   return (
+    <UnconditionalLoginWarning header={header} description={description} />
+  );
+}
+
+export function UnconditionalLoginWarning({
+  header,
+  description,
+}: {
+  header: string;
+  description: string;
+}) {
+  return (
     <Card className="mb-6 border-amber-500/50 bg-amber-50 dark:bg-amber-950/20">
       <CardContent>
         <div className="flex items-center gap-3">
