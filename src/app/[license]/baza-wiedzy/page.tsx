@@ -1,5 +1,5 @@
+import { getLicenses } from "~/app/_queries/cached";
 import { metadataBuilder } from "~/app/seo";
-import { db } from "~/server/db";
 
 export const generateMetadata = metadataBuilder((url, name) => ({
   title: `Baza wiedzy - ${name.short}`,
@@ -11,11 +11,7 @@ export default function Page() {
 }
 
 export async function generateStaticParams() {
-  const licensesData = await db.query.licenses.findMany({
-    columns: {
-      url: true,
-    },
-  });
+  const licensesData = await getLicenses();
   return licensesData.map((license) => ({
     license: license.url,
   }));

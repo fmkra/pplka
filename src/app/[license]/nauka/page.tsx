@@ -7,11 +7,6 @@ import {
 } from "~/components/ui/card";
 import { Badge } from "~/components/ui/badge";
 import * as icons from "lucide-react";
-import { db } from "~/server/db";
-import { questionInstances } from "~/server/db/question";
-import { licenses } from "~/server/db/license";
-import { categories } from "~/server/db/category";
-import { count, eq } from "drizzle-orm";
 import { conjugate, formatTime, MINUTES_PER_QUESTION } from "~/lib/utils";
 import { notFound } from "next/navigation";
 import { getIcon } from "~/lib/get-icon";
@@ -19,6 +14,8 @@ import CardUserProgress from "./user-progress";
 import LoginWarning from "../../_components/login-warning";
 import { metadataBuilder } from "~/app/seo";
 import Main from "~/app/_components/main";
+import { getLicense, getLicenses } from "~/app/_queries/cached";
+import { getCategoriesWithQuestionCount } from "~/app/_queries/learn";
 
 export const generateMetadata = metadataBuilder((url, name) => ({
   title: `Tryb nauki - ${name.short}`,
@@ -31,33 +28,13 @@ export default async function LearnPage({
   params: Promise<{ license: string }>;
 }) {
   const { license: licenseUrl } = await params;
-  const licenseData = (
-    await db.select().from(licenses).where(eq(licenses.url, licenseUrl))
-  )[0];
+  const licenseData = await getLicense(licenseUrl);
 
   if (!licenseData) {
     notFound();
   }
 
-  const cardsWithCounts = await db
-    .select({
-      id: categories.id,
-      name: categories.name,
-      color: categories.color,
-      url: categories.url,
-      description: categories.description,
-      icon: categories.icon,
-      topics: categories.topics,
-      questionCount: count(questionInstances.id),
-    })
-    .from(categories)
-    .leftJoin(
-      questionInstances,
-      eq(categories.id, questionInstances.categoryId),
-    )
-    .where(eq(categories.licenseId, licenseData.id))
-    .groupBy(categories.id)
-    .orderBy(categories.id);
+  const cardsWithCounts = await getCategoriesWithQuestionCount(licenseData.id);
 
   return (
     <Main>
@@ -140,7 +117,7 @@ export default async function LearnPage({
 }
 
 export async function generateStaticParams() {
-  const licensesData = await db.select().from(licenses);
+  const licensesData = await getLicenses();
   return licensesData.map((license) => ({
     license: license.url,
   }));

@@ -1,9 +1,13 @@
 import { notFound } from "next/navigation";
 import QuestionsPageClient from "./client";
-import { db } from "~/server/db";
 import { metadataBuilder } from "~/app/seo";
 import { Suspense } from "react";
 import Main from "~/app/_components/main";
+import {
+  getLicense,
+  getLicenseCategories,
+  getLicenses,
+} from "~/app/_queries/cached";
 
 export const generateMetadata = metadataBuilder((url, name) => ({
   title: `Baza pytań - ${name.short}`,
@@ -16,25 +20,13 @@ export default async function QuestionsPage({
   params: Promise<{ license: string }>;
 }) {
   const { license: licenseUrl } = await params;
-  const license = await db.query.licenses.findFirst({
-    columns: {
-      id: true,
-    },
-    where: (licenses, { eq }) => eq(licenses.url, licenseUrl),
-  });
 
+  const license = await getLicense(licenseUrl);
   if (!license) {
     notFound();
   }
 
-  const categoryList = await db.query.categories.findMany({
-    columns: {
-      id: true,
-      name: true,
-      color: true,
-    },
-    where: (categories, { eq }) => eq(categories.licenseId, license.id),
-  });
+  const categoryList = await getLicenseCategories(license.id);
 
   return (
     <Main>
@@ -54,11 +46,7 @@ export default async function QuestionsPage({
 }
 
 export async function generateStaticParams() {
-  const licensesData = await db.query.licenses.findMany({
-    columns: {
-      url: true,
-    },
-  });
+  const licensesData = await getLicenses();
   return licensesData.map((license) => ({
     license: license.url,
   }));

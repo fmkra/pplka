@@ -15,9 +15,6 @@ import {
   FileCheck,
   type LucideProps,
 } from "lucide-react";
-import { db } from "~/server/db";
-import { eq } from "drizzle-orm";
-import { licenses } from "~/server/db/license";
 import { notFound } from "next/navigation";
 import { metadataBuilder } from "../seo";
 import { PwaInstallBanner } from "../_components/pwa-install-banner";
@@ -26,6 +23,7 @@ import { DownloadComponent } from "../_components/download";
 import Main from "../_components/main";
 import type { ForwardRefExoticComponent, RefAttributes } from "react";
 import { cn } from "~/lib/utils";
+import { getLicense, getLicenses } from "../_queries/cached";
 
 const LinkCard = ({
   title,
@@ -69,25 +67,23 @@ export default async function HomePage({
 }: {
   params: Promise<{ license: string }>;
 }) {
-  const { license } = await params;
-  const licenseData = await db.query.licenses.findFirst({
-    where: eq(licenses.url, license),
-  });
+  const { license: licenseUrl } = await params;
+  const license = await getLicense(licenseUrl);
 
-  if (!licenseData) {
+  if (!license) {
     notFound();
   }
 
   return (
     <>
       <PwaInstallBanner />
-      <DownloadComponent licenseId={licenseData.id} />
+      <DownloadComponent licenseId={license.id} />
 
       <Main>
         <div className="mb-12 text-center">
           <h1 className="mb-4 text-4xl font-bold">Witaj na PPLka.pl</h1>
           <p className="text-muted-foreground mx-auto max-w-2xl text-xl">
-            Opanuj materiał do egzaminu na licencję {licenseData.name} z naszą
+            Opanuj materiał do egzaminu na licencję {license.name} z naszą
             interaktywną platformą. Ucz się, ćwicz i sprawdzaj swoją wiedzę.    
           </p>
         </div>
@@ -97,7 +93,7 @@ export default async function HomePage({
             description="Przeglądaj materiały edukacyjne, notatki i podsumowania do nauki przed egzaminem."
             icon={BookOpen}
             color="text-amber-600"
-            href={`/${license}/${KNOWLEDGE_BASE}`}
+            href={`/${licenseUrl}/${KNOWLEDGE_BASE}`}
             button={
               <Button className="w-full bg-transparent" variant="outline">
                 Otwórz bazę wiedzy
@@ -110,7 +106,7 @@ export default async function HomePage({
             description="Przechodź przez wszystkie pytania, a system zapamięta Twoje odpowiedzi i postępy w nauce."
             icon={GraduationCap}
             color="text-blue-600"
-            href={`/${license}/${LEARN}`}
+            href={`/${licenseUrl}/${LEARN}`}
             button={
               <Button className="w-full">
                 Rozpocznij naukę <ArrowRight className="ml-2 h-4 w-4" />
@@ -122,7 +118,7 @@ export default async function HomePage({
             description="Przeglądaj i filtruj całą bazę pytań po kategoriach, tagach oraz wyszukuj po treści."
             icon={Database}
             color="text-green-600"
-            href={`/${license}/${QUESTIONS}`}
+            href={`/${licenseUrl}/${QUESTIONS}`}
             button={
               <Button className="w-full bg-transparent" variant="outline">
                 Zobacz pytania
@@ -135,7 +131,7 @@ export default async function HomePage({
             description="Sprawdź swoją wiedzę w realistycznych warunkach, korzystając z naszego symulatora egzaminu."
             icon={FileCheck}
             color="text-purple-600"
-            href={`/${license}/${EXAM}`}
+            href={`/${licenseUrl}/${EXAM}`}
             button={
               <Button className="w-full" variant="secondary">
                 Podejdź do egzaminu
@@ -166,7 +162,7 @@ export default async function HomePage({
               czasowe dotyczy długości jednego egzaminu (jednego przedmiotu) i
               jest zależne od przedmiotu. Dokładną ilość pytań i czas trwania
               egzaminu można znaleźć w sekcji{" "}
-              <Link className="underline" href={`${license}/${EXAM}`}>
+              <Link className="underline" href={`${licenseUrl}/${EXAM}`}>
                 Egzamin
               </Link>
               . Do pytań można powracać i modyfikować odpowiedzi, a egzamin
@@ -195,7 +191,7 @@ export default async function HomePage({
               </Link>
             </p>
           </div>
-          <Link href={`/${license}/${LEARN}`}>
+          <Link href={`/${licenseUrl}/${LEARN}`}>
              <Button size="lg">Rozpocznij naukę</Button>
           </Link>
         </section>
@@ -205,7 +201,7 @@ export default async function HomePage({
 }
 
 export async function generateStaticParams() {
-  const licenses = await db.query.licenses.findMany();
+  const licenses = await getLicenses();
   return licenses.map((license) => ({
     license: license.url,
   }));
