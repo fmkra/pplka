@@ -1,4 +1,4 @@
-import { eq, and } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import { db } from "~/server/db";
 import { categories } from "~/server/db/category";
@@ -10,6 +10,7 @@ import { getIcon } from "~/lib/get-icon";
 import { CategoryLearningClient } from "./category-learning-client";
 import { LEARN } from "~/app/links";
 import Main from "~/app/_components/main";
+import { getCategoryByUrl, getLicense } from "~/app/_queries/cached";
 
 export default async function LearnCategoryPage({
   params,
@@ -18,24 +19,13 @@ export default async function LearnCategoryPage({
 }) {
   const { category: categoryUrl, license: licenseUrl } = await params;
 
-  const categoryData = (
-    await db
-      .select({
-        id: categories.id,
-        name: categories.name,
-        url: categories.url,
-        color: categories.color,
-        icon: categories.icon,
-        licenseId: categories.licenseId,
-      })
-      .from(categories)
-      .leftJoin(licenses, eq(categories.licenseId, licenses.id))
-      .where(and(eq(categories.url, categoryUrl), eq(licenses.url, licenseUrl)))
-      .groupBy(categories.id)
-      .limit(1)
-  )[0];
+  const license = await getLicense(licenseUrl);
+  if (!license) {
+    notFound();
+  }
 
-  if (!categoryData) {
+  const category = await getCategoryByUrl(license.id, categoryUrl);
+  if (!category) {
     notFound();
   }
 
@@ -55,19 +45,15 @@ export default async function LearnCategoryPage({
           <div className="flex items-start justify-between">
             <h1 className="mb-2 flex items-center text-3xl font-bold">
               <div className="relative mr-2 h-8 w-8">
-                {getIcon(
-                  categoryData.icon,
-                  null,
-                  categoryData.color?.split(",")[0],
-                )}
+                {getIcon(category.icon, null, category.color?.split(",")[0])}
               </div>
-              {categoryData.name}
+              {category.name}
             </h1>
           </div>
         </div>
 
         <div className="my-auto flex shrink items-center justify-center">
-          <CategoryLearningClient category={categoryData} />
+          <CategoryLearningClient category={category} />
         </div>
       </div>
     </Main>

@@ -1,11 +1,15 @@
 import { asc, eq, isNotNull } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import { KnowledgeBaseExplanations } from "~/app/_components/knowledge-base/kb-explanations";
+import { getLicenses } from "~/app/_queries/cached";
+import {
+  buildTree,
+  getAllKnowledgeBaseSlugs,
+} from "~/app/_queries/knowledge-base";
 import { getExplanationsForKnowledgeBaseNode } from "~/server/api/routers/explanation";
 import { db } from "~/server/db";
 import { knowledgeBaseNodes } from "~/server/db/knowledgeBase";
 import { licenses } from "~/server/db/license";
-import { buildTree } from "../layout";
 
 export default async function KnowledgeBaseNodePage({
   params,
@@ -41,7 +45,7 @@ export default async function KnowledgeBaseNodePage({
     license.id,
   );
 
-  const siblings = (await buildTree())[1];
+  const [, siblings] = await buildTree();
 
   return (
     <KnowledgeBaseExplanations
@@ -53,18 +57,9 @@ export default async function KnowledgeBaseNodePage({
 }
 
 export async function generateStaticParams() {
-  const allKnowledgeBaseNodes = await db.query.knowledgeBaseNodes.findMany({
-    columns: {
-      slug: true,
-    },
-    where: isNotNull(knowledgeBaseNodes.slug),
-  });
+  const allKnowledgeBaseNodes = await getAllKnowledgeBaseSlugs();
 
-  const allLicenses = await db.query.licenses.findMany({
-    columns: {
-      url: true,
-    },
-  });
+  const allLicenses = await getLicenses();
 
   return allKnowledgeBaseNodes.flatMap((node) =>
     allLicenses.map((license) => ({

@@ -6,12 +6,12 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { db } from "~/server/db";
 import { getIcon } from "~/lib/get-icon";
 import { Footer } from "./_components/footer";
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
 import Main from "./_components/main";
+import { getLicenses } from "./_queries/cached";
 
 const title =
   "Nauka do egzaminu teoretycznego na licencje PPL(A), SPL, BPL, PPL(H)";
@@ -28,9 +28,7 @@ export const metadata: Metadata = {
 };
 
 export default async function LearnPage() {
-  const licenses = await db.query.licenses.findMany({
-    orderBy: (license, { asc }) => [asc(license.id)],
-  });
+  const licenses = await getLicenses();
 
   return (
     <>

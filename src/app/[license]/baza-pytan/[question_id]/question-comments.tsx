@@ -94,7 +94,7 @@ export function QuestionComments({ questionId }: { questionId: string }) {
               >
                 <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
                   <span className="font-medium">
-                    {comment.displayName ?? "Anonim"}
+                    {comment.displayName ?? "Anonimowy"}
                   </span>
                   <time
                     dateTime={comment.createdAt.toISOString()}

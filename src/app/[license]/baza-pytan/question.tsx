@@ -104,14 +104,6 @@ export function Question({
           >
             <AccordionItem value="explanation">
               <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-                {showCommentsButton && (
-                  <Button variant="outline" size="sm" asChild>
-                    <Link href={`./${QUESTIONS}/${question.id}`}>
-                      <MessageSquare className="mr-2 h-4 w-4" />
-                      Komentarze
-                    </Link>
-                  </Button>
-                )}
                 <Button
                   variant="outline"
                   size="sm"
@@ -121,6 +113,14 @@ export function Question({
                     ? "Pokaż prawidłową odpowiedź"
                     : "Odznacz odpowiedź"}
                 </Button>
+                {showCommentsButton && (
+                  <Button variant="outline" size="sm" asChild>
+                    <Link href={`./${QUESTIONS}/${question.id}`}>
+                      <MessageSquare className="mr-2 h-4 w-4" />
+                      Komentarze
+                    </Link>
+                  </Button>
+                )}
                 <div className="flex grow items-center gap-2">
                   {hasExplanation && (
                     <AccordionTrigger className="p-0">

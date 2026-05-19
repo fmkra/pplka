@@ -1,13 +1,14 @@
-import { db } from "~/server/db";
-import { licenses } from "~/server/db/license";
-import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import ExamList from "./exam_list";
 import ExamStart from "./exam_start";
-import { categories } from "~/server/db/category";
 import LoginWarning from "~/app/_components/login-warning";
 import { metadataBuilder } from "~/app/seo";
 import Main from "~/app/_components/main";
+import {
+  getLicense,
+  getLicenseCategories,
+  getLicenses,
+} from "~/app/_queries/cached";
 
 export const generateMetadata = metadataBuilder((url, name) => ({
   title: `Egzamin próbny - ${name.short}`,
@@ -21,26 +22,12 @@ export default async function ExamsPage({
 }) {
   const { license: licenseUrl } = await params;
 
-  const license = (
-    await db
-      .select({ id: licenses.id })
-      .from(licenses)
-      .where(eq(licenses.url, licenseUrl))
-      .limit(1)
-  )[0];
-
+  const license = await getLicense(licenseUrl);
   if (!license) {
     notFound();
   }
 
-  const categoriesData = await db
-    .select({
-      id: categories.id,
-      name: categories.name,
-      color: categories.color,
-    })
-    .from(categories)
-    .where(eq(categories.licenseId, license.id));
+  const categories = await getLicenseCategories(license.id);
 
   return (
     <Main>
@@ -49,11 +36,12 @@ export default async function ExamsPage({
         description="Musisz być zalogowany, aby rozpocząć egzamin i śledzić swój postęp."
       />
       <ExamStart licenseId={license.id} />
-      <ExamList licenseId={license.id} categories={categoriesData} />
+      <ExamList licenseId={license.id} categories={categories} />
     </Main>
   );
 }
 
-export function generateStaticParams() {
-  return db.select({ license: licenses.url }).from(licenses);
+export async function generateStaticParams() {
+  const licenses = await getLicenses();
+  return licenses.map((license) => ({ license: license.url }));
 }
