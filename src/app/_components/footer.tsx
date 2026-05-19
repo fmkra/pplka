@@ -21,7 +21,7 @@ const resources = [
 
 export function Footer({ license }: { license: string }) {
   return (
-    <footer className="bg-card mt-12 border-t">
+    <footer className="bg-card mt-12 border-t px-4">
       <div className="container mx-auto py-8 sm:px-4">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-6">
           {/* Logo & Description */}
