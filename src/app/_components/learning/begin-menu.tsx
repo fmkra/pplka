@@ -53,9 +53,10 @@ export function LearningBeginMenu({
             Nie rozpocząłeś jeszcze nauki
           </CardTitle>
           <CardDescription className="mt-2 text-base text-gray-600">
-            W trybie nauki możesz przejrzeć wszystkie pytania i odpowiadać na
-            nie. Następnie błędne odpowiedzi zostaną wyświetlone w kolejnej
-            próbie i tak dopóki nie odpowiesz poprawnie na wszystkie pytania.
+            W trybie nauki przechodzisz przez wszystkie pytania udzielając
+            odpowiedzi oraz wykorzystujesz wyjaśnienia zawarte w bazie wiedzy.
+            Pytania, na które nie odpowiedziałeś poprawnie, pojawią się w
+            kolejnym podejściu.
           </CardDescription>
         </CardHeader>
         <CardContent className="text-center">

@@ -9,8 +9,8 @@
 ## Funkcje
 
 - **Tryb nauki** — Przeglądaj wszystkie pytania egzaminacyjne. System zapamiętuje Twoje odpowiedzi i śledzi postępy, pokazując tylko te pytania, które wymagają jeszcze powtórki.
-- **Baza pytań** — Przeglądaj i filtruj całą bazę pytań po kategoriach, tagach oraz wyszukuj po treści.
-- **Egzamin próbny** — Sprawdź swoją wiedzę w realistycznych warunkach, z ograniczeniem czasowym i losowym doborem pytań, tak jak na prawdziwym egzaminie.
+- **Baza pytań** — Przeglądaj i filtruj całą bazę pytań po kategoriach oraz wyszukuj po treści.
+- **Egzamin** — Sprawdź swoją wiedzę w realistycznych warunkach, z ograniczeniem czasowym i losowym doborem pytań, tak jak na prawdziwym egzaminie.
 - **Wyjaśnienia odpowiedzi** — Do wybranych pytań dostępne są szczegółowe wyjaśnienia poprawnych odpowiedzi.
 
 ## Obsługiwane licencje
@@ -87,19 +87,19 @@ Aplikacja będzie dostępna pod adresem [http://localhost:3000](http://localhost
 
 ## Skrypty
 
-| Skrypt                 | Opis                                                                           |
-| ---------------------- | ------------------------------------------------------------------------------ |
-| `bun run dev`          | Uruchamia serwer deweloperski                                                  |
-| `bun run build`        | Buduje aplikację do produkcji                                                  |
-| `bun run start`        | Uruchamia zbudowaną aplikację                                                  |
-| `bun run db:generate`  | Generuje migracje Drizzle                                                      |
-| `bun run db:migrate`   | Stosuje migracje do bazy                                                       |
-| `bun run db:studio`    | Otwiera Drizzle Studio                                                         |
-| `bun run lint`         | Sprawdza kod linterem                                                          |
-| `bun run format:write` | Formatuje kod Prettierem                                                       |
-| `bun run data:fetch`   | Pobiera oficjalne PDF-y z pytaniami, parsuje je i generuje pliki JSON oraz SQL |
+| Skrypt                 | Opis                                                                            |
+| ---------------------- | ------------------------------------------------------------------------------- |
+| `bun run dev`          | Uruchamia serwer deweloperski                                                   |
+| `bun run build`        | Buduje aplikację do produkcji                                                   |
+| `bun run start`        | Uruchamia zbudowaną aplikację                                                   |
+| `bun run db:generate`  | Generuje migracje Drizzle                                                       |
+| `bun run db:migrate`   | Stosuje migracje do bazy                                                        |
+| `bun run db:studio`    | Otwiera Drizzle Studio                                                          |
+| `bun run lint`         | Sprawdza kod linterem                                                           |
+| `bun run format:write` | Formatuje kod Prettierem                                                        |
+| `bun run data:fetch`   | Pobiera oficjalne PDF-y z pytaniami, parsuje je i generuje pliki JSON oraz SQL  |
 | `bun run data:clear`   | Usuwa wygenerowane JSON-y, PDF-y i plik `inserts.sql` z katalogu `scripts/data` |
-| `bun run data:push`    | Wysyła wygenerowane zapytania SQL do bazy, używając `DATABASE_URL` z `.env`   |
+| `bun run data:push`    | Wysyła wygenerowane zapytania SQL do bazy, używając `DATABASE_URL` z `.env`     |
 
 ## Wyjaśnienia do pytań
 

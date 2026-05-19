@@ -36,11 +36,11 @@ export function LearningAttemptSummary({
   // TODO: Button should not only be disabled, but show spinner
 
   return (
-    <section className="mx-auto w-full max-w-4xl">
+    <section className="mx-auto w-full max-w-xl text-center">
       <Card>
         <CardHeader>
-          <CardTitle className="text-center">
-            <h1 className="text-2xl">Podsumowanie podejścia</h1>
+          <CardTitle>
+            <h1 className="text-2xl">Podsumowanie postępu nauki</h1>
           </CardTitle>
           <CardDescription>
             {generateSummaryContent(attempt).map((content, index) => (
@@ -59,16 +59,18 @@ export function LearningAttemptSummary({
 }
 
 function generateSummaryContent(attempt: ExtendedAttempt) {
+  const totalAnsweredCorrectly =
+    attempt.answeredCorrectly + attempt.previouslyAnswered;
   return [
     ...(attempt.currentAttempt == 1
       ? [
-          `To było Twoje pierwsze podejście i odpowiedziałeś poprawnie na ${attempt.answeredCorrectly} ${conjugate(attempt.answeredCorrectly, "pytanie", "pytania", "pytań")}.`,
+          "To było Twoje pierwsze podejście.",
+          `Do tej pory odpowiedziałeś poprawnie na ${attempt.answeredCorrectly} ${conjugate(attempt.answeredCorrectly, "pytanie", "pytania", "pytań")}.`,
         ]
       : [
-          `W poprzednich podejściach odpowiedziałeś poprawnie na ${attempt.previouslyAnswered} ${conjugate(attempt.previouslyAnswered, "pytanie", "pytania", "pytań")}.`,
-          `W tym podejściu odpowiedziałeś poprawnie na ${attempt.answeredCorrectly} ${conjugate(attempt.answeredCorrectly, "nowe pytanie", "nowe pytania", "nowych pytań")}.`,
+          `Opanowałeś już ${totalAnsweredCorrectly} ${conjugate(totalAnsweredCorrectly, "pytanie", "pytania", "pytań")}, z czego w ostatnim podejściu ${attempt.answeredCorrectly}.`,
         ]),
 
-    `${conjugate(attempt.answeredIncorrectly, "Pozostało", "Pozostały", "Pozostało")} ci ${attempt.answeredIncorrectly} ${conjugate(attempt.answeredIncorrectly, "pytanie", "pytania", "pytań")} do nauki.`,
+    `Do nauczenia ${conjugate(attempt.answeredIncorrectly, "pozostało", "pozostały", "pozostało")} ci ${attempt.answeredIncorrectly} ${conjugate(attempt.answeredIncorrectly, "pytanie", "pytania", "pytań")}.`,
   ];
 }

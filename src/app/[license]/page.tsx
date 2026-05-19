@@ -115,7 +115,7 @@ export default async function HomePage({
           />
           <LinkCard
             title="Baza Pytań"
-            description="Przeglądaj i filtruj całą bazę pytań po kategoriach, tagach oraz wyszukuj po treści."
+            description="Przeglądaj i filtruj całą bazę pytań po kategoriach oraz wyszukuj po treści."
             icon={Database}
             color="text-green-600"
             href={`/${licenseUrl}/${QUESTIONS}`}
@@ -144,12 +144,12 @@ export default async function HomePage({
           <h2 className="mb-4 text-2xl font-semibold">
             Informacje o egzaminie
           </h2>
-          <div className="text-muted-foreground mb-6 flex flex-col gap-4 text-justify">
+          <div className="text-muted-foreground flex flex-col gap-4 text-justify">
             <p>
               Po ukończeniu kursu teoretycznego, kandydat musi zdać wszystkie 9
               przedmiotów w ciągu 18 miesięcy. Egzamin podzielony jest na sesje
               trwające kilka dni. Ilość sesji, w których można wziąć udział nie
-              jest ogarniczona, natomiast do każdego przedmiotu można podejść w
+              jest ograniczona, natomiast do każdego przedmiotu można podejść w
               sumie maksymalnie 4 razy i maksymalnie raz w ciągu jednej sesji.
             </p>
             <p>
@@ -170,7 +170,7 @@ export default async function HomePage({
               po upływie czasu.
             </p>
             <p>
-              Dane na dzień 23.01.2026
+              Dane na dzień 19.05.2026
               <br />
               Żródła:
               <br />
@@ -191,9 +191,6 @@ export default async function HomePage({
               </Link>
             </p>
           </div>
-          <Link href={`/${licenseUrl}/${LEARN}`}>
-             <Button size="lg">Rozpocznij naukę</Button>
-          </Link>
         </section>
       </Main>
     </>

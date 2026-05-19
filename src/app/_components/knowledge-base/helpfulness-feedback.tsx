@@ -10,8 +10,8 @@ type Props =
   | { variant: "material"; knowledgeBaseNodeId: string };
 
 const labelByVariant = {
-  explanation: "Jak bardzo to wyjaśnienie było pomocne?",
-  material: "Jak bardzo ten materiał był pomocny?",
+  explanation: "Jak bardzo pomocne jest to wyjaśnienie?",
+  material: "Jak bardzo pomocny jest ten materiał?",
 } as const;
 
 export function HelpfulnessFeedback(props: Props) {
