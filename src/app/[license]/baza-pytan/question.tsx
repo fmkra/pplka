@@ -4,7 +4,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Badge } from "~/components/ui/badge";
 import { useMemo, useState } from "react";
 import { Button } from "~/components/ui/button";
-import { Info } from "lucide-react";
+import { Info, MessageSquare } from "lucide-react";
+import Link from "next/link";
+import { QUESTIONS } from "~/app/links";
 import {
   Tooltip,
   TooltipContent,
@@ -46,11 +48,13 @@ export function Question({
   question: q,
   category,
   hasExplanation,
+  showCommentsButton,
   // showLicense,
 }: {
   question: QuestionBase;
   category: Category;
   hasExplanation: boolean;
+  showCommentsButton?: boolean;
   // showLicense: boolean;
 }) {
   // TODO: randomize it based on more than just id
@@ -100,6 +104,14 @@ export function Question({
           >
             <AccordionItem value="explanation">
               <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                {showCommentsButton && (
+                  <Button variant="outline" size="sm" asChild>
+                    <Link href={`./${QUESTIONS}/${question.id}`}>
+                      <MessageSquare className="mr-2 h-4 w-4" />
+                      Komentarze
+                    </Link>
+                  </Button>
+                )}
                 <Button
                   variant="outline"
                   size="sm"

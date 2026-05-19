@@ -212,6 +212,7 @@ export default function QuestionsPageClient({
                 question={q.question}
                 hasExplanation={q.hasExplanation}
                 category={categoriesMapping[q.questionInstance.categoryId]!}
+                showCommentsButton
               />
             ))}
           </div>

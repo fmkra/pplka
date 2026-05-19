@@ -13,6 +13,7 @@ import * as exam from "./exam";
 import * as explanation from "./explanation";
 import * as knowledgeBase from "./knowledgeBase";
 import * as contentFeedback from "./contentFeedback";
+import * as questionComment from "./questionComment";
 import { createTable } from "./_creator";
 
 /**
@@ -39,5 +40,6 @@ export const db = drizzle(conn, {
     ...explanation,
     ...knowledgeBase,
     ...contentFeedback,
+    ...questionComment,
   },
 });
