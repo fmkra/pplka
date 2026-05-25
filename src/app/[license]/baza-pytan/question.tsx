@@ -27,6 +27,7 @@ import {
   AccordionTrigger,
 } from "~/components/ui/accordion";
 import { Explanation } from "~/app/_components/knowledge-base/question-explanation";
+import { HighlightText } from "~/lib/highlight-text";
 // import type { CategoryAgg } from "~/server/api/routers/question_database";
 
 function getStyle(color: string | null | undefined) {
@@ -49,12 +50,14 @@ export function Question({
   category,
   hasExplanation,
   showCommentsButton,
+  searchHighlight,
   // showLicense,
 }: {
   question: QuestionBase;
   category: Category;
   hasExplanation: boolean;
   showCommentsButton?: boolean;
+  searchHighlight?: string;
   // showLicense: boolean;
 }) {
   // TODO: randomize it based on more than just id
@@ -71,7 +74,12 @@ export function Question({
     <article key={question.id}>
       <Card className="transition-shadow hover:shadow-lg">
         <CardHeader>
-          <CardTitle className="text-lg">{question.question}</CardTitle>
+          <CardTitle className="text-lg">
+            <HighlightText
+              text={question.question}
+              highlight={searchHighlight}
+            />
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="mb-4 space-y-2">
@@ -92,7 +100,7 @@ export function Question({
                 <span className="mr-2 font-medium">
                   {String.fromCharCode(65 + index)}.
                 </span>
-                {answer}
+                <HighlightText text={answer} highlight={searchHighlight} />
               </button>
             ))}
           </div>
@@ -152,7 +160,13 @@ export function Question({
                             <Info className="text-muted-foreground my-[3px] h-4 w-4 cursor-help" />
                           </TooltipTrigger>
                           <TooltipContent>
-                            <p>{question.externalId}</p>
+                            <p>
+                              <HighlightText
+                                text={question.externalId}
+                                highlight={searchHighlight}
+                                markClassName="rounded-sm bg-yellow-500 font-medium text-neutral-900"
+                              />
+                            </p>
                           </TooltipContent>
                         </Tooltip>
                       </TooltipProvider>

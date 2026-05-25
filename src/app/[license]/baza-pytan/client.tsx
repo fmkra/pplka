@@ -213,6 +213,7 @@ export default function QuestionsPageClient({
                 hasExplanation={q.hasExplanation}
                 category={categoriesMapping[q.questionInstance.categoryId]!}
                 showCommentsButton
+                searchHighlight={searchDebounced.trim() || undefined}
               />
             ))}
           </div>
