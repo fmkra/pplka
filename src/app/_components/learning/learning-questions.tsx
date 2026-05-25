@@ -19,6 +19,13 @@ import {
   AccordionTrigger,
 } from "~/components/ui/accordion";
 import { Explanation } from "../knowledge-base/question-explanation";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "~/components/ui/tooltip";
+import { Info } from "lucide-react";
 
 type Question =
   inferRouterOutputs<AppRouter>["learning"]["getQuestions"][number];
@@ -53,17 +60,31 @@ export function LearningQuestions({
   };
 
   const nextButton = (
-    <Button
-      disabled={isAnswerQuestionPending || selected === null}
-      onClick={next}
-      className="w-20"
-    >
-      {isAnswerQuestionPending && selected !== null ? (
-        <Spinner size="sm" />
-      ) : (
-        "Dalej"
+    <div className="flex items-center gap-2">
+      {!!parsedQuestion?.externalId && (
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Info className="text-muted-foreground my-[3px] h-4 w-4 cursor-help" />
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>{parsedQuestion.externalId}</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       )}
-    </Button>
+      <Button
+        disabled={isAnswerQuestionPending || selected === null}
+        onClick={next}
+        className="w-20"
+      >
+        {isAnswerQuestionPending && selected !== null ? (
+          <Spinner size="sm" />
+        ) : (
+          "Dalej"
+        )}
+      </Button>
+    </div>
   );
 
   return (
@@ -80,12 +101,7 @@ export function LearningQuestions({
           <section className="mb-4 space-y-2">
             {parsedQuestion ? (
               <>
-                <p className="mb-4">
-                  {!!parsedQuestion?.externalId && (
-                    <span>{parsedQuestion.externalId}: </span>
-                  )}
-                  {parsedQuestion?.question}
-                </p>
+                <p className="mb-4">{parsedQuestion?.question}</p>
                 {parsedQuestion.answers.map(([dbIndex, answer], index) => (
                   <button
                     key={index}
