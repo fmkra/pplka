@@ -75,6 +75,7 @@
     "@types/react-dom": "^19.0.0",
     "@types/xxhashjs": "^0.2.4",
     "drizzle-kit": "^0.31.10",
+    "esbuild-wasm": "^0.28.1",
     "eslint": "^9.23.0",
     "eslint-config-next": "^15.2.3",
     "eslint-plugin-drizzle": "^0.2.3",
