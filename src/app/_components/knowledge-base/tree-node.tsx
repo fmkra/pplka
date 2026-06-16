@@ -1,78 +1,238 @@
 "use client";
 
+import { ChevronRight, FileText, FolderClosed, FolderOpen } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
-import {
-  Accordion,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-} from "~/components/ui/accordion";
-import type { KnowledgeBaseNode } from "~/server/api/routers/explanation";
 import { usePathname } from "next/navigation";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { KNOWLEDGE_BASE } from "~/app/links";
+import { cn } from "~/lib/utils";
+import type { KnowledgeBaseNode } from "~/server/api/routers/explanation";
 
-export function TreeNodes({
+type KnowledgeBaseTree = Record<string, KnowledgeBaseNode[]>;
+
+function getNodePath(
+  node: KnowledgeBaseNode | undefined,
+  nodeById: Map<string, KnowledgeBaseNode>,
+) {
+  const path: KnowledgeBaseNode[] = [];
+  let current = node;
+
+  while (current) {
+    path.unshift(current);
+    current = current.parentId ? nodeById.get(current.parentId) : undefined;
+  }
+
+  return path;
+}
+
+function useInitialFolderPath(tree: KnowledgeBaseTree) {
+  const pathname = usePathname();
+
+  return useMemo(() => {
+    const nodeById = new Map<string, KnowledgeBaseNode>();
+    const nodes = Object.values(tree).flat();
+
+    for (const node of nodes) {
+      nodeById.set(node.id, node);
+    }
+
+    const slug = decodeURIComponent(pathname.split("/").at(-1) ?? "");
+    const currentNode = nodes.find((node) => node.slug === slug);
+
+    return getNodePath(currentNode, nodeById)
+      .filter((node) => node.type === "folder")
+      .map((node) => node.id);
+  }, [pathname, tree]);
+}
+
+export function FolderNode({
   tree,
-  parentId,
 }: {
-  tree: Record<string, KnowledgeBaseNode[]>;
-  parentId: string | null;
+  node: KnowledgeBaseNode | null;
+  tree: KnowledgeBaseTree;
 }) {
-  const nodes = tree[parentId ?? "root"];
-  if (!nodes) return null;
+  const initialFolderPath = useInitialFolderPath(tree);
+  const [openPath, setOpenPath] = useState<string[]>(initialFolderPath);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const previousColumnCountRef = useRef(0);
+
+  useEffect(() => {
+    setOpenPath(initialFolderPath);
+  }, [initialFolderPath]);
+
+  const columns = useMemo(() => {
+    const result: Array<{
+      parentId: string | null;
+      selectedId: string | undefined;
+    }> = [
+      {
+        parentId: null,
+        selectedId: openPath[0],
+      },
+    ];
+
+    for (let i = 0; i < openPath.length; i++) {
+      const parentId = openPath[i]!;
+      const children = tree[parentId] ?? [];
+      if (children.length === 0) continue;
+
+      result.push({
+        parentId,
+        selectedId: openPath[i + 1],
+      });
+    }
+
+    return result;
+  }, [openPath, tree]);
+
+  useEffect(() => {
+    const scrollContainer = scrollContainerRef.current;
+    if (!scrollContainer) return;
+
+    if (columns.length > previousColumnCountRef.current) {
+      scrollContainer.scrollTo({
+        left: scrollContainer.scrollWidth,
+        behavior: "smooth",
+      });
+    }
+
+    previousColumnCountRef.current = columns.length;
+  }, [columns.length]);
+
+  function handleFolderClick(parentId: string | null, folderId: string) {
+    setOpenPath((currentPath) => {
+      const existingIndex = currentPath.indexOf(folderId);
+      if (existingIndex >= 0) {
+        return currentPath.slice(0, existingIndex);
+      }
+
+      const parentIndex = parentId ? currentPath.indexOf(parentId) : -1;
+      return [...currentPath.slice(0, parentIndex + 1), folderId];
+    });
+  }
 
   return (
-    <div className="flex flex-col gap-1">
-      {nodes.map((node) =>
-        node.type == "file" ? (
-          <FileNode key={node.id} node={node} />
-        ) : (
-          <FolderNode key={node.id} node={node} tree={tree} />
-        ),
-      )}
+    <div ref={scrollContainerRef} className="w-full overflow-x-auto">
+      <div className="flex w-max min-w-full">
+        {columns.map((column, index) => (
+          <Column
+            key={column.parentId ?? "root"}
+            parentId={column.parentId}
+            selectedId={column.selectedId}
+            tree={tree}
+            isFirst={index === 0}
+            onFolderClick={handleFolderClick}
+          />
+        ))}
+      </div>
     </div>
   );
 }
 
-function FileNode({ node }: { node: KnowledgeBaseNode }) {
+function Column({
+  isFirst,
+  onFolderClick,
+  parentId,
+  selectedId,
+  tree,
+}: {
+  isFirst: boolean;
+  onFolderClick: (parentId: string | null, folderId: string) => void;
+  parentId: string | null;
+  selectedId: string | undefined;
+  tree: KnowledgeBaseTree;
+}) {
+  const nodes = tree[parentId ?? "root"] ?? [];
+
+  return (
+    <section
+      className={cn(
+        "border-border flex w-72 flex-none flex-col sm:w-80",
+        !isFirst && "border-l",
+      )}
+    >
+      <div className="max-h-[calc(100vh-7rem)] min-h-48 overflow-y-auto p-2">
+        {nodes.length === 0 ? (
+          <p className="text-muted-foreground px-2 py-8 text-center text-sm">
+            Brak elementów
+          </p>
+        ) : (
+          <div className="flex flex-col gap-1">
+            {nodes.map((node) =>
+              node.type === "folder" ? (
+                <FolderRow
+                  key={node.id}
+                  node={node}
+                  isOpen={selectedId === node.id}
+                  hasChildren={(tree[node.id] ?? []).length > 0}
+                  onClick={() => onFolderClick(parentId, node.id)}
+                />
+              ) : (
+                <FileRow key={node.id} node={node} />
+              ),
+            )}
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+function FolderRow({
+  hasChildren,
+  isOpen,
+  node,
+  onClick,
+}: {
+  hasChildren: boolean;
+  isOpen: boolean;
+  node: KnowledgeBaseNode;
+  onClick: () => void;
+}) {
+  const Icon = isOpen ? FolderOpen : FolderClosed;
+
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={cn(
+        "hover:bg-accent hover:text-accent-foreground flex h-10 w-full items-center gap-2 rounded-md px-2 text-left text-sm transition",
+        isOpen &&
+          "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground",
+      )}
+      aria-expanded={isOpen}
+    >
+      <Icon className="size-4 flex-none" />
+      <span className="min-w-0 flex-1 truncate">{node.name}</span>
+      {hasChildren && (
+        <ChevronRight
+          className={cn(
+            "size-4 flex-none",
+            isOpen ? "text-primary-foreground" : "text-muted-foreground",
+          )}
+        />
+      )}
+    </button>
+  );
+}
+
+function FileRow({ node }: { node: KnowledgeBaseNode }) {
   const pathname = usePathname();
   const license = pathname.split("/")[1];
+  const href = `/${license}/${KNOWLEDGE_BASE}/${node.slug}`;
+  const isActive = pathname === href;
 
   return (
     <Link
-      href={`/${license}/${KNOWLEDGE_BASE}/${node.slug}`}
-      className="border-border bg-card text-foreground hover:bg-accent hover:text-accent-foreground flex items-center gap-2 rounded-md border px-3 py-2 text-sm no-underline shadow-sm transition hover:no-underline"
+      href={href}
+      className={cn(
+        "hover:bg-accent hover:text-accent-foreground flex h-10 items-center gap-2 rounded-md px-2 text-sm no-underline transition hover:no-underline",
+        isActive &&
+          "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground",
+      )}
     >
-      <span className="text-muted-foreground">📄</span>
-      <span className="truncate">{node.name}</span>
+      <FileText className="size-4 flex-none" />
+      <span className="min-w-0 flex-1 truncate">{node.name}</span>
     </Link>
-  );
-}
-export function FolderNode({
-  node,
-  tree,
-}: {
-  node: KnowledgeBaseNode | null;
-  tree: Record<string, KnowledgeBaseNode[]>;
-}) {
-  const [open, setOpen] = useState<string>("");
-
-  return (
-    <Accordion type="single" collapsible value={open} onValueChange={setOpen}>
-      <AccordionItem value={node?.id ?? "root"}>
-        <AccordionTrigger className="border-border bg-muted/60 hover:bg-muted rounded-md border px-3 py-2 text-sm font-medium">
-          <div className="flex w-full items-center gap-2 text-left">
-            <span className="text-muted-foreground">📁</span>
-            <span className="truncate">{node?.name ?? "Baza wiedzy"}</span>
-          </div>
-        </AccordionTrigger>
-        <AccordionContent className="pt-1">
-          <div className="border-border ml-4 border-l pl-4">
-            <TreeNodes parentId={node?.id ?? null} tree={tree} />
-          </div>
-        </AccordionContent>
-      </AccordionItem>
-    </Accordion>
   );
 }
