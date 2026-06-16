@@ -35,7 +35,7 @@ export function KnowledgeBaseExplanations({
         ) : (
           <div />
         )}
-        {!!data?.questionCount && (
+        {data?.questionCount ? (
           <Link
             href={`../${QUESTIONS}?${QUESTIONS_KNOWLEDGE_BASE_ID}=${knowledgeBaseNodeId}`}
             className="text-center text-blue-500 max-sm:order-2 max-sm:col-span-2"
@@ -49,6 +49,8 @@ export function KnowledgeBaseExplanations({
             )}{" "}
             z tym materiałem
           </Link>
+        ) : (
+          <div />
         )}
         {siblings[1] ? (
           <Link
