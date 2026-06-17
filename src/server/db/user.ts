@@ -18,6 +18,7 @@ export const users = createTable("user", (d) => ({
     })
     .default(sql`CURRENT_TIMESTAMP`),
   image: d.varchar({ length: 255 }),
+  isAdmin: d.boolean().notNull().default(false),
 }));
 
 export const usersRelations = relations(users, ({ many }) => ({

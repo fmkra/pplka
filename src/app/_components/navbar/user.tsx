@@ -15,6 +15,8 @@ import {
 } from "~/components/ui/dropdown-menu";
 import { Spinner } from "~/components/ui/spinner";
 import Image from "next/image";
+import Link from "next/link";
+import { ADMIN } from "~/app/links";
 
 export default function NavbarUser() {
   const session = useSession();
@@ -45,6 +47,11 @@ export default function NavbarUser() {
           <>
             {userIcon}
             <span>{session.data?.user.name}</span>
+            {session.data.user.isAdmin ? (
+              <Button variant="outline" asChild>
+                <Link href={`/${ADMIN}`}>Admin</Link>
+              </Button>
+            ) : null}
             <Button className="w-28" onClick={() => signOut()}>
               Wyloguj się
             </Button>
@@ -79,6 +86,11 @@ export default function NavbarUser() {
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
+                {session.data.user.isAdmin ? (
+                  <DropdownMenuItem asChild>
+                    <Link href={`/${ADMIN}`}>Admin</Link>
+                  </DropdownMenuItem>
+                ) : null}
                 <DropdownMenuItem
                   onClick={() => signOut()}
                   className="cursor-pointer"

@@ -1,0 +1,1 @@
+ALTER TABLE "nauka-ppla_user" ADD COLUMN "isAdmin" boolean DEFAULT false NOT NULL;

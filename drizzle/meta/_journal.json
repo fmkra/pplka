@@ -190,6 +190,13 @@
       "when": 1779175334191,
       "tag": "0026_broken_hedge_knight",
       "breakpoints": true
+    },
+    {
+      "idx": 27,
+      "version": "7",
+      "when": 1781705488884,
+      "tag": "0027_minor_paibok",
+      "breakpoints": true
     }
   ]
 }
