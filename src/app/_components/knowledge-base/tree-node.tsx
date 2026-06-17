@@ -112,7 +112,10 @@ export function FolderNode({
   }
 
   return (
-    <div ref={scrollContainerRef} className="w-full overflow-x-auto">
+    <div
+      ref={scrollContainerRef}
+      className="border-border bg-card w-full overflow-x-auto rounded-md border shadow-sm"
+    >
       <div className="flex w-max min-w-full">
         {columns.map((column, index) => (
           <Column

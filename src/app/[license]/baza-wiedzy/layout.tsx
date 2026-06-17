@@ -11,7 +11,7 @@ export default async function KnowledgeBaseTree({
 
   return (
     <>
-      <nav className="w-full px-4 pt-4">
+      <nav className="container mx-auto p-4 pb-0">
         <FolderNode node={null} tree={tree} />
       </nav>
       <Main className="pt-0">{children}</Main>
