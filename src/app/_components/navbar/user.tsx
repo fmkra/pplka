@@ -2,9 +2,8 @@
 
 import { User } from "lucide-react";
 import { useSession, signIn, signOut } from "next-auth/react";
-import { Button, variants as buttonVariants } from "~/components/ui/button";
+import { Button } from "~/components/ui/button";
 import { Skeleton } from "~/components/ui/skeleton";
-import { cn } from "~/lib/utils";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,7 +12,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuLabel,
 } from "~/components/ui/dropdown-menu";
-import { Spinner } from "~/components/ui/spinner";
 import Image from "next/image";
 import Link from "next/link";
 import { ADMIN } from "~/app/links";
@@ -38,77 +36,77 @@ export default function NavbarUser() {
 
   return (
     <div className="flex items-center">
-      <div className="hidden items-center space-x-2 lg:flex">
-        {session.status === "loading" ? (
-          <Skeleton
-            className={cn("h-9 w-28", buttonVariants.variant.default)}
-          />
-        ) : session.data?.user.name !== undefined ? (
-          <>
-            {userIcon}
-            <span>{session.data?.user.name}</span>
-            {session.data.user.isAdmin ? (
-              <Button variant="outline" asChild>
-                <Link href={`/${ADMIN}`}>Admin</Link>
-              </Button>
-            ) : null}
-            <Button className="w-28" onClick={() => signOut()}>
-              Wyloguj się
-            </Button>
-          </>
-        ) : (
-          <Button className="w-28" onClick={() => signIn("google")}>
-            Zaloguj się
-          </Button>
-        )}
-      </div>
-
-      <div className="lg:hidden">
+      {session.status === "loading" ? (
+        <Skeleton className="h-9 w-9 rounded-md lg:w-36" />
+      ) : session.data?.user.name !== undefined ? (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon" aria-label="Menu użytkownika">
+            <Button
+              variant="ghost"
+              className="px-2 lg:w-auto lg:px-3"
+              aria-label="Menu użytkownika"
+            >
               {userIcon}
+              <span className="hidden max-w-40 truncate lg:inline">
+                {session.data.user.name}
+              </span>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="min-w-56" align="end">
-            {session.status === "loading" ? (
-              <Spinner className="mx-auto size-6" />
-            ) : session.data?.user.name !== undefined ? (
-              <>
-                <DropdownMenuLabel className="font-normal">
-                  <div className="flex flex-col">
-                    <span className="text-muted-foreground text-sm">
-                      Zalogowano jako
-                    </span>
-                    <span className="text-foreground max-w-48 truncate text-sm font-medium">
-                      {session.data.user.name}
-                    </span>
-                  </div>
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                {session.data.user.isAdmin ? (
-                  <DropdownMenuItem asChild>
-                    <Link href={`/${ADMIN}`}>Admin</Link>
-                  </DropdownMenuItem>
-                ) : null}
-                <DropdownMenuItem
-                  onClick={() => signOut()}
-                  className="cursor-pointer"
-                >
-                  Wyloguj się
-                </DropdownMenuItem>
-              </>
-            ) : (
+            <DropdownMenuLabel className="font-normal lg:hidden">
+              <div className="flex flex-col">
+                <span className="text-muted-foreground text-sm">
+                  Zalogowano jako
+                </span>
+                <span className="text-foreground max-w-48 truncate text-sm font-medium">
+                  {session.data.user.name}
+                </span>
+              </div>
+            </DropdownMenuLabel>
+            <DropdownMenuSeparator className="lg:hidden" />
+            {session.data.user.isAdmin ? (
+              <DropdownMenuItem asChild>
+                <Link href={`/${ADMIN}`}>Admin</Link>
+              </DropdownMenuItem>
+            ) : null}
+            <DropdownMenuItem
+              onClick={() => signOut()}
+              className="cursor-pointer"
+            >
+              Wyloguj się
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      ) : (
+        <>
+          <Button
+            className="hidden w-28 lg:inline-flex"
+            onClick={() => signIn("google")}
+          >
+            Zaloguj się
+          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="lg:hidden"
+                aria-label="Menu użytkownika"
+              >
+                {userIcon}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="min-w-56" align="end">
               <DropdownMenuItem
                 onClick={() => signIn("google")}
                 className="cursor-pointer"
               >
                 Zaloguj się z Google
               </DropdownMenuItem>
-            )}
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </>
+      )}
     </div>
   );
 }
