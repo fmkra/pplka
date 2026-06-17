@@ -26,6 +26,10 @@ const pageInput = z.object({
   offset: z.number().min(0).default(0),
 });
 
+const dashboardRangeInput = z.object({
+  range: z.enum(["week", "month", "threeMonths", "year"]).default("month"),
+});
+
 const adminProcedure = protectedProcedure.use(({ ctx, next }) => {
   if (!ctx.session.user.isAdmin) {
     throw new TRPCError({ code: "FORBIDDEN" });
@@ -34,10 +38,7 @@ const adminProcedure = protectedProcedure.use(({ ctx, next }) => {
   return next();
 });
 
-async function getQuestionUrls(
-  ctx: { db: typeof db },
-  ids: string[],
-) {
+async function getQuestionUrls(ctx: { db: typeof db }, ids: string[]) {
   if (ids.length === 0) return new Map<string, string>();
 
   const rows = await ctx.db
@@ -80,42 +81,70 @@ function knowledgeBaseUrl(licenseUrl: string, slug: string | null) {
 }
 
 export const adminRouter = createTRPCRouter({
-  getDashboard: adminProcedure.query(async ({ ctx }) => {
-    const [userCount] = await ctx.db.select({ count: count() }).from(users);
-    const [examCount] = await ctx.db
-      .select({ count: count() })
-      .from(examAttempt);
-    const [learningCount] = await ctx.db
-      .select({ count: count() })
-      .from(learningCategory);
-    const [feedbackCount] = await ctx.db
-      .select({ count: count() })
-      .from(contentFeedback);
-    const [commentsCount] = await ctx.db
-      .select({ count: count() })
-      .from(questionComments);
+  getDashboard: adminProcedure
+    .input(dashboardRangeInput)
+    .query(async ({ ctx, input }) => {
+      const interval =
+        input.range === "week"
+          ? sql`interval '7 days'`
+          : input.range === "month"
+            ? sql`interval '1 month'`
+            : input.range === "threeMonths"
+              ? sql`interval '3 months'`
+              : sql`interval '1 year'`;
+      const bucket =
+        input.range === "threeMonths" || input.range === "year"
+          ? sql`date_trunc('week', ${examAttempt.startedAt})`
+          : sql`date_trunc('day', ${examAttempt.startedAt})`;
 
-    const activity = await ctx.db
-      .select({
-        date: sql<string>`to_char(${examAttempt.startedAt}, 'YYYY-MM-DD')`,
-        exams: sql<number>`count(${examAttempt.id})::int`,
-        users: sql<number>`count(distinct ${examAttempt.userId})::int`,
-      })
-      .from(examAttempt)
-      .groupBy(sql`to_char(${examAttempt.startedAt}, 'YYYY-MM-DD')`)
-      .orderBy(sql`to_char(${examAttempt.startedAt}, 'YYYY-MM-DD')`);
+      const [userCount] = await ctx.db.select({ count: count() }).from(users);
+      const [examCount] = await ctx.db
+        .select({ count: count() })
+        .from(examAttempt);
+      const [finishedExamUserCount] = await ctx.db
+        .select({
+          count: sql<number>`count(distinct ${examAttempt.userId}) filter (where ${examAttempt.finishedAt} is not null)::int`,
+        })
+        .from(examAttempt);
+      const [learningCount] = await ctx.db
+        .select({ count: count() })
+        .from(learningCategory);
+      const [learningUserCount] = await ctx.db
+        .select({
+          count: sql<number>`count(distinct ${learningCategory.userId})::int`,
+        })
+        .from(learningCategory);
+      const [feedbackCount] = await ctx.db
+        .select({ count: count() })
+        .from(contentFeedback);
+      const [commentsCount] = await ctx.db
+        .select({ count: count() })
+        .from(questionComments);
 
-    return {
-      totals: {
-        users: userCount?.count ?? 0,
-        exams: examCount?.count ?? 0,
-        learningInProgress: learningCount?.count ?? 0,
-        feedback: feedbackCount?.count ?? 0,
-        comments: commentsCount?.count ?? 0,
-      },
-      activity,
-    };
-  }),
+      const activity = await ctx.db
+        .select({
+          date: sql<string>`to_char(${bucket}, 'YYYY-MM-DD')`,
+          exams: sql<number>`count(${examAttempt.id})::int`,
+          users: sql<number>`count(distinct ${examAttempt.userId})::int`,
+        })
+        .from(examAttempt)
+        .where(sql`${examAttempt.startedAt} >= now() - ${interval}`)
+        .groupBy(bucket)
+        .orderBy(bucket);
+
+      return {
+        totals: {
+          users: userCount?.count ?? 0,
+          exams: examCount?.count ?? 0,
+          finishedExamUsers: finishedExamUserCount?.count ?? 0,
+          learningInProgress: learningCount?.count ?? 0,
+          learningInProgressUsers: learningUserCount?.count ?? 0,
+          feedback: feedbackCount?.count ?? 0,
+          comments: commentsCount?.count ?? 0,
+        },
+        activity,
+      };
+    }),
 
   getLatestFeedback: adminProcedure
     .input(pageInput)
