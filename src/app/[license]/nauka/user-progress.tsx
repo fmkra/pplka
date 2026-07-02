@@ -2,28 +2,27 @@
 
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import { createContext, useContext } from "react";
 import { Button, variants as buttonVariants } from "~/components/ui/button";
 import { Skeleton } from "~/components/ui/skeleton";
 import { api } from "~/trpc/react";
 import { cn, conjugate } from "~/lib/utils";
 import { LEARN } from "~/app/links";
 
-type Category = {
-  id: number;
-  name: string;
-  url: string;
-  description: string | null;
-  questionCount: number;
-};
+type LicenseProgress = Record<number, { done: number; total: number }>;
 
-export default function CardUserProgress({
+const UserProgressContext = createContext<{
+  data: LicenseProgress | undefined;
+  isLoading: boolean;
+  isLoggedIn: boolean;
+} | null>(null);
+
+export function UserProgressProvider({
   licenseId,
-  licenseUrl,
-  category,
+  children,
 }: {
   licenseId: number;
-  licenseUrl: string;
-  category: Category;
+  children: React.ReactNode;
 }) {
   const { data: session } = useSession();
   const isLoggedIn = !!session?.user;
@@ -36,6 +35,33 @@ export default function CardUserProgress({
       enabled: isLoggedIn,
     },
   );
+
+  return (
+    <UserProgressContext.Provider value={{ data, isLoading, isLoggedIn }}>
+      {children}
+    </UserProgressContext.Provider>
+  );
+}
+
+type Category = {
+  id: number;
+  name: string;
+  url: string;
+  description: string | null;
+  questionCount: number;
+};
+
+export default function CardUserProgress({
+  licenseUrl,
+  category,
+}: {
+  licenseUrl: string;
+  category: Category;
+}) {
+  const progress = useContext(UserProgressContext);
+  const data = progress?.data;
+  const isLoading = progress?.isLoading ?? false;
+  const isLoggedIn = progress?.isLoggedIn ?? false;
 
   const categoryProgress = data?.[category.id];
 
