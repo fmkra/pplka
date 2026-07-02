@@ -4,6 +4,7 @@ import { users } from "./user";
 import { categories } from "./category";
 import { questionsToTags } from "./tag";
 import { questionsToExplanations } from "./explanation";
+import { index } from "drizzle-orm/pg-core";
 
 export const questions = createTable("question", (d) => ({
   id: d
@@ -29,21 +30,28 @@ export const questionsRelations = relations(questions, ({ many }) => ({
   questionsToExplanations: many(questionsToExplanations),
 }));
 
-export const questionInstances = createTable("question_instance", (d) => ({
-  id: d
-    .varchar({ length: 255 })
-    .notNull()
-    .primaryKey()
-    .$defaultFn(() => crypto.randomUUID()),
-  categoryId: d
-    .integer()
-    .notNull()
-    .references(() => categories.id),
-  questionId: d
-    .varchar({ length: 255 })
-    .notNull()
-    .references(() => questions.id),
-}));
+export const questionInstances = createTable(
+  "question_instance",
+  (d) => ({
+    id: d
+      .varchar({ length: 255 })
+      .notNull()
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
+    categoryId: d
+      .integer()
+      .notNull()
+      .references(() => categories.id),
+    questionId: d
+      .varchar({ length: 255 })
+      .notNull()
+      .references(() => questions.id),
+  }),
+  (t) => [
+    index("question_instance_category_idx").on(t.categoryId),
+    index("question_instance_question_idx").on(t.questionId),
+  ],
+);
 
 export const questionInstancesRelations = relations(
   questionInstances,
