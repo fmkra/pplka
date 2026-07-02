@@ -49,7 +49,9 @@ export const downloadRouter = createTRPCRouter({
                     questionId: questionsToExplanations.questionId,
                   })
                   .from(questionsToExplanations)
-                  .where(inArray(questionsToExplanations.questionId, questionIds))
+                  .where(
+                    inArray(questionsToExplanations.questionId, questionIds),
+                  )
                   .groupBy(questionsToExplanations.questionId)
               ).map((row) => row.questionId),
             );
@@ -63,7 +65,6 @@ export const downloadRouter = createTRPCRouter({
         hasExplanation: explainedQuestionIds.has(x.question.id),
       }));
     }),
-
 });
 
 export type GetQuestionsResponse = inferRouterOutputs<

@@ -14,7 +14,10 @@ const submitRatingInput = z
     (v) =>
       (v.questionId != null && v.knowledgeBaseNodeId == null) ||
       (v.questionId == null && v.knowledgeBaseNodeId != null),
-    { message: "Podaj dokładnie jeden identyfikator: pytania albo węzła bazy wiedzy." },
+    {
+      message:
+        "Podaj dokładnie jeden identyfikator: pytania albo węzła bazy wiedzy.",
+    },
   );
 
 export const contentFeedbackRouter = createTRPCRouter({
@@ -60,12 +63,18 @@ export const contentFeedbackRouter = createTRPCRouter({
         .limit(1);
 
       if (!existing) {
-        throw new TRPCError({ code: "NOT_FOUND", message: "Nie znaleziono wpisu." });
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Nie znaleziono wpisu.",
+        });
       }
 
       if (existing.userId != null) {
         if (!ctx.session?.user || ctx.session.user.id !== existing.userId) {
-          throw new TRPCError({ code: "FORBIDDEN", message: "Brak uprawnień." });
+          throw new TRPCError({
+            code: "FORBIDDEN",
+            message: "Brak uprawnień.",
+          });
         }
       }
 
