@@ -1,14 +1,9 @@
-import { db } from "~/server/db";
-import { licenses } from "~/server/db/license";
-import { asc } from "drizzle-orm";
 import Navigation from "./navigation";
 import NavbarUser from "./user";
+import { getLicenses } from "~/app/_queries/cached";
 
 export default async function Navbar() {
-  const licenseList = await db
-    .select()
-    .from(licenses)
-    .orderBy(asc(licenses.id));
+  const licenseList = await getLicenses();
 
   const options = licenseList.map((license) => ({
     value: license.url,
