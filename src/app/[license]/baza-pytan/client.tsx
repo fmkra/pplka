@@ -5,7 +5,7 @@ import { Input } from "~/components/ui/input";
 import { api } from "~/trpc/react";
 import { Question } from "./question";
 import { Spinner } from "~/components/ui/spinner";
-import { useEffect, useMemo } from "react";
+import { Suspense, useEffect, useMemo } from "react";
 import { useDebounce } from "@uidotdev/usehooks";
 import { type SelectOption } from "~/components/ui/select";
 import usePagination from "~/app/_components/pagination";
@@ -15,6 +15,7 @@ import {
 } from "../../_components/category-filter";
 import { Checkbox } from "~/components/ui/checkbox";
 import { Label } from "~/components/ui/label";
+import { Button } from "~/components/ui/button";
 import { MODE, useSearchState } from "~/lib/use-search-state";
 import {
   useCachedLicenseVersion,
@@ -37,6 +38,20 @@ const pageSizeOptions: SelectOption[] = [
 ];
 
 export default function QuestionsPageClient({
+  categories,
+  licenseId,
+}: {
+  categories: Category[];
+  licenseId: number;
+}) {
+  return (
+    <Suspense fallback={<QuestionsPageFallback />}>
+      <QuestionsPageContent categories={categories} licenseId={licenseId} />
+    </Suspense>
+  );
+}
+
+function QuestionsPageContent({
   categories,
   licenseId,
 }: {
@@ -228,6 +243,46 @@ export default function QuestionsPageClient({
           </div>
         </>
       )}
+    </>
+  );
+}
+
+function QuestionsPageFallback() {
+  return (
+    <>
+      <div className="mb-6 flex flex-col gap-4">
+        <div className="flex gap-4">
+          <div className="relative flex-1">
+            <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform" />
+            <Input
+              placeholder="Wyszukaj..."
+              className="pl-10"
+              value=""
+              disabled
+              readOnly
+            />
+          </div>
+          <Button variant="outline" disabled>
+            Wszystkie przedmioty
+          </Button>
+        </div>
+        <div className="flex items-center gap-2">
+          <Checkbox id="show-only-with-explanations-loading" disabled />
+          <Label
+            htmlFor="show-only-with-explanations-loading"
+            className="text-muted-foreground"
+          >
+            Wyświetl tylko pytania z wyjaśnieniami
+          </Label>
+        </div>
+      </div>
+
+      <div className="flex min-h-[400px] items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <Spinner size="lg" />
+          <p className="text-muted-foreground">Ładowanie...</p>
+        </div>
+      </div>
     </>
   );
 }
