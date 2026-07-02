@@ -228,6 +228,7 @@ function FileRow({ node }: { node: KnowledgeBaseNode }) {
   return (
     <Link
       href={href}
+      prefetch={false}
       className={cn(
         "hover:bg-accent hover:text-accent-foreground flex h-10 items-center gap-2 rounded-md px-2 text-sm no-underline transition hover:no-underline",
         isActive &&

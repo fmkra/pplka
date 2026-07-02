@@ -75,7 +75,9 @@ export default async function LearnPage() {
                     asChild
                     aria-label={`Wybierz licencję ${license.name}`}
                   >
-                    <Link href={`/${license.url}`}>Wybierz licencję</Link>
+                    <Link href={`/${license.url}`} prefetch={false}>
+                      Wybierz licencję
+                    </Link>
                   </Button>
                 </CardContent>
               </Card>

@@ -123,7 +123,10 @@ export function Question({
                 </Button>
                 {showCommentsButton && (
                   <Button variant="outline" size="sm" asChild>
-                    <Link href={`./${QUESTIONS}/${question.id}`}>
+                    <Link
+                      href={`./${QUESTIONS}/${question.id}`}
+                      prefetch={false}
+                    >
                       <MessageSquare className="mr-2 h-4 w-4" />
                       Komentarze
                     </Link>

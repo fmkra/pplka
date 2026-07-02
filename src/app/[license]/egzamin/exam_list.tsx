@@ -231,7 +231,10 @@ export default function ExamList({
                             )}
                           </td>
                           <td className="px-4 py-3">
-                            <Link href={`./${EXAM}/${exam.attemptId}`}>
+                            <Link
+                              href={`./${EXAM}/${exam.attemptId}`}
+                              prefetch={false}
+                            >
                               <Button variant="outline" className="w-full">
                                 {exam.finishedAt === null
                                   ? "Kontynuuj"
