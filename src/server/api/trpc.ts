@@ -8,6 +8,7 @@
  */
 
 import { initTRPC, TRPCError } from "@trpc/server";
+import type { Session } from "next-auth";
 import superjson from "superjson";
 import { ZodError } from "zod";
 
@@ -27,12 +28,12 @@ import { db } from "~/server/db";
  * @see https://trpc.io/docs/server/context
  */
 export const createTRPCContext = async (opts: { headers: Headers }) => {
-  let sessionPromise: ReturnType<typeof auth> | undefined;
+  let sessionPromise: Promise<Session | null> | undefined;
 
   return {
     db,
     getSession: () => {
-      sessionPromise ??= auth();
+      sessionPromise ??= auth() as Promise<Session | null>;
       return sessionPromise;
     },
     ...opts,
