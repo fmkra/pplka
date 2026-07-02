@@ -51,7 +51,9 @@ const LinkCard = ({
       <CardDescription>{description}</CardDescription>
     </CardHeader>
     <CardContent className="mt-auto">
-      <Link href={href}>{button}</Link>
+      <Link href={href} prefetch={false}>
+        {button}
+      </Link>
     </CardContent>
   </Card>
 );

@@ -124,6 +124,7 @@ export default function Navigation({ options }: { options: SelectOption[] }) {
                 <TooltipTrigger asChild>
                   <Link
                     href={href}
+                    prefetch={false}
                     onClick={(event) => {
                       event.preventDefault();
                     }}
@@ -142,7 +143,12 @@ export default function Navigation({ options }: { options: SelectOption[] }) {
           }
 
           return (
-            <Link key={item.name} href={href} className={linkClassName}>
+            <Link
+              key={item.name}
+              href={href}
+              prefetch={false}
+              className={linkClassName}
+            >
               <Icon className="h-4 w-4" />
               <span>{item.name}</span>
             </Link>
@@ -257,6 +263,7 @@ function MobileSidebar({
               <Link
                 key={item.name}
                 href={href}
+                prefetch={false}
                 onClick={
                   isDisabledInOffline
                     ? (event) => {

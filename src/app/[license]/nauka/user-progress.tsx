@@ -83,7 +83,7 @@ export default function CardUserProgress({
       ) : null}
       {isLoggedIn ? (
         <Button className="mt-auto w-full" asChild>
-          <Link href={`/${licenseUrl}/${LEARN}/${category.url}`}>
+          <Link href={`/${licenseUrl}/${LEARN}/${category.url}`} prefetch={false}>
             {categoryProgress ? "Kontynuuj naukę" : "Rozpocznij naukę"}
           </Link>
         </Button>
