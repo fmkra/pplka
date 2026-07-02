@@ -10,7 +10,7 @@ import {
   count,
 } from "drizzle-orm";
 
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import { createTRPCRouter, noSessionProcedure } from "~/server/api/trpc";
 import { questionInstances, questions } from "~/server/db/question";
 import { categories } from "~/server/db/category";
 import { licenses } from "~/server/db/license";
@@ -86,7 +86,7 @@ function getWhereConditions(input: {
 
 export const questionDatabaseRouter = createTRPCRouter({
   // TODO: unused for now, but when back in use, add filtering by explanation
-  getQuestionsWithAllCategories: publicProcedure
+  getQuestionsWithAllCategories: noSessionProcedure
     .input(
       z.object({
         licenseId: z.number().optional(),
@@ -129,7 +129,7 @@ export const questionDatabaseRouter = createTRPCRouter({
         .offset(input.offset ?? 0);
     }),
 
-  getQuestions: publicProcedure
+  getQuestions: noSessionProcedure
     .input(
       z.object({
         categoryIds: z.array(z.number()).optional(),
@@ -160,7 +160,7 @@ export const questionDatabaseRouter = createTRPCRouter({
         .offset(input.offset ?? 0);
     }),
 
-  getQuestionsCount: publicProcedure
+  getQuestionsCount: noSessionProcedure
     .input(
       z.object({
         search: z.string().optional(),
@@ -184,7 +184,7 @@ export const questionDatabaseRouter = createTRPCRouter({
       return c[0]?.count ?? 0;
     }),
 
-  getCategories: publicProcedure
+  getCategories: noSessionProcedure
     .input(
       z.object({
         licenseIds: z.array(z.number()).optional(),
@@ -203,7 +203,7 @@ export const questionDatabaseRouter = createTRPCRouter({
       });
     }),
 
-  getLicenses: publicProcedure.query(async ({ ctx }) => {
+  getLicenses: noSessionProcedure.query(async ({ ctx }) => {
     return ctx.db.query.licenses.findMany({
       orderBy: (license, { asc }) => [asc(license.id)],
     });

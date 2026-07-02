@@ -1,7 +1,7 @@
 import z from "zod";
 import { TRPCError } from "@trpc/server";
 import { eq } from "drizzle-orm";
-import { createTRPCRouter, publicProcedure } from "../trpc";
+import { createTRPCRouter, optionalSessionProcedure } from "../trpc";
 import { contentFeedback } from "~/server/db/contentFeedback";
 
 const submitRatingInput = z
@@ -18,7 +18,7 @@ const submitRatingInput = z
   );
 
 export const contentFeedbackRouter = createTRPCRouter({
-  submitRating: publicProcedure
+  submitRating: optionalSessionProcedure
     .input(submitRatingInput)
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.session?.user?.id ?? null;
@@ -43,7 +43,7 @@ export const contentFeedbackRouter = createTRPCRouter({
       return { id: row.id };
     }),
 
-  submitDetails: publicProcedure
+  submitDetails: optionalSessionProcedure
     .input(
       z.object({
         id: z.string(),

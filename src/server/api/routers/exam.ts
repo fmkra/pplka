@@ -1,5 +1,9 @@
 import z from "zod";
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
+import {
+  createTRPCRouter,
+  optionalSessionProcedure,
+  protectedProcedure,
+} from "../trpc";
 import { answerEnum, examAttempt, examQuestions } from "~/server/db/exam";
 import { questionInstances } from "~/server/db/question";
 import { sql, eq, and, count, desc, asc, inArray } from "drizzle-orm";
@@ -79,7 +83,7 @@ export const examRouter = createTRPCRouter({
       return id;
     }),
 
-  getExamCount: publicProcedure
+  getExamCount: optionalSessionProcedure
     .input(
       z.object({
         licenseId: z.number(),
@@ -104,7 +108,7 @@ export const examRouter = createTRPCRouter({
       return examCount[0]?.count ?? null;
     }),
 
-  getExams: publicProcedure
+  getExams: optionalSessionProcedure
     .input(
       z.object({
         licenseId: z.number(),

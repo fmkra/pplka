@@ -1,5 +1,5 @@
 import z from "zod";
-import { createTRPCRouter, publicProcedure } from "../trpc";
+import { createTRPCRouter, noSessionProcedure } from "../trpc";
 import { explanations, questionsToExplanations } from "~/server/db/explanation";
 import { eq, isNull, asc, desc, and, countDistinct } from "drizzle-orm";
 import {
@@ -11,7 +11,7 @@ import { categories } from "~/server/db/category";
 import { db } from "~/server/db";
 
 export const explanationRouter = createTRPCRouter({
-  getExplanations: publicProcedure
+  getExplanations: noSessionProcedure
     .input(
       z.object({
         questionId: z.string(),
@@ -35,7 +35,7 @@ export const explanationRouter = createTRPCRouter({
         );
     }),
 
-  getKnowledgeBaseNodes: publicProcedure
+  getKnowledgeBaseNodes: noSessionProcedure
     .input(z.object({ parentId: z.string().nullable() }))
     .query(async ({ ctx, input }) => {
       return await ctx.db

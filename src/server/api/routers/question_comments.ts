@@ -3,13 +3,13 @@ import { TRPCError } from "@trpc/server";
 import { count, desc, eq } from "drizzle-orm";
 import {
   createTRPCRouter,
+  noSessionProcedure,
   protectedProcedure,
-  publicProcedure,
 } from "~/server/api/trpc";
 import { questionComments } from "~/server/db/questionComment";
 
 export const questionCommentsRouter = createTRPCRouter({
-  getComments: publicProcedure
+  getComments: noSessionProcedure
     .input(
       z.object({
         questionId: z.string(),
@@ -34,7 +34,7 @@ export const questionCommentsRouter = createTRPCRouter({
       return rows;
     }),
 
-  getCommentsCount: publicProcedure
+  getCommentsCount: noSessionProcedure
     .input(z.object({ questionId: z.string() }))
     .query(async ({ ctx, input }) => {
       const [row] = await ctx.db
