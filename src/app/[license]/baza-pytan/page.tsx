@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import QuestionsPageClient from "./client";
 import { metadataBuilder } from "~/app/seo";
-import { Suspense } from "react";
 import Main from "~/app/_components/main";
 import {
   getLicense,
@@ -37,10 +36,7 @@ export default async function QuestionsPage({
         </p>
       </div>
 
-      {/* TODO: is this loading ever showing? */}
-      <Suspense fallback={<div>Loading...</div>}>
-        <QuestionsPageClient categories={categoryList} licenseId={license.id} />
-      </Suspense>
+      <QuestionsPageClient categories={categoryList} licenseId={license.id} />
     </Main>
   );
 }
