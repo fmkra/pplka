@@ -1,5 +1,5 @@
 import z from "zod";
-import { createTRPCRouter, publicProcedure } from "../trpc";
+import { createTRPCRouter, noSessionProcedure } from "../trpc";
 import { eq, inArray } from "drizzle-orm";
 import { categories } from "~/server/db/category";
 import { questionInstances } from "~/server/db/question";
@@ -7,7 +7,7 @@ import { questionsToExplanations } from "~/server/db/explanation";
 import type { inferRouterOutputs } from "@trpc/server";
 
 export const downloadRouter = createTRPCRouter({
-  getCategories: publicProcedure
+  getCategories: noSessionProcedure
     .input(
       z.object({
         licenseId: z.number(),
@@ -19,7 +19,7 @@ export const downloadRouter = createTRPCRouter({
       });
     }),
 
-  getQuestions: publicProcedure
+  getQuestions: noSessionProcedure
     .input(
       z.object({
         categoryId: z.number(),

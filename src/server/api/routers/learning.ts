@@ -3,8 +3,8 @@ import { sql, and, eq, gte, asc, getTableColumns } from "drizzle-orm";
 
 import {
   createTRPCRouter,
+  optionalSessionProcedure,
   protectedProcedure,
-  publicProcedure,
 } from "~/server/api/trpc";
 import { learningProgress, learningCategory } from "~/server/db/learning";
 import { questionInstances, questions } from "~/server/db/question";
@@ -99,7 +99,7 @@ export const learningRouter = createTRPCRouter({
     }),
 
   // Public so that we can handle unauthorized here
-  getAttempt: publicProcedure
+  getAttempt: optionalSessionProcedure
     .input(
       z.object({
         categoryId: z.number(),
@@ -249,7 +249,7 @@ export const learningRouter = createTRPCRouter({
         );
     }),
 
-  getLicenseProgress: publicProcedure
+  getLicenseProgress: optionalSessionProcedure
     .input(
       z.object({
         licenseId: z.number(),
