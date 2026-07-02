@@ -118,7 +118,7 @@ export default function QuestionsPageClient({
     undefined,
     {
       enabled: isCachedVersionReady && cachedVersion !== null,
-      staleTime: 30_000,
+      staleTime: Number.POSITIVE_INFINITY,
     },
   );
   const serverVersion = licensesData?.find(
