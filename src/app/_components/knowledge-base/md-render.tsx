@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkMath from "remark-math";
+import rehypeRaw from "rehype-raw";
 import rehypeKatex from "rehype-katex";
 import remarkGfm from "remark-gfm";
 import type { Explanation } from "~/server/db/explanation";
@@ -17,7 +18,7 @@ function MdRender({ children }: { children: string }) {
   return (
     <ReactMarkdown
       remarkPlugins={[remarkMath, remarkGfm]}
-      rehypePlugins={[rehypeKatex]}
+      rehypePlugins={[rehypeRaw, rehypeKatex]}
     >
       {children}
     </ReactMarkdown>
@@ -103,7 +104,10 @@ function ExplanationElement({
   setOpenImageUrl: (url: string) => void;
 }) {
   return (
-    <div className="prose mt-2 max-w-none border-t pt-2" key={e.explanation.id}>
+    <div
+      className="prose [&_td]:border-border [&_th]:border-border mt-2 max-w-none border-t pt-2 [&_blockquote_p:first-of-type::before]:content-none [&_blockquote_p:last-of-type::after]:content-none [&_td]:border [&_td]:px-3 [&_td]:py-2 [&_th]:border [&_th]:px-3 [&_th]:py-2"
+      key={e.explanation.id}
+    >
       {e.explanation.type === "text" ? (
         <MdRender key={e.explanation.id}>{e.explanation.explanation}</MdRender>
       ) : (
