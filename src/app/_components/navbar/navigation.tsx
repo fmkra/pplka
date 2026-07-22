@@ -25,7 +25,7 @@ import {
   nonLicenseUrls,
   QUESTIONS,
   KNOWLEDGE_BASE,
-  KNOWLEDGE_BASE_LICENSE,
+  LICENSE_SEARCH_PARAM,
   knowledgeBaseHref,
   LICENSES,
 } from "~/app/links";
@@ -70,9 +70,7 @@ export default function Navigation({ options }: { options: SelectOption[] }) {
   const pathSegments = currentPathname.split("/").filter(Boolean);
   const firstPathSegment = pathSegments[0];
   const isKnowledgeBase = firstPathSegment === KNOWLEDGE_BASE;
-  const requestedKnowledgeBaseLicense = searchParams.get(
-    KNOWLEDGE_BASE_LICENSE,
-  );
+  const requestedKnowledgeBaseLicense = searchParams.get(LICENSE_SEARCH_PARAM);
   const license =
     isKnowledgeBase &&
     requestedKnowledgeBaseLicense &&
@@ -87,7 +85,7 @@ export default function Navigation({ options }: { options: SelectOption[] }) {
   const selectLicense = (selectedLicense: string) => {
     if (isKnowledgeBase) {
       const nextSearchParams = new URLSearchParams(searchParams.toString());
-      nextSearchParams.set(KNOWLEDGE_BASE_LICENSE, selectedLicense);
+      nextSearchParams.set(LICENSE_SEARCH_PARAM, selectedLicense);
       router.push(`${currentPathname}?${nextSearchParams.toString()}`);
       return;
     }
