@@ -77,7 +77,7 @@ async function getDefaultLicenseUrl(ctx: { db: typeof db }) {
 
 function knowledgeBaseUrl(licenseUrl: string, slug: string | null) {
   if (!slug) return null;
-  return `/${licenseUrl}/baza-wiedzy/${encodeURIComponent(slug)}`;
+  return `/baza-wiedzy/${encodeURIComponent(slug)}?license=${encodeURIComponent(licenseUrl)}`;
 }
 
 export const adminRouter = createTRPCRouter({

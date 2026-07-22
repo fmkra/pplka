@@ -25,6 +25,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0,
     },
+    {
+      url: `${BASE_URL}/${KNOWLEDGE_BASE}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.5,
+    },
+    ...knowledgeBaseSlugs.map(
+      (slug) =>
+        ({
+          url: `${BASE_URL}/${KNOWLEDGE_BASE}/${encodeURIComponent(slug.slug!)}`,
+          lastModified: new Date(),
+          changeFrequency: "monthly",
+          priority: 0.5,
+        }) as const,
+    ),
     ...LICENSES.flatMap(
       (license) =>
         [
@@ -52,21 +67,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             changeFrequency: "monthly",
             priority: 0.3,
           },
-          {
-            url: `${BASE_URL}/${license}/${KNOWLEDGE_BASE}`,
-            lastModified: new Date(),
-            changeFrequency: "monthly",
-            priority: 0.1,
-          },
-          ...knowledgeBaseSlugs.map(
-            (slug) =>
-              ({
-                url: `${BASE_URL}/${license}/${KNOWLEDGE_BASE}/${slug.slug}`,
-                lastModified: new Date(),
-                changeFrequency: "monthly",
-                priority: 0.5,
-              }) as const,
-          ),
         ] as const,
     ),
   ];

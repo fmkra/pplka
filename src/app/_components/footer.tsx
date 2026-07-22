@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Mail, Plane } from "lucide-react";
 import deploymentContent from "~/deployment_content.json";
-import { EXAM, KNOWLEDGE_BASE, LEARN, QUESTIONS, TOS } from "../links";
+import { EXAM, knowledgeBaseHref, LEARN, QUESTIONS, TOS } from "../links";
 import githubIcon from "./icons/github.svg";
 import Image from "next/image";
 
@@ -13,7 +13,7 @@ const navigation = [
 ];
 
 const resources = [
-  { name: "Baza wiedzy", href: (l: string) => `/${l}/${KNOWLEDGE_BASE}` },
+  { name: "Baza wiedzy", href: (l: string) => knowledgeBaseHref(l) },
   { name: "Nauka", href: (l: string) => `/${l}/${LEARN}` },
   { name: "Baza pytań", href: (l: string) => `/${l}/${QUESTIONS}` },
   { name: "Egzamin", href: (l: string) => `/${l}/${EXAM}` },

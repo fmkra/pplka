@@ -4,7 +4,7 @@ import { useState, useCallback, useEffect } from "react";
 import { cn } from "~/lib/utils";
 import Link from "next/link";
 import { Select, type SelectOption } from "~/components/ui/select";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
   BookOpen,
   Database,
@@ -25,6 +25,9 @@ import {
   nonLicenseUrls,
   QUESTIONS,
   KNOWLEDGE_BASE,
+  KNOWLEDGE_BASE_LICENSE,
+  knowledgeBaseHref,
+  LICENSES,
 } from "~/app/links";
 import {
   Tooltip,
@@ -55,16 +58,51 @@ const OFFLINE_MESSAGE = [
   'Tylko "Baza pytań" jest dostępna.',
 ];
 
+const LICENSE_NAVIGATION_SECTIONS = [LEARN, QUESTIONS, EXAM];
+
+const DEFAULT_LICENSE = LICENSES[0];
+
 export default function Navigation({ options }: { options: SelectOption[] }) {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { isOnline } = usePwaContext();
-  const selectLicense = (license: string) => router.push(`/${license}`);
-  const pathname = usePathname().split("/");
+  const currentPathname = usePathname();
+  const pathSegments = currentPathname.split("/").filter(Boolean);
+  const firstPathSegment = pathSegments[0];
+  const isKnowledgeBase = firstPathSegment === KNOWLEDGE_BASE;
+  const requestedKnowledgeBaseLicense = searchParams.get(
+    KNOWLEDGE_BASE_LICENSE,
+  );
   const license =
-    pathname[1] === "" || (pathname[1] && nonLicenseUrls.includes(pathname[1]))
-      ? undefined
-      : pathname[1];
-  const page = pathname[2] ?? "";
+    isKnowledgeBase &&
+    requestedKnowledgeBaseLicense &&
+    LICENSES.includes(requestedKnowledgeBaseLicense)
+      ? requestedKnowledgeBaseLicense
+      : isKnowledgeBase
+        ? DEFAULT_LICENSE
+        : !firstPathSegment || nonLicenseUrls.includes(firstPathSegment)
+          ? undefined
+          : firstPathSegment;
+  const page = isKnowledgeBase ? KNOWLEDGE_BASE : (pathSegments[1] ?? "");
+  const selectLicense = (selectedLicense: string) => {
+    if (isKnowledgeBase) {
+      const nextSearchParams = new URLSearchParams(searchParams.toString());
+      nextSearchParams.set(KNOWLEDGE_BASE_LICENSE, selectedLicense);
+      router.push(`${currentPathname}?${nextSearchParams.toString()}`);
+      return;
+    }
+
+    const section = pathSegments[1];
+    if (section && LICENSE_NAVIGATION_SECTIONS.includes(section)) {
+      const sectionHref = `/${selectedLicense}/${section}`;
+      const isSectionRoot = pathSegments.length === 2;
+      const query = isSectionRoot ? searchParams.toString() : "";
+      router.push(query ? `${sectionHref}?${query}` : sectionHref);
+      return;
+    }
+
+    router.push(`/${selectedLicense}`);
+  };
 
   const homePageButton = (
     <button
@@ -108,7 +146,10 @@ export default function Navigation({ options }: { options: SelectOption[] }) {
         {navigation.map((item) => {
           const Icon = item.icon;
           const isDisabledInOffline = !isOnline && item.disabledInOffline;
-          const href = `/${license}/${item.href}`;
+          const href =
+            item.href === KNOWLEDGE_BASE
+              ? knowledgeBaseHref(license)
+              : `/${license}/${item.href}`;
           const linkClassName = cn(
             "flex items-center space-x-2 rounded-md px-3 py-2 text-sm font-medium transition-colors",
             isDisabledInOffline
@@ -256,7 +297,10 @@ function MobileSidebar({
 
           {navigation.map((item) => {
             const Icon = item.icon;
-            const href = `/${license}/${item.href}`;
+            const href =
+              item.href === KNOWLEDGE_BASE
+                ? knowledgeBaseHref(license)
+                : `/${license}/${item.href}`;
             const active = page === item.href;
             const isDisabledInOffline = !isOnline && item.disabledInOffline;
             return (

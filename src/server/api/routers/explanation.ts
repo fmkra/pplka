@@ -1,7 +1,7 @@
 import z from "zod";
 import { createTRPCRouter, noSessionProcedure } from "../trpc";
 import { explanations, questionsToExplanations } from "~/server/db/explanation";
-import { eq, isNull, asc, desc, and, countDistinct } from "drizzle-orm";
+import { eq, isNull, asc, desc, countDistinct } from "drizzle-orm";
 import {
   knowledgeBaseNodes,
   knowledgeBaseNodesToExplanations,
@@ -9,6 +9,7 @@ import {
 import { questionInstances } from "~/server/db/question";
 import { categories } from "~/server/db/category";
 import { db } from "~/server/db";
+import { licenses } from "~/server/db/license";
 
 export const explanationRouter = createTRPCRouter({
   getExplanations: noSessionProcedure
@@ -51,10 +52,7 @@ export const explanationRouter = createTRPCRouter({
     }),
 });
 
-export async function getExplanationsForKnowledgeBaseNode(
-  id: string,
-  licenseId: number,
-) {
+export async function getKnowledgeBaseNodeData(id: string) {
   const query1 = db
     .select()
     .from(explanations)
@@ -66,6 +64,7 @@ export async function getExplanationsForKnowledgeBaseNode(
     .orderBy(asc(knowledgeBaseNodesToExplanations.order));
   const query2 = db
     .select({
+      licenseUrl: licenses.url,
       questionCount: countDistinct(questionsToExplanations.questionId),
     })
     .from(knowledgeBaseNodesToExplanations)
@@ -81,18 +80,20 @@ export async function getExplanationsForKnowledgeBaseNode(
       eq(questionsToExplanations.questionId, questionInstances.questionId),
     )
     .innerJoin(categories, eq(questionInstances.categoryId, categories.id))
-    .where(
-      and(
-        eq(knowledgeBaseNodesToExplanations.knowledgeBaseNodeId, id),
-        eq(categories.licenseId, licenseId),
-      ),
-    );
+    .innerJoin(licenses, eq(categories.licenseId, licenses.id))
+    .where(eq(knowledgeBaseNodesToExplanations.knowledgeBaseNodeId, id))
+    .groupBy(licenses.url);
 
   const [query1Result, query2Result] = await Promise.all([query1, query2]);
 
   return {
     explanations: query1Result,
-    questionCount: query2Result[0]?.questionCount ?? 0,
+    questionCounts: Object.fromEntries(
+      query2Result.map(({ licenseUrl, questionCount }) => [
+        licenseUrl,
+        questionCount,
+      ]),
+    ),
   };
 }
 export type KnowledgeBaseNode = typeof knowledgeBaseNodes.$inferSelect;

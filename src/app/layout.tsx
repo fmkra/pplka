@@ -14,6 +14,7 @@ import PwaContextProvider from "./_components/pwa-context";
 import deploymentContent from "~/deployment_content.json";
 import { SerwistProvider } from "~/lib/serwist-provider";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: {
@@ -76,7 +77,9 @@ export default function RootLayout({
                   <Navbar />
                   {children}
                   <Notifications />
-                  <RedirectionManager />
+                  <Suspense fallback={null}>
+                    <RedirectionManager />
+                  </Suspense>
                 </TRPCReactProvider>
               </NuqsAdapter>
             </SessionProvider>
