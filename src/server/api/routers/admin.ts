@@ -20,6 +20,7 @@ import { questionComments } from "~/server/db/questionComment";
 import { questionInstances, questions } from "~/server/db/question";
 import { users } from "~/server/db/user";
 import type { db } from "~/server/db";
+import { LICENSE_SEARCH_PARAM } from "~/app/links";
 
 const pageInput = z.object({
   limit: z.number().min(1).max(100).default(20),
@@ -77,7 +78,7 @@ async function getDefaultLicenseUrl(ctx: { db: typeof db }) {
 
 function knowledgeBaseUrl(licenseUrl: string, slug: string | null) {
   if (!slug) return null;
-  return `/baza-wiedzy/${encodeURIComponent(slug)}?license=${encodeURIComponent(licenseUrl)}`;
+  return `/baza-wiedzy/${encodeURIComponent(slug)}?${LICENSE_SEARCH_PARAM}=${encodeURIComponent(licenseUrl)}`;
 }
 
 export const adminRouter = createTRPCRouter({

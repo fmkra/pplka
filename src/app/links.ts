@@ -3,7 +3,7 @@ export const ADMIN = "admin";
 export const FEEDBACK = "feedback";
 export const COMMENTS = "comments";
 export const KNOWLEDGE_BASE = "baza-wiedzy";
-export const KNOWLEDGE_BASE_LICENSE = "license";
+export const LICENSE_SEARCH_PARAM = "licencja";
 export const nonLicenseUrls = [TOS, ADMIN, KNOWLEDGE_BASE];
 export const LEARN = "nauka";
 export const QUESTIONS = "baza-pytan";
@@ -13,7 +13,7 @@ export const LICENSES = ["ppla", "pplh", "spl", "bpl"];
 export function knowledgeBaseHref(license?: string, slug?: string) {
   const pathname = `/${KNOWLEDGE_BASE}${slug ? `/${encodeURIComponent(slug)}` : ""}`;
   return license
-    ? `${pathname}?${KNOWLEDGE_BASE_LICENSE}=${encodeURIComponent(license)}`
+    ? `${pathname}?${LICENSE_SEARCH_PARAM}=${encodeURIComponent(license)}`
     : pathname;
 }
 

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import {
-  KNOWLEDGE_BASE_LICENSE,
+  LICENSE_SEARCH_PARAM,
   knowledgeBaseHref,
   LICENSES,
   QUESTIONS,
@@ -23,7 +23,7 @@ export function KnowledgeBaseArticleNavigation({
   siblings: [Sibling, Sibling];
 }) {
   const searchParams = useSearchParams();
-  const requestedLicense = searchParams.get(KNOWLEDGE_BASE_LICENSE);
+  const requestedLicense = searchParams.get(LICENSE_SEARCH_PARAM);
   const license =
     requestedLicense && LICENSES.includes(requestedLicense)
       ? requestedLicense
