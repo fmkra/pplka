@@ -18,7 +18,7 @@ import {
 import { notFound } from "next/navigation";
 import { metadataBuilder } from "../seo";
 import { PwaInstallBanner } from "../_components/pwa-install-banner";
-import { EXAM, KNOWLEDGE_BASE, LEARN, QUESTIONS } from "../links";
+import { EXAM, knowledgeBaseHref, LEARN, QUESTIONS } from "../links";
 import { DownloadComponent } from "../_components/download";
 import Main from "../_components/main";
 import type { ForwardRefExoticComponent, RefAttributes } from "react";
@@ -95,7 +95,7 @@ export default async function HomePage({
             description="Przeglądaj materiały edukacyjne, notatki i podsumowania do nauki przed egzaminem."
             icon={BookOpen}
             color="text-amber-600"
-            href={`/${licenseUrl}/${KNOWLEDGE_BASE}`}
+            href={knowledgeBaseHref(licenseUrl)}
             button={
               <Button className="w-full bg-transparent" variant="outline">
                 Otwórz bazę wiedzy

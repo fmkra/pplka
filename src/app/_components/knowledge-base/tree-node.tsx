@@ -2,9 +2,13 @@
 
 import { ChevronRight, FileText, FolderClosed, FolderOpen } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { KNOWLEDGE_BASE } from "~/app/links";
+import {
+  KNOWLEDGE_BASE_LICENSE,
+  knowledgeBaseHref,
+  LICENSES,
+} from "~/app/links";
 import { cn } from "~/lib/utils";
 import type { KnowledgeBaseNode } from "~/server/api/routers/explanation";
 
@@ -221,9 +225,15 @@ function FolderRow({
 
 function FileRow({ node }: { node: KnowledgeBaseNode }) {
   const pathname = usePathname();
-  const license = pathname.split("/")[1];
-  const href = `/${license}/${KNOWLEDGE_BASE}/${node.slug}`;
-  const isActive = pathname === href;
+  const searchParams = useSearchParams();
+  const requestedLicense = searchParams.get(KNOWLEDGE_BASE_LICENSE);
+  const license =
+    requestedLicense && LICENSES.includes(requestedLicense)
+      ? requestedLicense
+      : LICENSES[0];
+  const href = knowledgeBaseHref(license, node.slug ?? undefined);
+  const isActive =
+    decodeURIComponent(pathname.split("/").at(-1) ?? "") === node.slug;
 
   return (
     <Link

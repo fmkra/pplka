@@ -1,18 +1,12 @@
-import { getLicenses } from "~/app/_queries/cached";
-import { metadataBuilder } from "~/app/seo";
+import { notFound, permanentRedirect } from "next/navigation";
+import { knowledgeBaseHref, LICENSES } from "~/app/links";
 
-export const generateMetadata = metadataBuilder((url, name) => ({
-  title: `Baza wiedzy - ${name.short}`,
-  description: `Przeglądaj materiały edukacyjne, notatki i podsumowania do nauki przed egzaminem na licencję ${name.short}.`,
-}));
-
-export default function Page() {
-  return null;
-}
-
-export async function generateStaticParams() {
-  const licensesData = await getLicenses();
-  return licensesData.map((license) => ({
-    license: license.url,
-  }));
+export default async function LegacyKnowledgeBasePage({
+  params,
+}: {
+  params: Promise<{ license: string }>;
+}) {
+  const { license } = await params;
+  if (!LICENSES.includes(license)) notFound();
+  permanentRedirect(knowledgeBaseHref(license));
 }

@@ -2,7 +2,6 @@ import { revalidatePath, revalidateTag } from "next/cache";
 import { env } from "~/env";
 import { z } from "zod";
 import { timingSafeEqual } from "crypto";
-import { db } from "~/server/db";
 import { KNOWLEDGE_BASE } from "../links";
 
 export async function POST(request: Request) {
@@ -31,22 +30,12 @@ export async function POST(request: Request) {
     return new Response("Unauthorized", { status: 401 });
   }
 
-  const licenses = await db.query.licenses.findMany({
-    columns: {
-      url: true,
-    },
-  });
-
   revalidateTag("knowledge_base_tree", "max");
-  for (const license of licenses) {
-    for (const slug of parsed.data.slugs) {
-      revalidatePath(
-        `/${license.url}/${KNOWLEDGE_BASE}/${encodeURIComponent(slug)}`,
-      );
-    }
-    if (parsed.data.navigation) {
-      revalidatePath(`/${license.url}/${KNOWLEDGE_BASE}`);
-    }
+  for (const slug of parsed.data.slugs) {
+    revalidatePath(`/${KNOWLEDGE_BASE}/${encodeURIComponent(slug)}`);
+  }
+  if (parsed.data.navigation) {
+    revalidatePath(`/${KNOWLEDGE_BASE}`);
   }
   return new Response("OK");
 }
