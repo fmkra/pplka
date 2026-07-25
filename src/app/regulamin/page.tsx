@@ -261,9 +261,16 @@ export default function RegulaminPage() {
                 Użytkownika, są przechowywane w bazie danych Serwisu.
               </li>
               <li>
+                Dane dotyczące korzystania z Serwisu są wykorzystywane do
+                analizy statystycznej sposobu używania i rozwoju usługi.
+                Statystyki są prezentowane w formie zagregowanej, bez łączenia
+                ich z konkretnym Użytkownikiem.
+              </li>
+              <li>
                 Administratorem danych osobowych jest Administrator serwisu.
                 Dane przetwarzane są wyłącznie w celu realizacji usługi
-                (utrzymanie konta, autoryzacja, zapisywanie postępów).
+                (utrzymanie konta, autoryzacja, zapisywanie postępów oraz
+                analiza statystyczna korzystania z Serwisu).
               </li>
               <li>
                 Użytkownik ma prawo wglądu do swoich danych, ich sprostowania

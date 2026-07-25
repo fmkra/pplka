@@ -18,7 +18,7 @@ import { categories } from "~/server/db/category";
 import { contentFeedback } from "~/server/db/contentFeedback";
 import { examAttempt } from "~/server/db/exam";
 import { knowledgeBaseNodes } from "~/server/db/knowledgeBase";
-import { learningCategory } from "~/server/db/learning";
+import { learningActivity, learningCategory } from "~/server/db/learning";
 import { licenses } from "~/server/db/license";
 import { questionComments } from "~/server/db/questionComment";
 import { questionInstances, questions } from "~/server/db/question";
@@ -186,6 +186,9 @@ export const adminRouter = createTRPCRouter({
         input.range === "threeMonths" || input.range === "year"
           ? sql`date_trunc('week', ${examAttempt.startedAt})`
           : sql`date_trunc('day', ${examAttempt.startedAt})`;
+      const learningBucket = sql`date_trunc('day', ${learningActivity.day})`;
+      const registrationBucket = sql`date_trunc('day', ${users.registeredAt})`;
+      const activityBucket = sql`date_trunc('day', "activityDay")`;
 
       const [userCount] = await ctx.db.select({ count: count() }).from(users);
       const [examCount] = await ctx.db
@@ -211,7 +214,7 @@ export const adminRouter = createTRPCRouter({
         .select({ count: count() })
         .from(questionComments);
 
-      const activity = await ctx.db
+      const examActivity = await ctx.db
         .select({
           date: sql<string>`to_char(${bucket}, 'YYYY-MM-DD')`,
           exams: sql<number>`count(${examAttempt.id})::int`,
@@ -222,17 +225,80 @@ export const adminRouter = createTRPCRouter({
         .groupBy(bucket)
         .orderBy(bucket);
 
+      const learningUsage = await ctx.db
+        .select({
+          date: sql<string>`to_char(${learningBucket}, 'YYYY-MM-DD')`,
+          activities: sql<number>`count(${learningActivity.id})::int`,
+          users: sql<number>`count(distinct ${learningActivity.userId})::int`,
+        })
+        .from(learningActivity)
+        .where(sql`${learningActivity.day} >= (now() - ${interval})::date`)
+        .groupBy(learningBucket)
+        .orderBy(learningBucket);
+
+      const registrationActivity = await ctx.db
+        .select({
+          date: sql<string>`to_char(${registrationBucket}, 'YYYY-MM-DD')`,
+          newUsers: sql<number>`count(${users.id})::int`,
+        })
+        .from(users)
+        .where(sql`${users.registeredAt} >= now() - ${interval}`)
+        .groupBy(registrationBucket)
+        .orderBy(registrationBucket);
+
+      const activeUserActivity = await ctx.db.execute(sql`
+        WITH "userActivity" AS (
+          SELECT ${examAttempt.userId} AS "userId", ${examAttempt.startedAt} AS "activityDay"
+          FROM ${examAttempt}
+          WHERE ${examAttempt.startedAt} >= now() - ${interval}
+          UNION
+          SELECT ${learningActivity.userId} AS "userId", ${learningActivity.day}::timestamp AS "activityDay"
+          FROM ${learningActivity}
+          WHERE ${learningActivity.day} >= (now() - ${interval})::date
+        )
+        SELECT
+          to_char(${activityBucket}, 'YYYY-MM-DD') AS "date",
+          count(distinct "userId")::int AS "activeUsers"
+        FROM "userActivity"
+        GROUP BY ${activityBucket}
+        ORDER BY ${activityBucket}
+      `);
+
+      const userActivityByDate = new Map<
+        string,
+        { date: string; newUsers: number; activeUsers: number }
+      >();
+      const getUserActivityDay = (date: string) => {
+        const existing = userActivityByDate.get(date);
+        if (existing) return existing;
+        const created = { date, newUsers: 0, activeUsers: 0 };
+        userActivityByDate.set(date, created);
+        return created;
+      };
+      for (const row of registrationActivity) {
+        getUserActivityDay(row.date).newUsers = row.newUsers;
+      }
+      for (const row of activeUserActivity) {
+        const date = String(row.date);
+        getUserActivityDay(date).activeUsers = Number(row.activeUsers);
+      }
+      const userActivity = [...userActivityByDate.values()].sort((a, b) =>
+        a.date.localeCompare(b.date),
+      );
+
       return {
         totals: {
           users: userCount?.count ?? 0,
           exams: examCount?.count ?? 0,
           finishedExamUsers: finishedExamUserCount?.count ?? 0,
-          learningInProgress: learningCount?.count ?? 0,
-          learningInProgressUsers: learningUserCount?.count ?? 0,
+          learningSessions: learningCount?.count ?? 0,
+          learningUsers: learningUserCount?.count ?? 0,
           feedback: feedbackCount?.count ?? 0,
           comments: commentsCount?.count ?? 0,
         },
-        activity,
+        examActivity,
+        learningUsage,
+        userActivity,
       };
     }),
 

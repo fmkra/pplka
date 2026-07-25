@@ -1,12 +1,16 @@
 import { z } from "zod";
-import { sql, and, eq, gte, asc, getTableColumns } from "drizzle-orm";
+import { sql, and, eq, gte, asc, getTableColumns, isNull } from "drizzle-orm";
 
 import {
   createTRPCRouter,
   optionalSessionProcedure,
   protectedProcedure,
 } from "~/server/api/trpc";
-import { learningProgress, learningCategory } from "~/server/db/learning";
+import {
+  learningActivity,
+  learningProgress,
+  learningCategory,
+} from "~/server/db/learning";
 import { questionInstances, questions } from "~/server/db/question";
 import { categories } from "~/server/db/category";
 import { questionsToExplanations } from "~/server/db/explanation";
@@ -23,13 +27,31 @@ export const learningRouter = createTRPCRouter({
       // For each question in the category and user that sends the request,
       // create a record that records answers for the question.
       // Set latestAttempt to 1, random to a random number, isDone to false.
-      // Keep correctCount and incorrectCount at previous value if they exist,
-      // otherwise set to 0.
+      // Old per-question rows are removed to save space. The category session
+      // itself is retained as a soft-deleted row for aggregate statistics.
 
-      await ctx.db
-        .insert(learningProgress)
-        .select(
-          ctx.db
+      await ctx.db.transaction(async (tx) => {
+        await tx
+          .update(learningCategory)
+          .set({ deletedAt: new Date() })
+          .where(
+            and(
+              eq(learningCategory.userId, ctx.session.user.id),
+              eq(learningCategory.categoryId, input.categoryId),
+              isNull(learningCategory.deletedAt),
+            ),
+          );
+
+        await tx.execute(sql`
+          DELETE FROM ${learningProgress}
+          USING ${questionInstances}
+          WHERE ${learningProgress.questionInstanceId} = ${questionInstances.id}
+            AND ${learningProgress.userId} = ${ctx.session.user.id}
+            AND ${questionInstances.categoryId} = ${input.categoryId}
+        `);
+
+        await tx.insert(learningProgress).select(
+          tx
             .select({
               id: sql`gen_random_uuid()`.as(learningProgress.id.name),
               userId: sql`${ctx.session.user.id}`.as(
@@ -46,33 +68,15 @@ export const learningRouter = createTRPCRouter({
             })
             .from(questionInstances)
             .where(eq(questionInstances.categoryId, input.categoryId)),
-        )
-        .onConflictDoUpdate({
-          target: [
-            learningProgress.userId,
-            learningProgress.questionInstanceId,
-          ],
-          set: {
-            latestAttempt: sql`1`,
-            random: sql`RANDOM() * ${input.isRandom ? 1 : 0}`,
-            isDone: sql`false`,
-          },
-        });
+        );
 
-      await ctx.db
-        .insert(learningCategory)
-        .values({
+        await tx.insert(learningCategory).values({
           id: crypto.randomUUID(),
           userId: ctx.session.user.id,
           categoryId: input.categoryId,
           latestAttempt: 1,
-        })
-        .onConflictDoUpdate({
-          target: [learningCategory.userId, learningCategory.categoryId],
-          set: {
-            latestAttempt: 1,
-          },
         });
+      });
     }),
 
   deleteLearningProgress: protectedProcedure
@@ -82,20 +86,26 @@ export const learningRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      await ctx.db.execute(sql`
-        DELETE ${learningProgress} FROM ${learningProgress}
-        INNER JOIN ${questionInstances} ON ${learningProgress.questionInstanceId} = ${questionInstances.id}
-        WHERE ${learningProgress.userId} = ${ctx.session.user.id} AND ${questionInstances.categoryId} = ${input.categoryId}
-      `);
+      await ctx.db.transaction(async (tx) => {
+        await tx.execute(sql`
+          DELETE FROM ${learningProgress}
+          USING ${questionInstances}
+          WHERE ${learningProgress.questionInstanceId} = ${questionInstances.id}
+            AND ${learningProgress.userId} = ${ctx.session.user.id}
+            AND ${questionInstances.categoryId} = ${input.categoryId}
+        `);
 
-      await ctx.db
-        .delete(learningCategory)
-        .where(
-          and(
-            eq(learningCategory.userId, ctx.session.user.id),
-            eq(learningCategory.categoryId, input.categoryId),
-          ),
-        );
+        await tx
+          .update(learningCategory)
+          .set({ deletedAt: new Date() })
+          .where(
+            and(
+              eq(learningCategory.userId, ctx.session.user.id),
+              eq(learningCategory.categoryId, input.categoryId),
+              isNull(learningCategory.deletedAt),
+            ),
+          );
+      });
     }),
 
   // Public so that we can handle unauthorized here
@@ -118,6 +128,7 @@ export const learningRouter = createTRPCRouter({
             and(
               eq(learningCategory.userId, ctx.session.user.id),
               eq(learningCategory.categoryId, input.categoryId),
+              isNull(learningCategory.deletedAt),
             ),
           )
       )[0];
@@ -173,8 +184,27 @@ export const learningRouter = createTRPCRouter({
           and(
             eq(learningCategory.userId, ctx.session.user.id),
             eq(learningCategory.categoryId, input.categoryId),
+            isNull(learningCategory.deletedAt),
           ),
         );
+    }),
+
+  recordLearningActivity: protectedProcedure
+    .input(
+      z.object({
+        categoryId: z.number(),
+        day: z.string().date(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db
+        .insert(learningActivity)
+        .values({
+          userId: ctx.session.user.id,
+          categoryId: input.categoryId,
+          day: input.day,
+        })
+        .onConflictDoNothing();
     }),
 
   getQuestions: protectedProcedure

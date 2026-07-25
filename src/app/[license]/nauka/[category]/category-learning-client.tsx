@@ -10,6 +10,7 @@ import { LearningFinished } from "~/app/_components/learning/learning-finished";
 import type { AppRouter } from "~/server/api/root";
 import type { inferRouterOutputs } from "@trpc/server";
 import { useNotification } from "~/app/_components/notifications";
+import { useSession } from "next-auth/react";
 
 interface CategoryLearningClientProps {
   category: {
@@ -153,6 +154,43 @@ export function CategoryLearningClient({
   };
 
   const { notify } = useNotification();
+  const { data: session } = useSession();
+
+  const { mutate: recordLearningActivity } =
+    api.learning.recordLearningActivity.useMutation({
+      onError: (_error, variables) => {
+        if (!session?.user.id) return;
+        try {
+          localStorage.removeItem(
+            `learning-activity:${session.user.id}:${variables.categoryId}:${variables.day}`,
+          );
+        } catch {
+          // Nothing to clean up when storage is unavailable.
+        }
+      },
+    });
+
+  const recordTodayActivityOnce = () => {
+    if (!session?.user.id) return;
+
+    const now = new Date();
+    const day = [
+      now.getFullYear(),
+      String(now.getMonth() + 1).padStart(2, "0"),
+      String(now.getDate()).padStart(2, "0"),
+    ].join("-");
+    const storageKey = `learning-activity:${session.user.id}:${category.id}:${day}`;
+
+    try {
+      if (localStorage.getItem(storageKey)) return;
+      localStorage.setItem(storageKey, "sent");
+    } catch {
+      // Storage can be unavailable (for example in private browsing). The
+      // database unique index still makes duplicate reports harmless.
+    }
+
+    recordLearningActivity({ categoryId: category.id, day });
+  };
 
   const { mutate: mutateAnswerQuestion, isPending: isAnswerQuestionPending } =
     api.learning.answerQuestion.useMutation({
@@ -181,6 +219,7 @@ export function CategoryLearningClient({
   const answerQuestion = (data: AnswerQuestionInput) => {
     nextQuestion(data.isCorrect);
     mutateAnswerQuestion(data);
+    recordTodayActivityOnce();
   };
 
   const [isLoading, setIsLoading] = useState(true);

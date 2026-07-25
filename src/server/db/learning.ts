@@ -1,5 +1,5 @@
-import { relations } from "drizzle-orm";
-import { uniqueIndex } from "drizzle-orm/pg-core";
+import { relations, sql } from "drizzle-orm";
+import { index, uniqueIndex } from "drizzle-orm/pg-core";
 import { createTable } from "./_creator";
 import { users } from "./user";
 import { questionInstances } from "./question";
@@ -59,6 +59,36 @@ export const learningCategory = createTable(
       .notNull()
       .references(() => categories.id),
     latestAttempt: d.integer().notNull(),
+    deletedAt: d.timestamp({ mode: "date", withTimezone: true }),
   }),
-  (table) => [uniqueIndex().on(table.userId, table.categoryId)],
+  (table) => [
+    uniqueIndex("learning_category_active_user_category_idx")
+      .on(table.userId, table.categoryId)
+      .where(sql`${table.deletedAt} is null`),
+  ],
+);
+
+// One row per device-observed day of learning. The unique index makes repeated
+// reports (including reports from multiple devices) idempotent.
+export const learningActivity = createTable(
+  "learning_activity",
+  (d) => ({
+    id: d
+      .varchar({ length: 255 })
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
+    userId: d
+      .varchar({ length: 255 })
+      .notNull()
+      .references(() => users.id),
+    categoryId: d
+      .integer()
+      .notNull()
+      .references(() => categories.id),
+    day: d.date({ mode: "string" }).notNull(),
+  }),
+  (table) => [
+    uniqueIndex().on(table.userId, table.categoryId, table.day),
+    index("learning_activity_day_user_idx").on(table.day, table.userId),
+  ],
 );

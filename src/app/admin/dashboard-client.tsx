@@ -12,7 +12,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { MessageSquare, Star, Users } from "lucide-react";
+import { BookOpen, MessageSquare, Star, UserPlus, Users } from "lucide-react";
 import { ADMIN, COMMENTS, FEEDBACK } from "~/app/links";
 import { api } from "~/trpc/react";
 import { Button } from "~/components/ui/button";
@@ -74,6 +74,92 @@ function MetricCard({
   );
 }
 
+function DashboardChart<T extends { date: string }>({
+  title,
+  icon,
+  data,
+  leftLabel,
+  rightLabel,
+  lines,
+  emptyMessage,
+  action,
+}: {
+  title: string;
+  icon: React.ReactNode;
+  data: T[];
+  leftLabel: string;
+  rightLabel: string;
+  lines: Array<{
+    axis: "left" | "right";
+    dataKey: string;
+    name: string;
+    stroke: string;
+  }>;
+  emptyMessage: string;
+  action?: React.ReactNode;
+}) {
+  return (
+    <Card>
+      <CardHeader className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <CardTitle className="flex items-center gap-2 leading-tight">
+          {icon}
+          <span>{title}</span>
+        </CardTitle>
+        {action}
+      </CardHeader>
+      <CardContent>
+        {data.length === 0 ? (
+          <p className="text-muted-foreground py-10 text-center">
+            {emptyMessage}
+          </p>
+        ) : (
+          <div className="relative h-[360px] w-full pt-6">
+            <div className="text-muted-foreground pointer-events-none absolute top-0 left-0 text-sm">
+              {leftLabel}
+            </div>
+            <div className="text-muted-foreground pointer-events-none absolute top-0 right-0 text-sm">
+              {rightLabel}
+            </div>
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={data}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="date" tickFormatter={formatChartDate} />
+                <YAxis
+                  yAxisId="left"
+                  orientation="left"
+                  allowDecimals={false}
+                />
+                <YAxis
+                  yAxisId="right"
+                  orientation="right"
+                  allowDecimals={false}
+                />
+                <Tooltip
+                  labelFormatter={(label) => formatChartDate(String(label))}
+                />
+                <Legend />
+                {lines.map((line) => (
+                  <Line
+                    key={line.dataKey}
+                    type="linear"
+                    yAxisId={line.axis}
+                    dataKey={line.dataKey}
+                    name={line.name}
+                    stroke={line.stroke}
+                    strokeWidth={3}
+                    dot={{ r: 3 }}
+                    activeDot={{ r: 4 }}
+                  />
+                ))}
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
+
 export default function AdminDashboard() {
   const [range, setRange] = useState<DashboardRange>("month");
   const { data, isLoading } = api.admin.getDashboard.useQuery({ range });
@@ -96,9 +182,9 @@ export default function AdminDashboard() {
           description={`Unikalni użytkownicy: ${data.totals.finishedExamUsers.toLocaleString("pl-PL")}`}
         />
         <MetricCard
-          title="Nauka w trakcie"
-          value={data.totals.learningInProgress}
-          description={`Unikalni użytkownicy: ${data.totals.learningInProgressUsers.toLocaleString("pl-PL")}`}
+          title="Sesje nauki"
+          value={data.totals.learningSessions}
+          description={`Unikalni użytkownicy: ${data.totals.learningUsers.toLocaleString("pl-PL")}`}
         />
         <MetricCard
           title="Feedback"
@@ -112,12 +198,14 @@ export default function AdminDashboard() {
         />
       </div>
 
-      <Card>
-        <CardHeader className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <CardTitle className="flex items-center gap-2 leading-tight">
-            <Users className="h-5 w-5 shrink-0" />
-            <span>Aktywność egzaminów</span>
-          </CardTitle>
+      <DashboardChart
+        title="Aktywność egzaminów"
+        icon={<Users className="h-5 w-5 shrink-0" />}
+        data={data.examActivity}
+        leftLabel="Egzaminy"
+        rightLabel="Użytkownicy"
+        emptyMessage="Brak egzaminów do wyświetlenia."
+        action={
           <div className="w-full md:w-44">
             <Select
               options={rangeOptions}
@@ -125,64 +213,68 @@ export default function AdminDashboard() {
               onValueChange={(value) => setRange(value as DashboardRange)}
             />
           </div>
-        </CardHeader>
-        <CardContent>
-          {data.activity.length === 0 ? (
-            <p className="text-muted-foreground py-10 text-center">
-              Brak egzaminów do wyświetlenia.
-            </p>
-          ) : (
-            <div className="relative h-[360px] w-full pt-6">
-              <div className="text-muted-foreground pointer-events-none absolute top-0 left-0 text-sm">
-                Egzaminy
-              </div>
-              <div className="text-muted-foreground pointer-events-none absolute top-0 right-0 text-sm">
-                Użytkownicy
-              </div>
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={data.activity}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="date" tickFormatter={formatChartDate} />
-                  <YAxis
-                    yAxisId="exams"
-                    orientation="left"
-                    allowDecimals={false}
-                  />
-                  <YAxis
-                    yAxisId="users"
-                    orientation="right"
-                    allowDecimals={false}
-                  />
-                  <Tooltip
-                    labelFormatter={(label) => formatChartDate(String(label))}
-                  />
-                  <Legend />
-                  <Line
-                    type="linear"
-                    yAxisId="exams"
-                    dataKey="exams"
-                    name="Ilość egzaminów"
-                    stroke="var(--chart-2)"
-                    strokeWidth={3}
-                    dot={{ r: 3 }}
-                    activeDot={{ r: 4 }}
-                  />
-                  <Line
-                    type="linear"
-                    yAxisId="users"
-                    dataKey="users"
-                    name="Unikalni użytkownicy"
-                    stroke="var(--chart-1)"
-                    strokeWidth={3}
-                    dot={{ r: 3 }}
-                    activeDot={{ r: 4 }}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-          )}
-        </CardContent>
-      </Card>
+        }
+        lines={[
+          {
+            axis: "left",
+            dataKey: "exams",
+            name: "Ilość egzaminów",
+            stroke: "var(--chart-2)",
+          },
+          {
+            axis: "right",
+            dataKey: "users",
+            name: "Unikalni użytkownicy",
+            stroke: "var(--chart-1)",
+          },
+        ]}
+      />
+
+      <DashboardChart
+        title="Aktywność nauki"
+        icon={<BookOpen className="h-5 w-5 shrink-0" />}
+        data={data.learningUsage}
+        leftLabel="Aktywności"
+        rightLabel="Użytkownicy"
+        emptyMessage="Brak aktywności nauki do wyświetlenia."
+        lines={[
+          {
+            axis: "left",
+            dataKey: "activities",
+            name: "Ilość aktywności nauki",
+            stroke: "var(--chart-2)",
+          },
+          {
+            axis: "right",
+            dataKey: "users",
+            name: "Unikalni użytkownicy",
+            stroke: "var(--chart-1)",
+          },
+        ]}
+      />
+
+      <DashboardChart
+        title="Użytkownicy"
+        icon={<UserPlus className="h-5 w-5 shrink-0" />}
+        data={data.userActivity}
+        leftLabel="Nowi użytkownicy"
+        rightLabel="Aktywni użytkownicy"
+        emptyMessage="Brak aktywności użytkowników do wyświetlenia."
+        lines={[
+          {
+            axis: "left",
+            dataKey: "newUsers",
+            name: "Nowi użytkownicy",
+            stroke: "var(--chart-3)",
+          },
+          {
+            axis: "right",
+            dataKey: "activeUsers",
+            name: "Aktywni użytkownicy",
+            stroke: "var(--chart-1)",
+          },
+        ]}
+      />
 
       <div className="grid gap-4 md:grid-cols-2">
         <Card>

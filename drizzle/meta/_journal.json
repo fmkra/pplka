@@ -204,6 +204,13 @@
       "when": 1783016981605,
       "tag": "0028_clever_jazinda",
       "breakpoints": true
+    },
+    {
+      "idx": 29,
+      "version": "7",
+      "when": 1784986579844,
+      "tag": "0029_friendly_archangel",
+      "breakpoints": true
     }
   ]
 }
