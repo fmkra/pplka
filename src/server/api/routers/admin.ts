@@ -1,12 +1,16 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import {
+  and,
+  asc,
   avg,
   count,
   desc,
   eq,
   getTableColumns,
   inArray,
+  isNotNull,
+  isNull,
   sql,
 } from "drizzle-orm";
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
@@ -25,6 +29,26 @@ import { LICENSE_SEARCH_PARAM } from "~/app/links";
 const pageInput = z.object({
   limit: z.number().min(1).max(100).default(20),
   offset: z.number().min(0).default(0),
+});
+
+const feedbackFiltersInput = z.object({
+  source: z.enum(["all", "authenticated", "anonymous"]).default("all"),
+  details: z.enum(["all", "with", "without"]).default("all"),
+});
+
+const questionFeedbackInput = pageInput.merge(feedbackFiltersInput).extend({
+  categoryName: z.string().nullable().default(null),
+});
+
+const knowledgeBaseFeedbackInput = pageInput
+  .merge(feedbackFiltersInput)
+  .extend({ folderId: z.string().nullable().default(null) });
+
+const feedbackHistogramInput = feedbackFiltersInput.extend({
+  target: z.enum(["question", "article"]),
+  targetId: z.string().optional(),
+  categoryName: z.string().nullable().default(null),
+  folderId: z.string().nullable().default(null),
 });
 
 const dashboardRangeInput = z.object({
@@ -79,6 +103,71 @@ async function getDefaultLicenseUrl(ctx: { db: typeof db }) {
 function knowledgeBaseUrl(licenseUrl: string, slug: string | null) {
   if (!slug) return null;
   return `/baza-wiedzy/${encodeURIComponent(slug)}?${LICENSE_SEARCH_PARAM}=${encodeURIComponent(licenseUrl)}`;
+}
+
+function feedbackConditions(input: z.infer<typeof feedbackFiltersInput>) {
+  return [
+    input.source === "authenticated"
+      ? isNotNull(contentFeedback.userId)
+      : input.source === "anonymous"
+        ? isNull(contentFeedback.userId)
+        : undefined,
+    input.details === "with"
+      ? sql`${contentFeedback.details} is not null and btrim(${contentFeedback.details}) <> ''`
+      : input.details === "without"
+        ? sql`${contentFeedback.details} is null or btrim(${contentFeedback.details}) = ''`
+        : undefined,
+  ].filter((condition) => condition !== undefined);
+}
+
+function questionCategoryCondition(categoryName: string | null) {
+  if (categoryName == null) return undefined;
+  return sql`exists (
+    select 1 from ${questionInstances}
+    inner join ${categories} on ${categories.id} = ${questionInstances.categoryId}
+    where ${questionInstances.questionId} = ${contentFeedback.questionId}
+      and ${categories.name} = ${categoryName}
+  )`;
+}
+
+async function getFolderArticleIds(
+  ctx: { db: typeof db },
+  folderId: string | null,
+) {
+  if (!folderId) return null;
+
+  const nodes = await ctx.db
+    .select({
+      id: knowledgeBaseNodes.id,
+      parentId: knowledgeBaseNodes.parentId,
+      type: knowledgeBaseNodes.type,
+    })
+    .from(knowledgeBaseNodes);
+  const descendants = new Set([folderId]);
+  let changed = true;
+  while (changed) {
+    changed = false;
+    for (const node of nodes) {
+      if (
+        node.parentId &&
+        descendants.has(node.parentId) &&
+        !descendants.has(node.id)
+      ) {
+        descendants.add(node.id);
+        changed = true;
+      }
+    }
+  }
+  return nodes
+    .filter((node) => node.type === "file" && descendants.has(node.id))
+    .map((node) => node.id);
+}
+
+function articleFolderCondition(articleIds: string[] | null) {
+  if (articleIds == null) return undefined;
+  return articleIds.length > 0
+    ? inArray(contentFeedback.knowledgeBaseNodeId, articleIds)
+    : sql`false`;
 }
 
 export const adminRouter = createTRPCRouter({
@@ -148,7 +237,7 @@ export const adminRouter = createTRPCRouter({
     }),
 
   getLatestFeedback: adminProcedure
-    .input(pageInput)
+    .input(pageInput.merge(feedbackFiltersInput))
     .query(async ({ ctx, input }) => {
       const rows = await ctx.db
         .select({
@@ -171,6 +260,7 @@ export const adminRouter = createTRPCRouter({
           eq(contentFeedback.knowledgeBaseNodeId, knowledgeBaseNodes.id),
         )
         .leftJoin(users, eq(contentFeedback.userId, users.id))
+        .where(and(...feedbackConditions(input)))
         .orderBy(desc(contentFeedback.submittedAt))
         .limit(input.limit)
         .offset(input.offset);
@@ -192,14 +282,47 @@ export const adminRouter = createTRPCRouter({
       }));
     }),
 
-  getFeedbackCount: adminProcedure.query(async ({ ctx }) => {
-    const [row] = await ctx.db.select({ count: count() }).from(contentFeedback);
-    return row?.count ?? 0;
+  getFeedbackCount: adminProcedure
+    .input(feedbackFiltersInput)
+    .query(async ({ ctx, input }) => {
+      const [row] = await ctx.db
+        .select({ count: count() })
+        .from(contentFeedback)
+        .where(and(...feedbackConditions(input)));
+      return row?.count ?? 0;
+    }),
+
+  getFeedbackFilterOptions: adminProcedure.query(async ({ ctx }) => {
+    const [categoryRows, nodeRows] = await Promise.all([
+      ctx.db
+        .selectDistinct({ name: categories.name })
+        .from(categories)
+        .orderBy(categories.name),
+      ctx.db
+        .select({
+          id: knowledgeBaseNodes.id,
+          name: knowledgeBaseNodes.name,
+          type: knowledgeBaseNodes.type,
+          parentId: knowledgeBaseNodes.parentId,
+          order: knowledgeBaseNodes.order,
+        })
+        .from(knowledgeBaseNodes)
+        .orderBy(
+          asc(knowledgeBaseNodes.parentId),
+          asc(knowledgeBaseNodes.order),
+        ),
+    ]);
+
+    return { categories: categoryRows, knowledgeBaseNodes: nodeRows };
   }),
 
   getQuestionFeedbackSummary: adminProcedure
-    .input(pageInput)
+    .input(questionFeedbackInput)
     .query(async ({ ctx, input }) => {
+      const conditions = [
+        ...feedbackConditions(input),
+        questionCategoryCondition(input.categoryName),
+      ].filter((condition) => condition !== undefined);
       const rows = await ctx.db
         .select({
           questionId: contentFeedback.questionId,
@@ -209,6 +332,7 @@ export const adminRouter = createTRPCRouter({
         })
         .from(contentFeedback)
         .innerJoin(questions, eq(contentFeedback.questionId, questions.id))
+        .where(and(...conditions))
         .groupBy(contentFeedback.questionId, questions.question)
         .orderBy(desc(count(contentFeedback.id)))
         .limit(input.limit)
@@ -230,18 +354,30 @@ export const adminRouter = createTRPCRouter({
       }));
     }),
 
-  getQuestionFeedbackSummaryCount: adminProcedure.query(async ({ ctx }) => {
-    const [row] = await ctx.db
-      .select({
-        count: sql<number>`count(distinct ${contentFeedback.questionId})::int`,
-      })
-      .from(contentFeedback);
-    return row?.count ?? 0;
-  }),
+  getQuestionFeedbackSummaryCount: adminProcedure
+    .input(feedbackFiltersInput.extend({ categoryName: z.string().nullable() }))
+    .query(async ({ ctx, input }) => {
+      const conditions = [
+        ...feedbackConditions(input),
+        questionCategoryCondition(input.categoryName),
+      ].filter((condition) => condition !== undefined);
+      const [row] = await ctx.db
+        .select({
+          count: sql<number>`count(distinct ${contentFeedback.questionId})::int`,
+        })
+        .from(contentFeedback)
+        .where(and(...conditions));
+      return row?.count ?? 0;
+    }),
 
   getKnowledgeBaseFeedbackSummary: adminProcedure
-    .input(pageInput)
+    .input(knowledgeBaseFeedbackInput)
     .query(async ({ ctx, input }) => {
+      const articleIds = await getFolderArticleIds(ctx, input.folderId);
+      const conditions = [
+        ...feedbackConditions(input),
+        articleFolderCondition(articleIds),
+      ].filter((condition) => condition !== undefined);
       const rows = await ctx.db
         .select({
           knowledgeBaseNodeId: contentFeedback.knowledgeBaseNodeId,
@@ -255,6 +391,7 @@ export const adminRouter = createTRPCRouter({
           knowledgeBaseNodes,
           eq(contentFeedback.knowledgeBaseNodeId, knowledgeBaseNodes.id),
         )
+        .where(and(...conditions))
         .groupBy(
           contentFeedback.knowledgeBaseNodeId,
           knowledgeBaseNodes.name,
@@ -273,16 +410,57 @@ export const adminRouter = createTRPCRouter({
       }));
     }),
 
-  getKnowledgeBaseFeedbackSummaryCount: adminProcedure.query(
-    async ({ ctx }) => {
+  getKnowledgeBaseFeedbackSummaryCount: adminProcedure
+    .input(feedbackFiltersInput.extend({ folderId: z.string().nullable() }))
+    .query(async ({ ctx, input }) => {
+      const articleIds = await getFolderArticleIds(ctx, input.folderId);
+      const conditions = [
+        ...feedbackConditions(input),
+        articleFolderCondition(articleIds),
+      ].filter((condition) => condition !== undefined);
       const [row] = await ctx.db
         .select({
           count: sql<number>`count(distinct ${contentFeedback.knowledgeBaseNodeId})::int`,
         })
-        .from(contentFeedback);
+        .from(contentFeedback)
+        .where(and(...conditions));
       return row?.count ?? 0;
-    },
-  ),
+    }),
+
+  getFeedbackHistogram: adminProcedure
+    .input(feedbackHistogramInput)
+    .query(async ({ ctx, input }) => {
+      const articleIds =
+        input.target === "article"
+          ? await getFolderArticleIds(ctx, input.folderId)
+          : null;
+      const conditions = [
+        ...feedbackConditions(input),
+        input.target === "question"
+          ? isNotNull(contentFeedback.questionId)
+          : isNotNull(contentFeedback.knowledgeBaseNodeId),
+        input.targetId
+          ? input.target === "question"
+            ? eq(contentFeedback.questionId, input.targetId)
+            : eq(contentFeedback.knowledgeBaseNodeId, input.targetId)
+          : undefined,
+        input.target === "question"
+          ? questionCategoryCondition(input.categoryName)
+          : articleFolderCondition(articleIds),
+      ].filter((condition) => condition !== undefined);
+
+      const rows = await ctx.db
+        .select({ rating: contentFeedback.rating, count: count() })
+        .from(contentFeedback)
+        .where(and(...conditions))
+        .groupBy(contentFeedback.rating)
+        .orderBy(contentFeedback.rating);
+      const counts = new Map(rows.map((row) => [row.rating, row.count]));
+      return [1, 2, 3, 4, 5].map((rating) => ({
+        rating,
+        count: counts.get(rating) ?? 0,
+      }));
+    }),
 
   getLatestComments: adminProcedure
     .input(pageInput)
