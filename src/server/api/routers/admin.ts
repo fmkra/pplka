@@ -182,13 +182,20 @@ export const adminRouter = createTRPCRouter({
             : input.range === "threeMonths"
               ? sql`interval '3 months'`
               : sql`interval '1 year'`;
-      const bucket =
-        input.range === "threeMonths" || input.range === "year"
-          ? sql`date_trunc('week', ${examAttempt.startedAt})`
-          : sql`date_trunc('day', ${examAttempt.startedAt})`;
-      const learningBucket = sql`date_trunc('day', ${learningActivity.day})`;
-      const registrationBucket = sql`date_trunc('day', ${users.registeredAt})`;
-      const activityBucket = sql`date_trunc('day', "activityDay")`;
+      const useWeeklyBuckets =
+        input.range === "threeMonths" || input.range === "year";
+      const examBucket = useWeeklyBuckets
+        ? sql`date_trunc('week', ${examAttempt.startedAt})`
+        : sql`date_trunc('day', ${examAttempt.startedAt})`;
+      const learningBucket = useWeeklyBuckets
+        ? sql`date_trunc('week', ${learningActivity.day})`
+        : sql`date_trunc('day', ${learningActivity.day})`;
+      const registrationBucket = useWeeklyBuckets
+        ? sql`date_trunc('week', ${users.registeredAt})`
+        : sql`date_trunc('day', ${users.registeredAt})`;
+      const activityBucket = useWeeklyBuckets
+        ? sql`date_trunc('week', "activityDay")`
+        : sql`date_trunc('day', "activityDay")`;
 
       const [userCount] = await ctx.db.select({ count: count() }).from(users);
       const [examCount] = await ctx.db
@@ -216,14 +223,14 @@ export const adminRouter = createTRPCRouter({
 
       const examActivity = await ctx.db
         .select({
-          date: sql<string>`to_char(${bucket}, 'YYYY-MM-DD')`,
+          date: sql<string>`to_char(${examBucket}, 'YYYY-MM-DD')`,
           exams: sql<number>`count(${examAttempt.id})::int`,
           users: sql<number>`count(distinct ${examAttempt.userId})::int`,
         })
         .from(examAttempt)
         .where(sql`${examAttempt.startedAt} >= now() - ${interval}`)
-        .groupBy(bucket)
-        .orderBy(bucket);
+        .groupBy(examBucket)
+        .orderBy(examBucket);
 
       const learningUsage = await ctx.db
         .select({

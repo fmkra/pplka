@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { keepPreviousData } from "@tanstack/react-query";
 import {
   CartesianGrid,
   Legend,
@@ -82,7 +83,7 @@ function DashboardChart<T extends { date: string }>({
   rightLabel,
   lines,
   emptyMessage,
-  action,
+  footnote,
 }: {
   title: string;
   icon: React.ReactNode;
@@ -96,63 +97,78 @@ function DashboardChart<T extends { date: string }>({
     stroke: string;
   }>;
   emptyMessage: string;
-  action?: React.ReactNode;
+  footnote?: string;
 }) {
   return (
     <Card>
-      <CardHeader className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+      <CardHeader className="px-4 sm:px-6">
         <CardTitle className="flex items-center gap-2 leading-tight">
           {icon}
           <span>{title}</span>
         </CardTitle>
-        {action}
       </CardHeader>
-      <CardContent>
+      <CardContent className="px-2 sm:px-6">
         {data.length === 0 ? (
           <p className="text-muted-foreground py-10 text-center">
             {emptyMessage}
           </p>
         ) : (
-          <div className="relative h-[360px] w-full pt-6">
-            <div className="text-muted-foreground pointer-events-none absolute top-0 left-0 text-sm">
-              {leftLabel}
-            </div>
-            <div className="text-muted-foreground pointer-events-none absolute top-0 right-0 text-sm">
-              {rightLabel}
-            </div>
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={data}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="date" tickFormatter={formatChartDate} />
-                <YAxis
-                  yAxisId="left"
-                  orientation="left"
-                  allowDecimals={false}
-                />
-                <YAxis
-                  yAxisId="right"
-                  orientation="right"
-                  allowDecimals={false}
-                />
-                <Tooltip
-                  labelFormatter={(label) => formatChartDate(String(label))}
-                />
-                <Legend />
-                {lines.map((line) => (
-                  <Line
-                    key={line.dataKey}
-                    type="linear"
-                    yAxisId={line.axis}
-                    dataKey={line.dataKey}
-                    name={line.name}
-                    stroke={line.stroke}
-                    strokeWidth={3}
-                    dot={{ r: 3 }}
-                    activeDot={{ r: 4 }}
+          <div>
+            <div className="relative h-[360px] w-full pt-6">
+              <div className="text-muted-foreground pointer-events-none absolute top-0 left-10 text-sm sm:left-12">
+                {leftLabel}
+              </div>
+              <div className="text-muted-foreground pointer-events-none absolute top-0 right-10 text-sm sm:right-12">
+                {rightLabel}
+              </div>
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={data} margin={{ right: 0, left: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis
+                    dataKey="date"
+                    tickFormatter={formatChartDate}
+                    minTickGap={24}
+                    tick={{ fontSize: 12 }}
                   />
-                ))}
-              </LineChart>
-            </ResponsiveContainer>
+                  <YAxis
+                    yAxisId="left"
+                    orientation="left"
+                    allowDecimals={false}
+                    width={40}
+                    tick={{ fontSize: 12 }}
+                  />
+                  <YAxis
+                    yAxisId="right"
+                    orientation="right"
+                    allowDecimals={false}
+                    width={40}
+                    tick={{ fontSize: 12 }}
+                  />
+                  <Tooltip
+                    labelFormatter={(label) => formatChartDate(String(label))}
+                  />
+                  <Legend />
+                  {lines.map((line) => (
+                    <Line
+                      key={line.dataKey}
+                      type="linear"
+                      yAxisId={line.axis}
+                      dataKey={line.dataKey}
+                      name={line.name}
+                      stroke={line.stroke}
+                      strokeWidth={3}
+                      dot={{ r: 3 }}
+                      activeDot={{ r: 4 }}
+                    />
+                  ))}
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+            {footnote ? (
+              <p className="text-muted-foreground px-10 pt-1 text-xs sm:px-12">
+                {footnote}
+              </p>
+            ) : null}
           </div>
         )}
       </CardContent>
@@ -162,7 +178,10 @@ function DashboardChart<T extends { date: string }>({
 
 export default function AdminDashboard() {
   const [range, setRange] = useState<DashboardRange>("month");
-  const { data, isLoading } = api.admin.getDashboard.useQuery({ range });
+  const { data, isLoading, isFetching } = api.admin.getDashboard.useQuery(
+    { range },
+    { placeholderData: keepPreviousData },
+  );
 
   if (isLoading || !data) {
     return (
@@ -198,33 +217,45 @@ export default function AdminDashboard() {
         />
       </div>
 
-      <DashboardChart
-        title="Aktywność egzaminów"
-        icon={<Users className="h-5 w-5 shrink-0" />}
-        data={data.examActivity}
-        leftLabel="Egzaminy"
-        rightLabel="Użytkownicy"
-        emptyMessage="Brak egzaminów do wyświetlenia."
-        action={
-          <div className="w-full md:w-44">
+      <Card className="bg-background/95 sticky top-4 z-10 py-4 shadow-md backdrop-blur">
+        <CardContent className="flex flex-col gap-3 px-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+          <div>
+            <p className="font-medium">Zakres wykresów</p>
+            <p className="text-muted-foreground text-sm" aria-live="polite">
+              {isFetching
+                ? "Aktualizowanie danych…"
+                : "Dotyczy wszystkich wykresów."}
+            </p>
+          </div>
+          <div className="w-full sm:w-44">
             <Select
               options={rangeOptions}
               value={range}
               onValueChange={(value) => setRange(value as DashboardRange)}
             />
           </div>
-        }
+        </CardContent>
+      </Card>
+
+      <DashboardChart
+        title="Aktywność egzaminów"
+        icon={<Users className="h-5 w-5 shrink-0" />}
+        data={data.examActivity}
+        leftLabel="Ogółem"
+        rightLabel="Unikalnych*"
+        emptyMessage="Brak egzaminów do wyświetlenia."
+        footnote="* Ilość użytkowników z co najmniej jednym egzaminem."
         lines={[
           {
             axis: "left",
             dataKey: "exams",
-            name: "Ilość egzaminów",
+            name: "Ogółem",
             stroke: "var(--chart-2)",
           },
           {
             axis: "right",
             dataKey: "users",
-            name: "Unikalni użytkownicy",
+            name: "Unikalnych*",
             stroke: "var(--chart-1)",
           },
         ]}
@@ -234,20 +265,20 @@ export default function AdminDashboard() {
         title="Aktywność nauki"
         icon={<BookOpen className="h-5 w-5 shrink-0" />}
         data={data.learningUsage}
-        leftLabel="Aktywności"
-        rightLabel="Użytkownicy"
+        leftLabel="Ogółem"
+        rightLabel="Unikalnych"
         emptyMessage="Brak aktywności nauki do wyświetlenia."
         lines={[
           {
             axis: "left",
             dataKey: "activities",
-            name: "Ilość aktywności nauki",
+            name: "Ogółem",
             stroke: "var(--chart-2)",
           },
           {
             axis: "right",
             dataKey: "users",
-            name: "Unikalni użytkownicy",
+            name: "Unikalnych",
             stroke: "var(--chart-1)",
           },
         ]}
@@ -257,20 +288,20 @@ export default function AdminDashboard() {
         title="Użytkownicy"
         icon={<UserPlus className="h-5 w-5 shrink-0" />}
         data={data.userActivity}
-        leftLabel="Nowi użytkownicy"
-        rightLabel="Aktywni użytkownicy"
+        leftLabel="Nowi"
+        rightLabel="Aktywni"
         emptyMessage="Brak aktywności użytkowników do wyświetlenia."
         lines={[
           {
             axis: "left",
             dataKey: "newUsers",
-            name: "Nowi użytkownicy",
+            name: "Nowi",
             stroke: "var(--chart-3)",
           },
           {
             axis: "right",
             dataKey: "activeUsers",
-            name: "Aktywni użytkownicy",
+            name: "Aktywni",
             stroke: "var(--chart-1)",
           },
         ]}
