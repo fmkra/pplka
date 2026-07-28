@@ -55,6 +55,10 @@ const dashboardRangeInput = z.object({
   range: z.enum(["week", "month", "threeMonths", "year"]).default("month"),
 });
 
+const userSegmentsInput = dashboardRangeInput.extend({
+  scope: z.enum(["allTime", "activityInRange", "usersInRange"]),
+});
+
 const adminProcedure = protectedProcedure.use(({ ctx, next }) => {
   if (!ctx.session.user.isAdmin) {
     throw new TRPCError({ code: "FORBIDDEN" });
@@ -171,6 +175,91 @@ function articleFolderCondition(articleIds: string[] | null) {
 }
 
 export const adminRouter = createTRPCRouter({
+  getUserSegments: adminProcedure
+    .input(userSegmentsInput)
+    .query(async ({ ctx, input }) => {
+      const interval =
+        input.range === "week"
+          ? sql`interval '7 days'`
+          : input.range === "month"
+            ? sql`interval '1 month'`
+            : input.range === "threeMonths"
+              ? sql`interval '3 months'`
+              : sql`interval '1 year'`;
+
+      const examCondition =
+        input.scope === "activityInRange"
+          ? sql`WHERE ${examAttempt.finishedAt} >= now() - ${interval}`
+          : sql`WHERE ${examAttempt.finishedAt} IS NOT NULL`;
+      const learningUsers =
+        input.scope === "activityInRange"
+          ? sql`SELECT DISTINCT ${learningActivity.userId} AS "userId"
+                FROM ${learningActivity}
+                WHERE ${learningActivity.day} >= (now() - ${interval})::date`
+          : sql`SELECT DISTINCT ${learningCategory.userId} AS "userId"
+                FROM ${learningCategory}`;
+      const userCondition =
+        input.scope === "usersInRange"
+          ? sql`WHERE ${users.registeredAt} >= now() - ${interval}`
+          : sql``;
+
+      const result = await ctx.db.execute(sql`
+        WITH "examUsers" AS (
+          SELECT DISTINCT ${examAttempt.userId} AS "userId"
+          FROM ${examAttempt}
+          ${examCondition}
+        ),
+        "learningUsers" AS (
+          ${learningUsers}
+        ),
+        "classifiedUsers" AS (
+          SELECT
+            "examUsers"."userId" IS NOT NULL AS "hasExam",
+            "learningUsers"."userId" IS NOT NULL AS "hasLearning"
+          FROM ${users}
+          LEFT JOIN "examUsers" ON "examUsers"."userId" = ${users.id}
+          LEFT JOIN "learningUsers" ON "learningUsers"."userId" = ${users.id}
+          ${userCondition}
+        )
+        SELECT
+          "hasExam",
+          "hasLearning",
+          count(*)::int AS "users"
+        FROM "classifiedUsers"
+        GROUP BY "hasExam", "hasLearning"
+      `);
+
+      const counts = new Map(
+        result.map((row) => [
+          `${String(row.hasExam)}:${String(row.hasLearning)}`,
+          Number(row.users),
+        ]),
+      );
+
+      return [
+        {
+          hasExam: true,
+          hasLearning: true,
+          users: counts.get("true:true") ?? 0,
+        },
+        {
+          hasExam: true,
+          hasLearning: false,
+          users: counts.get("true:false") ?? 0,
+        },
+        {
+          hasExam: false,
+          hasLearning: true,
+          users: counts.get("false:true") ?? 0,
+        },
+        {
+          hasExam: false,
+          hasLearning: false,
+          users: counts.get("false:false") ?? 0,
+        },
+      ];
+    }),
+
   getDashboard: adminProcedure
     .input(dashboardRangeInput)
     .query(async ({ ctx, input }) => {

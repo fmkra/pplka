@@ -8,6 +8,8 @@ import {
   Legend,
   Line,
   LineChart,
+  Pie,
+  PieChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -29,6 +31,21 @@ const rangeOptions = [
 ] as const satisfies SelectOption[];
 
 type DashboardRange = (typeof rangeOptions)[number]["value"];
+
+const segmentScopeOptions = [
+  { value: "allTime", label: "Cały okres" },
+  { value: "activityInRange", label: "Aktywność w wybranym okresie" },
+  { value: "usersInRange", label: "Użytkownicy z wybranego okresu" },
+] as const satisfies SelectOption[];
+
+type UserSegmentScope = (typeof segmentScopeOptions)[number]["value"];
+
+const segmentColors = [
+  "var(--chart-1)",
+  "var(--chart-2)",
+  "var(--chart-3)",
+  "var(--chart-4)",
+];
 
 function formatChartDate(date: string) {
   return new Intl.DateTimeFormat("pl-PL", {
@@ -176,6 +193,90 @@ function DashboardChart<T extends { date: string }>({
   );
 }
 
+function UserSegmentsChart({ range }: { range: DashboardRange }) {
+  const [scope, setScope] = useState<UserSegmentScope>("allTime");
+  const { data, isLoading, isFetching } = api.admin.getUserSegments.useQuery(
+    { range, scope },
+    { placeholderData: keepPreviousData },
+  );
+  const chartData = (data ?? []).map((segment, index) => ({
+    ...segment,
+    name:
+      segment.hasExam && segment.hasLearning
+        ? "Egzamin i nauka"
+        : segment.hasExam
+          ? "Tylko egzamin"
+          : segment.hasLearning
+            ? "Tylko nauka"
+            : "Bez egzaminu i nauki",
+    fill: segmentColors[index],
+  }));
+  const total = chartData.reduce((sum, segment) => sum + segment.users, 0);
+
+  return (
+    <Card>
+      <CardHeader className="gap-4 px-4 sm:flex-row sm:items-start sm:justify-between sm:px-6">
+        <div>
+          <CardTitle className="flex items-center gap-2 leading-tight">
+            <Users className="h-5 w-5 shrink-0" />
+            <span>Użytkownicy według sposobu korzystania</span>
+          </CardTitle>
+          <p className="text-muted-foreground mt-2 text-sm" aria-live="polite">
+            {isFetching
+              ? "Aktualizowanie danych…"
+              : `${total.toLocaleString("pl-PL")} użytkowników`}
+          </p>
+        </div>
+        <div className="w-full sm:w-72">
+          <Select
+            options={segmentScopeOptions}
+            value={scope}
+            onValueChange={(value) => setScope(value as UserSegmentScope)}
+          />
+        </div>
+      </CardHeader>
+      <CardContent className="px-2 sm:px-6">
+        {isLoading ? (
+          <div className="flex h-[360px] items-center justify-center">
+            <Spinner size="lg" />
+          </div>
+        ) : total === 0 ? (
+          <p className="text-muted-foreground py-10 text-center">
+            Brak użytkowników do wyświetlenia.
+          </p>
+        ) : (
+          <div className="h-[400px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={chartData}
+                  dataKey="users"
+                  nameKey="name"
+                  cx="50%"
+                  cy="46%"
+                  innerRadius="38%"
+                  outerRadius="68%"
+                  paddingAngle={2}
+                  label={({ name, percent }) =>
+                    `${String(name)} (${((percent ?? 0) * 100).toFixed(1)}%)`
+                  }
+                />
+                <Tooltip
+                  formatter={(value) => [
+                    `${Number(value).toLocaleString("pl-PL")} użytkowników`,
+                    "Liczba",
+                  ]}
+                />
+                <Legend verticalAlign="bottom" />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
+
 export default function AdminDashboard() {
   const [range, setRange] = useState<DashboardRange>("month");
   const { data, isLoading, isFetching } = api.admin.getDashboard.useQuery(
@@ -236,6 +337,8 @@ export default function AdminDashboard() {
           </div>
         </CardContent>
       </Card>
+
+      <UserSegmentsChart range={range} />
 
       <DashboardChart
         title="Aktywność egzaminów"
