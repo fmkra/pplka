@@ -211,6 +211,13 @@
       "when": 1784986579844,
       "tag": "0029_friendly_archangel",
       "breakpoints": true
+    },
+    {
+      "idx": 30,
+      "version": "7",
+      "when": 1785520156488,
+      "tag": "0030_mute_karen_page",
+      "breakpoints": true
     }
   ]
 }

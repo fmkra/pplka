@@ -59,6 +59,10 @@ export const learningCategory = createTable(
       .notNull()
       .references(() => categories.id),
     latestAttempt: d.integer().notNull(),
+    createdAt: d
+      .timestamp({ mode: "date", withTimezone: true })
+      .notNull()
+      .defaultNow(),
     deletedAt: d.timestamp({ mode: "date", withTimezone: true }),
   }),
   (table) => [

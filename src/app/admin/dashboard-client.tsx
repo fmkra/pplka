@@ -15,7 +15,14 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { BookOpen, MessageSquare, Star, UserPlus, Users } from "lucide-react";
+import {
+  BookOpen,
+  ClipboardCheck,
+  MessageSquare,
+  Star,
+  UserPlus,
+  Users,
+} from "lucide-react";
 import { ADMIN, COMMENTS, FEEDBACK } from "~/app/links";
 import { api } from "~/trpc/react";
 import { Button } from "~/components/ui/button";
@@ -45,6 +52,14 @@ const segmentColors = [
   "var(--chart-2)",
   "var(--chart-3)",
   "var(--chart-4)",
+];
+
+const categoryColors = [
+  "var(--chart-1)",
+  "var(--chart-2)",
+  "var(--chart-3)",
+  "var(--chart-4)",
+  "var(--chart-5)",
 ];
 
 function formatChartDate(date: string) {
@@ -277,8 +292,79 @@ function UserSegmentsChart({ range }: { range: DashboardRange }) {
   );
 }
 
+function BreakdownPieChart({
+  title,
+  icon,
+  data,
+  itemLabel,
+  emptyMessage,
+}: {
+  title: string;
+  icon: React.ReactNode;
+  data: Array<{ name: string; count: number }>;
+  itemLabel: string;
+  emptyMessage: string;
+}) {
+  const chartData = data.map((item, index) => ({
+    ...item,
+    fill: categoryColors[index % categoryColors.length],
+  }));
+  const total = chartData.reduce((sum, item) => sum + item.count, 0);
+
+  return (
+    <Card>
+      <CardHeader className="px-4 sm:px-6">
+        <CardTitle className="flex items-center gap-2 leading-tight">
+          {icon}
+          <span>{title}</span>
+        </CardTitle>
+        <p className="text-muted-foreground text-sm">
+          {total.toLocaleString("pl-PL")} {itemLabel}
+        </p>
+      </CardHeader>
+      <CardContent className="px-2 sm:px-6">
+        {total === 0 ? (
+          <p className="text-muted-foreground py-10 text-center">
+            {emptyMessage}
+          </p>
+        ) : (
+          <div className="h-[440px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={chartData}
+                  dataKey="count"
+                  nameKey="name"
+                  cx="50%"
+                  cy="44%"
+                  innerRadius="32%"
+                  outerRadius="62%"
+                  paddingAngle={1}
+                  label={({ name, value }) =>
+                    `${String(name)} (${Number(value).toLocaleString("pl-PL")})`
+                  }
+                />
+                <Tooltip
+                  formatter={(value) => [
+                    Number(value).toLocaleString("pl-PL"),
+                    "Liczba",
+                  ]}
+                />
+                <Legend verticalAlign="bottom" />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
+
 export default function AdminDashboard() {
   const [range, setRange] = useState<DashboardRange>("month");
+  const [activeTab, setActiveTab] = useState<"users" | "exams" | "learning">(
+    "users",
+  );
   const { data, isLoading, isFetching } = api.admin.getDashboard.useQuery(
     { range },
     { placeholderData: keepPreviousData },
@@ -338,77 +424,139 @@ export default function AdminDashboard() {
         </CardContent>
       </Card>
 
-      <UserSegmentsChart range={range} />
+      <div
+        className="bg-muted grid grid-cols-3 rounded-lg p-1"
+        role="tablist"
+        aria-label="Wykresy panelu administratora"
+      >
+        {(
+          [
+            ["users", "Użytkownicy"],
+            ["exams", "Egzaminy"],
+            ["learning", "Nauka"],
+          ] as const
+        ).map(([value, label]) => (
+          <Button
+            key={value}
+            type="button"
+            role="tab"
+            variant={activeTab === value ? "default" : "ghost"}
+            aria-selected={activeTab === value}
+            onClick={() => setActiveTab(value)}
+          >
+            {label}
+          </Button>
+        ))}
+      </div>
 
-      <DashboardChart
-        title="Aktywność egzaminów"
-        icon={<Users className="h-5 w-5 shrink-0" />}
-        data={data.examActivity}
-        leftLabel="Ogółem"
-        rightLabel="Unikalnych*"
-        emptyMessage="Brak egzaminów do wyświetlenia."
-        footnote="* Ilość użytkowników z co najmniej jednym egzaminem."
-        lines={[
-          {
-            axis: "left",
-            dataKey: "exams",
-            name: "Ogółem",
-            stroke: "var(--chart-2)",
-          },
-          {
-            axis: "right",
-            dataKey: "users",
-            name: "Unikalnych*",
-            stroke: "var(--chart-1)",
-          },
-        ]}
-      />
-
-      <DashboardChart
-        title="Aktywność nauki"
-        icon={<BookOpen className="h-5 w-5 shrink-0" />}
-        data={data.learningUsage}
-        leftLabel="Ogółem"
-        rightLabel="Unikalnych"
-        emptyMessage="Brak aktywności nauki do wyświetlenia."
-        lines={[
-          {
-            axis: "left",
-            dataKey: "activities",
-            name: "Ogółem",
-            stroke: "var(--chart-2)",
-          },
-          {
-            axis: "right",
-            dataKey: "users",
-            name: "Unikalnych",
-            stroke: "var(--chart-1)",
-          },
-        ]}
-      />
-
-      <DashboardChart
-        title="Użytkownicy"
-        icon={<UserPlus className="h-5 w-5 shrink-0" />}
-        data={data.userActivity}
-        leftLabel="Nowi"
-        rightLabel="Aktywni"
-        emptyMessage="Brak aktywności użytkowników do wyświetlenia."
-        lines={[
-          {
-            axis: "left",
-            dataKey: "newUsers",
-            name: "Nowi",
-            stroke: "var(--chart-3)",
-          },
-          {
-            axis: "right",
-            dataKey: "activeUsers",
-            name: "Aktywni",
-            stroke: "var(--chart-1)",
-          },
-        ]}
-      />
+      <div role="tabpanel" className="space-y-6">
+        {activeTab === "users" ? (
+          <>
+            <UserSegmentsChart range={range} />
+            <DashboardChart
+              title="Użytkownicy"
+              icon={<UserPlus className="h-5 w-5 shrink-0" />}
+              data={data.userActivity}
+              leftLabel="Nowi"
+              rightLabel="Aktywni"
+              emptyMessage="Brak aktywności użytkowników do wyświetlenia."
+              lines={[
+                {
+                  axis: "left",
+                  dataKey: "newUsers",
+                  name: "Nowi",
+                  stroke: "var(--chart-3)",
+                },
+                {
+                  axis: "right",
+                  dataKey: "activeUsers",
+                  name: "Aktywni",
+                  stroke: "var(--chart-1)",
+                },
+              ]}
+            />
+          </>
+        ) : activeTab === "exams" ? (
+          <>
+            <DashboardChart
+              title="Aktywność egzaminów"
+              icon={<ClipboardCheck className="h-5 w-5 shrink-0" />}
+              data={data.examActivity}
+              leftLabel="Ogółem"
+              rightLabel="Unikalnych*"
+              emptyMessage="Brak egzaminów do wyświetlenia."
+              footnote="* Ilość użytkowników z co najmniej jednym egzaminem."
+              lines={[
+                {
+                  axis: "left",
+                  dataKey: "exams",
+                  name: "Ogółem",
+                  stroke: "var(--chart-2)",
+                },
+                {
+                  axis: "right",
+                  dataKey: "users",
+                  name: "Unikalnych*",
+                  stroke: "var(--chart-1)",
+                },
+              ]}
+            />
+            <BreakdownPieChart
+              title="Egzaminy według przedmiotów"
+              icon={<ClipboardCheck className="h-5 w-5 shrink-0" />}
+              data={data.examSubjects}
+              itemLabel="egzaminów w wybranym okresie"
+              emptyMessage="Brak egzaminów w wybranym okresie."
+            />
+            <BreakdownPieChart
+              title="Egzaminy według licencji"
+              icon={<ClipboardCheck className="h-5 w-5 shrink-0" />}
+              data={data.examLicenses}
+              itemLabel="egzaminów w wybranym okresie"
+              emptyMessage="Brak egzaminów w wybranym okresie."
+            />
+          </>
+        ) : (
+          <>
+            <DashboardChart
+              title="Aktywność nauki"
+              icon={<BookOpen className="h-5 w-5 shrink-0" />}
+              data={data.learningUsage}
+              leftLabel="Ogółem"
+              rightLabel="Unikalnych"
+              emptyMessage="Brak aktywności nauki do wyświetlenia."
+              lines={[
+                {
+                  axis: "left",
+                  dataKey: "activities",
+                  name: "Ogółem",
+                  stroke: "var(--chart-2)",
+                },
+                {
+                  axis: "right",
+                  dataKey: "users",
+                  name: "Unikalnych",
+                  stroke: "var(--chart-1)",
+                },
+              ]}
+            />
+            <BreakdownPieChart
+              title="Sesje nauki według przedmiotów"
+              icon={<BookOpen className="h-5 w-5 shrink-0" />}
+              data={data.learningSubjects}
+              itemLabel="sesji nauki w wybranym okresie"
+              emptyMessage="Brak sesji nauki w wybranym okresie."
+            />
+            <BreakdownPieChart
+              title="Sesje nauki według licencji"
+              icon={<BookOpen className="h-5 w-5 shrink-0" />}
+              data={data.learningLicenses}
+              itemLabel="sesji nauki w wybranym okresie"
+              emptyMessage="Brak sesji nauki w wybranym okresie."
+            />
+          </>
+        )}
+      </div>
 
       <div className="grid gap-4 md:grid-cols-2">
         <Card>

@@ -332,6 +332,55 @@ export const adminRouter = createTRPCRouter({
         .groupBy(learningBucket)
         .orderBy(learningBucket);
 
+      const examSubjects = await ctx.db
+        .select({
+          name: categories.name,
+          count: sql<number>`count(${examAttempt.id})::int`,
+        })
+        .from(examAttempt)
+        .innerJoin(categories, eq(examAttempt.categoryId, categories.id))
+        .where(sql`${examAttempt.startedAt} >= now() - ${interval}`)
+        .groupBy(categories.name)
+        .orderBy(desc(sql`count(${examAttempt.id})`), asc(categories.name));
+
+      const learningSubjects = await ctx.db
+        .select({
+          name: categories.name,
+          count: sql<number>`count(${learningCategory.id})::int`,
+        })
+        .from(learningCategory)
+        .innerJoin(categories, eq(learningCategory.categoryId, categories.id))
+        .where(sql`${learningCategory.createdAt} >= now() - ${interval}`)
+        .groupBy(categories.name)
+        .orderBy(
+          desc(sql`count(${learningCategory.id})`),
+          asc(categories.name),
+        );
+
+      const examLicenses = await ctx.db
+        .select({
+          name: sql<string>`coalesce(${licenses.name}, 'Bez licencji')`,
+          count: sql<number>`count(${examAttempt.id})::int`,
+        })
+        .from(examAttempt)
+        .innerJoin(categories, eq(examAttempt.categoryId, categories.id))
+        .leftJoin(licenses, eq(categories.licenseId, licenses.id))
+        .where(sql`${examAttempt.startedAt} >= now() - ${interval}`)
+        .groupBy(licenses.name)
+        .orderBy(desc(sql`count(${examAttempt.id})`), asc(licenses.name));
+
+      const learningLicenses = await ctx.db
+        .select({
+          name: sql<string>`coalesce(${licenses.name}, 'Bez licencji')`,
+          count: sql<number>`count(${learningCategory.id})::int`,
+        })
+        .from(learningCategory)
+        .innerJoin(categories, eq(learningCategory.categoryId, categories.id))
+        .leftJoin(licenses, eq(categories.licenseId, licenses.id))
+        .where(sql`${learningCategory.createdAt} >= now() - ${interval}`)
+        .groupBy(licenses.name)
+        .orderBy(desc(sql`count(${learningCategory.id})`), asc(licenses.name));
+
       const registrationActivity = await ctx.db
         .select({
           date: sql<string>`to_char(${registrationBucket}, 'YYYY-MM-DD')`,
@@ -393,7 +442,11 @@ export const adminRouter = createTRPCRouter({
           comments: commentsCount?.count ?? 0,
         },
         examActivity,
+        examSubjects,
+        examLicenses,
         learningUsage,
+        learningSubjects,
+        learningLicenses,
         userActivity,
       };
     }),
