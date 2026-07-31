@@ -239,13 +239,13 @@ export const adminRouter = createTRPCRouter({
       return [
         {
           hasExam: true,
-          hasLearning: true,
-          users: counts.get("true:true") ?? 0,
+          hasLearning: false,
+          users: counts.get("true:false") ?? 0,
         },
         {
           hasExam: true,
-          hasLearning: false,
-          users: counts.get("true:false") ?? 0,
+          hasLearning: true,
+          users: counts.get("true:true") ?? 0,
         },
         {
           hasExam: false,
