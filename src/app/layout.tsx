@@ -71,7 +71,7 @@ export default function RootLayout({
       <PwaContextProvider>
         <html lang="pl" className={`${geist.variable}`}>
           <body className="flex min-h-screen flex-col">
-            <SessionProvider>
+            <SessionProvider refetchOnWindowFocus={false}>
               <NuqsAdapter>
                 <TRPCReactProvider>
                   <Navbar />

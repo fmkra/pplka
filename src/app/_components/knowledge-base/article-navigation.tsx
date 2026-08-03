@@ -36,6 +36,7 @@ export function KnowledgeBaseArticleNavigation({
         <Link
           className="flex items-center gap-2 text-blue-500"
           href={knowledgeBaseHref(license, siblings[0].slug ?? undefined)}
+          prefetch={false}
         >
           <span>{"< "}</span>
           <span>{siblings[0].name}</span>
@@ -46,6 +47,7 @@ export function KnowledgeBaseArticleNavigation({
       {questionCount ? (
         <Link
           href={`/${license}/${QUESTIONS}?${QUESTIONS_KNOWLEDGE_BASE_ID}=${knowledgeBaseNodeId}`}
+          prefetch={false}
           className="text-center text-blue-500 max-sm:order-2 max-sm:col-span-2"
         >
           {questionCount}{" "}
@@ -64,6 +66,7 @@ export function KnowledgeBaseArticleNavigation({
         <Link
           className="flex items-center justify-end gap-2 text-right text-blue-500 max-sm:order-1"
           href={knowledgeBaseHref(license, siblings[1].slug ?? undefined)}
+          prefetch={false}
         >
           <span>{siblings[1].name}</span>
           <span>{" >"}</span>

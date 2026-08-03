@@ -40,6 +40,7 @@ export function Footer({ license }: { license: string }) {
             <div>
               <Link
                 href={`/${TOS}`}
+                prefetch={false}
                 className="text-muted-foreground hover:text-foreground text-sm transition-colors"
               >
                 Regulamin
@@ -55,6 +56,7 @@ export function Footer({ license }: { license: string }) {
                 <li key={item.name}>
                   <Link
                     href={item.href}
+                    prefetch={false}
                     className="text-muted-foreground hover:text-foreground text-sm transition-colors"
                   >
                     {item.name}
@@ -72,6 +74,7 @@ export function Footer({ license }: { license: string }) {
                 <li key={item.name}>
                   <Link
                     href={item.href(license)}
+                    prefetch={false}
                     className="text-muted-foreground hover:text-foreground text-sm transition-colors"
                   >
                     {item.name}
