@@ -1,0 +1,13 @@
+[
+  {
+    "external_id": "PL080-0017",
+    "question": "Co to jest „ciśnienie spiętrzeniowe”?",
+    "answers": [
+      "różnica ciśnienia dynamicznego i ciśnienia statycznego",
+      "najwyższe zmierzone ciśnienie",
+      "najniższe zmierzone ciśnienie",
+      "suma ciśnienia dynamicznego i statycznego"
+    ],
+    "correct_answer": 4
+  }
+]

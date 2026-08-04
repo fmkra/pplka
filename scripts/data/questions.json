@@ -26003,10 +26003,10 @@
     "external_id": "PL080-0017",
     "question": "Co to jest „ciśnienie spiętrzeniowe”?",
     "answers": [
-      "różnica ciśnienia dynamicznego i ciśnienia statycznego",
+      "suma ciśnienia dynamicznego i statycznego",
       "najwyższe zmierzone ciśnienie",
       "najniższe zmierzone ciśnienie",
-      "suma ciśnienia dynamicznego i statycznego"
+      "różnica ciśnienia dynamicznego i ciśnienia statycznego"
     ],
     "licenses": [
       "ppla",

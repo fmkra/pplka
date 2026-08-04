@@ -11,6 +11,7 @@ from collections import defaultdict
 from pathlib import Path
 
 FILES_DIR = Path(__file__).parent / "data"
+CORRECTIONS_FILE = Path(__file__).parent / "question_corrections.json"
 
 replace_strings = [
     ('( ?C)', '(°C)'),
@@ -52,6 +53,91 @@ def extract_answers(question):
         if answer_key in question:
             answers.append(question[answer_key])
     return answers
+
+
+def load_question_corrections(file_path=CORRECTIONS_FILE):
+    """Load the expected question snapshots and their 1-based correct answers."""
+    with open(file_path, 'r', encoding='utf-8') as f:
+        corrections = json.load(f)
+
+    if not isinstance(corrections, list):
+        raise ValueError(f"Question corrections in {file_path} must be a JSON array")
+
+    seen_external_ids = set()
+    for correction in corrections:
+        if not isinstance(correction, dict):
+            raise ValueError(f"Each question correction in {file_path} must be an object")
+
+        expected_keys = {'external_id', 'question', 'answers', 'correct_answer'}
+        if set(correction) != expected_keys:
+            raise ValueError(
+                f"Question correction must contain exactly {sorted(expected_keys)}: {correction}"
+            )
+
+        external_id = correction['external_id']
+        if not isinstance(external_id, str) or not external_id:
+            raise ValueError("Question correction external_id must be a non-empty string")
+        if external_id in seen_external_ids:
+            raise ValueError(f"Duplicate question correction for external_id '{external_id}'")
+        seen_external_ids.add(external_id)
+
+        if not isinstance(correction['question'], str):
+            raise ValueError(f"Question correction '{external_id}' question must be a string")
+        if (
+            not isinstance(correction['answers'], list)
+            or len(correction['answers']) != 4
+            or not all(isinstance(answer, str) for answer in correction['answers'])
+        ):
+            raise ValueError(
+                f"Question correction '{external_id}' must contain exactly four string answers"
+            )
+
+        correct_answer = correction['correct_answer']
+        if (
+            isinstance(correct_answer, bool)
+            or not isinstance(correct_answer, int)
+            or not 1 <= correct_answer <= len(correction['answers'])
+        ):
+            raise ValueError(
+                f"Question correction '{external_id}' correct_answer must be an integer from 1 to 4"
+            )
+
+    return corrections
+
+
+def apply_question_corrections(questions, corrections):
+    """Validate correction snapshots and move each corrected answer to index zero."""
+    questions_by_external_id = {
+        question['external_id']: question for question in questions
+    }
+
+    for correction in corrections:
+        external_id = correction['external_id']
+        question = questions_by_external_id.get(external_id)
+        if question is None:
+            raise ValueError(
+                f"Question correction '{external_id}' does not match any extracted question"
+            )
+
+        if question['question'] != correction['question']:
+            raise ValueError(
+                f"Question correction '{external_id}' has stale question text.\n"
+                f"  Extracted: {question['question']}\n"
+                f"  Correction: {correction['question']}"
+            )
+
+        if question['answers'] != correction['answers']:
+            raise ValueError(
+                f"Question correction '{external_id}' has stale answers.\n"
+                f"  Extracted: {question['answers']}\n"
+                f"  Correction: {correction['answers']}"
+            )
+
+        correct_answer_index = correction['correct_answer'] - 1
+        question['answers'][0], question['answers'][correct_answer_index] = (
+            question['answers'][correct_answer_index],
+            question['answers'][0],
+        )
 
 
 def combine_questions():
@@ -145,6 +231,9 @@ def combine_questions():
     
     # Sort result by external_id to ensure proper ordering
     result.sort(key=lambda x: x['external_id'])
+
+    corrections = load_question_corrections()
+    apply_question_corrections(result, corrections)
     
     # Print warnings
     if warnings:
