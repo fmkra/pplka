@@ -38,13 +38,30 @@ export function Footer({ license }: { license: string }) {
               </p>
             </div>
             <div>
-              <Link
-                href={`/${TOS}`}
-                prefetch={false}
-                className="text-muted-foreground hover:text-foreground text-sm transition-colors"
-              >
-                Regulamin
-              </Link>
+              <div className="flex flex-col items-start gap-2">
+                <Link
+                  href={`/${TOS}`}
+                  prefetch={false}
+                  className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+                >
+                  Regulamin
+                </Link>
+                <a
+                  href="https://buycoffee.to/filip-krawczyk"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-foreground inline-flex items-center gap-2 text-sm transition-colors"
+                >
+                  <span>Wsparcie</span>
+                  <Image
+                    width={100}
+                    height={26}
+                    className="h-auto w-[100px]"
+                    src="/img/buycoffee-share-button-primary.png"
+                    alt="Postaw kawę"
+                  />
+                </a>
+              </div>
             </div>
           </div>
 

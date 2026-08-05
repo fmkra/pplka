@@ -14,6 +14,7 @@ import * as explanation from "./explanation";
 import * as knowledgeBase from "./knowledgeBase";
 import * as contentFeedback from "./contentFeedback";
 import * as questionComment from "./questionComment";
+import * as buyCoffeeBanner from "./buyCoffeeBanner";
 import { createTable } from "./_creator";
 
 /**
@@ -45,5 +46,6 @@ export const db = drizzle(conn, {
     ...knowledgeBase,
     ...contentFeedback,
     ...questionComment,
+    ...buyCoffeeBanner,
   },
 });

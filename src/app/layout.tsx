@@ -15,6 +15,7 @@ import deploymentContent from "~/deployment_content.json";
 import { SerwistProvider } from "~/lib/serwist-provider";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Suspense } from "react";
+import { BuyCoffeeBanner } from "./_components/buy-coffee-banner";
 
 export const metadata: Metadata = {
   title: {
@@ -75,6 +76,7 @@ export default function RootLayout({
               <NuqsAdapter>
                 <TRPCReactProvider>
                   <Navbar />
+                  <BuyCoffeeBanner />
                   {children}
                   <Notifications />
                   <Suspense fallback={null}>
