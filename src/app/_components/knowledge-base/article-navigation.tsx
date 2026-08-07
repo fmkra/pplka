@@ -33,14 +33,16 @@ export function KnowledgeBaseArticleNavigation({
   return (
     <div className="mt-2 grid grid-cols-[1fr_auto_1fr] gap-y-4 border-t pt-4 pb-2 max-sm:grid-cols-2">
       {siblings[0] ? (
-        <Link
-          className="flex items-center gap-2 text-blue-500"
-          href={knowledgeBaseHref(license, siblings[0].slug ?? undefined)}
-          prefetch={false}
-        >
-          <span>{"< "}</span>
-          <span>{siblings[0].name}</span>
-        </Link>
+        <div className="flex">
+          <Link
+            className="flex items-center gap-2 text-blue-500"
+            href={knowledgeBaseHref(license, siblings[0].slug ?? undefined)}
+            prefetch={false}
+          >
+            <span>{"< "}</span>
+            <span>{siblings[0].name}</span>
+          </Link>
+        </div>
       ) : (
         <div />
       )}
@@ -63,14 +65,16 @@ export function KnowledgeBaseArticleNavigation({
         <div />
       )}
       {siblings[1] ? (
-        <Link
-          className="flex items-center justify-end gap-2 text-right text-blue-500 max-sm:order-1"
-          href={knowledgeBaseHref(license, siblings[1].slug ?? undefined)}
-          prefetch={false}
-        >
-          <span>{siblings[1].name}</span>
-          <span>{" >"}</span>
-        </Link>
+        <div className="flex justify-end">
+          <Link
+            className="flex items-center gap-2 text-right text-blue-500 max-sm:order-1"
+            href={knowledgeBaseHref(license, siblings[1].slug ?? undefined)}
+            prefetch={false}
+          >
+            <span>{siblings[1].name}</span>
+            <span>{" >"}</span>
+          </Link>
+        </div>
       ) : (
         <div />
       )}
