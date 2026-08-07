@@ -12,7 +12,9 @@ import { knowledgeBaseNodes } from "~/server/db/knowledgeBase";
 
 const BASE_URL = "https://www.pplka.pl";
 
-export const dynamicParams = false;
+// Articles can be added between deployments, so slugs that were not returned by
+// generateStaticParams at build time must still be rendered on demand.
+export const dynamicParams = true;
 
 async function getKnowledgeBaseNode(slug: string) {
   return db.query.knowledgeBaseNodes.findFirst({
