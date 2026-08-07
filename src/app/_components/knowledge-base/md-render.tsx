@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useId, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkMath from "remark-math";
 import rehypeRaw from "rehype-raw";
 import rehypeKatex from "rehype-katex";
 import remarkGfm from "remark-gfm";
 import type { Explanation } from "~/server/db/explanation";
-import { X } from "lucide-react";
+import { ChevronDown, X } from "lucide-react";
 
 export type ExplanationElement = {
   explanation: Explanation;
@@ -31,6 +31,8 @@ export default function Render({
   explanations: ExplanationElement[];
 }) {
   const [openImageUrl, setOpenImageUrl] = useState<string | null>(null);
+  const [showExtraResources, setShowExtraResources] = useState(false);
+  const extraResourcesId = useId();
 
   useEffect(() => {
     const onEscape = (e: KeyboardEvent) => {
@@ -56,17 +58,33 @@ export default function Render({
         />
       ))}
       {hasBoth && (
-        <h3 className="prose mt-2 border-t pt-2 text-2xl font-bold">
-          Powiązane materiały
-        </h3>
+        <button
+          type="button"
+          className="text-primary mt-3 flex w-full items-center justify-between gap-3 border-t pt-3 text-left text-sm font-medium hover:underline"
+          aria-expanded={showExtraResources}
+          aria-controls={extraResourcesId}
+          onClick={() => setShowExtraResources((isOpen) => !isOpen)}
+        >
+          <span>
+            {showExtraResources
+              ? "Ukryj bardziej szczegółowe wyjaśnienie"
+              : "Pokaż bardziej szczegółowe wyjaśnienie"}
+          </span>
+          <ChevronDown
+            className={`h-4 w-4 shrink-0 transition-transform ${showExtraResources ? "rotate-180" : ""}`}
+            aria-hidden="true"
+          />
+        </button>
       )}
-      {extraResources.map((e) => (
-        <ExplanationElement
-          key={e.explanation.id}
-          explanation={e}
-          setOpenImageUrl={setOpenImageUrl}
-        />
-      ))}
+      <div id={extraResourcesId} hidden={hasBoth && !showExtraResources}>
+        {extraResources.map((e) => (
+          <ExplanationElement
+            key={e.explanation.id}
+            explanation={e}
+            setOpenImageUrl={setOpenImageUrl}
+          />
+        ))}
+      </div>
 
       {openImageUrl && (
         <div
@@ -88,7 +106,7 @@ export default function Render({
           <img
             src={openImageUrl}
             alt=""
-            className="max-w-[90vw]object-contain h-full max-h-[90vh] w-full"
+            className="h-auto max-h-[90vh] w-auto max-w-[90vw] object-contain"
           />
         </div>
       )}
@@ -115,7 +133,7 @@ function ExplanationElement({
         <img
           src={e.explanation.explanation}
           alt=""
-          className="mx-auto max-h-[70vh] w-full max-w-[54rem] cursor-pointer"
+          className="mx-auto h-auto max-h-[70vh] w-auto max-w-full cursor-pointer"
           onClick={() => setOpenImageUrl(e.explanation.explanation)}
           role="button"
           tabIndex={0}
