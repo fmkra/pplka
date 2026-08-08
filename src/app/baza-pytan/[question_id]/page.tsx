@@ -40,26 +40,35 @@ export async function generateMetadata({
 
   const question = plainText(data.question.question);
   const correctAnswer = plainText(data.question.answerCorrect);
+  const externalId = data.question.externalId?.trim();
   const explanation = data.explanations.find(
     ({ explanation }) => explanation.type === "text",
   );
+  const descriptionPrefix =
+    data.explanations.length > 0
+      ? "Pytanie egzaminacyjne i wyjaśnienie:"
+      : "Pytanie egzaminacyjne:";
   const description = truncate(
-    `${question} Poprawna odpowiedź: ${correctAnswer}.${
+    `${descriptionPrefix} ${question} Poprawna odpowiedź: ${correctAnswer}.${
       explanation
         ? ` Wyjaśnienie: ${plainText(explanation.explanation.explanation)}`
         : ""
     }`,
     160,
   );
+  const title = truncate(
+    `${externalId ? `${externalId}: ` : ""}${question}`,
+    65,
+  );
   const canonical = `${BASE_URL}${questionHref(questionId)}`;
 
   return {
-    title: truncate(`${question} – pytanie egzaminacyjne`, 65),
+    title,
     description,
     alternates: { canonical },
     openGraph: {
       type: "article",
-      title: truncate(question, 95),
+      title,
       description,
       url: canonical,
     },
