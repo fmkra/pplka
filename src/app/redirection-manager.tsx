@@ -3,7 +3,12 @@
 import Cookies from "js-cookie";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import { KNOWLEDGE_BASE, LICENSE_SEARCH_PARAM, LICENSES } from "./links";
+import {
+  KNOWLEDGE_BASE,
+  LICENSE_SEARCH_PARAM,
+  LICENSES,
+  QUESTIONS,
+} from "./links";
 
 export default function RedirectionManager() {
   const pathname = usePathname();
@@ -12,7 +17,7 @@ export default function RedirectionManager() {
   useEffect(() => {
     const firstPathSegment = pathname.split("/")[1];
     const license =
-      firstPathSegment === KNOWLEDGE_BASE
+      firstPathSegment === KNOWLEDGE_BASE || firstPathSegment === QUESTIONS
         ? searchParams.get(LICENSE_SEARCH_PARAM)
         : firstPathSegment;
     if (license && LICENSES.includes(license)) {

@@ -70,20 +70,27 @@ export default function Navigation({ options }: { options: SelectOption[] }) {
   const pathSegments = currentPathname.split("/").filter(Boolean);
   const firstPathSegment = pathSegments[0];
   const isKnowledgeBase = firstPathSegment === KNOWLEDGE_BASE;
-  const requestedKnowledgeBaseLicense = searchParams.get(LICENSE_SEARCH_PARAM);
+  const isQuestionDetail =
+    firstPathSegment === QUESTIONS && pathSegments.length === 2;
+  const usesLicenseSearchParam = isKnowledgeBase || isQuestionDetail;
+  const requestedLicense = searchParams.get(LICENSE_SEARCH_PARAM);
   const license =
-    isKnowledgeBase &&
-    requestedKnowledgeBaseLicense &&
-    LICENSES.includes(requestedKnowledgeBaseLicense)
-      ? requestedKnowledgeBaseLicense
-      : isKnowledgeBase
+    usesLicenseSearchParam &&
+    requestedLicense &&
+    LICENSES.includes(requestedLicense)
+      ? requestedLicense
+      : usesLicenseSearchParam
         ? DEFAULT_LICENSE
         : !firstPathSegment || nonLicenseUrls.includes(firstPathSegment)
           ? undefined
           : firstPathSegment;
-  const page = isKnowledgeBase ? KNOWLEDGE_BASE : (pathSegments[1] ?? "");
+  const page = isKnowledgeBase
+    ? KNOWLEDGE_BASE
+    : isQuestionDetail
+      ? QUESTIONS
+      : (pathSegments[1] ?? "");
   const selectLicense = (selectedLicense: string) => {
-    if (isKnowledgeBase) {
+    if (usesLicenseSearchParam) {
       const nextSearchParams = new URLSearchParams(searchParams.toString());
       nextSearchParams.set(LICENSE_SEARCH_PARAM, selectedLicense);
       router.push(`${currentPathname}?${nextSearchParams.toString()}`);

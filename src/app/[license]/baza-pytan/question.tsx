@@ -6,7 +6,6 @@ import { useMemo, useState } from "react";
 import { Button } from "~/components/ui/button";
 import { Info, MessageSquare } from "lucide-react";
 import Link from "next/link";
-import { QUESTIONS } from "~/app/links";
 import {
   Tooltip,
   TooltipContent,
@@ -28,6 +27,8 @@ import {
 } from "~/components/ui/accordion";
 import { Explanation } from "~/app/_components/knowledge-base/question-explanation";
 import { HighlightText } from "~/lib/highlight-text";
+import type { ExplanationElement } from "~/app/_components/knowledge-base/md-render";
+import { questionHref } from "~/app/links";
 // import type { CategoryAgg } from "~/server/api/routers/question_database";
 
 function getStyle(color: string | null | undefined) {
@@ -51,6 +52,11 @@ export function Question({
   hasExplanation,
   showCommentsButton,
   searchHighlight,
+  licenseUrl,
+  explanations,
+  explanationDefaultOpen = false,
+  detailedExplanationDefaultOpen = false,
+  detailPage = false,
   // showLicense,
 }: {
   question: QuestionBase;
@@ -58,12 +64,19 @@ export function Question({
   hasExplanation: boolean;
   showCommentsButton?: boolean;
   searchHighlight?: string;
+  licenseUrl?: string;
+  explanations?: ExplanationElement[];
+  explanationDefaultOpen?: boolean;
+  detailedExplanationDefaultOpen?: boolean;
+  detailPage?: boolean;
   // showLicense: boolean;
 }) {
   // TODO: randomize it based on more than just id
   const question = useMemo(() => shuffleAnswers(q, getRandomNumber(q.id)), [q]);
 
-  const [accordionValue, setAccordionValue] = useState<string>("");
+  const [accordionValue, setAccordionValue] = useState<string>(
+    explanationDefaultOpen && hasExplanation ? "explanation" : "",
+  );
   const isExpanded = accordionValue === "explanation";
 
   const { answerState } = useAnswerStore();
@@ -75,10 +88,19 @@ export function Question({
       <Card className="transition-shadow hover:shadow-lg">
         <CardHeader>
           <CardTitle className="text-lg">
-            <HighlightText
-              text={question.question}
-              highlight={searchHighlight}
-            />
+            {detailPage ? (
+              <h1>
+                <HighlightText
+                  text={question.question}
+                  highlight={searchHighlight}
+                />
+              </h1>
+            ) : (
+              <HighlightText
+                text={question.question}
+                highlight={searchHighlight}
+              />
+            )}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -124,7 +146,7 @@ export function Question({
                 {showCommentsButton && (
                   <Button variant="outline" size="sm" asChild>
                     <Link
-                      href={`./${QUESTIONS}/${question.id}`}
+                      href={questionHref(question.id, licenseUrl)}
                       prefetch={false}
                     >
                       <MessageSquare className="mr-2 h-4 w-4" />
@@ -181,6 +203,8 @@ export function Question({
                 <Explanation
                   questionId={question.id}
                   enabled={hasExplanation && isExpanded}
+                  initialData={explanations}
+                  defaultShowExtraResources={detailedExplanationDefaultOpen}
                 />
               </AccordionContent>
             </AccordionItem>

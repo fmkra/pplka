@@ -17,6 +17,13 @@ export function knowledgeBaseHref(license?: string, slug?: string) {
     : pathname;
 }
 
+export function questionHref(questionId: string, license?: string) {
+  const pathname = `/${QUESTIONS}/${encodeURIComponent(questionId)}`;
+  return license
+    ? `${pathname}?${LICENSE_SEARCH_PARAM}=${encodeURIComponent(license)}`
+    : pathname;
+}
+
 export const QUESTIONS_KNOWLEDGE_BASE_ID = "wyjasnienie";
 export const QUESTIONS_SEARCH = "wyszukiwanie";
 export const QUESTIONS_CATEGORIES = "przedmioty";

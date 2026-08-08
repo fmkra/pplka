@@ -3,14 +3,18 @@ import { EXAM, KNOWLEDGE_BASE, LEARN, LICENSES, QUESTIONS, TOS } from "./links";
 import { db } from "~/server/db";
 import { knowledgeBaseNodes } from "~/server/db/knowledgeBase";
 import { isNotNull } from "drizzle-orm";
+import { getAllQuestionIds } from "./_queries/question-base";
 
 const BASE_URL = "https://www.pplka.pl";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const knowledgeBaseSlugs = await db
-    .select({ slug: knowledgeBaseNodes.slug })
-    .from(knowledgeBaseNodes)
-    .where(isNotNull(knowledgeBaseNodes.slug));
+  const [knowledgeBaseSlugs, questionIds] = await Promise.all([
+    db
+      .select({ slug: knowledgeBaseNodes.slug })
+      .from(knowledgeBaseNodes)
+      .where(isNotNull(knowledgeBaseNodes.slug)),
+    getAllQuestionIds(),
+  ]);
 
   return [
     {
@@ -38,6 +42,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           lastModified: new Date(),
           changeFrequency: "monthly",
           priority: 0.5,
+        }) as const,
+    ),
+    ...questionIds.map(
+      ({ question_id }) =>
+        ({
+          url: `${BASE_URL}/${QUESTIONS}/${encodeURIComponent(question_id)}`,
+          lastModified: new Date(),
+          changeFrequency: "monthly",
+          priority: 0.6,
         }) as const,
     ),
     ...LICENSES.flatMap(

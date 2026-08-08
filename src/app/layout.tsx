@@ -18,6 +18,7 @@ import { Suspense } from "react";
 import { BuyCoffeeBanner } from "./_components/buy-coffee-banner";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.pplka.pl"),
   title: {
     default: "PPLka.pl - Przygotowanie do egzaminu na licencję pilota",
     template: "%s | PPLka.pl",

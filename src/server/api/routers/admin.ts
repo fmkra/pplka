@@ -24,7 +24,7 @@ import { questionComments } from "~/server/db/questionComment";
 import { questionInstances, questions } from "~/server/db/question";
 import { users } from "~/server/db/user";
 import type { db } from "~/server/db";
-import { LICENSE_SEARCH_PARAM } from "~/app/links";
+import { LICENSE_SEARCH_PARAM, questionHref } from "~/app/links";
 
 const pageInput = z.object({
   limit: z.number().min(1).max(100).default(20),
@@ -84,10 +84,7 @@ async function getQuestionUrls(ctx: { db: typeof db }, ids: string[]) {
   const urls = new Map<string, string>();
   for (const row of rows) {
     if (!urls.has(row.questionId)) {
-      urls.set(
-        row.questionId,
-        `/${row.licenseUrl}/baza-pytan/${row.questionId}`,
-      );
+      urls.set(row.questionId, questionHref(row.questionId, row.licenseUrl));
     }
   }
 

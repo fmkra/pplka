@@ -40,13 +40,19 @@ const pageSizeOptions: SelectOption[] = [
 export default function QuestionsPageClient({
   categories,
   licenseId,
+  licenseUrl,
 }: {
   categories: Category[];
   licenseId: number;
+  licenseUrl: string;
 }) {
   return (
     <Suspense fallback={<QuestionsPageFallback />}>
-      <QuestionsPageContent categories={categories} licenseId={licenseId} />
+      <QuestionsPageContent
+        categories={categories}
+        licenseId={licenseId}
+        licenseUrl={licenseUrl}
+      />
     </Suspense>
   );
 }
@@ -54,9 +60,11 @@ export default function QuestionsPageClient({
 function QuestionsPageContent({
   categories,
   licenseId,
+  licenseUrl,
 }: {
   categories: Category[];
   licenseId: number;
+  licenseUrl: string;
 }) {
   const { cachedVersion, isReady: isCachedVersionReady } =
     useCachedLicenseVersion(licenseId);
@@ -228,6 +236,7 @@ function QuestionsPageContent({
                 hasExplanation={q.hasExplanation}
                 category={categoriesMapping[q.questionInstance.categoryId]!}
                 showCommentsButton
+                licenseUrl={licenseUrl}
                 searchHighlight={searchDebounced.trim() || undefined}
               />
             ))}

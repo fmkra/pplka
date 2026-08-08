@@ -27,11 +27,15 @@ function MdRender({ children }: { children: string }) {
 
 export default function Render({
   explanations,
+  defaultShowExtraResources = false,
 }: {
   explanations: ExplanationElement[];
+  defaultShowExtraResources?: boolean;
 }) {
   const [openImageUrl, setOpenImageUrl] = useState<string | null>(null);
-  const [showExtraResources, setShowExtraResources] = useState(false);
+  const [showExtraResources, setShowExtraResources] = useState(
+    defaultShowExtraResources,
+  );
   const extraResourcesId = useId();
 
   useEffect(() => {

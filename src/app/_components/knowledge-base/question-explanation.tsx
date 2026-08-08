@@ -4,18 +4,25 @@ import { api } from "~/trpc/react";
 import Render from "./md-render";
 import { Spinner } from "~/components/ui/spinner";
 import { HelpfulnessFeedback } from "./helpfulness-feedback";
+import type { ExplanationElement } from "./md-render";
 
 export function Explanation({
   questionId,
   enabled,
+  initialData,
+  defaultShowExtraResources = false,
 }: {
   questionId: string;
   enabled: boolean;
+  initialData?: ExplanationElement[];
+  defaultShowExtraResources?: boolean;
 }) {
   const { data, isLoading } = api.explanation.getExplanations.useQuery(
     { questionId: questionId },
-    { enabled },
+    { enabled: enabled && initialData === undefined },
   );
+
+  const explanations = initialData ?? data;
 
   if (isLoading)
     return (
@@ -23,10 +30,13 @@ export function Explanation({
         <Spinner />
       </div>
     );
-  if (data && data.length > 0)
+  if (explanations && explanations.length > 0)
     return (
       <>
-        <Render explanations={data} />
+        <Render
+          explanations={explanations}
+          defaultShowExtraResources={defaultShowExtraResources}
+        />
         <HelpfulnessFeedback variant="explanation" questionId={questionId} />
       </>
     );

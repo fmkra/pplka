@@ -3,7 +3,7 @@
  * for Docker builds.
  */
 import "./src/env.js";
-import {withSerwist} from "@serwist/turbopack";
+import { withSerwist } from "@serwist/turbopack";
 
 /** @type {import("next").NextConfig} */
 const nextConfig = {
@@ -11,11 +11,11 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: '**.googleusercontent.com',
+        protocol: "https",
+        hostname: "**.googleusercontent.com",
       },
-    ]
-  }
+    ],
+  },
 };
 
 const config = withSerwist(nextConfig);

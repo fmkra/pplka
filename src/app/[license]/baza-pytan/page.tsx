@@ -36,7 +36,11 @@ export default async function QuestionsPage({
         </p>
       </div>
 
-      <QuestionsPageClient categories={categoryList} licenseId={license.id} />
+      <QuestionsPageClient
+        categories={categoryList}
+        licenseId={license.id}
+        licenseUrl={licenseUrl}
+      />
     </Main>
   );
 }
