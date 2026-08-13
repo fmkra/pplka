@@ -10,15 +10,60 @@ import {
   installKnowledgeBaseCatalog,
   installQuestionCatalog,
 } from "./catalog-db";
+import { env } from "~/env";
 
 export const KNOWLEDGE_BASE_ASSET_CACHE = "pplka-knowledge-base-assets";
 
-async function fetchManifest(): Promise<CatalogManifest> {
-  const response = await fetch("/offline/catalogs/manifest.json", {
-    cache: "no-cache",
-  });
-  if (!response.ok) throw new Error("Nie udało się pobrać manifestu offline.");
-  return catalogManifestSchema.parse(await response.json());
+let manifestPromise: Promise<CatalogManifest> | null = null;
+const MANIFEST_CACHE_KEY = "pplka-catalog-manifest";
+const MANIFEST_CACHE_MAX_AGE = 12 * 60 * 60 * 1000;
+
+export function fetchCatalogManifest(
+  forceRefresh = false,
+): Promise<CatalogManifest> {
+  if (!forceRefresh) {
+    try {
+      const cached = JSON.parse(
+        localStorage.getItem(MANIFEST_CACHE_KEY) ?? "null",
+      ) as { manifest?: unknown; cachedAt?: unknown } | null;
+      const parsed = catalogManifestSchema.safeParse(cached?.manifest);
+      if (
+        parsed.success &&
+        typeof cached?.cachedAt === "number" &&
+        Date.now() - cached.cachedAt < MANIFEST_CACHE_MAX_AGE
+      ) {
+        return Promise.resolve(parsed.data);
+      }
+    } catch {
+      localStorage.removeItem(MANIFEST_CACHE_KEY);
+    }
+  }
+  if (manifestPromise) return manifestPromise;
+  manifestPromise = fetch(
+    env.NEXT_PUBLIC_OFFLINE_CATALOG_MANIFEST_URL ??
+      "/offline/catalogs/manifest.json",
+    {
+      cache: "no-store",
+    },
+  )
+    .then(async (response) => {
+      if (!response.ok) {
+        throw new Error("Nie udało się pobrać manifestu offline.");
+      }
+      const manifest = catalogManifestSchema.parse(await response.json());
+      localStorage.setItem(
+        MANIFEST_CACHE_KEY,
+        JSON.stringify({ manifest, cachedAt: Date.now() }),
+      );
+      return manifest;
+    })
+    .catch((error: unknown) => {
+      throw error;
+    })
+    .finally(() => {
+      manifestPromise = null;
+    });
+  return manifestPromise;
 }
 
 async function sha256(value: string) {
@@ -43,7 +88,7 @@ export async function downloadQuestionCatalog(
   licenseUrl: string,
   onProgress?: (progress: number) => void,
 ) {
-  const manifest = await fetchManifest();
+  const manifest = await fetchCatalogManifest(true);
   onProgress?.(10);
   const entry = manifest.questions[licenseUrl];
   if (!entry) throw new Error("Brak pakietu pytań dla tej licencji.");
@@ -89,7 +134,7 @@ async function pruneKnowledgeBaseAssets(assetUrls: string[]) {
 export async function downloadKnowledgeBaseCatalog(
   onProgress?: (progress: number) => void,
 ) {
-  const manifest = await fetchManifest();
+  const manifest = await fetchCatalogManifest(true);
   onProgress?.(5);
   const entry = manifest.knowledgeBase;
   const catalog = knowledgeBaseCatalogSchema.parse(

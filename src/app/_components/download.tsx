@@ -13,6 +13,7 @@ function PackageControls({
   downloadedDescription,
   downloadLabel,
   isDownloaded,
+  updateAvailable,
   progress,
   error,
   onDownload,
@@ -22,6 +23,7 @@ function PackageControls({
   downloadedDescription: string;
   downloadLabel: string;
   isDownloaded: boolean;
+  updateAvailable: boolean;
   progress: number | null;
   error: string | null;
   onDownload: () => Promise<void>;
@@ -31,7 +33,11 @@ function PackageControls({
   return (
     <div className="space-y-3">
       <p className="text-muted-foreground text-sm">
-        {isDownloaded ? downloadedDescription : description}
+        {updateAvailable
+          ? "Dostępna jest nowsza wersja pakietu."
+          : isDownloaded
+            ? downloadedDescription
+            : description}
       </p>
       {isDownloading ? (
         <div className="space-y-2">
@@ -44,12 +50,18 @@ function PackageControls({
       ) : null}
       {error ? <p className="text-destructive text-sm">{error}</p> : null}
       <Button
-        onClick={() => void (isDownloaded ? onRemove() : onDownload())}
+        onClick={() =>
+          void (isDownloaded && !updateAvailable ? onRemove() : onDownload())
+        }
         disabled={isDownloading}
-        variant={isDownloaded ? "outline" : "default"}
+        variant={isDownloaded && !updateAvailable ? "outline" : "default"}
         className="w-full"
       >
-        {isDownloaded ? "Usuń pobrany pakiet" : downloadLabel}
+        {updateAvailable
+          ? "Aktualizuj pakiet"
+          : isDownloaded
+            ? "Usuń pobrany pakiet"
+            : downloadLabel}
       </Button>
     </div>
   );
@@ -74,6 +86,7 @@ export function DownloadComponent({ licenseUrl }: { licenseUrl: string }) {
             downloadedDescription="Pytania dla tej licencji są dostępne offline."
             downloadLabel="Pobierz pytania offline"
             isDownloaded={questions.isDownloaded}
+            updateAvailable={questions.updateAvailable}
             progress={questions.progress}
             error={questions.error}
             onDownload={questions.download}
@@ -85,6 +98,7 @@ export function DownloadComponent({ licenseUrl }: { licenseUrl: string }) {
               downloadedDescription="Baza wiedzy i wyjaśnienia są dostępne offline."
               downloadLabel="Pobierz bazę wiedzy offline"
               isDownloaded={knowledgeBase.isDownloaded}
+              updateAvailable={knowledgeBase.updateAvailable}
               progress={knowledgeBase.progress}
               error={knowledgeBase.error}
               onDownload={knowledgeBase.download}

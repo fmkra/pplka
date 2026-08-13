@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
 import type { ExplanationElement } from "~/app/_components/knowledge-base/md-render";
 import {
@@ -10,6 +10,7 @@ import {
 } from "./catalog-db";
 import {
   downloadKnowledgeBaseCatalog,
+  fetchCatalogManifest,
   KNOWLEDGE_BASE_ASSET_CACHE,
 } from "./catalog-download";
 
@@ -21,12 +22,41 @@ export function useOfflineKnowledgeBase() {
   );
   const [progress, setProgress] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [updateAvailable, setUpdateAvailable] = useState(false);
+  const [onlineCheck, setOnlineCheck] = useState(0);
+
+  useEffect(() => {
+    const checkAgain = () => setOnlineCheck((value) => value + 1);
+    window.addEventListener("online", checkAgain);
+    return () => window.removeEventListener("online", checkAgain);
+  }, []);
+
+  useEffect(() => {
+    if (!installedPackage || !navigator.onLine) {
+      setUpdateAvailable(false);
+      return;
+    }
+    let active = true;
+    void fetchCatalogManifest()
+      .then((manifest) => {
+        if (active) {
+          setUpdateAvailable(
+            manifest.knowledgeBase.version !== installedPackage.version,
+          );
+        }
+      })
+      .catch(() => undefined);
+    return () => {
+      active = false;
+    };
+  }, [installedPackage, onlineCheck]);
 
   async function download() {
     setError(null);
     setProgress(10);
     try {
       await downloadKnowledgeBaseCatalog(setProgress);
+      setUpdateAvailable(false);
     } catch (cause) {
       setError(
         cause instanceof Error
@@ -49,6 +79,7 @@ export function useOfflineKnowledgeBase() {
     remove,
     isReady: installedPackage !== null,
     isDownloaded: Boolean(installedPackage),
+    updateAvailable,
     progress,
     error,
   };
