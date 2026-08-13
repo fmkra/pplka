@@ -1,132 +1,49 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { api } from "~/trpc/react";
+import { useState } from "react";
+import { useLiveQuery } from "dexie-react-hooks";
 import {
-  clearCategoryQuestions,
-  clearLicenseQuestions,
-  getCachedLicenseMeta,
-  saveCategoryQuestionsPage,
-  saveLicenseMeta,
-} from "./questions-cache";
+  catalogDb,
+  questionPackageKey,
+  removeQuestionCatalog,
+} from "./catalog-db";
+import { downloadQuestionCatalog } from "./catalog-download";
 
-type LicenseVersionRow = {
-  id: number;
-  version: number;
-};
+export function useOfflineQuestions(licenseUrl: string) {
+  const packageKey = questionPackageKey(licenseUrl);
+  const installedPackage = useLiveQuery(
+    () => catalogDb.packages.get(packageKey),
+    [packageKey],
+    null,
+  );
+  const [progress, setProgress] = useState<number | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-function parseLicenseVersions(input: unknown): LicenseVersionRow[] {
-  if (!Array.isArray(input)) return [];
-  return input.flatMap((row) => {
-    if (typeof row !== "object" || row === null) return [];
-    const record = row as { id?: unknown; version?: unknown };
-    const id = record.id;
-    const version = record.version;
-    if (typeof id !== "number" || typeof version !== "number") return [];
-    return [{ id, version }];
-  });
-}
-
-export function useOfflineQuestions() {
-  const utils = api.useUtils();
-  const [licenseStatus, setLicenseStatus] = useState<
-    Record<number, number | boolean>
-  >({});
-  const [isHydrated, setIsHydrated] = useState(false);
-
-  useEffect(() => {
-    let cancelled = false;
-
-    const loadDownloadStatus = async () => {
-      const licensesData = await utils.questionDatabase.getLicenses.fetch();
-      const licenses = parseLicenseVersions(licensesData);
-      const statuses = await Promise.all(
-        licenses.map(async (license) => {
-          const cachedMeta = await getCachedLicenseMeta(license.id);
-          return [license.id, cachedMeta !== undefined] as const;
-        }),
+  async function download() {
+    setError(null);
+    setProgress(10);
+    try {
+      await downloadQuestionCatalog(licenseUrl, setProgress);
+    } catch (cause) {
+      setError(
+        cause instanceof Error ? cause.message : "Nie udało się pobrać pytań.",
       );
-      if (cancelled) return;
-      setLicenseStatus(Object.fromEntries(statuses));
-      setIsHydrated(true);
-    };
-
-    void loadDownloadStatus();
-    return () => {
-      cancelled = true;
-    };
-  }, [utils]);
-
-  async function downloadLicense(licenseId: number) {
-    const categories = await utils.download.getCategories.fetch({
-      licenseId,
-    });
-    const licensesData = await utils.questionDatabase.getLicenses.fetch();
-    const licenses = parseLicenseVersions(licensesData);
-    const licenseVersion = licenses.find((license) => license.id === licenseId);
-
-    await clearLicenseQuestions(licenseId);
-    setLicenseStatus((state) => ({
-      ...state,
-      [licenseId]: 0,
-    }));
-    // TODO: IMPORTANT: error handling
-    let i = 0;
-    for (const category of categories) {
-      await downloadCategory(licenseId, category.id);
-      const progress = Math.round((100 * ++i) / categories.length);
-      setLicenseStatus((state) => ({
-        ...state,
-        [licenseId]: progress,
-      }));
+    } finally {
+      setProgress(null);
     }
-    await saveLicenseMeta({
-      licenseId,
-      categoryIds: categories.map((category) => category.id),
-      downloadedAt: new Date().toISOString(),
-      version: licenseVersion?.version ?? 1,
-    });
-    setLicenseStatus((state) => ({
-      ...state,
-      [licenseId]: true,
-    }));
   }
 
-  const LIMIT = 100;
-
-  async function downloadCategory(licenseId: number, categoryId: number) {
-    await clearCategoryQuestions(licenseId, categoryId);
-    let offset = 0;
-    let page;
-    do {
-      page = await utils.download.getQuestions.fetch({
-        categoryId,
-        limit: LIMIT,
-        offset,
-      });
-      await saveCategoryQuestionsPage(licenseId, categoryId, page);
-      offset += LIMIT;
-    } while (page.length === LIMIT);
-  }
-
-  function isLicenseDownloaded(
-    licenseId: number,
-  ): number | boolean | undefined {
-    return licenseStatus[licenseId];
-  }
-
-  async function clearLicense(licenseId: number) {
-    await clearLicenseQuestions(licenseId);
-    setLicenseStatus((state) => ({
-      ...state,
-      [licenseId]: false,
-    }));
+  async function remove() {
+    setError(null);
+    await removeQuestionCatalog(licenseUrl);
   }
 
   return {
-    downloadLicense,
-    clearLicense,
-    isLicenseDownloaded,
-    isHydrated: () => isHydrated,
+    download,
+    remove,
+    isReady: installedPackage !== null,
+    isDownloaded: Boolean(installedPackage),
+    progress,
+    error,
   };
 }

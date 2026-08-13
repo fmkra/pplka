@@ -79,7 +79,7 @@ export default async function HomePage({
   return (
     <>
       <PwaInstallBanner />
-      <DownloadComponent licenseId={license.id} />
+      <DownloadComponent licenseUrl={license.url} />
 
       <Main>
         <div className="mb-12 text-center">

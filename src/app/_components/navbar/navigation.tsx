@@ -34,6 +34,8 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "~/components/ui/tooltip";
+import { useOfflineKnowledgeBase } from "~/offline/knowledge-base-cache";
+import { useOfflineQuestions } from "~/offline/questions";
 
 const navigation = [
   { name: "Start", href: "", icon: Home, disabledInOffline: false },
@@ -48,24 +50,25 @@ const navigation = [
     name: "Baza pytań",
     href: QUESTIONS,
     icon: Database,
-    disabledInOffline: false,
+    disabledInOffline: true,
   },
   { name: "Egzamin", href: EXAM, icon: FileCheck, disabledInOffline: true },
 ];
 
 const OFFLINE_MESSAGE = [
   "Jesteś w trybie offline.",
-  'Tylko "Baza pytań" jest dostępna.',
+  "Dostępne są tylko wcześniej pobrane materiały.",
 ];
 
 const LICENSE_NAVIGATION_SECTIONS = [LEARN, QUESTIONS, EXAM];
 
-const DEFAULT_LICENSE = LICENSES[0];
+const DEFAULT_LICENSE = LICENSES[0]!;
 
 export default function Navigation({ options }: { options: SelectOption[] }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { isOnline } = usePwaContext();
+  const offlineKnowledgeBase = useOfflineKnowledgeBase();
   const currentPathname = usePathname();
   const pathSegments = currentPathname.split("/").filter(Boolean);
   const firstPathSegment = pathSegments[0];
@@ -89,6 +92,7 @@ export default function Navigation({ options }: { options: SelectOption[] }) {
     : isQuestionDetail
       ? QUESTIONS
       : (pathSegments[1] ?? "");
+  const offlineQuestions = useOfflineQuestions(license ?? DEFAULT_LICENSE);
   const selectLicense = (selectedLicense: string) => {
     if (usesLicenseSearchParam) {
       const nextSearchParams = new URLSearchParams(searchParams.toString());
@@ -150,7 +154,15 @@ export default function Navigation({ options }: { options: SelectOption[] }) {
 
         {navigation.map((item) => {
           const Icon = item.icon;
-          const isDisabledInOffline = !isOnline && item.disabledInOffline;
+          const isInstalledKnowledgeBase =
+            item.href === KNOWLEDGE_BASE && offlineKnowledgeBase.isDownloaded;
+          const isInstalledQuestions =
+            item.href === QUESTIONS && offlineQuestions.isDownloaded;
+          const isDisabledInOffline =
+            !isOnline &&
+            item.disabledInOffline &&
+            !isInstalledKnowledgeBase &&
+            !isInstalledQuestions;
           const href =
             item.href === KNOWLEDGE_BASE
               ? knowledgeBaseHref(license)
@@ -193,6 +205,14 @@ export default function Navigation({ options }: { options: SelectOption[] }) {
               key={item.name}
               href={href}
               prefetch={false}
+              onClick={
+                !isOnline
+                  ? (event) => {
+                      event.preventDefault();
+                      window.location.assign(href);
+                    }
+                  : undefined
+              }
               className={linkClassName}
             >
               <Icon className="h-4 w-4" />
@@ -208,6 +228,8 @@ export default function Navigation({ options }: { options: SelectOption[] }) {
         isOnline={isOnline}
         options={options}
         selectLicense={selectLicense}
+        hasOfflineKnowledgeBase={offlineKnowledgeBase.isDownloaded}
+        hasOfflineQuestions={offlineQuestions.isDownloaded}
       />
     </div>
   );
@@ -219,12 +241,16 @@ function MobileSidebar({
   isOnline,
   options,
   selectLicense,
+  hasOfflineKnowledgeBase,
+  hasOfflineQuestions,
 }: {
   license: string;
   page: string;
   isOnline: boolean;
   options: SelectOption[];
   selectLicense: (license: string) => void;
+  hasOfflineKnowledgeBase: boolean;
+  hasOfflineQuestions: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const close = useCallback(() => setOpen(false), []);
@@ -307,7 +333,15 @@ function MobileSidebar({
                 ? knowledgeBaseHref(license)
                 : `/${license}/${item.href}`;
             const active = page === item.href;
-            const isDisabledInOffline = !isOnline && item.disabledInOffline;
+            const isInstalledKnowledgeBase =
+              item.href === KNOWLEDGE_BASE && hasOfflineKnowledgeBase;
+            const isInstalledQuestions =
+              item.href === QUESTIONS && hasOfflineQuestions;
+            const isDisabledInOffline =
+              !isOnline &&
+              item.disabledInOffline &&
+              !isInstalledKnowledgeBase &&
+              !isInstalledQuestions;
             return (
               <Link
                 key={item.name}
@@ -318,7 +352,12 @@ function MobileSidebar({
                     ? (event) => {
                         event.preventDefault();
                       }
-                    : close
+                    : !isOnline
+                      ? (event) => {
+                          event.preventDefault();
+                          window.location.assign(href);
+                        }
+                      : close
                 }
                 title={
                   isDisabledInOffline

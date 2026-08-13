@@ -5,6 +5,8 @@ import Render from "./md-render";
 import { Spinner } from "~/components/ui/spinner";
 import { HelpfulnessFeedback } from "./helpfulness-feedback";
 import type { ExplanationElement } from "./md-render";
+import { useCacheFirstData } from "~/offline/cache-first-query";
+import { getCachedQuestionExplanations } from "~/offline/knowledge-base-cache";
 
 export function Explanation({
   questionId,
@@ -17,12 +19,27 @@ export function Explanation({
   initialData?: ExplanationElement[];
   defaultShowExtraResources?: boolean;
 }) {
-  const { data, isLoading } = api.explanation.getExplanations.useQuery(
-    { questionId: questionId },
-    { enabled: enabled && initialData === undefined },
-  );
+  const cache = useCacheFirstData({
+    cacheKey: `question-explanations:${questionId}`,
+    enabled: enabled && initialData === undefined,
+    getCachedData: async () => {
+      const cached = await getCachedQuestionExplanations(questionId);
+      return cached === null
+        ? { hit: false as const }
+        : { hit: true as const, data: cached };
+    },
+  });
+  const { data, isLoading: isServerLoading } =
+    api.explanation.getExplanations.useQuery(
+      { questionId: questionId },
+      { enabled: cache.shouldEnableQuery },
+    );
 
-  const explanations = initialData ?? data;
+  const explanations =
+    initialData ?? (cache.hasCacheHit ? cache.cachedData : data);
+  const isLoading =
+    initialData === undefined &&
+    (cache.isCheckingCache || (cache.shouldEnableQuery && isServerLoading));
 
   if (isLoading)
     return (

@@ -17,10 +17,12 @@ export function KnowledgeBaseArticleNavigation({
   knowledgeBaseNodeId,
   questionCounts,
   siblings,
+  onNavigate,
 }: {
   knowledgeBaseNodeId: string;
   questionCounts: Record<string, number>;
   siblings: [Sibling, Sibling];
+  onNavigate?: (href: string) => void;
 }) {
   const searchParams = useSearchParams();
   const requestedLicense = searchParams.get(LICENSE_SEARCH_PARAM);
@@ -38,6 +40,19 @@ export function KnowledgeBaseArticleNavigation({
             className="flex items-center gap-2 text-blue-500"
             href={knowledgeBaseHref(license, siblings[0].slug ?? undefined)}
             prefetch={false}
+            onClick={
+              onNavigate
+                ? (event) => {
+                    event.preventDefault();
+                    onNavigate(
+                      knowledgeBaseHref(
+                        license,
+                        siblings[0]?.slug ?? undefined,
+                      ),
+                    );
+                  }
+                : undefined
+            }
           >
             <span>{"< "}</span>
             <span>{siblings[0].name}</span>
@@ -70,6 +85,19 @@ export function KnowledgeBaseArticleNavigation({
             className="flex items-center gap-2 text-right text-blue-500 max-sm:order-1"
             href={knowledgeBaseHref(license, siblings[1].slug ?? undefined)}
             prefetch={false}
+            onClick={
+              onNavigate
+                ? (event) => {
+                    event.preventDefault();
+                    onNavigate(
+                      knowledgeBaseHref(
+                        license,
+                        siblings[1]?.slug ?? undefined,
+                      ),
+                    );
+                  }
+                : undefined
+            }
           >
             <span>{siblings[1].name}</span>
             <span>{" >"}</span>

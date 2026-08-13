@@ -11,6 +11,14 @@ const revision =
 
 export const { dynamic, dynamicParams, revalidate, generateStaticParams, GET } =
   createSerwistRoute({
-    additionalPrecacheEntries: [{ url: "/~offline", revision }],
+    globIgnores: ["public/offline/catalogs/**/*"],
+    additionalPrecacheEntries: [
+      { url: "/~offline", revision },
+      { url: "/baza-wiedzy", revision },
+      ...["ppla", "pplh", "spl", "bpl"].map((license) => ({
+        url: `/${license}/baza-pytan`,
+        revision,
+      })),
+    ],
     swSrc: "src/app/sw.ts",
   });

@@ -1,22 +1,25 @@
 import Render from "./md-render";
 import { HelpfulnessFeedback } from "./helpfulness-feedback";
-import type {
-  getKnowledgeBaseNodeData,
-  KnowledgeBaseNode,
-} from "~/server/api/routers/explanation";
+import type { KnowledgeBaseNode } from "~/server/api/routers/explanation";
+import type { Explanation } from "~/server/db/explanation";
 import { Suspense } from "react";
 import { KnowledgeBaseArticleNavigation } from "./article-navigation";
 
-type ExplanationsData = Awaited<ReturnType<typeof getKnowledgeBaseNodeData>>;
+type ExplanationsData = {
+  explanations: Array<{ explanation: Explanation }>;
+  questionCounts: Record<string, number>;
+};
 
 export function KnowledgeBaseExplanations({
   data,
   knowledgeBaseNodeId,
   siblings,
+  onNavigate,
 }: {
   data: ExplanationsData;
   knowledgeBaseNodeId: string;
   siblings: [KnowledgeBaseNode | null, KnowledgeBaseNode | null];
+  onNavigate?: (href: string) => void;
 }) {
   return (
     <div className="space-y-2">
@@ -32,6 +35,7 @@ export function KnowledgeBaseExplanations({
               ? { name: siblings[1].name, slug: siblings[1].slug }
               : null,
           ]}
+          onNavigate={onNavigate}
         />
       </Suspense>
 

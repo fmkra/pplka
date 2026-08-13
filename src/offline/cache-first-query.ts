@@ -35,7 +35,8 @@ export function useCacheFirstData<T>({
     setHasCacheHit(false);
     setCachedData(undefined);
 
-    void getCachedDataRef.current()
+    void getCachedDataRef
+      .current()
       .then((cacheResult) => {
         if (cancelled) return;
         if (cacheResult.hit) {
@@ -89,7 +90,9 @@ export function createCacheFirstQueryHook<TInput, TOutput>({
       getCachedData: () => getCachedData(input),
     });
 
-    const query = useServerQuery(input, { enabled: cacheState.shouldEnableQuery });
+    const query = useServerQuery(input, {
+      enabled: cacheState.shouldEnableQuery,
+    });
 
     return {
       data: cacheState.hasCacheHit ? cacheState.cachedData : query.data,

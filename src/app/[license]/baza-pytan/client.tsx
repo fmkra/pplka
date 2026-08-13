@@ -2,7 +2,6 @@
 
 import { Search } from "lucide-react";
 import { Input } from "~/components/ui/input";
-import { api } from "~/trpc/react";
 import { Question } from "./question";
 import { Spinner } from "~/components/ui/spinner";
 import { Suspense, useEffect, useMemo } from "react";
@@ -18,7 +17,6 @@ import { Label } from "~/components/ui/label";
 import { Button } from "~/components/ui/button";
 import { MODE, useSearchState } from "~/lib/use-search-state";
 import {
-  useCachedLicenseVersion,
   useCachedQuestionsCountQuery,
   useCachedQuestionsQuery,
 } from "~/offline/question-database-cache-hooks";
@@ -66,9 +64,6 @@ function QuestionsPageContent({
   licenseId: number;
   licenseUrl: string;
 }) {
-  const { cachedVersion, isReady: isCachedVersionReady } =
-    useCachedLicenseVersion(licenseId);
-
   const [search, setSearch] = useSearchState(QUESTIONS_SEARCH, MODE.empty);
   const searchDebounced = useDebounce(search ?? "", 500);
 
@@ -115,6 +110,7 @@ function QuestionsPageContent({
   const { data: totalCount, isLoading: countLoading } =
     useCachedQuestionsCountQuery({
       licenseId,
+      licenseUrl,
       search: searchDebounced ?? "",
       categoryIds: selectedCategories ?? categories.map((c) => c.id),
       knowledgeBaseId,
@@ -130,6 +126,7 @@ function QuestionsPageContent({
   const { data: questions, isLoading: questionsLoading } =
     useCachedQuestionsQuery({
       licenseId,
+      licenseUrl,
       search: searchDebounced,
       categoryIds: selectedCategories ?? categories.map((c) => c.id),
       knowledgeBaseId,
@@ -137,34 +134,11 @@ function QuestionsPageContent({
       offset: pagination.offset,
     });
 
-  const { data: licensesData } = api.questionDatabase.getLicenses.useQuery(
-    undefined,
-    {
-      enabled: isCachedVersionReady && cachedVersion !== null,
-      staleTime: Number.POSITIVE_INFINITY,
-    },
-  );
-  const serverVersion = licensesData?.find(
-    (license) => license.id === licenseId,
-  );
-
-  const isCacheOutdated =
-    cachedVersion !== null &&
-    serverVersion !== undefined &&
-    cachedVersion !== serverVersion.version;
-
   const isLoading = questionsLoading || countLoading;
 
   return (
     <>
       <div className="mb-6 flex flex-col gap-4">
-        {isCacheOutdated ? (
-          <div className="rounded-md border border-amber-300 bg-amber-50 px-3 py-2 text-sm text-amber-900">
-            Wykryto nowszą wersję pytań na serwerze. Możesz dalej używać
-            pobranej bazy offline, ale zalecane jest usunięcie i ponowne
-            pobranie pytań.
-          </div>
-        ) : null}
         <div className="flex gap-4">
           <div className="relative flex-1">
             <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform" />

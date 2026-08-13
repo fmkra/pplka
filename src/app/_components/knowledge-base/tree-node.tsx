@@ -47,9 +47,11 @@ function useInitialFolderPath(tree: KnowledgeBaseTree) {
 
 export function FolderNode({
   tree,
+  onNavigate,
 }: {
   node: KnowledgeBaseNode | null;
   tree: KnowledgeBaseTree;
+  onNavigate?: (href: string) => void;
 }) {
   const initialFolderPath = useInitialFolderPath(tree);
   const [openPath, setOpenPath] = useState<string[]>(initialFolderPath);
@@ -125,6 +127,7 @@ export function FolderNode({
             tree={tree}
             isFirst={index === 0}
             onFolderClick={handleFolderClick}
+            onNavigate={onNavigate}
           />
         ))}
       </div>
@@ -138,12 +141,14 @@ function Column({
   parentId,
   selectedId,
   tree,
+  onNavigate,
 }: {
   isFirst: boolean;
   onFolderClick: (parentId: string | null, folderId: string) => void;
   parentId: string | null;
   selectedId: string | undefined;
   tree: KnowledgeBaseTree;
+  onNavigate?: (href: string) => void;
 }) {
   const nodes = tree[parentId ?? "root"] ?? [];
 
@@ -171,7 +176,7 @@ function Column({
                   onClick={() => onFolderClick(parentId, node.id)}
                 />
               ) : (
-                <FileRow key={node.id} node={node} />
+                <FileRow key={node.id} node={node} onNavigate={onNavigate} />
               ),
             )}
           </div>
@@ -219,7 +224,13 @@ function FolderRow({
   );
 }
 
-function FileRow({ node }: { node: KnowledgeBaseNode }) {
+function FileRow({
+  node,
+  onNavigate,
+}: {
+  node: KnowledgeBaseNode;
+  onNavigate?: (href: string) => void;
+}) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const requestedLicense = searchParams.get(LICENSE_SEARCH_PARAM);
@@ -235,6 +246,14 @@ function FileRow({ node }: { node: KnowledgeBaseNode }) {
     <Link
       href={href}
       prefetch={false}
+      onClick={
+        onNavigate
+          ? (event) => {
+              event.preventDefault();
+              onNavigate(href);
+            }
+          : undefined
+      }
       className={cn(
         "hover:bg-accent hover:text-accent-foreground flex h-10 items-center gap-2 rounded-md px-2 text-sm no-underline transition hover:no-underline",
         isActive &&

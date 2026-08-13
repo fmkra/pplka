@@ -3,7 +3,17 @@
 /// <reference lib="webworker" />
 import { defaultCache } from "@serwist/turbopack/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
-import { Serwist } from "serwist";
+import { CacheFirst, Serwist } from "serwist";
+
+const knowledgeBaseAssets = {
+  matcher: ({ url }: { url: URL }) =>
+    url.hostname === "raw.githubusercontent.com" &&
+    url.pathname.startsWith("/fmkra/pplka-explanations/") &&
+    url.pathname.endsWith(".svg"),
+  handler: new CacheFirst({
+    cacheName: "pplka-knowledge-base-assets",
+  }),
+};
 
 // This declares the value of `injectionPoint` to TypeScript.
 // `injectionPoint` is the string that will be replaced by the
@@ -22,9 +32,27 @@ const serwist = new Serwist({
   skipWaiting: true,
   clientsClaim: true,
   navigationPreload: true,
-  runtimeCaching: defaultCache,
+  runtimeCaching: [knowledgeBaseAssets, ...defaultCache],
   fallbacks: {
     entries: [
+      {
+        url: "/baza-wiedzy",
+        matcher({ request }) {
+          return (
+            request.destination === "document" &&
+            new URL(request.url).pathname.startsWith("/baza-wiedzy")
+          );
+        },
+      },
+      ...["ppla", "pplh", "spl", "bpl"].map((license) => ({
+        url: `/${license}/baza-pytan`,
+        matcher({ request }: { request: Request }) {
+          return (
+            request.destination === "document" &&
+            new URL(request.url).pathname.startsWith(`/${license}/baza-pytan`)
+          );
+        },
+      })),
       {
         url: "/~offline",
         matcher({ request }) {

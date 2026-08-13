@@ -4,7 +4,6 @@ import { questionDatabaseRouter } from "~/server/api/routers/question_database";
 import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
 import { learningRouter } from "./routers/learning";
 import { examRouter } from "./routers/exam";
-import { downloadRouter } from "./routers/download";
 import { explanationRouter } from "./routers/explanation";
 import { contentFeedbackRouter } from "./routers/content_feedback";
 import { questionCommentsRouter } from "./routers/question_comments";
@@ -20,7 +19,6 @@ export const appRouter = createTRPCRouter({
   questionDatabase: questionDatabaseRouter,
   learning: learningRouter,
   exam: examRouter,
-  download: downloadRouter,
   explanation: explanationRouter,
   contentFeedback: contentFeedbackRouter,
   questionComments: questionCommentsRouter,

@@ -1,164 +1,159 @@
 "use client";
 
 import type { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
-import { useEffect, useState } from "react";
 import type { AppRouter } from "~/server/api/root";
 import { api } from "~/trpc/react";
 import { createCacheFirstQueryHook } from "./cache-first-query";
-import {
-  getCachedLicenseMeta,
-  getCachedLicenseQuestions,
-} from "./questions-cache";
+import { catalogDb, questionPackageKey } from "./catalog-db";
 
 type RouterInputs = inferRouterInputs<AppRouter>;
 type RouterOutputs = inferRouterOutputs<AppRouter>;
 
 type QuestionsInput = RouterInputs["questionDatabase"]["getQuestions"] & {
   licenseId: number;
+  licenseUrl: string;
 };
 type QuestionsOutput = RouterOutputs["questionDatabase"]["getQuestions"];
 
-type QuestionsCountInput = RouterInputs["questionDatabase"]["getQuestionsCount"] & {
-  licenseId: number;
-};
-type QuestionsCountOutput = RouterOutputs["questionDatabase"]["getQuestionsCount"];
-
-function isCacheable(knowledgeBaseId: string | null) {
-  return knowledgeBaseId === null || knowledgeBaseId === "any";
-}
+type QuestionsCountInput =
+  RouterInputs["questionDatabase"]["getQuestionsCount"] & {
+    licenseId: number;
+    licenseUrl: string;
+  };
+type QuestionsCountOutput =
+  RouterOutputs["questionDatabase"]["getQuestionsCount"];
 
 async function getFilteredCachedEntries(
-  licenseId: number,
+  licenseUrl: string,
   input: {
     categoryIds?: number[];
     search?: string;
     knowledgeBaseId: string | null;
   },
 ) {
-  if (!isCacheable(input.knowledgeBaseId)) {
-    return null;
-  }
+  const packageKey = questionPackageKey(licenseUrl);
+  const installedPackage = await catalogDb.packages.get(packageKey);
+  if (!installedPackage) return null;
 
-  const [meta, entries] = await Promise.all([
-    getCachedLicenseMeta(licenseId),
-    getCachedLicenseQuestions(licenseId),
+  const [questions, instances] = await Promise.all([
+    catalogDb.questions.where("packageKey").equals(packageKey).toArray(),
+    catalogDb.questionInstances
+      .where("packageKey")
+      .equals(packageKey)
+      .toArray(),
   ]);
-
-  if (!meta) {
-    return null;
-  }
-
+  const questionById = new Map(
+    questions.map((question) => [question.id, question]),
+  );
   const search = (input.search ?? "").trim().toLocaleLowerCase();
   const selectedCategories =
     input.categoryIds && input.categoryIds.length > 0
       ? new Set(input.categoryIds)
       : null;
 
-  return entries
-    .filter((entry) =>
-      selectedCategories ? selectedCategories.has(entry.categoryId) : true,
+  return instances
+    .filter((instance) =>
+      selectedCategories ? selectedCategories.has(instance.categoryId) : true,
     )
-    .filter((entry) => {
-      if (input.knowledgeBaseId === "any") return entry.hasExplanation;
+    .flatMap((instance) => {
+      const question = questionById.get(instance.questionId);
+      return question ? [{ instance, question }] : [];
+    })
+    .filter(({ question }) => {
+      if (input.knowledgeBaseId === "any") return question.hasExplanation;
+      if (input.knowledgeBaseId !== null) {
+        return question.knowledgeBaseNodeIds.includes(input.knowledgeBaseId);
+      }
       return true;
     })
-    .filter((entry) => {
+    .filter(({ question }) => {
       if (!search) return true;
-      const q = entry.question;
       return [
-        q.externalId,
-        q.question,
-        q.answerCorrect,
-        q.answerIncorrect1,
-        q.answerIncorrect2,
-        q.answerIncorrect3,
+        question.externalId,
+        question.question,
+        question.answerCorrect,
+        question.answerIncorrect1,
+        question.answerIncorrect2,
+        question.answerIncorrect3,
       ]
         .filter((value): value is string => Boolean(value))
         .some((value) => value.toLocaleLowerCase().includes(search));
     })
-    .sort((a, b) => {
-      const aExt = a.question.externalId ?? "";
-      const bExt = b.question.externalId ?? "";
-      return aExt.localeCompare(bExt, undefined, {
-        numeric: true,
-        sensitivity: "base",
-      });
-    });
+    .sort((a, b) =>
+      (a.question.externalId ?? "").localeCompare(
+        b.question.externalId ?? "",
+        undefined,
+        { numeric: true, sensitivity: "base" },
+      ),
+    );
 }
 
-export const useCachedQuestionsCountQuery =
-  createCacheFirstQueryHook<QuestionsCountInput, QuestionsCountOutput>({
-    getCacheKey: (input) => `question-count:${JSON.stringify(input)}`,
-    getCachedData: async (input) => {
-      const cachedEntries = await getFilteredCachedEntries(input.licenseId, input);
-      if (!cachedEntries) return { hit: false };
-      return { hit: true, data: cachedEntries.length };
-    },
-    useServerQuery: (input, options) =>
-      api.questionDatabase.getQuestionsCount.useQuery(
-        {
-          search: input.search,
-          categoryIds: input.categoryIds,
-          knowledgeBaseId: input.knowledgeBaseId,
-        },
-        options,
-      ),
-  });
+export const useCachedQuestionsCountQuery = createCacheFirstQueryHook<
+  QuestionsCountInput,
+  QuestionsCountOutput
+>({
+  getCacheKey: (input) => `question-count:${JSON.stringify(input)}`,
+  getCachedData: async (input) => {
+    const entries = await getFilteredCachedEntries(input.licenseUrl, input);
+    return entries === null
+      ? { hit: false }
+      : { hit: true, data: entries.length };
+  },
+  useServerQuery: (input, options) =>
+    api.questionDatabase.getQuestionsCount.useQuery(
+      {
+        search: input.search,
+        categoryIds: input.categoryIds,
+        knowledgeBaseId: input.knowledgeBaseId,
+      },
+      options,
+    ),
+});
 
-export const useCachedQuestionsQuery =
-  createCacheFirstQueryHook<QuestionsInput, QuestionsOutput>({
-    getCacheKey: (input) => `questions:${JSON.stringify(input)}`,
-    getCachedData: async (input) => {
-      const cachedEntries = await getFilteredCachedEntries(input.licenseId, input);
-      if (!cachedEntries) return { hit: false };
-
-      const offset = input.offset ?? 0;
-      const limit = input.limit ?? 20;
-      const page = cachedEntries.slice(offset, offset + limit).map((entry) => ({
-        question: entry.question,
-        questionInstance: {
-          id: entry.questionInstanceId,
-          categoryId: entry.categoryId,
-          questionId: entry.question.id,
-        },
-        hasExplanation: entry.hasExplanation,
-      }));
-      return { hit: true, data: page };
-    },
-    useServerQuery: (input, options) =>
-      api.questionDatabase.getQuestions.useQuery(
-        {
-          search: input.search,
-          categoryIds: input.categoryIds,
-          knowledgeBaseId: input.knowledgeBaseId,
-          limit: input.limit,
-          offset: input.offset,
-        },
-        options,
-      ),
-  });
-
-export function useCachedLicenseVersion(licenseId: number) {
-  const [version, setVersion] = useState<number | null>(null);
-  const [isReady, setIsReady] = useState(false);
-
-  useEffect(() => {
-    let cancelled = false;
-    setIsReady(false);
-
-    void getCachedLicenseMeta(licenseId).then((meta) => {
-      if (cancelled) return;
-      setVersion(meta?.version ?? null);
-      setIsReady(true);
-    });
-
-    return () => {
-      cancelled = true;
+export const useCachedQuestionsQuery = createCacheFirstQueryHook<
+  QuestionsInput,
+  QuestionsOutput
+>({
+  getCacheKey: (input) => `questions:${JSON.stringify(input)}`,
+  getCachedData: async (input) => {
+    const entries = await getFilteredCachedEntries(input.licenseUrl, input);
+    if (entries === null) return { hit: false };
+    const offset = input.offset ?? 0;
+    const limit = input.limit ?? 20;
+    return {
+      hit: true,
+      data: entries
+        .slice(offset, offset + limit)
+        .map(({ instance, question }) => ({
+          question: {
+            id: question.id,
+            externalId: question.externalId,
+            question: question.question,
+            answerCorrect: question.answerCorrect,
+            answerIncorrect1: question.answerIncorrect1,
+            answerIncorrect2: question.answerIncorrect2,
+            answerIncorrect3: question.answerIncorrect3,
+            createdBy: null,
+            createdAt: null,
+          },
+          questionInstance: {
+            id: instance.id,
+            categoryId: instance.categoryId,
+            questionId: instance.questionId,
+          },
+          hasExplanation: question.hasExplanation,
+        })),
     };
-  }, [licenseId]);
-
-  return {
-    cachedVersion: version,
-    isReady,
-  };
-}
+  },
+  useServerQuery: (input, options) =>
+    api.questionDatabase.getQuestions.useQuery(
+      {
+        search: input.search,
+        categoryIds: input.categoryIds,
+        knowledgeBaseId: input.knowledgeBaseId,
+        limit: input.limit,
+        offset: input.offset,
+      },
+      options,
+    ),
+});
