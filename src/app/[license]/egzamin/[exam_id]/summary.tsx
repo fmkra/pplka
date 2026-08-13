@@ -26,6 +26,8 @@ import Link from "next/link";
 import CategoryStartButton from "../category-start-button";
 import { useExamFlagsStore } from "~/stores";
 import type { FinishedExamAttempt } from "~/lib/types";
+import { Explanation } from "~/app/_components/knowledge-base/question-explanation";
+import { useState } from "react";
 
 export default function ExamSummary({
   attempt,
@@ -37,6 +39,21 @@ export default function ExamSummary({
   categoryId: number;
 }) {
   const { flags } = useExamFlagsStore().attempt(attempt.id);
+  const [expandedExplanations, setExpandedExplanations] = useState<Set<string>>(
+    () => new Set(),
+  );
+
+  const setExplanationExpanded = (questionId: string, expanded: boolean) => {
+    setExpandedExplanations((current) => {
+      const next = new Set(current);
+      if (expanded) {
+        next.add(questionId);
+      } else {
+        next.delete(questionId);
+      }
+      return next;
+    });
+  };
 
   const calculateScore = () => {
     let correct = 0;
@@ -124,6 +141,31 @@ export default function ExamSummary({
                     </div>
                   ))}
                 </div>
+                {question.hasExplanation && (
+                  <Accordion
+                    type="single"
+                    collapsible
+                    value={
+                      expandedExplanations.has(question.id) ? "explanation" : ""
+                    }
+                    onValueChange={(value) =>
+                      setExplanationExpanded(
+                        question.id,
+                        value === "explanation",
+                      )
+                    }
+                  >
+                    <AccordionItem value="explanation">
+                      <AccordionTrigger>Wyjaśnienie</AccordionTrigger>
+                      <AccordionContent>
+                        <Explanation
+                          questionId={question.id}
+                          enabled={expandedExplanations.has(question.id)}
+                        />
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                )}
               </AccordionContent>
             </AccordionItem>
           ))}
