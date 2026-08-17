@@ -170,7 +170,16 @@ export const examRouter = createTRPCRouter({
           with: {
             questionInstance: {
               with: {
-                question: true,
+                question: {
+                  with: {
+                    questionsToExplanations: {
+                      columns: {
+                        id: true,
+                      },
+                      limit: 1,
+                    },
+                  },
+                },
               },
             },
           },

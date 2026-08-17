@@ -21,6 +21,7 @@ export type Answer = "A" | "B" | "C" | "D" | null;
 export type QuestionWithAnswer = QuestionParsed & {
   answer: Answer;
   questionInstanceId: string;
+  hasExplanation: boolean;
 };
 
 export function numberToAnswer(number: number) {

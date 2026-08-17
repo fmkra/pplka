@@ -33,6 +33,8 @@ export default function ExamAttempt() {
     ),
     answer: examQuestion.answer,
     questionInstanceId: examQuestion.questionInstance.id,
+    hasExplanation:
+      examQuestion.questionInstance.question.questionsToExplanations.length > 0,
   }));
 
   if (attempt.finishedAt === null)
