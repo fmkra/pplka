@@ -36,6 +36,15 @@ const serwist = new Serwist({
   fallbacks: {
     entries: [
       {
+        url: "/pobrane",
+        matcher({ request }) {
+          return (
+            request.destination === "document" &&
+            new URL(request.url).pathname === "/pobrane"
+          );
+        },
+      },
+      {
         url: "/baza-wiedzy",
         matcher({ request }) {
           return (
@@ -44,6 +53,15 @@ const serwist = new Serwist({
           );
         },
       },
+      ...["ppla", "pplh", "spl", "bpl"].map((license) => ({
+        url: `/${license}`,
+        matcher({ request }: { request: Request }) {
+          return (
+            request.destination === "document" &&
+            new URL(request.url).pathname === `/${license}`
+          );
+        },
+      })),
       ...["ppla", "pplh", "spl", "bpl"].map((license) => ({
         url: `/${license}/baza-pytan`,
         matcher({ request }: { request: Request }) {

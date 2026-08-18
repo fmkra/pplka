@@ -96,7 +96,11 @@ export async function downloadQuestionCatalog(
     await fetchVerifiedJson(entry.url, entry.sha256),
   );
   onProgress?.(75);
-  await installQuestionCatalog(catalog, entry.version);
+  await installQuestionCatalog(
+    catalog,
+    entry.version,
+    entry.updatedAt ?? manifest.generatedAt,
+  );
   onProgress?.(100);
 }
 
@@ -145,7 +149,11 @@ export async function downloadKnowledgeBaseCatalog(
     onProgress?.(35 + Math.round((completed / Math.max(total, 1)) * 50));
   });
   onProgress?.(90);
-  await installKnowledgeBaseCatalog(catalog, entry.version);
+  await installKnowledgeBaseCatalog(
+    catalog,
+    entry.version,
+    entry.updatedAt ?? manifest.generatedAt,
+  );
   await pruneKnowledgeBaseAssets(catalog.a);
   onProgress?.(100);
 }

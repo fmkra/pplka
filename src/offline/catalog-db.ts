@@ -15,6 +15,7 @@ export type InstalledPackage = {
   key: string;
   version: string;
   sourceVersion?: number;
+  sourceUpdatedAt?: string;
   installedAt: string;
   assetUrls?: string[];
 };
@@ -119,6 +120,7 @@ export function questionPackageKey(licenseUrl: string) {
 export async function installQuestionCatalog(
   catalog: QuestionCatalog,
   version: string,
+  sourceUpdatedAt: string,
 ) {
   const [licenseId, licenseUrl, , sourceVersion] = catalog.l;
   const packageKey = questionPackageKey(licenseUrl);
@@ -180,6 +182,7 @@ export async function installQuestionCatalog(
         key: packageKey,
         version,
         sourceVersion,
+        sourceUpdatedAt,
         installedAt: new Date().toISOString(),
       });
     },
@@ -215,6 +218,7 @@ export async function removeQuestionCatalog(licenseUrl: string) {
 export async function installKnowledgeBaseCatalog(
   catalog: KnowledgeBaseCatalog,
   version: string,
+  sourceUpdatedAt: string,
 ) {
   const nodes: LocalKnowledgeBaseNode[] = catalog.n.map((node) => ({
     key: expandCatalogId(node[0]),
@@ -281,6 +285,7 @@ export async function installKnowledgeBaseCatalog(
       await catalogDb.packages.put({
         key: KNOWLEDGE_BASE_PACKAGE,
         version,
+        sourceUpdatedAt,
         installedAt: new Date().toISOString(),
         assetUrls: catalog.a,
       });

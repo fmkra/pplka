@@ -15,6 +15,11 @@ export const { dynamic, dynamicParams, revalidate, generateStaticParams, GET } =
     additionalPrecacheEntries: [
       { url: "/~offline", revision },
       { url: "/baza-wiedzy", revision },
+      { url: "/pobrane", revision },
+      ...["ppla", "pplh", "spl", "bpl"].map((license) => ({
+        url: `/${license}`,
+        revision,
+      })),
       ...["ppla", "pplh", "spl", "bpl"].map((license) => ({
         url: `/${license}/baza-pytan`,
         revision,

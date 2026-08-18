@@ -13,6 +13,7 @@ import {
   fetchCatalogManifest,
   KNOWLEDGE_BASE_ASSET_CACHE,
 } from "./catalog-download";
+import type { CatalogManifest } from "./catalog-schema";
 
 export function useOfflineKnowledgeBase() {
   const installedPackage = useLiveQuery(
@@ -22,7 +23,9 @@ export function useOfflineKnowledgeBase() {
   );
   const [progress, setProgress] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [updateAvailable, setUpdateAvailable] = useState(false);
+  const [latestManifest, setLatestManifest] = useState<CatalogManifest | null>(
+    null,
+  );
   const [onlineCheck, setOnlineCheck] = useState(0);
 
   useEffect(() => {
@@ -33,17 +36,12 @@ export function useOfflineKnowledgeBase() {
 
   useEffect(() => {
     if (!installedPackage || !navigator.onLine) {
-      setUpdateAvailable(false);
       return;
     }
     let active = true;
     void fetchCatalogManifest()
       .then((manifest) => {
-        if (active) {
-          setUpdateAvailable(
-            manifest.knowledgeBase.version !== installedPackage.version,
-          );
-        }
+        if (active) setLatestManifest(manifest);
       })
       .catch(() => undefined);
     return () => {
@@ -56,13 +54,15 @@ export function useOfflineKnowledgeBase() {
     setProgress(10);
     try {
       await downloadKnowledgeBaseCatalog(setProgress);
-      setUpdateAvailable(false);
+      setLatestManifest(await fetchCatalogManifest());
+      return true;
     } catch (cause) {
       setError(
         cause instanceof Error
           ? cause.message
           : "Nie udało się pobrać bazy wiedzy.",
       );
+      return false;
     } finally {
       setProgress(null);
     }
@@ -79,7 +79,13 @@ export function useOfflineKnowledgeBase() {
     remove,
     isReady: installedPackage !== null,
     isDownloaded: Boolean(installedPackage),
-    updateAvailable,
+    installedPackage,
+    latestEntry: latestManifest?.knowledgeBase,
+    updateAvailable: Boolean(
+      installedPackage &&
+        latestManifest?.knowledgeBase &&
+        latestManifest.knowledgeBase.version !== installedPackage.version,
+    ),
     progress,
     error,
   };

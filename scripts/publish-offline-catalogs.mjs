@@ -59,10 +59,25 @@ async function listAllBlobs(blobPrefix) {
 }
 
 const existing = new Map(
-  (await listAllBlobs(`${prefix}/data/`)).map((blob) => [blob.pathname, blob]),
+  (await listAllBlobs(`${prefix}/`)).map((blob) => [blob.pathname, blob]),
 );
+const previousManifestBlob = existing.get(`${prefix}/manifest.json`);
+let previousManifest = null;
+if (previousManifestBlob) {
+  try {
+    const response = await fetch(
+      `${previousManifestBlob.url}?refresh=${Date.now()}`,
+      { cache: "no-store" },
+    );
+    if (response.ok) previousManifest = await response.json();
+  } catch {
+    console.warn(
+      "Could not read the previous manifest; publication continues.",
+    );
+  }
+}
 
-async function publishEntry(entry) {
+async function publishEntry(entry, previousEntry) {
   const filename = path.posix.basename(entry.url);
   const pathname = `${prefix}/data/${filename}`;
   let blob = existing.get(pathname);
@@ -77,14 +92,27 @@ async function publishEntry(entry) {
   } else {
     console.log(`Unchanged ${pathname}`);
   }
-  return { ...entry, url: blob.url };
+  return {
+    ...entry,
+    url: blob.url,
+    updatedAt:
+      previousEntry?.version === entry.version
+        ? (previousEntry.updatedAt ?? previousManifest?.generatedAt)
+        : (entry.updatedAt ?? localManifest.generatedAt),
+  };
 }
 
 const questions = {};
 for (const [licenseUrl, entry] of Object.entries(localManifest.questions)) {
-  questions[licenseUrl] = await publishEntry(entry);
+  questions[licenseUrl] = await publishEntry(
+    entry,
+    previousManifest?.questions?.[licenseUrl],
+  );
 }
-const knowledgeBase = await publishEntry(localManifest.knowledgeBase);
+const knowledgeBase = await publishEntry(
+  localManifest.knowledgeBase,
+  previousManifest?.knowledgeBase,
+);
 const remoteManifest = {
   ...localManifest,
   questions,

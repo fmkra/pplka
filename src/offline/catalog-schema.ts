@@ -5,6 +5,7 @@ const catalogEntrySchema = z.object({
   sha256: z.string(),
   bytes: z.number().int().nonnegative(),
   url: z.string(),
+  updatedAt: z.string().datetime().optional(),
 });
 
 export const catalogManifestSchema = z.object({

@@ -20,6 +20,7 @@ if (!databaseUrl) {
 }
 
 const sql = postgres(databaseUrl, { max: 1 });
+const generatedAt = new Date().toISOString();
 
 function serialize(value) {
   return JSON.stringify(value);
@@ -47,6 +48,7 @@ async function writeCatalog(name, value) {
     sha256,
     bytes: Buffer.byteLength(body),
     url: `/offline/catalogs/data/${filename}`,
+    updatedAt: generatedAt,
   };
 }
 
@@ -285,7 +287,7 @@ try {
     path.join(outputDirectory, "manifest.json"),
     serialize({
       schemaVersion: 1,
-      generatedAt: new Date().toISOString(),
+      generatedAt,
       questions: questionEntries,
       knowledgeBase,
     }),

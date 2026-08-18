@@ -11,6 +11,7 @@ import {
   downloadQuestionCatalog,
   fetchCatalogManifest,
 } from "./catalog-download";
+import type { CatalogManifest } from "./catalog-schema";
 
 export function useOfflineQuestions(licenseUrl: string) {
   const packageKey = questionPackageKey(licenseUrl);
@@ -21,7 +22,9 @@ export function useOfflineQuestions(licenseUrl: string) {
   );
   const [progress, setProgress] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [updateAvailable, setUpdateAvailable] = useState(false);
+  const [latestManifest, setLatestManifest] = useState<CatalogManifest | null>(
+    null,
+  );
   const [onlineCheck, setOnlineCheck] = useState(0);
 
   useEffect(() => {
@@ -32,18 +35,12 @@ export function useOfflineQuestions(licenseUrl: string) {
 
   useEffect(() => {
     if (!installedPackage || !navigator.onLine) {
-      setUpdateAvailable(false);
       return;
     }
     let active = true;
     void fetchCatalogManifest()
       .then((manifest) => {
-        if (active) {
-          setUpdateAvailable(
-            manifest.questions[licenseUrl]?.version !==
-              installedPackage.version,
-          );
-        }
+        if (active) setLatestManifest(manifest);
       })
       .catch(() => undefined);
     return () => {
@@ -56,11 +53,13 @@ export function useOfflineQuestions(licenseUrl: string) {
     setProgress(10);
     try {
       await downloadQuestionCatalog(licenseUrl, setProgress);
-      setUpdateAvailable(false);
+      setLatestManifest(await fetchCatalogManifest());
+      return true;
     } catch (cause) {
       setError(
         cause instanceof Error ? cause.message : "Nie udało się pobrać pytań.",
       );
+      return false;
     } finally {
       setProgress(null);
     }
@@ -76,7 +75,14 @@ export function useOfflineQuestions(licenseUrl: string) {
     remove,
     isReady: installedPackage !== null,
     isDownloaded: Boolean(installedPackage),
-    updateAvailable,
+    installedPackage,
+    latestEntry: latestManifest?.questions[licenseUrl],
+    updateAvailable: Boolean(
+      installedPackage &&
+        latestManifest?.questions[licenseUrl] &&
+        latestManifest.questions[licenseUrl].version !==
+          installedPackage.version,
+    ),
     progress,
     error,
   };

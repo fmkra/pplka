@@ -1,6 +1,6 @@
 "use client";
 
-import { User } from "lucide-react";
+import { HardDriveDownload, LogOut, Shield, User } from "lucide-react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { Button } from "~/components/ui/button";
 import { Skeleton } from "~/components/ui/skeleton";
@@ -14,7 +14,7 @@ import {
 } from "~/components/ui/dropdown-menu";
 import Image from "next/image";
 import Link from "next/link";
-import { ADMIN } from "~/app/links";
+import { ADMIN, OFFLINE_DOWNLOADS } from "~/app/links";
 
 export default function NavbarUser() {
   const session = useSession();
@@ -64,21 +64,45 @@ export default function NavbarUser() {
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator className="lg:hidden" />
+            <DropdownMenuItem asChild>
+              <Link href={`/${OFFLINE_DOWNLOADS}`} prefetch={false}>
+                <HardDriveDownload className="size-4" />
+                Pobrane materiały
+              </Link>
+            </DropdownMenuItem>
             {session.data.user.isAdmin ? (
               <DropdownMenuItem asChild>
-                <Link href={`/${ADMIN}`}>Admin</Link>
+                <Link href={`/${ADMIN}`}>
+                  <Shield className="size-4" />
+                  Admin
+                </Link>
               </DropdownMenuItem>
             ) : null}
             <DropdownMenuItem
               onClick={() => signOut()}
               className="cursor-pointer"
             >
+              <LogOut className="size-4" />
               Wyloguj się
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (
         <>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="hidden lg:inline-flex"
+            asChild
+          >
+            <Link
+              href={`/${OFFLINE_DOWNLOADS}`}
+              prefetch={false}
+              aria-label="Zarządzaj pobranymi materiałami"
+            >
+              <HardDriveDownload className="size-4" />
+            </Link>
+          </Button>
           <Button
             className="hidden w-28 lg:inline-flex"
             onClick={() => signIn("google")}
@@ -97,10 +121,18 @@ export default function NavbarUser() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="min-w-56" align="end">
+              <DropdownMenuItem asChild>
+                <Link href={`/${OFFLINE_DOWNLOADS}`} prefetch={false}>
+                  <HardDriveDownload className="size-4" />
+                  Pobrane materiały
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
               <DropdownMenuItem
                 onClick={() => signIn("google")}
                 className="cursor-pointer"
               >
+                <User className="size-4" />
                 Zaloguj się z Google
               </DropdownMenuItem>
             </DropdownMenuContent>
