@@ -1,12 +1,12 @@
 "use client";
 
 import { ChevronRight, FileText, FolderClosed, FolderOpen } from "lucide-react";
-import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { LICENSE_SEARCH_PARAM, knowledgeBaseHref, LICENSES } from "~/app/links";
 import { cn } from "~/lib/utils";
 import type { KnowledgeBaseNode } from "~/server/api/routers/explanation";
+import { KnowledgeBaseLink } from "./navigation-context";
 
 type KnowledgeBaseTree = Record<string, KnowledgeBaseNode[]>;
 
@@ -45,14 +45,7 @@ function useInitialFolderPath(tree: KnowledgeBaseTree) {
   }, [pathname, tree]);
 }
 
-export function FolderNode({
-  tree,
-  onNavigate,
-}: {
-  node: KnowledgeBaseNode | null;
-  tree: KnowledgeBaseTree;
-  onNavigate?: (href: string) => void;
-}) {
+export function FolderNode({ tree }: { tree: KnowledgeBaseTree }) {
   const initialFolderPath = useInitialFolderPath(tree);
   const [openPath, setOpenPath] = useState<string[]>(initialFolderPath);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -127,7 +120,6 @@ export function FolderNode({
             tree={tree}
             isFirst={index === 0}
             onFolderClick={handleFolderClick}
-            onNavigate={onNavigate}
           />
         ))}
       </div>
@@ -141,14 +133,12 @@ function Column({
   parentId,
   selectedId,
   tree,
-  onNavigate,
 }: {
   isFirst: boolean;
   onFolderClick: (parentId: string | null, folderId: string) => void;
   parentId: string | null;
   selectedId: string | undefined;
   tree: KnowledgeBaseTree;
-  onNavigate?: (href: string) => void;
 }) {
   const nodes = tree[parentId ?? "root"] ?? [];
 
@@ -176,7 +166,7 @@ function Column({
                   onClick={() => onFolderClick(parentId, node.id)}
                 />
               ) : (
-                <FileRow key={node.id} node={node} onNavigate={onNavigate} />
+                <FileRow key={node.id} node={node} />
               ),
             )}
           </div>
@@ -224,13 +214,7 @@ function FolderRow({
   );
 }
 
-function FileRow({
-  node,
-  onNavigate,
-}: {
-  node: KnowledgeBaseNode;
-  onNavigate?: (href: string) => void;
-}) {
+function FileRow({ node }: { node: KnowledgeBaseNode }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const requestedLicense = searchParams.get(LICENSE_SEARCH_PARAM);
@@ -243,17 +227,8 @@ function FileRow({
     decodeURIComponent(pathname.split("/").at(-1) ?? "") === node.slug;
 
   return (
-    <Link
+    <KnowledgeBaseLink
       href={href}
-      prefetch={false}
-      onClick={
-        onNavigate
-          ? (event) => {
-              event.preventDefault();
-              onNavigate(href);
-            }
-          : undefined
-      }
       className={cn(
         "hover:bg-accent hover:text-accent-foreground flex h-10 items-center gap-2 rounded-md px-2 text-sm no-underline transition hover:no-underline",
         isActive &&
@@ -262,6 +237,6 @@ function FileRow({
     >
       <FileText className="size-4 flex-none" />
       <span className="min-w-0 flex-1 truncate">{node.name}</span>
-    </Link>
+    </KnowledgeBaseLink>
   );
 }

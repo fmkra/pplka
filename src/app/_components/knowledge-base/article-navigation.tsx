@@ -10,6 +10,7 @@ import {
   QUESTIONS_KNOWLEDGE_BASE_ID,
 } from "~/app/links";
 import { conjugate } from "~/lib/utils";
+import { KnowledgeBaseLink } from "./navigation-context";
 
 type Sibling = { name: string; slug: string | null } | null;
 
@@ -17,12 +18,10 @@ export function KnowledgeBaseArticleNavigation({
   knowledgeBaseNodeId,
   questionCounts,
   siblings,
-  onNavigate,
 }: {
   knowledgeBaseNodeId: string;
   questionCounts: Record<string, number>;
   siblings: [Sibling, Sibling];
-  onNavigate?: (href: string) => void;
 }) {
   const searchParams = useSearchParams();
   const requestedLicense = searchParams.get(LICENSE_SEARCH_PARAM);
@@ -36,27 +35,13 @@ export function KnowledgeBaseArticleNavigation({
     <div className="mt-2 grid grid-cols-[1fr_auto_1fr] gap-y-4 border-t pt-4 pb-2 max-sm:grid-cols-2">
       {siblings[0] ? (
         <div className="flex">
-          <Link
+          <KnowledgeBaseLink
             className="flex items-center gap-2 text-blue-500"
             href={knowledgeBaseHref(license, siblings[0].slug ?? undefined)}
-            prefetch={false}
-            onClick={
-              onNavigate
-                ? (event) => {
-                    event.preventDefault();
-                    onNavigate(
-                      knowledgeBaseHref(
-                        license,
-                        siblings[0]?.slug ?? undefined,
-                      ),
-                    );
-                  }
-                : undefined
-            }
           >
             <span>{"< "}</span>
             <span>{siblings[0].name}</span>
-          </Link>
+          </KnowledgeBaseLink>
         </div>
       ) : (
         <div />
@@ -81,27 +66,13 @@ export function KnowledgeBaseArticleNavigation({
       )}
       {siblings[1] ? (
         <div className="flex justify-end">
-          <Link
+          <KnowledgeBaseLink
             className="flex items-center gap-2 text-right text-blue-500 max-sm:order-1"
             href={knowledgeBaseHref(license, siblings[1].slug ?? undefined)}
-            prefetch={false}
-            onClick={
-              onNavigate
-                ? (event) => {
-                    event.preventDefault();
-                    onNavigate(
-                      knowledgeBaseHref(
-                        license,
-                        siblings[1]?.slug ?? undefined,
-                      ),
-                    );
-                  }
-                : undefined
-            }
           >
             <span>{siblings[1].name}</span>
             <span>{" >"}</span>
-          </Link>
+          </KnowledgeBaseLink>
         </div>
       ) : (
         <div />

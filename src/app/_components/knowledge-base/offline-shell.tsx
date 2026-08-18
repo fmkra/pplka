@@ -12,6 +12,7 @@ import {
   type LocalKnowledgeBaseNode,
 } from "~/offline/catalog-db";
 import type { KnowledgeBaseNode } from "~/server/api/routers/explanation";
+import { KnowledgeBaseNavigationProvider } from "./navigation-context";
 
 type KnowledgeBaseTree = Record<string, KnowledgeBaseNode[]>;
 
@@ -133,14 +134,12 @@ export function KnowledgeBaseOfflineShell({
   const tree = renderedLocalData?.tree ?? serverTree;
 
   return (
-    <>
+    <KnowledgeBaseNavigationProvider
+      navigate={usesLocalCatalog ? navigateLocally : null}
+    >
       <nav className="container mx-auto p-4 pb-0">
         <Suspense fallback={null}>
-          <FolderNode
-            node={null}
-            tree={tree}
-            onNavigate={usesLocalCatalog ? navigateLocally : undefined}
-          />
+          <FolderNode tree={tree} />
         </Suspense>
       </nav>
       <Main className="pt-0">
@@ -157,7 +156,6 @@ export function KnowledgeBaseOfflineShell({
                   renderedLocalData.article.node.id
                 ] ?? [null, null]
               }
-              onNavigate={navigateLocally}
             />
           ) : null
         ) : (
@@ -167,7 +165,7 @@ export function KnowledgeBaseOfflineShell({
       <Suspense fallback={null}>
         <KnowledgeBaseFooter />
       </Suspense>
-    </>
+    </KnowledgeBaseNavigationProvider>
   );
 }
 

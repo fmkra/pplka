@@ -14,12 +14,10 @@ export function KnowledgeBaseExplanations({
   data,
   knowledgeBaseNodeId,
   siblings,
-  onNavigate,
 }: {
   data: ExplanationsData;
   knowledgeBaseNodeId: string;
   siblings: [KnowledgeBaseNode | null, KnowledgeBaseNode | null];
-  onNavigate?: (href: string) => void;
 }) {
   return (
     <div className="space-y-2">
@@ -35,7 +33,6 @@ export function KnowledgeBaseExplanations({
               ? { name: siblings[1].name, slug: siblings[1].slug }
               : null,
           ]}
-          onNavigate={onNavigate}
         />
       </Suspense>
 
