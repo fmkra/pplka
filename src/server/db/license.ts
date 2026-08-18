@@ -7,4 +7,12 @@ export const licenses = createTable("license", (d) => ({
   icon: d.varchar({ length: 255 }),
   description: d.text(),
   version: d.integer().notNull().default(1),
+  createdAt: d
+    .timestamp({ withTimezone: true, mode: "date" })
+    .notNull()
+    .defaultNow(),
+  updatedAt: d
+    .timestamp({ withTimezone: true, mode: "date" })
+    .notNull()
+    .defaultNow(),
 }));

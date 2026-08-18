@@ -22,6 +22,10 @@ export const questions = createTable("question", (d) => ({
   createdAt: d
     .timestamp({ withTimezone: true })
     .default(sql`CURRENT_TIMESTAMP`),
+  updatedAt: d
+    .timestamp({ withTimezone: true, mode: "date" })
+    .notNull()
+    .defaultNow(),
 }));
 
 export const questionsRelations = relations(questions, ({ many }) => ({

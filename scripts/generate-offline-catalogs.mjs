@@ -38,7 +38,12 @@ function compactId(value) {
     : value;
 }
 
-async function writeCatalog(name, value) {
+function isoDateOrGeneratedAt(value) {
+  const date = new Date(value ?? generatedAt);
+  return Number.isNaN(date.getTime()) ? generatedAt : date.toISOString();
+}
+
+async function writeCatalog(name, value, updatedAt = generatedAt) {
   const body = serialize(value);
   const sha256 = hash(body);
   const filename = `${name}.${sha256.slice(0, 12)}.json`;
@@ -48,8 +53,41 @@ async function writeCatalog(name, value) {
     sha256,
     bytes: Buffer.byteLength(body),
     url: `/offline/catalogs/data/${filename}`,
-    updatedAt: generatedAt,
+    updatedAt,
   };
+}
+
+async function getQuestionCatalogUpdatedAt(license) {
+  const [row] = await sql`
+    select greatest(
+      l."updatedAt",
+      coalesce(max(c."updatedAt"), '-infinity'::timestamptz),
+      coalesce(max(q."updatedAt"), '-infinity'::timestamptz),
+      coalesce((
+        select max(revision."updatedAt")
+        from "nauka-ppla_content_revision" revision
+        where revision.path = ${`/${license.url}/baza-pytan`}
+      ), '-infinity'::timestamptz)
+    ) as "updatedAt"
+    from "nauka-ppla_license" l
+    left join "nauka-ppla_category" c on c."licenseId" = l.id
+    left join "nauka-ppla_question_instance" qi on qi."categoryId" = c.id
+    left join "nauka-ppla_question" q on q.id = qi."questionId"
+    where l.id = ${license.id}
+    group by l.id, l."updatedAt"
+  `;
+  return isoDateOrGeneratedAt(row?.updatedAt);
+}
+
+async function getKnowledgeBaseCatalogUpdatedAt() {
+  const [row] = await sql`
+    select greatest(
+      coalesce((select max("updatedAt") from "nauka-ppla_explanation"), '-infinity'::timestamptz),
+      coalesce((select max("updatedAt") from "nauka-ppla_knowledge_base_node"), '-infinity'::timestamptz),
+      coalesce((select max("updatedAt") from "nauka-ppla_content_revision" where source = 'explanations'), '-infinity'::timestamptz)
+    ) as "updatedAt"
+  `;
+  return isoDateOrGeneratedAt(row?.updatedAt);
 }
 
 async function generateQuestionCatalog(license) {
@@ -275,12 +313,14 @@ try {
     questionEntries[license.url] = await writeCatalog(
       `questions-${license.url}`,
       await generateQuestionCatalog(license),
+      await getQuestionCatalogUpdatedAt(license),
     );
   }
 
   const knowledgeBase = await writeCatalog(
     "knowledge-base",
     await generateKnowledgeBaseCatalog(),
+    await getKnowledgeBaseCatalogUpdatedAt(),
   );
 
   await writeFile(

@@ -10,6 +10,14 @@ export const explanations = createTable("explanation", (d) => ({
     .$defaultFn(() => crypto.randomUUID()),
   explanation: d.text().notNull(),
   type: d.text({ enum: ["text", "image"] }).notNull(),
+  createdAt: d
+    .timestamp({ withTimezone: true, mode: "date" })
+    .notNull()
+    .defaultNow(),
+  updatedAt: d
+    .timestamp({ withTimezone: true, mode: "date" })
+    .notNull()
+    .defaultNow(),
 }));
 
 export type Explanation = typeof explanations.$inferSelect;

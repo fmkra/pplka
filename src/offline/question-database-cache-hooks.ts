@@ -135,6 +135,7 @@ export const useCachedQuestionsQuery = createCacheFirstQueryHook<
             answerIncorrect3: question.answerIncorrect3,
             createdBy: null,
             createdAt: null,
+            updatedAt: new Date(0),
           },
           questionInstance: {
             id: instance.id,

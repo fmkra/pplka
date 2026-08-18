@@ -17,6 +17,14 @@ export const categories = createTable(
     examTime: d.integer().notNull(), // in seconds
     examQuestionCount: d.integer().notNull(),
     licenseId: d.integer().references(() => licenses.id),
+    createdAt: d
+      .timestamp({ withTimezone: true, mode: "date" })
+      .notNull()
+      .defaultNow(),
+    updatedAt: d
+      .timestamp({ withTimezone: true, mode: "date" })
+      .notNull()
+      .defaultNow(),
   }),
   (t) => [unique().on(t.url, t.licenseId)],
 );

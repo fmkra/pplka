@@ -229,12 +229,15 @@ export async function installKnowledgeBaseCatalog(
     parentId: expandCatalogId(node[4]),
     order: node[5],
     createdAt: null,
+    updatedAt: new Date(0),
   }));
   const explanations: LocalExplanation[] = catalog.e.map((explanation) => ({
     key: expandCatalogId(explanation[0]),
     id: expandCatalogId(explanation[0]),
     type: explanation[1],
     explanation: explanation[2],
+    createdAt: new Date(0),
+    updatedAt: new Date(0),
   }));
   const nodeExplanations: LocalNodeExplanation[] = catalog.ne.map((link) => ({
     key: `${expandCatalogId(link[0])}:${link[2]}:${expandCatalogId(link[1])}`,
