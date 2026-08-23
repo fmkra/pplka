@@ -12,7 +12,7 @@ export default async function Navbar() {
   }));
 
   return (
-    <nav className="relative border-b">
+    <nav className="sticky top-0 z-50 border-b">
       <div className="bg-background/95 supports-[backdrop-filter]:bg-background/60 absolute inset-0 -z-10 backdrop-blur" />
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">

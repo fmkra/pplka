@@ -20,6 +20,8 @@ declare global {
 type PwaContextType = {
   /** True when user has connection with internet */
   isOnline: boolean;
+  /** True after the browser's connection state has been read. */
+  isConnectivityKnown: boolean;
   /** True when app is running in standalone (installed PWA) mode. */
   isPwa: boolean | undefined;
   /** True when the browser has sent beforeinstallprompt (install prompt can be shown). */
@@ -44,6 +46,7 @@ export default function PwaContextProvider({
   children: React.ReactNode;
 }) {
   const [isOnline, setIsOnline] = useState(true);
+  const [isConnectivityKnown, setIsConnectivityKnown] = useState(false);
   const [isPwa, setIsPwa] = useState<boolean | undefined>(undefined);
   const [canInstall, setCanInstall] = useState(false);
   const deferredPromptRef = useRef<BeforeInstallPromptEvent | null>(null);
@@ -68,6 +71,7 @@ export default function PwaContextProvider({
 
   useEffect(() => {
     setIsOnline(navigator.onLine);
+    setIsConnectivityKnown(true);
     const handleOnline = () => setIsOnline(true);
     const handleOffline = () => setIsOnline(false);
     window.addEventListener("online", handleOnline);
@@ -116,7 +120,15 @@ export default function PwaContextProvider({
   };
 
   return (
-    <PwaContext.Provider value={{ isOnline, isPwa, canInstall, promptInstall }}>
+    <PwaContext.Provider
+      value={{
+        isOnline,
+        isConnectivityKnown,
+        isPwa,
+        canInstall,
+        promptInstall,
+      }}
+    >
       {children}
     </PwaContext.Provider>
   );

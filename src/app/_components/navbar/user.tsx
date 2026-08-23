@@ -1,6 +1,6 @@
 "use client";
 
-import { HardDriveDownload, LogOut, Shield, User } from "lucide-react";
+import { HardDriveDownload, LogOut, Shield, User, WifiOff } from "lucide-react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { Button } from "~/components/ui/button";
 import { Skeleton } from "~/components/ui/skeleton";
@@ -19,7 +19,7 @@ import { usePwaContext } from "../pwa-context";
 
 export default function NavbarUser() {
   const session = useSession();
-  const { isPwa } = usePwaContext();
+  const { isOnline, isConnectivityKnown, isPwa } = usePwaContext();
   const showOfflineDownloads = isPwa === true;
 
   const userIcon =
@@ -36,6 +36,23 @@ export default function NavbarUser() {
     ) : (
       <User className="size-4" />
     );
+
+  if (!isConnectivityKnown) {
+    return <Skeleton className="h-9 w-9 rounded-md lg:w-36" />;
+  }
+
+  if (!isOnline) {
+    return (
+      <div
+        className="text-muted-foreground flex h-9 items-center gap-2 px-2 text-sm"
+        aria-label="Brak połączenia z internetem"
+        title="Brak połączenia z internetem"
+      >
+        <WifiOff className="size-5" />
+        <span className="hidden sm:inline">Brak połączenia</span>
+      </div>
+    );
+  }
 
   return (
     <div className="flex items-center">
