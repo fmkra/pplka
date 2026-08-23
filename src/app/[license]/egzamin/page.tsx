@@ -1,7 +1,10 @@
 import { notFound } from "next/navigation";
 import ExamList from "./exam_list";
 import ExamStart from "./exam_start";
-import LoginWarning from "~/app/_components/login-warning";
+import ExamLoginWarning from "./exam-login-warning";
+import OfflineExamList from "./offline-exam-list";
+import { ExamModeListHint, ExamModeSelector } from "./exam-mode";
+import OfflineQuestionsWarning from "./offline-questions-warning";
 import { metadataBuilder } from "~/app/seo";
 import Main from "~/app/_components/main";
 import {
@@ -31,12 +34,13 @@ export default async function ExamsPage({
 
   return (
     <Main>
-      <LoginWarning
-        header="aby uzyskać dostęp do egzaminu"
-        description="Musisz być zalogowany, aby rozpocząć egzamin i śledzić swój postęp."
-      />
+      <ExamLoginWarning />
+      <ExamModeSelector />
+      <OfflineQuestionsWarning licenseUrl={licenseUrl} />
       <ExamStart licenseId={license.id} />
+      <OfflineExamList licenseUrl={licenseUrl} categories={categories} />
       <ExamList licenseId={license.id} categories={categories} />
+      <ExamModeListHint />
     </Main>
   );
 }

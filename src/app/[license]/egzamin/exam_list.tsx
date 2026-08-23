@@ -17,6 +17,8 @@ import { useTimer } from "~/lib/use-timer";
 import { PASS_THRESHOLD } from "~/lib/utils";
 import { useSession } from "next-auth/react";
 import { EXAM } from "~/app/links";
+import { usePwaContext } from "~/app/_components/pwa-context";
+import { useExamMode } from "./exam-mode";
 
 function getStatus(
   finishedAt: Date | null,
@@ -89,11 +91,16 @@ export default function ExamList({
   categories: Category[];
 }) {
   const { data: session } = useSession();
+  const { isOnline } = usePwaContext();
+  const { isOfflineMode, withMode } = useExamMode();
   const isLoggedIn = !!session?.user;
   const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
 
   const { data: totalCount, isLoading: isExamCountLoading } =
-    api.exam.getExamCount.useQuery({ licenseId }, { enabled: isLoggedIn });
+    api.exam.getExamCount.useQuery(
+      { licenseId },
+      { enabled: isLoggedIn && isOnline && !isOfflineMode },
+    );
 
   const pagination = usePagination(
     pageSizeOptions,
@@ -109,7 +116,7 @@ export default function ExamList({
       offset: pagination.offset,
       categoryIds: selectedCategories,
     },
-    { enabled: isLoggedIn },
+    { enabled: isLoggedIn && isOnline && !isOfflineMode },
   );
 
   // It is rendered only client side, so there will be no hydration error
@@ -118,14 +125,20 @@ export default function ExamList({
   const isLoading = isExamCountLoading || isExamsLoading;
   const isEmpty = totalCount === null || exams === null || exams?.length === 0;
 
-  if (!isLoggedIn) return null;
+  if (!isLoggedIn || !isOnline || isOfflineMode) return null;
 
   return (
     <section>
       <Card className="mt-8">
         <CardHeader>
           <CardTitle className="flex items-center justify-between">
-            <h1 className="text-2xl font-bold">Twoje egzaminy</h1>
+            <div>
+              <h1 className="text-2xl font-bold">Egzaminy</h1>
+              <p className="text-muted-foreground mt-1 text-sm font-normal">
+                Egzaminy zapisywane są na twoim koncie i możesz je kontynuować
+                oraz przeglądać na innym urządzeniu.
+              </p>
+            </div>
             <CategoryFilter
               categories={categories}
               selectedCategories={selectedCategories}
@@ -140,8 +153,7 @@ export default function ExamList({
             </div>
           ) : isEmpty ? (
             <p className="text-muted-foreground py-8 text-center">
-              Nie masz jeszcze żadnych egzaminów. Rozpocznij swój pierwszy
-              egzamin!
+              Nie masz jeszcze żadnych egzaminów zapisanych na koncie.
             </p>
           ) : (
             <>
@@ -232,7 +244,7 @@ export default function ExamList({
                           </td>
                           <td className="px-4 py-3">
                             <Link
-                              href={`./${EXAM}/${exam.attemptId}`}
+                              href={withMode(`./${EXAM}/${exam.attemptId}`)}
                               prefetch={false}
                             >
                               <Button variant="outline" className="w-full">

@@ -13,6 +13,7 @@ import { Progress } from "~/components/ui/progress";
 import { useHydrated } from "~/lib/use-hydrated";
 import { useOfflineKnowledgeBase } from "~/offline/knowledge-base-cache";
 import { useOfflineQuestions } from "~/offline/questions";
+import { usePwaContext } from "./pwa-context";
 
 type PackageController = ReturnType<typeof useOfflineQuestions>;
 
@@ -134,6 +135,13 @@ function PackageCard({
 }
 
 export function OfflineDownloadManager() {
+  const { isPwa } = usePwaContext();
+  if (isPwa !== true) return null;
+
+  return <PwaOfflineDownloadManager />;
+}
+
+function PwaOfflineDownloadManager() {
   const isHydrated = useHydrated();
   const knowledgeBase = useOfflineKnowledgeBase();
   const ppla = useOfflineQuestions("ppla");

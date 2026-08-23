@@ -15,6 +15,7 @@ import { Progress } from "~/components/ui/progress";
 import { Badge } from "~/components/ui/badge";
 import { FlagTriangleRight } from "lucide-react";
 import { useExamFlagsStore } from "~/stores";
+import { saveOfflineExamProgress } from "~/offline/exam";
 
 export type Answer = "A" | "B" | "C" | "D" | null;
 
@@ -49,10 +50,12 @@ export default function Exam({
   examAttemptId,
   questions,
   finishTime,
+  isOffline,
 }: {
   examAttemptId: string;
   questions: QuestionWithAnswer[];
   finishTime: number;
+  isOffline: boolean;
 }) {
   const [warningMessage, setWarningMessage] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(() =>
@@ -98,6 +101,19 @@ export default function Exam({
     const hasAnswerChanged =
       selectedAnswers[currentQuestion] !== questions[currentQuestion]?.answer;
     if (hasAnswerChanged || finishExam) {
+      if (isOffline) {
+        void saveOfflineExamProgress({
+          examAttemptId,
+          questionInstanceId: hasAnswerChanged
+            ? questions[currentQuestion].questionInstanceId
+            : undefined,
+          answer: hasAnswerChanged
+            ? selectedAnswers[currentQuestion]
+            : undefined,
+          finishExam,
+        });
+        return;
+      }
       mutate({
         examAttemptId,
         question: hasAnswerChanged
@@ -121,6 +137,14 @@ export default function Exam({
       ...prev,
       [questionIndex]: answer,
     }));
+    if (isOffline) {
+      void saveOfflineExamProgress({
+        examAttemptId,
+        questionInstanceId: questions[questionIndex]?.questionInstanceId,
+        answer,
+        finishExam: false,
+      });
+    }
   };
 
   const handleNext = () => {

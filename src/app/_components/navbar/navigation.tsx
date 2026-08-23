@@ -157,7 +157,8 @@ export default function Navigation({ options }: { options: SelectOption[] }) {
           const isInstalledKnowledgeBase =
             item.href === KNOWLEDGE_BASE && offlineKnowledgeBase.isDownloaded;
           const isInstalledQuestions =
-            item.href === QUESTIONS && offlineQuestions.isDownloaded;
+            (item.href === QUESTIONS || item.href === EXAM) &&
+            offlineQuestions.isDownloaded;
           const isDisabledInOffline =
             !isOnline &&
             item.disabledInOffline &&
@@ -336,7 +337,8 @@ function MobileSidebar({
             const isInstalledKnowledgeBase =
               item.href === KNOWLEDGE_BASE && hasOfflineKnowledgeBase;
             const isInstalledQuestions =
-              item.href === QUESTIONS && hasOfflineQuestions;
+              (item.href === QUESTIONS || item.href === EXAM) &&
+              hasOfflineQuestions;
             const isDisabledInOffline =
               !isOnline &&
               item.disabledInOffline &&

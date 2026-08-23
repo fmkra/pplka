@@ -15,9 +15,12 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { ADMIN, OFFLINE_DOWNLOADS } from "~/app/links";
+import { usePwaContext } from "../pwa-context";
 
 export default function NavbarUser() {
   const session = useSession();
+  const { isPwa } = usePwaContext();
+  const showOfflineDownloads = isPwa === true;
 
   const userIcon =
     session.status == "loading" ? (
@@ -64,12 +67,14 @@ export default function NavbarUser() {
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator className="lg:hidden" />
-            <DropdownMenuItem asChild>
-              <Link href={`/${OFFLINE_DOWNLOADS}`} prefetch={false}>
-                <HardDriveDownload className="size-4" />
-                Pobrane materiały
-              </Link>
-            </DropdownMenuItem>
+            {showOfflineDownloads ? (
+              <DropdownMenuItem asChild>
+                <Link href={`/${OFFLINE_DOWNLOADS}`} prefetch={false}>
+                  <HardDriveDownload className="size-4" />
+                  Pobrane materiały
+                </Link>
+              </DropdownMenuItem>
+            ) : null}
             {session.data.user.isAdmin ? (
               <DropdownMenuItem asChild>
                 <Link href={`/${ADMIN}`}>
@@ -89,20 +94,22 @@ export default function NavbarUser() {
         </DropdownMenu>
       ) : (
         <>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="hidden lg:inline-flex"
-            asChild
-          >
-            <Link
-              href={`/${OFFLINE_DOWNLOADS}`}
-              prefetch={false}
-              aria-label="Zarządzaj pobranymi materiałami"
+          {showOfflineDownloads ? (
+            <Button
+              variant="ghost"
+              size="icon"
+              className="hidden lg:inline-flex"
+              asChild
             >
-              <HardDriveDownload className="size-4" />
-            </Link>
-          </Button>
+              <Link
+                href={`/${OFFLINE_DOWNLOADS}`}
+                prefetch={false}
+                aria-label="Zarządzaj pobranymi materiałami"
+              >
+                <HardDriveDownload className="size-4" />
+              </Link>
+            </Button>
+          ) : null}
           <Button
             className="hidden w-28 lg:inline-flex"
             onClick={() => signIn("google")}
@@ -121,13 +128,17 @@ export default function NavbarUser() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="min-w-56" align="end">
-              <DropdownMenuItem asChild>
-                <Link href={`/${OFFLINE_DOWNLOADS}`} prefetch={false}>
-                  <HardDriveDownload className="size-4" />
-                  Pobrane materiały
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
+              {showOfflineDownloads ? (
+                <>
+                  <DropdownMenuItem asChild>
+                    <Link href={`/${OFFLINE_DOWNLOADS}`} prefetch={false}>
+                      <HardDriveDownload className="size-4" />
+                      Pobrane materiały
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                </>
+              ) : null}
               <DropdownMenuItem
                 onClick={() => signIn("google")}
                 className="cursor-pointer"

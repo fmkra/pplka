@@ -13,7 +13,7 @@ export const STATIC_PAGE_UPDATED_AT = {
   "/baza-pytan/[question_id]": "2026-08-08T10:29:01.000Z",
   "/[license]": "2026-08-18T00:00:00.000Z",
   "/[license]/nauka": "2026-07-02T18:29:08.000Z",
-  "/[license]/egzamin": "2026-05-19T10:33:13.000Z",
+  "/[license]/egzamin": "2026-08-23T00:00:00.000Z",
   "/[license]/baza-pytan": "2026-08-08T10:07:45.000Z",
 } as const;
 

@@ -25,20 +25,32 @@ import { Button } from "~/components/ui/button";
 import Link from "next/link";
 import CategoryStartButton from "../category-start-button";
 import { useExamFlagsStore } from "~/stores";
-import type { FinishedExamAttempt } from "~/lib/types";
 import { Explanation } from "~/app/_components/knowledge-base/question-explanation";
 import { useState } from "react";
+import { useExamMode } from "../exam-mode";
+
+type FinishedExamAttempt = {
+  id: string;
+  startedAt: Date;
+  deadlineTime: Date;
+  finishedAt: Date;
+};
 
 export default function ExamSummary({
   attempt,
   questions,
   categoryId,
+  isOffline,
+  licenseUrl,
 }: {
   attempt: FinishedExamAttempt;
   questions: QuestionWithAnswer[];
   categoryId: number;
+  isOffline: boolean;
+  licenseUrl?: string;
 }) {
   const { flags } = useExamFlagsStore().attempt(attempt.id);
+  const { withMode } = useExamMode();
   const [expandedExplanations, setExpandedExplanations] = useState<Set<string>>(
     () => new Set(),
   );
@@ -171,13 +183,23 @@ export default function ExamSummary({
           ))}
         </Accordion>
 
-        <div className="flex justify-center gap-4">
-          <Button variant="outline" asChild>
-            <Link href=".">Wróć do egzaminów</Link>
+        <div className="flex flex-col justify-center gap-4 sm:flex-row">
+          <Button className="w-full sm:w-56" variant="outline" asChild>
+            <Link
+              href={withMode(licenseUrl ? `/${licenseUrl}/egzamin` : ".")}
+              onClick={(event) => {
+                if (isOffline && licenseUrl && !navigator.onLine) {
+                  event.preventDefault();
+                  window.location.assign(withMode(`/${licenseUrl}/egzamin`));
+                }
+              }}
+            >
+              Wróć do egzaminów
+            </Link>
           </Button>
           <CategoryStartButton
             categoryId={categoryId}
-            className="w-34"
+            containerClassName="sm:w-56"
             replaceLink
           >
             Rozpocznij nowy

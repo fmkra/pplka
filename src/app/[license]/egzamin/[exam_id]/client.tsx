@@ -5,14 +5,12 @@ import { getRandomNumber, shuffleAnswers } from "~/lib/shuffle";
 import Exam from "./exam";
 import ExamSummary from "./summary";
 import { Spinner } from "~/components/ui/spinner";
-import type { FinishedExamAttempt } from "~/lib/types";
 import { useExam } from "~/offline/exam";
 
-export default function ExamAttempt() {
-  const { exam_id } = useParams<{ exam_id: string }>();
-  const { getExam } = useExam();
-
-  const data = getExam(exam_id);
+export default function ExamAttempt({ examId }: { examId?: string }) {
+  const { exam_id } = useParams<{ exam_id?: string }>();
+  const resolvedExamId = examId ?? exam_id ?? "";
+  const { data } = useExam(resolvedExamId);
 
   if (data === null) notFound();
 
@@ -24,17 +22,16 @@ export default function ExamAttempt() {
     );
   }
 
-  const [attempt, questions] = data;
+  const { attempt, questions, source, licenseUrl } = data;
 
   const questionsParsed = questions.map((examQuestion) => ({
     ...shuffleAnswers(
-      examQuestion.questionInstance.question,
+      examQuestion,
       getRandomNumber(`${attempt.id}_${examQuestion.questionInstanceId}`),
     ),
     answer: examQuestion.answer,
-    questionInstanceId: examQuestion.questionInstance.id,
-    hasExplanation:
-      examQuestion.questionInstance.question.questionsToExplanations.length > 0,
+    questionInstanceId: examQuestion.questionInstanceId,
+    hasExplanation: examQuestion.hasExplanation,
   }));
 
   if (attempt.finishedAt === null)
@@ -43,14 +40,17 @@ export default function ExamAttempt() {
         examAttemptId={attempt.id}
         questions={questionsParsed}
         finishTime={attempt.deadlineTime.getTime()}
+        isOffline={source === "offline"}
       />
     );
 
   return (
     <ExamSummary
-      attempt={attempt as FinishedExamAttempt}
+      attempt={{ ...attempt, finishedAt: attempt.finishedAt }}
       questions={questionsParsed}
       categoryId={attempt.categoryId}
+      isOffline={source === "offline"}
+      licenseUrl={licenseUrl}
     />
   );
 }

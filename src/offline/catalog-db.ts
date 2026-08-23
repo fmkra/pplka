@@ -82,6 +82,34 @@ export type LocalQuestionCount = {
   count: number;
 };
 
+export type OfflineExamAnswer = "A" | "B" | "C" | "D" | null;
+
+export type OfflineExamQuestion = {
+  id: string;
+  questionInstanceId: string;
+  questionId: string;
+  externalId: string | null;
+  question: string;
+  answerCorrect: string;
+  answerIncorrect1: string;
+  answerIncorrect2: string;
+  answerIncorrect3: string;
+  hasExplanation: boolean;
+  answer: OfflineExamAnswer;
+};
+
+export type OfflineExamAttempt = {
+  id: string;
+  licenseUrl: string;
+  categoryId: number;
+  categoryName: string;
+  examTime: number;
+  startedAt: Date;
+  deadlineTime: Date;
+  finishedAt: Date | null;
+  questions: OfflineExamQuestion[];
+};
+
 class CatalogDatabase extends Dexie {
   packages!: EntityTable<InstalledPackage, "key">;
   questions!: EntityTable<LocalQuestion, "key">;
@@ -92,6 +120,7 @@ class CatalogDatabase extends Dexie {
   nodeExplanations!: EntityTable<LocalNodeExplanation, "key">;
   questionExplanations!: EntityTable<LocalQuestionExplanation, "key">;
   questionCounts!: EntityTable<LocalQuestionCount, "key">;
+  offlineExamAttempts!: EntityTable<OfflineExamAttempt, "id">;
 
   constructor() {
     super("pplka-catalogs");
@@ -107,6 +136,10 @@ class CatalogDatabase extends Dexie {
       questionExplanations:
         "key, id, questionId, explanationId, [questionId+order]",
       questionCounts: "key, nodeId, licenseUrl, [nodeId+licenseUrl]",
+    });
+    this.version(2).stores({
+      offlineExamAttempts:
+        "id, licenseUrl, categoryId, startedAt, [licenseUrl+startedAt]",
     });
   }
 }

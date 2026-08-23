@@ -20,8 +20,8 @@ export default async function ExamStart({ licenseId }: { licenseId: number }) {
       </h1>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {categoryList.map((category) => (
-          <article key={category.id}>
-            <Card className="transition-shadow hover:shadow-lg">
+          <article key={category.id} className="h-full">
+            <Card className="h-full transition-shadow hover:shadow-lg">
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3">

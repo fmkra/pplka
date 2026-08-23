@@ -71,6 +71,26 @@ const serwist = new Serwist({
           );
         },
       })),
+      ...["ppla", "pplh", "spl", "bpl"].map((license) => ({
+        url: `/${license}/egzamin`,
+        matcher({ request }: { request: Request }) {
+          return (
+            request.destination === "document" &&
+            new URL(request.url).pathname === `/${license}/egzamin`
+          );
+        },
+      })),
+      {
+        url: "/~offline-exam",
+        matcher({ request }) {
+          return (
+            request.destination === "document" &&
+            /^\/(ppla|pplh|spl|bpl)\/egzamin\/offline-[^/]+$/.test(
+              new URL(request.url).pathname,
+            )
+          );
+        },
+      },
       {
         url: "/~offline",
         matcher({ request }) {

@@ -11,6 +11,7 @@ import { useHydrated } from "~/lib/use-hydrated";
 import { useOfflineQuestions } from "~/offline/questions";
 import { useOfflineKnowledgeBase } from "~/offline/knowledge-base-cache";
 import { OFFLINE_DOWNLOADS } from "~/app/links";
+import { usePwaContext } from "./pwa-context";
 
 const LICENSE_LABELS: Record<string, string> = {
   ppla: "PPL(A)",
@@ -20,6 +21,13 @@ const LICENSE_LABELS: Record<string, string> = {
 };
 
 export function DownloadComponent({ licenseUrl }: { licenseUrl: string }) {
+  const { isPwa } = usePwaContext();
+  if (isPwa !== true) return null;
+
+  return <PwaDownloadComponent licenseUrl={licenseUrl} />;
+}
+
+function PwaDownloadComponent({ licenseUrl }: { licenseUrl: string }) {
   const ppla = useOfflineQuestions("ppla");
   const pplh = useOfflineQuestions("pplh");
   const spl = useOfflineQuestions("spl");

@@ -14,6 +14,7 @@ export const { dynamic, dynamicParams, revalidate, generateStaticParams, GET } =
     globIgnores: ["public/offline/catalogs/**/*"],
     additionalPrecacheEntries: [
       { url: "/~offline", revision },
+      { url: "/~offline-exam", revision },
       { url: "/baza-wiedzy", revision },
       { url: "/pobrane", revision },
       ...["ppla", "pplh", "spl", "bpl"].map((license) => ({
@@ -22,6 +23,10 @@ export const { dynamic, dynamicParams, revalidate, generateStaticParams, GET } =
       })),
       ...["ppla", "pplh", "spl", "bpl"].map((license) => ({
         url: `/${license}/baza-pytan`,
+        revision,
+      })),
+      ...["ppla", "pplh", "spl", "bpl"].map((license) => ({
+        url: `/${license}/egzamin`,
         revision,
       })),
     ],
