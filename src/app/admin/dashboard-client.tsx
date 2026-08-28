@@ -404,7 +404,7 @@ export default function AdminDashboard() {
         />
       </div>
 
-      <Card className="bg-background/95 sticky top-4 z-10 py-4 shadow-md backdrop-blur">
+      <Card className="bg-background/95 sticky top-16 z-10 py-4 shadow-md backdrop-blur">
         <CardContent className="flex flex-col gap-3 px-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <div>
             <p className="font-medium">Zakres wykresów</p>
