@@ -5,6 +5,7 @@ interface AnswerStore {
   answers: Record<string, number | undefined>;
 
   // Actions
+  clearAnswers: () => void;
   answerState: (
     questionId: string,
   ) => [number | null, (answer: number | null) => void];
@@ -18,6 +19,7 @@ export const useAnswerStore = create<AnswerStore>()(
       answers: {},
 
       // Actions
+      clearAnswers: () => set({ answers: {} }),
       answerState: (questionId) => {
         const answers = get().answers;
         return [

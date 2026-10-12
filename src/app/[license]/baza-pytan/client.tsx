@@ -1,10 +1,10 @@
 "use client";
 
-import { Search } from "lucide-react";
+import { RotateCcw, Search } from "lucide-react";
 import { Input } from "~/components/ui/input";
 import { Question } from "./question";
 import { Spinner } from "~/components/ui/spinner";
-import { Suspense, useEffect, useMemo } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { useDebounce } from "@uidotdev/usehooks";
 import { type SelectOption } from "~/components/ui/select";
 import usePagination from "~/app/_components/pagination";
@@ -25,6 +25,8 @@ import {
   QUESTIONS_KNOWLEDGE_BASE_ID,
   QUESTIONS_SEARCH,
 } from "~/app/links";
+import { useAnswerStore } from "~/stores";
+import { conjugate } from "~/lib/utils";
 // import { LicenseFilter } from "./license-filter";
 
 const pageSizeOptions: SelectOption[] = [
@@ -99,6 +101,19 @@ function QuestionsPageContent({
     MODE.nullable,
   );
 
+  const savedAnswerCount = useAnswerStore(
+    (state) =>
+      Object.values(state.answers).filter((answer) => answer !== undefined)
+        .length,
+  );
+  const clearAnswers = useAnswerStore((state) => state.clearAnswers);
+  const [isResetModalOpen, setIsResetModalOpen] = useState(false);
+
+  const resetAnswers = () => {
+    clearAnswers();
+    setIsResetModalOpen(false);
+  };
+
   const categoriesMapping = useMemo(() => {
     const output = {} as Record<number, Category>;
     for (const category of categories) {
@@ -161,24 +176,44 @@ function QuestionsPageContent({
             onCategoriesChange={setSelectedCategories}
           />
         </div>
-        <div className="flex items-center gap-2">
-          <Checkbox
-            id="show-only-with-explanations"
-            checked={knowledgeBaseId !== null}
-            onCheckedChange={(checked) =>
-              setKnowledgeBaseId(checked ? "any" : null)
-            }
-          />
-          <Label
-            htmlFor="show-only-with-explanations"
-            className="text-muted-foreground"
+        <div className="flex flex-wrap items-center gap-2">
+          <div className="flex items-center gap-2">
+            <Checkbox
+              id="show-only-with-explanations"
+              checked={knowledgeBaseId !== null}
+              onCheckedChange={(checked) =>
+                setKnowledgeBaseId(checked ? "any" : null)
+              }
+            />
+            <Label
+              htmlFor="show-only-with-explanations"
+              className="text-muted-foreground"
+            >
+              {knowledgeBaseId === null || knowledgeBaseId === "any"
+                ? "Wyświetl tylko pytania z wyjaśnieniami"
+                : "Wyświetl tylko pytania powiązane z tym materiałem"}
+            </Label>
+          </div>
+          <Button
+            className="ml-auto"
+            variant="outline"
+            size="sm"
+            disabled={savedAnswerCount === 0}
+            onClick={() => setIsResetModalOpen(true)}
           >
-            {knowledgeBaseId === null || knowledgeBaseId === "any"
-              ? "Wyświetl tylko pytania z wyjaśnieniami"
-              : "Wyświetl tylko pytania powiązane z tym materiałem"}
-          </Label>
+            <RotateCcw className="mr-2 h-4 w-4" />
+            Wyczyść odpowiedzi
+          </Button>
         </div>
       </div>
+
+      {isResetModalOpen && (
+        <ResetAnswersModal
+          answerCount={savedAnswerCount}
+          onClose={() => setIsResetModalOpen(false)}
+          onConfirm={resetAnswers}
+        />
+      )}
 
       {isLoading ? (
         <div className="flex min-h-[400px] items-center justify-center">
@@ -227,6 +262,66 @@ function QuestionsPageContent({
         </>
       )}
     </>
+  );
+}
+
+function ResetAnswersModal({
+  answerCount,
+  onClose,
+  onConfirm,
+}: {
+  answerCount: number;
+  onClose: () => void;
+  onConfirm: () => void;
+}) {
+  useEffect(() => {
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+    };
+
+    document.addEventListener("keydown", closeOnEscape);
+    return () => document.removeEventListener("keydown", closeOnEscape);
+  }, [onClose]);
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/55 p-4"
+      onMouseDown={onClose}
+    >
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="reset-answers-title"
+        aria-describedby="reset-answers-description"
+        className="bg-card w-full max-w-md rounded-xl border p-6 shadow-xl"
+        onMouseDown={(event) => event.stopPropagation()}
+      >
+        <h2 id="reset-answers-title" className="text-lg font-semibold">
+          Wyczyść odpowiedzi
+        </h2>
+        <p
+          id="reset-answers-description"
+          className="text-muted-foreground mt-2 text-sm"
+        >
+          Czy na pewno chcesz usunąć {answerCount}{" "}
+          {conjugate(
+            answerCount,
+            "zapisaną odpowiedź",
+            "zapisane odpowiedzi",
+            "zapisanych odpowiedzi",
+          )}
+          ?
+        </p>
+        <div className="mt-6 flex justify-end gap-2">
+          <Button variant="outline" onClick={onClose} autoFocus>
+            Anuluj
+          </Button>
+          <Button variant="destructive" onClick={onConfirm}>
+            Wyczyść odpowiedzi
+          </Button>
+        </div>
+      </div>
+    </div>
   );
 }
 
